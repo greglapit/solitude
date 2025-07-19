@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://bt8nqftk4jkv3"]
+
+[ext_resource type="Script" uid="uid://bb44j18wfyhe3" path="res://Entities/Cards/card.gd" id="1_0oiq5"]
+[ext_resource type="Texture2D" uid="uid://dm2gitgrwpvax" path="res://Entities/Cards/Art/bare_diamond.png" id="2_q0hhy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q0hhy"]
+size = Vector2(29, 45)
+
+[node name="Card" type="Node2D"]
+script = ExtResource("1_0oiq5")
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_q0hhy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_q0hhy")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -14.0
+offset_top = -23.0
+offset_right = 15.0
+offset_bottom = 22.0
+
+[node name="UpperLeftLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 2.0
+scale = Vector2(0.05, 0.05)
+theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
+theme_override_font_sizes/font_size = 241
+text = "4"
+
+[node name="LowerRightLabel" type="Label" parent="Control"]
+layout_mode = 1
+offset_right = 138.0
+offset_bottom = 329.0
+scale = Vector2(0.05, 0.05)
+theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
+theme_override_font_sizes/font_size = 241
+text = "4"

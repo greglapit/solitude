@@ -1,0 +1,1 @@
+* Create pixel art font and make sure it meshes with either canvas_item or viewport stretch mode

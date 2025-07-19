@@ -11,5 +11,18 @@ config_version=5
 [application]
 
 config/name="godot_summer-guide"
+run/main_scene="uid://cem5r04el5dcn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=320
+window/size/viewport_height=180
+window/size/mode=2
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
