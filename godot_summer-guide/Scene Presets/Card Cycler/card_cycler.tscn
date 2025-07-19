@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cem5r04el5dcn"]
+
+[ext_resource type="Script" uid="uid://dwbp07580ws1l" path="res://Scene Presets/Card Cycler/card_cycler.gd" id="1_8fy3m"]
+
+[node name="CardCycler" type="Node"]
+script = ExtResource("1_8fy3m")

@@ -23,6 +23,12 @@ window/size/mode=2
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
+[gui]
+
+theme/custom_font="uid://2j1mnjkq0kkf"
+theme/default_font_antialiasing=0
+theme/default_font_subpixel_positioning=0
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

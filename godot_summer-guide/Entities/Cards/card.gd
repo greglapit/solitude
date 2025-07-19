@@ -29,7 +29,7 @@ static func new_card(suit : Suits, rank : int) -> Card:
 	new_card.rank = rank
 	return new_card
 
-# 
+## Returns random card with optional range for rank and suit
 static func random_card(range : Array = range(1,14), suit1 : Suits = -1, suit2 : Suits = -1, suit3 : Suits = -1, suit4 : Suits = -1) -> Card:
 	var new_card : Card = card_scene.instantiate()
 	var suits = [suit1, suit2, suit3, suit4]
@@ -53,16 +53,21 @@ func find_card_texture(suit : Suits) -> String:
 	return file_path
 
 func update_card_visuals():
+	
+	# Texture
 	var texture = find_card_texture(suit)
 	sprite2d.texture = load(texture)
-	if suit ==  0 or suit == 1:
-		upper_left_label.set("theme_override_colors/font_color", red)
-		lower_right_label.set("theme_override_colors/font_color", red)
-	else:
-		upper_left_label.set("theme_override_colors/font_color", black)
-		lower_right_label.set("theme_override_colors/font_color", black)
 	
-	# Subtract 1 so values line up intuitively
+	# Label Colors
+	var card_num_res = "res://Entities/Cards/Resources/card_numbers.tres"
+	upper_left_label.label_settings = load(card_num_res).duplicate()
+	lower_right_label.label_settings = upper_left_label.label_settings
+	if suit ==  0 or suit == 1:
+		upper_left_label.label_settings.font_color = red
+	else:
+		upper_left_label.label_settings.font_color = black
+	
+	# Rank
 	var card_text : String = ranks[rank]
 	upper_left_label.text = card_text
 	lower_right_label.text = card_text
