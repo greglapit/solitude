@@ -3,7 +3,7 @@ extends Node
 # Obselete
 func card_cycler(position : Vector2):
 	while true:
-		var card := Card.random_card()
+		var card : Card = Card.new_random_card()
 		add_child(card)
 		card.position = position
 		await get_tree().create_timer(1.0).timeout

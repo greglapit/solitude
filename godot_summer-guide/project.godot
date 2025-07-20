@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="godot_summer-guide"
-run/main_scene="uid://cem5r04el5dcn"
+run/main_scene="uid://dg6vpywhj8ysh"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -25,6 +25,7 @@ window/stretch/aspect="expand"
 
 [gui]
 
+theme/custom="uid://dd180w5mog0qu"
 theme/custom_font="uid://2j1mnjkq0kkf"
 theme/default_font_antialiasing=0
 theme/default_font_subpixel_positioning=0

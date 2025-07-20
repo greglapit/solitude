@@ -20,35 +20,35 @@ enum Suits {
 var suit : Suits
 var rank : int
 
-static func new_card(suit : Suits, rank : int) -> Card:
-	if suit not in Suits.values() or rank not in range(1,14):
+static func new_card(_suit : Suits, _rank : int) -> Card:
+	if _suit not in Suits.values() or _rank not in range(1,14):
 		print("Invalid card declaration")
 		return
-	var new_card : Card = card_scene.instantiate()
-	new_card.suit = suit
-	new_card.rank = rank
-	return new_card
+	var card : Card = card_scene.instantiate()
+	card.suit = _suit
+	card.rank = _rank
+	return card
 
 ## Returns random card with optional range for rank and suit
-static func random_card(range : Array = range(1,14), suit1 : Suits = -1, suit2 : Suits = -1, suit3 : Suits = -1, suit4 : Suits = -1) -> Card:
-	var new_card : Card = card_scene.instantiate()
+static func new_random_card(_range : Array = range(1,14), suit1 : int = -1, suit2 : int = -1, suit3 : int = -1, suit4 : int = -1) -> Card:
+	var card : Card = card_scene.instantiate()
 	var suits = [suit1, suit2, suit3, suit4]
 	if suits.all(func(e): return e == -1):
-		new_card.suit = randi() % 4
+		card.suit = randi() % 4
 	else:
 		var suit_count = 0
 		var suit_choices = []
-		for suit in suits:
-			if suit != -1:
-				suit_choices.append(suit)
+		for _suit in suits:
+			if _suit != -1:
+				suit_choices.append(_suit)
 				suit_count += 1
-		new_card.suit = suit_choices[randi() % suit_count]
+		card.suit = suit_choices[randi() % suit_count]
 	# Temp
-	new_card.rank = randi() % 13 + 1
-	return new_card
+	card.rank = _range.pick_random()
+	return card
 	
 
-func find_card_texture(suit : Suits) -> String:
+func find_card_texture(_suit : Suits) -> String:
 	var file_path = "res://Entities/Cards/Art/bare_" + str(Suits.find_key(suit).to_lower()) + ".png"
 	return file_path
 
