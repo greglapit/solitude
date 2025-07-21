@@ -1,14 +1,17 @@
 class_name Card
 extends Node2D
 
-const card_scene : PackedScene = preload("res://Entities/Cards/Scenes/card.tscn")
+const card_scn : PackedScene = preload("res://Entities/Cards/Scenes/card.tscn")
 var red = Color.html("#b33831")
 var black = Color.html("#2e222f")
 var ranks = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 
-@onready var sprite2d = $Sprite2D
-@onready var upper_left_label = $Control/UpperLeftLabel
-@onready var lower_right_label = $Control/LowerRightLabel
+@export var selected : bool = false
+@onready var sprite2d : Sprite2D = $Sprite2D
+@onready var area2d : Area2D = $Area2D
+@onready var AP : AnimationPlayer = $AnimationPlayer
+@onready var upper_left_label : Label= $Control/UpperLeftLabel
+@onready var lower_right_label : Label= $Control/LowerRightLabel
 
 enum Suits {
 	DIAMOND,
@@ -20,18 +23,20 @@ enum Suits {
 var suit : Suits
 var rank : int
 
+# Custom Methods
+
 static func new_card(_suit : Suits, _rank : int) -> Card:
 	if _suit not in Suits.values() or _rank not in range(1,14):
 		print("Invalid card declaration")
 		return
-	var card : Card = card_scene.instantiate()
+	var card : Card = card_scn.instantiate()
 	card.suit = _suit
 	card.rank = _rank
 	return card
 
 ## Returns random card with optional range for rank and suit
 static func new_random_card(_range : Array = range(1,14), suit1 : int = -1, suit2 : int = -1, suit3 : int = -1, suit4 : int = -1) -> Card:
-	var card : Card = card_scene.instantiate()
+	var card : Card = card_scn.instantiate()
 	var suits = [suit1, suit2, suit3, suit4]
 	if suits.all(func(e): return e == -1):
 		card.suit = randi() % 4
@@ -46,10 +51,9 @@ static func new_random_card(_range : Array = range(1,14), suit1 : int = -1, suit
 	# Temp
 	card.rank = _range.pick_random()
 	return card
-	
 
-func find_card_texture(_suit : Suits) -> String:
-	var file_path = "res://Entities/Cards/Art/bare_" + str(Suits.find_key(suit).to_lower()) + ".png"
+func find_card_texture(_suit : int) -> String:
+	var file_path = "res://Entities/Cards/Art/bare_" + str(Suits.find_key(_suit)) + ".png"
 	return file_path
 
 func update_card_visuals():
@@ -62,7 +66,7 @@ func update_card_visuals():
 	var card_num_res = "res://Entities/Cards/Resources/card_numbers.tres"
 	upper_left_label.label_settings = load(card_num_res).duplicate()
 	lower_right_label.label_settings = upper_left_label.label_settings
-	if suit ==  0 or suit == 1:
+	if suit == Suits.DIAMOND or suit == Suits.HEART:
 		upper_left_label.label_settings.font_color = red
 	else:
 		upper_left_label.label_settings.font_color = black
@@ -71,6 +75,23 @@ func update_card_visuals():
 	var card_text : String = ranks[rank]
 	upper_left_label.text = card_text
 	lower_right_label.text = card_text
+	
+func select():
+	selected = true
+	AP.play("selected")
+
+func deselect():
+	selected = false
+	AP.play("RESET")
+
+# Built in
 
 func _ready() -> void:
 	update_card_visuals()
+
+# Signals
+
+
+func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton:
+		print("clicked")

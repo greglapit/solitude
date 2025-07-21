@@ -13,13 +13,12 @@ config_version=5
 config/name="godot_summer-guide"
 run/main_scene="uid://dg6vpywhj8ysh"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Common/icon.svg"
 
 [display]
 
 window/size/viewport_width=320
 window/size/viewport_height=180
-window/size/mode=2
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
@@ -33,3 +32,4 @@ theme/default_font_subpixel_positioning=0
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+textures/default_filters/use_nearest_mipmap_filter=true

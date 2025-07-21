@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dg6vpywhj8ysh"]
+[gd_scene load_steps=8 format=3 uid="uid://dg6vpywhj8ysh"]
 
 [ext_resource type="Script" uid="uid://cv86rhc4ky02b" path="res://Scene Presets/Round/round.gd" id="1_v51kp"]
 [ext_resource type="Texture2D" uid="uid://btl4p5tbxryyf" path="res://Common/tmp.png" id="2_42ffi"]
 [ext_resource type="Theme" uid="uid://dd180w5mog0qu" path="res://Common/base_theme.tres" id="3_42ffi"]
-[ext_resource type="PackedScene" uid="uid://bok4as3sg7pla" path="res://Entities/Log/Scenes/console_log.tscn" id="4_sru8x"]
-[ext_resource type="Texture2D" uid="uid://bdxlm3hc6kd1d" path="res://Scene Presets/Round/Art/card_outline.png" id="5_a85n5"]
+[ext_resource type="PackedScene" uid="uid://bok4as3sg7pla" path="res://Entities/Log/Scenes/log.tscn" id="4_sru8x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42ffi"]
 bg_color = Color(0.180392, 0.133333, 0.184314, 1)
@@ -16,6 +15,14 @@ bg_color = Color(0.780392, 0.862745, 0.815686, 1)
 
 [node name="Round" type="Node"]
 script = ExtResource("1_v51kp")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.780392, 0.862745, 0.815686, 1)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -184,19 +191,4 @@ layout_mode = 2
 flat = true
 metadata/_edit_lock_ = true
 
-[node name="ConsoleLog" parent="UI" instance=ExtResource("4_sru8x")]
-mouse_filter = 1
-
-[node name="Background" type="ColorRect" parent="UI"]
-z_index = -1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-color = Color(0.780392, 0.862745, 0.815686, 1)
-
-[node name="ActiveCardZone" type="Sprite2D" parent="."]
-position = Vector2(150, 100)
-texture = ExtResource("5_a85n5")
+[node name="Log" parent="UI" instance=ExtResource("4_sru8x")]
