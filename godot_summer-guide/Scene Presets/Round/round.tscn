@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://dg6vpywhj8ysh"]
+[gd_scene load_steps=12 format=3 uid="uid://dg6vpywhj8ysh"]
 
 [ext_resource type="Script" uid="uid://cv86rhc4ky02b" path="res://Scene Presets/Round/round.gd" id="1_v51kp"]
 [ext_resource type="Texture2D" uid="uid://btl4p5tbxryyf" path="res://Common/tmp.png" id="2_42ffi"]
 [ext_resource type="Theme" uid="uid://dd180w5mog0qu" path="res://Common/base_theme.tres" id="3_42ffi"]
-[ext_resource type="PackedScene" uid="uid://bok4as3sg7pla" path="res://Entities/Log/Scenes/console_log.tscn" id="4_sru8x"]
+[ext_resource type="PackedScene" uid="uid://bok4as3sg7pla" path="res://Assets/ConsoleLog/Scenes/console_log.tscn" id="4_sru8x"]
 [ext_resource type="Texture2D" uid="uid://bdxlm3hc6kd1d" path="res://Scene Presets/Round/Art/card_outline.png" id="5_a85n5"]
+[ext_resource type="PackedScene" uid="uid://7p7q03k0yrpy" path="res://Assets/HealthBar/Scenes/health.tscn" id="5_mnfhq"]
+[ext_resource type="Texture2D" uid="uid://c74e5cpcovb3n" path="res://Assets/Background/Art/stats_filler.png" id="8_a6nff"]
+[ext_resource type="Texture2D" uid="uid://k6dbq05uuw08" path="res://Assets/Round Counter/Art/small_suits.png" id="10_tncly"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42ffi"]
 bg_color = Color(0.180392, 0.133333, 0.184314, 1)
@@ -32,7 +35,6 @@ offset_right = -11.0
 offset_bottom = 28.0
 grow_horizontal = 0
 grow_vertical = 2
-theme = ExtResource("3_42ffi")
 theme_override_constants/separation = 1
 
 [node name="SharpenPanel" type="PanelContainer" parent="UI/Buttons"]
@@ -195,7 +197,36 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.780392, 0.862745, 0.815686, 1)
 
-[node name="ActiveCardZone" type="Sprite2D" parent="."]
+[node name="Health" parent="UI" instance=ExtResource("5_mnfhq")]
+
+[node name="TempStats" type="TextureRect" parent="UI"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 14.28
+offset_top = -50.5
+offset_right = 80.28
+offset_bottom = 50.5
+grow_vertical = 2
+texture = ExtResource("8_a6nff")
+
+[node name="Round" type="Label" parent="UI"]
+offset_left = 40.0
+offset_top = 10.0
+offset_right = 68.0
+offset_bottom = 24.0
+pivot_offset = Vector2(4, 4)
+text = "Round:"
+
+[node name="Deco" type="Node2D" parent="."]
+
+[node name="ActiveCardZone" type="Sprite2D" parent="Deco"]
 position = Vector2(150, 100)
 texture = ExtResource("5_a85n5")
 flip_v = true
+
+[node name="SuitZone" type="Sprite2D" parent="Deco"]
+position = Vector2(18, 19)
+scale = Vector2(2, 2)
+texture = ExtResource("10_tncly")
+hframes = 4

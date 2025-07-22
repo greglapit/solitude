@@ -20,11 +20,24 @@ var ranks = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K
 @onready var sprite2d : Sprite2D = $Sprite2D
 @onready var area2d : Area2D = $Area2D
 @onready var AP : AnimationPlayer = $AnimationPlayer
-@onready var upper_left_label : Label= $Control/UpperLeftLabel
-@onready var lower_right_label : Label= $Control/LowerRightLabel
+@onready var upper_left_label : Label = $Control/UpperLeftLabel
+@onready var lower_right_label : Label = $Control/LowerRightLabel
+@onready var health_ticks : Array[Node] = self.find_children("HealthTick?")
 
 
 # Custom Methods
+
+func set_hp(_hp : int):
+	hp = _hp
+	update_card_visuals()
+
+func set_rank(_rank : int):
+	rank = _rank
+	update_card_visuals()
+	
+func set_suit(_suit : Suits):
+	suit = _suit
+	update_card_visuals()
 
 static func new_card(_suit : Suits, _rank : int) -> Card:
 	if _suit not in Suits.values() or _rank not in range(1,14):
@@ -58,10 +71,9 @@ func find_card_texture(_suit : int) -> String:
 	return file_path
 
 func update_card_visuals():
-	
 	# Texture
 	var texture = find_card_texture(suit)
-	sprite2d.texture = load(texture)
+	sprite2d.texture =  load(texture)
 	
 	# Label Colors
 	var card_num_res = "res://Entities/Cards/Resources/card_numbers.tres"
@@ -77,6 +89,15 @@ func update_card_visuals():
 	upper_left_label.text = card_text
 	lower_right_label.text = card_text
 	
+	# Health Ticks
+	for tick in health_ticks:
+		tick.visible = true
+		var tick_num = int(tick.name.erase(0,10))
+		print(tick_num)
+		print("hp: " + str(hp))
+		if tick_num >= hp:
+			tick.visible = false
+	
 func select():
 	selected = true
 	AP.play("selected")
@@ -87,23 +108,20 @@ func deselect():
 	
 func chip():
 	if rank > 1:
-		rank -= 1
-		update_card_visuals()
+		set_rank(rank - 1)
 		AP.play("chip")
 		
 func sharpen():
 	if rank < 14:
-		rank +=1
-		update_card_visuals()
+		set_rank(rank + 1)
 		AP.play("sharpen")
 
 func damage(amount : int = 1):
-	hp -= amount
+	set_hp(hp-amount)
 	if hp < 1:
 		queue_free()
 
 # Built in
 
 func _ready() -> void:
-	hp = rank
-	update_card_visuals()
+	set_hp(rank)

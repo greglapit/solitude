@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bok4as3sg7pla"]
 
-[ext_resource type="Script" uid="uid://dtcpn56lpg2ck" path="res://Entities/Log/console_log.gd" id="1_8njxy"]
+[ext_resource type="Script" uid="uid://dtcpn56lpg2ck" path="res://Assets/ConsoleLog/console_log.gd" id="1_8njxy"]
 
 [sub_resource type="Animation" id="Animation_sru8x"]
 length = 0.001
@@ -44,6 +44,7 @@ offset_left = 3.0
 offset_top = 162.0
 offset_right = 105.0
 offset_bottom = 186.0
+theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
 text = "placeholder"
 script = ExtResource("1_8njxy")
 

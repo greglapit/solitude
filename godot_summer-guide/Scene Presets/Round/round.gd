@@ -69,7 +69,7 @@ func _on_draw_button_up():
 	card.name = "PlayerCard" + str(len(player_cards))
 	reset_cards_pos()
 	add_child(card)
-	card.hp = player_card_hp
+	card.set_hp(3)
 	
 	# Connect card signals
 	var card_area2d : Area2D = card.area2d

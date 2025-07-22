@@ -1,0 +1,90 @@
+[gd_scene load_steps=8 format=3 uid="uid://7p7q03k0yrpy"]
+
+[ext_resource type="Script" uid="uid://b0gr6wekg1md5" path="res://Assets/HealthBar/health.gd" id="1_3ug1x"]
+[ext_resource type="Texture2D" uid="uid://beexnua1fnl1k" path="res://Assets/HealthBar/Art/progress_bar_fill.png" id="1_eds4i"]
+[ext_resource type="Texture2D" uid="uid://3cigtxa77myn" path="res://Assets/HealthBar/Art/progress_bar_fill_ends.png" id="2_3ug1x"]
+[ext_resource type="Texture2D" uid="uid://b7tg1newypsa1" path="res://Assets/HealthBar/Art/progress_bar.png" id="3_c8mlk"]
+
+[sub_resource type="Animation" id="Animation_3ug1x"]
+resource_name = "wiggle"
+loop_mode = 1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"up"
+}, {
+"args": [],
+"method": &"down"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:localize_numeral_system")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_c8mlk"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c8mlk"]
+_data = {
+&"RESET": SubResource("Animation_c8mlk"),
+&"wiggle": SubResource("Animation_3ug1x")
+}
+
+[node name="Health" type="PanelContainer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -30.0
+offset_right = 83.0
+grow_vertical = 0
+script = ExtResource("1_3ug1x")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "H"
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="ProgressBar" type="TextureProgressBar" parent="HBoxContainer/PanelContainer"]
+layout_mode = 2
+value = 100.0
+texture_progress = ExtResource("1_eds4i")
+
+[node name="ProgressBarEnds" type="TextureProgressBar" parent="HBoxContainer/PanelContainer"]
+layout_mode = 2
+value = 100.0
+texture_progress = ExtResource("2_3ug1x")
+
+[node name="Container" type="TextureRect" parent="HBoxContainer/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("3_c8mlk")
+stretch_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_c8mlk")
+}

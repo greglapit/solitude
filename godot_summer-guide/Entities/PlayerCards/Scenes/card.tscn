@@ -1,9 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://bt8nqftk4jkv3"]
+[gd_scene load_steps=13 format=3 uid="uid://b8krogo2ws6xq"]
 
-[ext_resource type="Script" uid="uid://bb44j18wfyhe3" path="res://Entities/Cards/card.gd" id="1_0oiq5"]
-[ext_resource type="Texture2D" uid="uid://dm2gitgrwpvax" path="res://Entities/Cards/Art/bare_diamond.png" id="2_q0hhy"]
-[ext_resource type="FontFile" uid="uid://2j1mnjkq0kkf" path="res://Common/BitPotionExt.ttf" id="3_m2hva"]
-[ext_resource type="Shader" uid="uid://dpl8wpt3i7od7" path="res://Entities/Cards/Shaders/selected_shader.gdshader" id="4_qdsni"]
+[ext_resource type="Script" uid="uid://bv57tp18d35vw" path="res://Entities/PlayerCards/playerCard.gd" id="1_fqxbf"]
+[ext_resource type="Texture2D" uid="uid://dm2gitgrwpvax" path="res://Entities/Cards/Art/bare_diamond.png" id="2_34sq8"]
+[ext_resource type="Shader" uid="uid://dpl8wpt3i7od7" path="res://Entities/Cards/Shaders/selected_shader.gdshader" id="3_dvc4u"]
+[ext_resource type="FontFile" uid="uid://2j1mnjkq0kkf" path="res://Common/BitPotionExt.ttf" id="4_m67kf"]
 
 [sub_resource type="Animation" id="Animation_4ryhe"]
 length = 0.001
@@ -110,7 +110,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qdsni"]
-shader = ExtResource("4_qdsni")
+shader = ExtResource("3_dvc4u")
 shader_parameter/shine_color = Vector4(1, 1, 1, 1)
 shader_parameter/shine_speed = 1.5
 shader_parameter/shine_size = 0.1
@@ -235,10 +235,10 @@ _data = {
 size = Vector2(29, 45)
 
 [node name="Card" type="Node2D"]
-script = ExtResource("1_0oiq5")
+script = ExtResource("1_fqxbf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_q0hhy")
+texture = ExtResource("2_34sq8")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -260,7 +260,7 @@ anchors_preset = -1
 offset_left = 3.0
 scale = Vector2(0.05, 0.05)
 theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
-theme_override_fonts/font = ExtResource("3_m2hva")
+theme_override_fonts/font = ExtResource("4_m67kf")
 theme_override_font_sizes/font_size = 320
 text = "4"
 
@@ -277,7 +277,7 @@ offset_right = 226.0
 offset_bottom = 266.0
 scale = Vector2(0.05, 0.05)
 theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
-theme_override_fonts/font = ExtResource("3_m2hva")
+theme_override_fonts/font = ExtResource("4_m67kf")
 theme_override_font_sizes/font_size = 320
 text = "4"
 horizontal_alignment = 2
