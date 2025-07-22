@@ -1,6 +1,7 @@
 extends Node
 
-var player_cards : Array[Card]
+var player_cards : Dictionary
+var player_card_hp : int = 3
 var max_cards : int = 4
 var first_card_pos = Vector2(100,152)
 
@@ -16,28 +17,10 @@ func signal_setup():
 	chip_button.button_up.connect(_on_chip_button_up)
 	draw_button.button_up.connect(_on_draw_button_up)
 
-func _on_sharpen_button_up():
-	var card = find_child("Card")
-	card.select()
+func reset_cards_pos():
+	for card in player_cards:
+		card.position = Vector2(first_card_pos.x + 35 * player_cards[card], first_card_pos.y)
 
-func _on_chip_button_up():
-	var card = find_child("Card")
-	card.select()
-	
-func _on_draw_button_up():
-	if len(player_cards) >= max_cards:
-		console_log.display_text("Max cards")
-		return
-	var card : Card = Card.new_random_card(range(1,5), Card.Suits.DIAMOND)
-	card.name = "Card" + str(len(player_cards))
-	card.position = Vector2(first_card_pos.x + 35 * len(player_cards), first_card_pos.y)
-	
-	# Store card nodes and connect signals for mouse inputs
-	player_cards.append(card)
-	add_child(card)
-	
-	var card_area2d : Area2D = card.find_child("Area2D")
-	card_area2d.mouse_entered.connect(_on_area2d_input)
 
 # Built In
 
@@ -47,6 +30,47 @@ func _ready() -> void:
 	
 # Signals
 
-func _on_area2d_input():
-	print("test")
+func _on_area2d_input(viewport: Node, event: InputEvent, shape_idx: int, card : Card):
+	if event is InputEventMouseButton:
+		for player_card in player_cards:
+			player_card.deselect()
+		card.select()
+
+func _on_sharpen_button_up():
+	for card in player_cards:
+		if card.selected == true:
+			if card.hp == 1: # TODO Not sure if I like Round node handling this. Using round node to handle so it can update player_cards easily
+				player_cards.erase(card)
+			card.sharpen()
+			card.damage()
+			reset_cards_pos()
+
+func _on_chip_button_up():
+	for card in player_cards:
+		if card.selected == true:
+			if card.hp == 1: # TODO Not sure if I like Round node handling this. Using round node to handle so it can update player_cards easily
+				player_cards.erase(card)
+			card.chip()
+			card.damage()
+			reset_cards_pos()
 	
+func _on_draw_button_up():
+	if len(player_cards) >= max_cards:
+		console_log.display_text("Max cards")
+		return
+	var card : Card = Card.new_random_card(range(1,5), Card.Suits.DIAMOND)
+	
+	for i in range(4):
+		if player_cards.find_key(i) == null:
+			player_cards[card] = i
+			break
+		
+
+	card.name = "PlayerCard" + str(len(player_cards))
+	reset_cards_pos()
+	add_child(card)
+	card.hp = player_card_hp
+	
+	# Connect card signals
+	var card_area2d : Area2D = card.area2d
+	card_area2d.input_event.connect(_on_area2d_input.bind(card))

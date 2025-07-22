@@ -1,6 +1,16 @@
 class_name Card
 extends Node2D
 
+enum Suits {
+	DIAMOND,
+	HEART,
+	SPADE,
+	CLUB
+}
+
+var suit : Suits
+var rank : int
+var hp : int
 const card_scn : PackedScene = preload("res://Entities/Cards/Scenes/card.tscn")
 var red = Color.html("#b33831")
 var black = Color.html("#2e222f")
@@ -13,15 +23,6 @@ var ranks = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K
 @onready var upper_left_label : Label= $Control/UpperLeftLabel
 @onready var lower_right_label : Label= $Control/LowerRightLabel
 
-enum Suits {
-	DIAMOND,
-	HEART,
-	SPADE,
-	CLUB
-}
-
-var suit : Suits
-var rank : int
 
 # Custom Methods
 
@@ -83,15 +84,26 @@ func select():
 func deselect():
 	selected = false
 	AP.play("RESET")
+	
+func chip():
+	if rank > 1:
+		rank -= 1
+		update_card_visuals()
+		AP.play("chip")
+		
+func sharpen():
+	if rank < 14:
+		rank +=1
+		update_card_visuals()
+		AP.play("sharpen")
+
+func damage(amount : int = 1):
+	hp -= amount
+	if hp < 1:
+		queue_free()
 
 # Built in
 
 func _ready() -> void:
+	hp = rank
 	update_card_visuals()
-
-# Signals
-
-
-func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton:
-		print("clicked")

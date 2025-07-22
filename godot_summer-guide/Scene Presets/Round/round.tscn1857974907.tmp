@@ -18,7 +18,6 @@ bg_color = Color(0.780392, 0.862745, 0.815686, 1)
 script = ExtResource("1_v51kp")
 
 [node name="UI" type="CanvasLayer" parent="."]
-layer = -1
 
 [node name="Buttons" type="VBoxContainer" parent="UI"]
 anchors_preset = 6
@@ -83,6 +82,7 @@ text = "Sharpen"
 [node name="Sharpen" type="Button" parent="UI/Buttons/SharpenPanel/MarginContainer"]
 layout_mode = 2
 flat = true
+metadata/_edit_lock_ = true
 
 [node name="ChipPanel" type="PanelContainer" parent="UI/Buttons"]
 layout_mode = 2
@@ -132,6 +132,7 @@ text = "Chip"
 [node name="Chip" type="Button" parent="UI/Buttons/ChipPanel/MarginContainer"]
 layout_mode = 2
 flat = true
+metadata/_edit_lock_ = true
 
 [node name="DrawPanel" type="PanelContainer" parent="UI/Buttons"]
 layout_mode = 2
@@ -181,6 +182,7 @@ text = "Draw"
 [node name="Draw" type="Button" parent="UI/Buttons/DrawPanel/MarginContainer"]
 layout_mode = 2
 flat = true
+metadata/_edit_lock_ = true
 
 [node name="ConsoleLog" parent="UI" instance=ExtResource("4_sru8x")]
 mouse_filter = 2
@@ -198,4 +200,3 @@ color = Color(0.780392, 0.862745, 0.815686, 1)
 [node name="ActiveCardZone" type="Sprite2D" parent="."]
 position = Vector2(150, 100)
 texture = ExtResource("5_a85n5")
-flip_v = true

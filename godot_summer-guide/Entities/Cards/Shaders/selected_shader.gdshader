@@ -4,12 +4,16 @@ void vertex() {
 	// Called for every vertex the material is visible on.
 }
 
-uniform vec4 shine_color = vec4(1.0, 1.0, 1.0, .2);
-uniform float shine_speed : hint_range(0.0, 10.0, 0.1) = 50.0;
-uniform float shine_size : hint_range(0.01, 1.0, 0.01) = .9;
+uniform vec4 shine_color = vec4(1.0, 1.0, 1.0, 1);
+uniform float shine_speed : hint_range(0.0, 10.0, 0.1) = 1.5;
+uniform float shine_size : hint_range(0.01, 1.0, 0.01) = .1;
 
 void fragment() {
 
+	// Highlight Effect
+	if (COLOR.r > 0.7 && COLOR.b > 0.7 && COLOR.b > 0.7) {
+		COLOR = COLOR + vec4(.1);
+	}
 	// Shine Effect
 	vec4 target_red = vec4(0.702, 0.22, 0.192, 1.0);
 	if (COLOR.r > 0.7 && COLOR.g < 0.3) {
@@ -18,10 +22,6 @@ void fragment() {
 		COLOR.rgb = mix(COLOR.rgb, shine_color.rgb, shine * shine_color.a);
 	}
 
-	// Highlight Effect
-	if (COLOR.r > 0.7 && COLOR.b > 0.7 && COLOR.b > 0.7) {
-		COLOR = COLOR + vec4(.15);
-	}
 
 }
 
