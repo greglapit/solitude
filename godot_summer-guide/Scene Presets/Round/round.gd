@@ -11,7 +11,7 @@ const max_enemies : int = 3
 # Round
 var curr_round : int = 1
 var max_round : int = 7
-var player_card_range : Array = range(1,5) # Which suits enemy and player can generate
+var player_card_range : Array = range(2,3) # Which suits enemy and player can generate
 var enemy_card_range : Array = range(1,11)
 
 # Energy System
@@ -97,8 +97,6 @@ func combat():
 					shielded_this_turn = true
 					hp_shield = false
 					hp_bar.health_shield(false)
-				else:
-					player_hp -= max(0,difference*5)
 			
 			# Enemy
 			match player_card.rank:
@@ -125,7 +123,10 @@ func combat():
 					if !shielded_this_turn:
 						hp_shield = true
 						hp_bar.health_shield(true)
-
+			
+			# Done after enemy so damage could be adjusted for "effective" interactions
+			if !shielded_this_turn:
+				player_hp -= max(0,difference*5)
 	# UI
 	hp_bar.display_health(player_hp)
 	if player_hp < 1:

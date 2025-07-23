@@ -51,3 +51,5 @@ Red Joker has been wronged somehow by black joker (final boss of the game). He i
 # Help
 
 * I'm fine with a complete retheme of the game. The only thing I want to keep the focus is the weapons, the sharpening and chipping, and the bosses
+* All art is temporary
+* I am kinda capable with shaders and tweening animations
