@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cb3fnnmlf5dsy"]
 
-[ext_resource type="Script" uid="uid://clc5xn7573ncb" path="res://Assets/JokerEnergyLabel/joker_energy.gd" id="1_fyo2c"]
+[ext_resource type="Script" uid="uid://clc5xn7573ncb" path="res://Assets/JokerEnergy/joker_energy.gd" id="1_fyo2c"]
 
 [sub_resource type="Animation" id="Animation_sru8x"]
 length = 0.001

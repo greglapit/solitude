@@ -26,7 +26,7 @@ var ranks = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K
 @onready var lower_right_label : Label = $Control/LowerRightLabel
 @onready var health_ticks : Array[Node] = self.find_children("HealthTick?")
 
-signal animation_finished(node)
+signal animation_finished(node, anim)
 signal dead(node)
 
 # Custom Methods
@@ -121,10 +121,16 @@ func sharpen():
 
 func damage(amount : int = 1):
 	set_hp(hp-amount)
+	if !is_player_card:
+		rank = hp
+		AP.play("delayed_chip")
+
+func check_dead():
 	if hp < 1:
 		dead.emit(self)
 		queue_free()
-		
+	update_card_visuals()
+
 func AP_play(anim : String):
 	AP.play(anim)
 

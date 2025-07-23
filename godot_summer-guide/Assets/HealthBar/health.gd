@@ -3,17 +3,27 @@ extends PanelContainer
 # Intended only to display visual health values, not keep track of health
 
 var hp
-var wiggle_amt : int = 5
+var wiggle_amt : int = 1
 @onready var AP : AnimationPlayer = $AnimationPlayer
-@onready var bar : TextureProgressBar = $HBoxContainer/PanelContainer/ProgressBar
-@onready var ends : TextureProgressBar = $HBoxContainer/PanelContainer/ProgressBarEnds
+@onready var nums : Label = $VBoxContainer/Numbers
+@onready var bar : TextureProgressBar = $VBoxContainer/HBoxContainer/PanelContainer/ProgressBar
+@onready var ends : TextureProgressBar = $VBoxContainer/HBoxContainer/PanelContainer/ProgressBarEnds
+@onready var shield : TextureRect = $VBoxContainer/HBoxContainer/PanelContainer/Shield
 
-func display_health(_hp):
+func display_health(_hp : float):
 	hp = _hp
-	bar.value = float(hp)
-	ends.value = float(hp)
+	
+	#Bar
+	bar.value = hp
+	ends.value = hp
 	if hp < 100:
 		AP.play("wiggle")
+	
+	# Number
+	nums.text = str(int(round(hp / 5))) + "/20"
+
+func health_shield(toggle : bool):
+	shield.visible = toggle
 
 func up():
 	if bar.value <= 99.0 && ends.value <= 99.0:

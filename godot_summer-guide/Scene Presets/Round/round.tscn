@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://dg6vpywhj8ysh"]
+[gd_scene load_steps=59 format=3 uid="uid://dg6vpywhj8ysh"]
 
 [ext_resource type="Script" uid="uid://cv86rhc4ky02b" path="res://Scene Presets/Round/round.gd" id="1_v51kp"]
 [ext_resource type="Texture2D" uid="uid://btl4p5tbxryyf" path="res://Common/tmp.png" id="2_42ffi"]
@@ -8,14 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://7p7q03k0yrpy" path="res://Assets/HealthBar/Scenes/health.tscn" id="5_mnfhq"]
 [ext_resource type="Texture2D" uid="uid://dak1vyn51cvle" path="res://Scene Presets/Round/Art/atk_button1.png" id="7_tncly"]
 [ext_resource type="Texture2D" uid="uid://c74e5cpcovb3n" path="res://Assets/Background/Art/stats_filler.png" id="8_a6nff"]
-[ext_resource type="PackedScene" uid="uid://cb3fnnmlf5dsy" path="res://Assets/JokerEnergyLabel/Scenes/joker_energy.tscn" id="8_fak21"]
+[ext_resource type="PackedScene" uid="uid://cb3fnnmlf5dsy" path="res://Assets/JokerEnergy/Scenes/joker_energy.tscn" id="8_fak21"]
 [ext_resource type="Texture2D" uid="uid://d01xupnitmuds" path="res://Scene Presets/Round/Art/atk_button2.png" id="8_hxkkv"]
 [ext_resource type="Shader" uid="uid://ckjucnwkpcxca" path="res://Common/screen_shader.gdshader" id="9_50pvf"]
-[ext_resource type="PackedScene" uid="uid://bt8nqftk4jkv3" path="res://Entities/Cards/Scenes/card.tscn" id="9_hxkkv"]
 [ext_resource type="Texture2D" uid="uid://k6dbq05uuw08" path="res://Assets/Round Counter/Art/small_suits.png" id="10_tncly"]
 [ext_resource type="Texture2D" uid="uid://csmybm73e8y4" path="res://Assets/Background/Art/deck.png" id="11_fagv1"]
 [ext_resource type="Texture2D" uid="uid://cru4vxl1q4tnm" path="res://Assets/Background/Art/red_joker.png" id="13_l8mpv"]
-[ext_resource type="Texture2D" uid="uid://yohn07avydrp" path="res://Assets/Background/Art/joker_energy.png" id="14_nhgmu"]
+[ext_resource type="SpriteFrames" uid="uid://c7phi7jsw4333" path="res://Assets/JokerEnergy/AceCounter/sprite_frames.tres" id="15_fak21"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l8mpv"]
 shader = ExtResource("9_50pvf")
@@ -30,6 +29,15 @@ bg_color = Color(0.180392, 0.133333, 0.184314, 1)
 bg_color = Color(0.780392, 0.862745, 0.815686, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sru8x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nhgmu"]
+bg_color = Color(0.180392, 0.133333, 0.184314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fak21"]
+bg_color = Color(0.180392, 0.133333, 0.184314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrwyy"]
+bg_color = Color(0.780392, 0.862745, 0.815686, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l8mpv"]
 atlas = ExtResource("13_l8mpv")
@@ -294,75 +302,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l2gcq"]
-atlas = ExtResource("14_nhgmu")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_clw4l"]
-atlas = ExtResource("14_nhgmu")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ea275"]
-atlas = ExtResource("14_nhgmu")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_37nab"]
-atlas = ExtResource("14_nhgmu")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4gi5j"]
-atlas = ExtResource("14_nhgmu")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_quy4a"]
-atlas = ExtResource("14_nhgmu")
-region = Rect2(64, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b7yhc"]
-atlas = ExtResource("14_nhgmu")
-region = Rect2(80, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_eu7l0"]
-atlas = ExtResource("14_nhgmu")
-region = Rect2(96, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_20liu"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l2gcq")
-}],
-"loop": false,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_clw4l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ea275")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_37nab")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4gi5j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_quy4a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_b7yhc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_eu7l0")
-}],
-"loop": false,
-"name": &"fill",
-"speed": 15.0
-}]
-
 [node name="Round" type="Node"]
 script = ExtResource("1_v51kp")
 
@@ -594,6 +533,92 @@ text = "Draw"
 layout_mode = 2
 flat = true
 
+[node name="HelpScreen" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="HelpScreen"]
+clip_contents = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="HelpScreen/PanelContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nhgmu")
+
+[node name="MarginContainer" type="MarginContainer" parent="HelpScreen/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="Label" type="Label" parent="HelpScreen/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(310, 170)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_constants/line_spacing = -4
+text = "--------------------------Controls----------------------------
+h - help
+r - restart game
+q - quit
+Double click to select cards. Only one action per turn
+---------------------------Cards------------------------------
+Ace - Heal for 1 HP after attack
+2 - Deals 3X damage to even cards
+3 - Deals 2X damage to odd cards
+4 - Provides one hit shield after hit (cant shield twice)
+5 - Something cool
+6 - Something cooler
+7-13 - Absolutely cracked
+Ace High (endgame) - Insanity
+"
+autowrap_mode = 1
+text_overrun_behavior = 4
+
+[node name="DeathNotif" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="DeathNotif"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -59.0
+offset_top = -28.0
+offset_right = -19.0
+offset_bottom = -8.395
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+
+[node name="Panel" type="Panel" parent="DeathNotif/PanelContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fak21")
+
+[node name="MarginContainer" type="MarginContainer" parent="DeathNotif/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="DeathNotif/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="DeathNotif/PanelContainer/MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mrwyy")
+
+[node name="Label" type="Label" parent="DeathNotif/PanelContainer/MarginContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "You Died"
+
 [node name="Deco" type="Node2D" parent="."]
 
 [node name="ActiveCardZone" type="Sprite2D" parent="Deco"]
@@ -608,32 +633,31 @@ texture = ExtResource("10_tncly")
 hframes = 4
 
 [node name="Deck" type="Sprite2D" parent="Deco"]
-position = Vector2(290, 154)
+position = Vector2(279, 155)
 texture = ExtResource("11_fagv1")
 
 [node name="RedJoker" type="AnimatedSprite2D" parent="Deco"]
-position = Vector2(254, 151)
+position = Vector2(241, 161)
 sprite_frames = SubResource("SpriteFrames_l2gcq")
 autoplay = "default"
+offset = Vector2(5, -7)
 
 [node name="AceCharge1" type="AnimatedSprite2D" parent="Deco"]
-position = Vector2(248, 131)
-sprite_frames = SubResource("SpriteFrames_20liu")
+position = Vector2(245, 131)
+sprite_frames = ExtResource("15_fak21")
 
 [node name="AceCharge2" type="AnimatedSprite2D" parent="Deco"]
-position = Vector2(264, 131)
-sprite_frames = SubResource("SpriteFrames_20liu")
+position = Vector2(261, 131)
+sprite_frames = ExtResource("15_fak21")
 
 [node name="AceCharge3" type="AnimatedSprite2D" parent="Deco"]
-position = Vector2(280, 131)
-sprite_frames = SubResource("SpriteFrames_20liu")
-animation = &"fill"
+position = Vector2(277, 131)
+sprite_frames = ExtResource("15_fak21")
 
-[node name="Card" parent="." instance=ExtResource("9_hxkkv")]
-position = Vector2(157, 26)
+[node name="AceCharge4" type="AnimatedSprite2D" parent="Deco"]
+position = Vector2(293, 131)
+sprite_frames = ExtResource("15_fak21")
 
-[node name="Card2" parent="." instance=ExtResource("9_hxkkv")]
-position = Vector2(134, 36)
-
-[node name="Card3" parent="." instance=ExtResource("9_hxkkv")]
-position = Vector2(149, 46)
+[node name="AceCharge5" type="AnimatedSprite2D" parent="Deco"]
+position = Vector2(309, 131)
+sprite_frames = ExtResource("15_fak21")

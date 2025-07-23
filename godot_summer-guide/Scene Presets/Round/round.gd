@@ -1,15 +1,22 @@
 extends Node
 
 # Player
+var player_hp : float = 100
+var hp_shield : bool = false
 var suit = Card.Suits.HEART
-var player_card_hp : int = 5
+var player_card_hp : int = 3
 const max_cards : int = 4
+const max_enemies : int = 3
+
+# Round
+var curr_round : int = 1
+var max_round : int = 10
 
 # Energy System
 var joker_energy : int = 5
 const max_energy : int = 5
 var ace_curr_charge : int = 0    # Tracks how many Ace Charges Filled
-const aces_needed : int = 3
+const aces_needed : int = 5
 var ace_charges : Array[AnimatedSprite2D]
 
 # Card Positions
@@ -22,7 +29,7 @@ var card_selected : bool = false
 
 # Node Tracking
 var player_cards : Dictionary
-var enemy_cards : Dictionary
+var enemy_cards : Array[Node]
 
 # Decoration
 @onready var suit_zone : Sprite2D = $Deco/SuitZone
@@ -34,6 +41,9 @@ var enemy_cards : Dictionary
 @onready var ace_charge3 = $Deco/AceCharge3
 
 # UI
+@onready var help_screen : CanvasLayer = $HelpScreen
+@onready var death_notif : CanvasLayer = $DeathNotif
+@onready var hp_bar : PanelContainer = $UI/Health
 @onready var joker_energy_label : Label = $UI/JokerEnergy
 @onready var console_log : TextEdit = $UI/ConsoleLog
 @onready var atk_button : TextureButton = $UI/Atk
@@ -58,21 +68,92 @@ func reset_cards_pos():
 	for card : Card in player_cards:
 		card.position = Vector2(first_card_pos.x + 35 * player_cards[card], first_card_pos.y)
 		card.is_card_attacking = false
+	
+func reset_enemy_cards_pos():
+	var i : int = 0
+	for enemy_card : Card in enemy_cards:
+		enemy_card.position = enemy_card_pos[i]
+		enemy_card.z_index = -i
+		i += 1
 
 func combat():
-	for card : Card in player_cards:
-		if card.is_card_attacking:
-			card.AP_play("player_attack")
-			card.damage()
-			match card.rank:
+	var enemy_target : Card = enemy_cards[0]
+	for player_card : Card in player_cards:
+		if player_card.is_card_attacking:
+			
+			player_card.AP_play("player_attack")
+			player_card.damage()
+			
+			var difference = enemy_target.rank - player_card.rank
+			print(enemy_target.rank)
+			print(player_card.rank)
+			print(difference)
+			# Player
+			
+			var shielded_this_turn : bool = false
+			if difference >= 0:
+				if hp_shield:
+					shielded_this_turn = true
+					hp_shield = false
+					hp_bar.health_shield(false)
+				else:
+					player_hp -= max(0,difference*5)
+			
+			# Enemy
+			match player_card.rank:
 				1:
 					charge_ace_up()
+					player_hp = min(100.0, player_hp + 5.0)
+					enemy_target.damage(1)
+				2:
+					if enemy_target.rank % 2 == 0:
+						difference -= 4
+						enemy_target.damage(6)
+					else:
+						enemy_target.damage(2)
+				3:
+					if enemy_target.rank % 2 == 1:
+						difference -= 3
+						enemy_target.damage(6)
+					else:
+						enemy_target.damage(3)
+				4:
+					enemy_target.damage(4)
+					if !shielded_this_turn:
+						hp_shield = true
+						hp_bar.health_shield(true)
 
-func spawn_enemies(count : int = 2):
-	#for i in range(1):
-		#Card.new_random_card(range(13), suit)
-		#Card.pos
-		pass
+	# UI
+	hp_bar.display_health(player_hp)
+	if player_hp < 1:
+		death_notif.visible = true
+
+func check_round_end():
+	# Round control
+	if enemy_cards.size() == 0:
+		curr_round += 1
+		round_label.text = "Round: " + str(curr_round) + "/" + str(max_round)
+		spawn_enemies(3)
+
+func spawn_enemies(count : int = 3):
+	var starting_spot = len(enemy_cards)
+	for i in count:
+		var card_place = starting_spot + i
+		if card_place >  max_enemies:
+			print("Cant Spawn Enemy")
+			return
+		var card = Card.new_random_card(range(1,13), suit)
+		
+		# Properties
+		card.position = enemy_card_pos[card_place]
+		card.z_index = -card_place
+		
+		# Signals
+		card.animation_finished.connect(_on_card_animation_finished)
+		card.dead.connect(_on_card_dead)
+
+		enemy_cards.append(card)
+		add_child(card)
 
 func charge_ace_up():
 	ace_curr_charge += 1
@@ -81,21 +162,62 @@ func charge_ace_up():
 			ace_charge.play("fill")
 			
 
-# === Built In =================================================================
+func new_game():
+	# Player
+	player_hp = 100
+	hp_shield = false
 
-func _ready() -> void:
+	# Round
+	curr_round= 1
+
+	# Energy System
 	joker_energy = max_energy
+	ace_curr_charge = 0 
+
+	# Actions
+	var actioned : bool = false
+	var card_selected : bool = false
+	
+	joker_energy = max_energy
+	
+	for card in player_cards:
+		card.queue_free()
+	for card in enemy_cards:
+		card.queue_free()
+	player_cards.clear()
+	enemy_cards.clear()
 	
 	# Nodes
 	signal_setup()
 	ace_charges = [ace_charge1,ace_charge2,ace_charge3]
 	
+	# Enemies
+	spawn_enemies()
+	
 	# UI
+	hp_bar.display_health(player_hp)
 	suit_zone.frame = suit
-	round_label.text = "Round: 1/10"
+	round_label.text = "Round: " + str(curr_round) + "/" + str(max_round)
 	joker_energy_label.text = "Joker Energy: " + str(joker_energy)
+	death_notif.visible = false
+
+
+# === Built In =================================================================
+
+func _ready() -> void:
+	new_game()
 	
+func _input(event: InputEvent) -> void:
+	var str : String = event.as_text()
 	
+	if event.is_action_pressed("restart_game"):
+		new_game()
+	if event.is_action_pressed("quit_game"):
+		get_tree().quit()
+	if event.is_action_pressed("help_screen"):
+		help_screen.visible = !help_screen.visible
+	
+
 # === Signals ==================================================================
 
 func _on_atk_button_down():
@@ -144,7 +266,6 @@ func _on_sharpen_button_down():
 			actioned = true
 			card.sharpen()
 			card.damage()
-			reset_cards_pos()
 
 func _on_chip_button_down():
 	if actioned:
@@ -161,7 +282,6 @@ func _on_chip_button_down():
 			actioned = true
 			card.chip()
 			card.damage()
-			reset_cards_pos()
 	
 func _on_draw_button_down():
 	
@@ -196,6 +316,8 @@ func _on_draw_button_down():
 	
 	# Connect card signals
 	var card_area2d : Area2D = card.area2d
+	
+	# Signals
 	card_area2d.input_event.connect(_on_area2d_input.bind(card))
 	card.dead.connect(_on_card_dead)
 	card.animation_finished.connect(_on_card_animation_finished)
@@ -210,15 +332,25 @@ func _on_draw_button_down():
 	red_joker.play("summon")
 
 func _on_card_dead(node : Card):
-	player_cards.erase(node)
-	
-	
+	if node in enemy_cards:
+		enemy_cards.pop_front()
+		reset_enemy_cards_pos()
+		check_round_end()
+		
+	if node in player_cards:
+		player_cards.erase(node)
+
+func _on_card_animation_finished(_card : Card, anim : String):
+	if anim != "RESET" && _card.is_player_card == true:
+		_card.AP_play("RESET")
+		reset_cards_pos()
+
 # DECO
 func _on_red_joker_animation_finished():
 	red_joker.play("default")
 	
 func _on_ace_charge3_animation_finished():
-	if ace_curr_charge != 3:
+	if ace_curr_charge != aces_needed:
 		return
 	
 	joker_energy = max_energy
@@ -233,8 +365,3 @@ func _on_ace_charge3_animation_finished():
 	
 	red_joker.play("phew")
 	joker_energy_label.flash()
-
-func _on_card_animation_finished(_card : Card, anim : String):
-	if anim != "RESET":
-		_card.AP_play("RESET")
-	reset_cards_pos()
