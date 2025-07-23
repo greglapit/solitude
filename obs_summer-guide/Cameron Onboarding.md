@@ -8,10 +8,18 @@ You have the ability to sharpen and chip the diamonds on each of your cards. Sha
 
 # Rules
 
-You get one action per turn. This action includes summoning a card (courtesy of red joker), or sharpening/chipping your weapon. Once your action is used, you must attack with one of your weapons.
+You get one action per turn. This action includes summoning a card (courtesy of red joker), or sharpening/chipping your weapon. Once your action is used, you must attack with one of your weapons. Your weapons have **limited durability**
 
 The enemy rank is usually how much damage and health they have. Once you commit an attack, you and the targeted enemy will fight. Whoever's damage is lower will take the difference in health.
 
+You are limited on how many cards you can summon based on the red joker's energy. You can recharge his energy by playing 3 aces.
+
+# Gameplay
+
+* 10 rounds before boss
+* Random boss chosen from suit (jack, queen, king)
+* After final suit is black joker
+* infinite mode after
 # Bosses
 
 * after fighting through the waves of enemies of the suit, you encounter the bosses
@@ -25,7 +33,9 @@ The enemy rank is usually how much damage and health they have. Once you commit 
 * Final boss is black joker
 # Lore
 
-Red Joker has been wronged somehow by black joker (final boss of the game). He is helping you claw your way back to the black joker and defeat him. 
+Red Joker has been wronged somehow by black joker (final boss of the game). He is helping you claw your way back to the black joker and defeat him. Have to defeat other suit bosses first. Sits in the corner summoning your cards, trying to help you through the level
+
+![[red_joker.gif]]
 # Suits
 
 ## Hearts
@@ -37,4 +47,7 @@ Red Joker has been wronged somehow by black joker (final boss of the game). He i
 * 
 ## Clubs
 
-* 
+
+# Help
+
+* I'm fine with a complete retheme of the game. The only thing I want to keep the focus is the weapons, the sharpening and chipping, and the bosses

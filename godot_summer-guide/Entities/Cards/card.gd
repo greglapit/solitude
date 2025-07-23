@@ -71,7 +71,7 @@ static func new_random_card(_range : Array = range(1,14), suit1 : int = -1, suit
 	return card
 
 func find_card_texture(_suit : int) -> String:
-	var file_path = "res://Entities/Cards/Art/bare_" + str(Suits.find_key(_suit)) + ".png"
+	var file_path = "res://Entities/Cards/Art/bare_" + str(Suits.find_key(_suit)).to_lower() + ".png"
 	return file_path
 
 func update_card_visuals():

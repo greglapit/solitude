@@ -10,13 +10,15 @@ const max_enemies : int = 3
 
 # Round
 var curr_round : int = 1
-var max_round : int = 10
+var max_round : int = 7
+var player_card_range : Array = range(1,5) # Which suits enemy and player can generate
+var enemy_card_range : Array = range(1,11)
 
 # Energy System
 var joker_energy : int = 5
 const max_energy : int = 5
 var ace_curr_charge : int = 0    # Tracks how many Ace Charges Filled
-const aces_needed : int = 5
+const aces_needed : int = 3
 var ace_charges : Array[AnimatedSprite2D]
 
 # Card Positions
@@ -39,6 +41,8 @@ var enemy_cards : Array[Node]
 @onready var ace_charge1 = $Deco/AceCharge1
 @onready var ace_charge2 = $Deco/AceCharge2
 @onready var ace_charge3 = $Deco/AceCharge3
+#@onready var ace_charge4 = $Deco/AceCharge3
+#@onready var ace_charge5 = $Deco/AceCharge3
 
 # UI
 @onready var help_screen : CanvasLayer = $HelpScreen
@@ -85,13 +89,10 @@ func combat():
 			player_card.damage()
 			
 			var difference = enemy_target.rank - player_card.rank
-			print(enemy_target.rank)
-			print(player_card.rank)
-			print(difference)
 			# Player
 			
 			var shielded_this_turn : bool = false
-			if difference >= 0:
+			if difference > 0:
 				if hp_shield:
 					shielded_this_turn = true
 					hp_shield = false
@@ -102,8 +103,10 @@ func combat():
 			# Enemy
 			match player_card.rank:
 				1:
+					if enemy_target.rank == 1:
+						player_hp = min(100.0, player_hp + 25.0)
+						charge_ace_up()
 					charge_ace_up()
-					player_hp = min(100.0, player_hp + 5.0)
 					enemy_target.damage(1)
 				2:
 					if enemy_target.rank % 2 == 0:
@@ -142,7 +145,7 @@ func spawn_enemies(count : int = 3):
 		if card_place >  max_enemies:
 			print("Cant Spawn Enemy")
 			return
-		var card = Card.new_random_card(range(1,13), suit)
+		var card = Card.new_random_card(enemy_card_range, suit)
 		
 		# Properties
 		card.position = enemy_card_pos[card_place]
@@ -162,6 +165,18 @@ func charge_ace_up():
 			ace_charge.play("fill")
 			
 
+func reset_energy():
+	joker_energy = max_energy
+	ace_curr_charge = 0
+	
+	# UI
+	for ace_charge in ace_charges:
+		ace_charge.play("default")
+	joker_energy_label.text = "Joker Energy: " + str(joker_energy)
+	
+	red_joker.play("phew")
+	joker_energy_label.flash()
+
 func new_game():
 	# Player
 	player_hp = 100
@@ -175,8 +190,8 @@ func new_game():
 	ace_curr_charge = 0 
 
 	# Actions
-	var actioned : bool = false
-	var card_selected : bool = false
+	actioned = false
+	card_selected = false
 	
 	joker_energy = max_energy
 	
@@ -188,14 +203,14 @@ func new_game():
 	enemy_cards.clear()
 	
 	# Nodes
-	signal_setup()
-	ace_charges = [ace_charge1,ace_charge2,ace_charge3]
-	
+	reset_energy()
+		
 	# Enemies
 	spawn_enemies()
 	
 	# UI
 	hp_bar.display_health(player_hp)
+	hp_bar.health_shield(false)
 	suit_zone.frame = suit
 	round_label.text = "Round: " + str(curr_round) + "/" + str(max_round)
 	joker_energy_label.text = "Joker Energy: " + str(joker_energy)
@@ -205,11 +220,11 @@ func new_game():
 # === Built In =================================================================
 
 func _ready() -> void:
+	signal_setup()
+	ace_charges = [ace_charge1, ace_charge2, ace_charge3]
 	new_game()
 	
 func _input(event: InputEvent) -> void:
-	var str : String = event.as_text()
-	
 	if event.is_action_pressed("restart_game"):
 		new_game()
 	if event.is_action_pressed("quit_game"):
@@ -287,7 +302,8 @@ func _on_draw_button_down():
 	
 	# Checks
 	if joker_energy < 1:
-		console_log.display_text("None Remaining")
+		console_log.display_text("No energy")
+		red_joker.play("phew")
 		return
 		
 	if len(player_cards) >= max_cards:
@@ -301,7 +317,7 @@ func _on_draw_button_down():
 	
 	
 	# Card Setup
-	var card : Card = Card.new_random_card(range(1,5), Card.Suits.DIAMOND)
+	var card : Card = Card.new_random_card(player_card_range, Card.Suits.DIAMOND)
 	
 	for i in range(4):
 		if player_cards.find_key(i) == null:
@@ -350,18 +366,7 @@ func _on_red_joker_animation_finished():
 	red_joker.play("default")
 	
 func _on_ace_charge3_animation_finished():
-	if ace_curr_charge != aces_needed:
+	if ace_curr_charge < aces_needed:
 		return
 	
-	joker_energy = max_energy
-	ace_curr_charge = 0
-	
-	
-	# UI
-	# Reset nodes
-	for ace_charge in ace_charges:
-		ace_charge.play("default")
-	joker_energy_label.text = "Joker Energy: " + str(joker_energy)
-	
-	red_joker.play("phew")
-	joker_energy_label.flash()
+	reset_energy()

@@ -562,12 +562,13 @@ size_flags_vertical = 1
 theme_override_colors/font_color = Color(0.780392, 0.862745, 0.815686, 1)
 theme_override_constants/line_spacing = -4
 text = "--------------------------Controls----------------------------
+Double click to select cards. Only one action per turn.
 h - help
 r - restart game
 q - quit
-Double click to select cards. Only one action per turn
 ---------------------------Cards------------------------------
-Ace - Heal for 1 HP after attack
+EACH HAS DURABILITY OF 3
+Ace - Major Heal/Energy when hitting ace. Otherwise 1 Energy
 2 - Deals 3X damage to even cards
 3 - Deals 2X damage to odd cards
 4 - Provides one hit shield after hit (cant shield twice)
@@ -655,9 +656,11 @@ position = Vector2(277, 131)
 sprite_frames = ExtResource("15_fak21")
 
 [node name="AceCharge4" type="AnimatedSprite2D" parent="Deco"]
+visible = false
 position = Vector2(293, 131)
 sprite_frames = ExtResource("15_fak21")
 
 [node name="AceCharge5" type="AnimatedSprite2D" parent="Deco"]
+visible = false
 position = Vector2(309, 131)
 sprite_frames = ExtResource("15_fak21")
