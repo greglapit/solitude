@@ -1,25 +1,16 @@
-[gd_scene load_steps=40 format=3 uid="uid://dg6vpywhj8ysh"]
+[gd_scene load_steps=15 format=3 uid="uid://dg6vpywhj8ysh"]
 
 [ext_resource type="Script" uid="uid://cv86rhc4ky02b" path="res://Scene Presets/Round/round.gd" id="1_v51kp"]
 [ext_resource type="Texture2D" uid="uid://btl4p5tbxryyf" path="res://Common/tmp.png" id="2_42ffi"]
 [ext_resource type="Theme" uid="uid://dd180w5mog0qu" path="res://Common/base_theme.tres" id="3_42ffi"]
 [ext_resource type="PackedScene" uid="uid://bok4as3sg7pla" path="res://Assets/ConsoleLog/Scenes/console_log.tscn" id="4_sru8x"]
-[ext_resource type="Texture2D" uid="uid://bdxlm3hc6kd1d" path="res://Assets/Background/Art/card_outline.png" id="5_a85n5"]
+[ext_resource type="Texture2D" uid="uid://bdxlm3hc6kd1d" path="res://Scene Presets/Round/Art/card_outline.png" id="5_a85n5"]
 [ext_resource type="PackedScene" uid="uid://7p7q03k0yrpy" path="res://Assets/HealthBar/Scenes/health.tscn" id="5_mnfhq"]
 [ext_resource type="Texture2D" uid="uid://dak1vyn51cvle" path="res://Scene Presets/Round/Art/atk_button1.png" id="7_tncly"]
 [ext_resource type="Texture2D" uid="uid://c74e5cpcovb3n" path="res://Assets/Background/Art/stats_filler.png" id="8_a6nff"]
 [ext_resource type="Texture2D" uid="uid://d01xupnitmuds" path="res://Scene Presets/Round/Art/atk_button2.png" id="8_hxkkv"]
-[ext_resource type="Shader" uid="uid://ckjucnwkpcxca" path="res://Common/screen_shader.gdshader" id="9_50pvf"]
 [ext_resource type="PackedScene" uid="uid://bt8nqftk4jkv3" path="res://Entities/Cards/Scenes/card.tscn" id="9_hxkkv"]
 [ext_resource type="Texture2D" uid="uid://k6dbq05uuw08" path="res://Assets/Round Counter/Art/small_suits.png" id="10_tncly"]
-[ext_resource type="Texture2D" uid="uid://csmybm73e8y4" path="res://Assets/Background/Art/deck.png" id="11_fagv1"]
-[ext_resource type="Texture2D" uid="uid://cru4vxl1q4tnm" path="res://Assets/Background/Art/red_joker.png" id="13_l8mpv"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_l8mpv"]
-shader = ExtResource("9_50pvf")
-shader_parameter/radius = 1.0
-shader_parameter/speed = 1.0
-shader_parameter/effect_color = Color(0.251, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42ffi"]
 bg_color = Color(0.180392, 0.133333, 0.184314, 1)
@@ -29,235 +20,11 @@ bg_color = Color(0.780392, 0.862745, 0.815686, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sru8x"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l8mpv"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nhgmu"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fak21"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mrwyy"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c6w0o"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_eogvb"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7jrk2"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(192, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6fdul"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(224, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2xmsh"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(256, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l7evi"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(288, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_62k3y"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(320, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j5kcw"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(352, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_10rks"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(384, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yjlto"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(416, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cb5ju"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(448, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_whnfn"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(480, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ets3j"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(512, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oj1rg"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(544, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kcpr3"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(576, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8bnlb"]
-atlas = ExtResource("13_l8mpv")
-region = Rect2(608, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_l2gcq"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l8mpv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nhgmu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fak21")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mrwyy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c6w0o")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_eogvb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7jrk2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6fdul")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2xmsh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l7evi")
-}],
-"loop": true,
-"name": &"default",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_62k3y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j5kcw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_10rks")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yjlto")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cb5ju")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_whnfn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ets3j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oj1rg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kcpr3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8bnlb")
-}],
-"loop": false,
-"name": &"summon",
-"speed": 10.0
-}]
-
 [node name="Round" type="Node"]
 script = ExtResource("1_v51kp")
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = -1
-
-[node name="ColorRect" type="ColorRect" parent="UI"]
-material = SubResource("ShaderMaterial_l8mpv")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="TempStats" type="TextureRect" parent="UI"]
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 14.0
-offset_top = -51.0
-offset_right = 80.0
-offset_bottom = 50.0
-grow_vertical = 2
-texture = ExtResource("8_a6nff")
-
-[node name="ConsoleLog" parent="UI" instance=ExtResource("4_sru8x")]
-mouse_filter = 2
-
-[node name="Background" type="ColorRect" parent="UI"]
-z_index = -1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.780392, 0.862745, 0.815686, 1)
-
-[node name="Health" parent="UI" instance=ExtResource("5_mnfhq")]
-
-[node name="RoundLabel" type="Label" parent="UI"]
-offset_left = 40.0
-offset_top = 10.0
-offset_right = 99.0
-offset_bottom = 24.0
-pivot_offset = Vector2(4, 4)
-text = "Round: 00/00"
-
-[node name="Atk" type="TextureButton" parent="UI"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 15.0
-offset_top = -96.0
-offset_right = 55.0
-offset_bottom = -56.0
-grow_horizontal = 2
-grow_vertical = 0
-texture_normal = ExtResource("7_tncly")
-texture_pressed = ExtResource("8_hxkkv")
-
-[node name="CardCount" type="Label" parent="UI"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -75.0
-offset_top = -14.0
-offset_right = -16.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "Charges: 13"
 
 [node name="Buttons" type="VBoxContainer" parent="UI"]
 anchors_preset = 6
@@ -265,17 +32,13 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -80.0
-offset_top = -41.0
+offset_left = -78.0
+offset_top = -28.0
 offset_right = -11.0
-offset_bottom = 30.0
+offset_bottom = 28.0
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_constants/separation = 1
-
-[node name="Actions" type="Label" parent="UI/Buttons"]
-layout_mode = 2
-text = "Actions:"
 
 [node name="SharpenPanel" type="PanelContainer" parent="UI/Buttons"]
 layout_mode = 2
@@ -424,6 +187,64 @@ text = "Draw"
 layout_mode = 2
 flat = true
 
+[node name="ConsoleLog" parent="UI" instance=ExtResource("4_sru8x")]
+mouse_filter = 2
+
+[node name="Background" type="ColorRect" parent="UI"]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.780392, 0.862745, 0.815686, 1)
+
+[node name="Health" parent="UI" instance=ExtResource("5_mnfhq")]
+
+[node name="TempStats" type="TextureRect" parent="UI"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 14.28
+offset_top = -50.5
+offset_right = 80.28
+offset_bottom = 50.5
+grow_vertical = 2
+texture = ExtResource("8_a6nff")
+
+[node name="RoundLabel" type="Label" parent="UI"]
+offset_left = 40.0
+offset_top = 10.0
+offset_right = 99.0
+offset_bottom = 24.0
+pivot_offset = Vector2(4, 4)
+text = "Round: 00/00"
+
+[node name="Atk" type="TextureButton" parent="UI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -96.0
+offset_right = 55.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("7_tncly")
+texture_pressed = ExtResource("8_hxkkv")
+
+[node name="Card" parent="UI" instance=ExtResource("9_hxkkv")]
+position = Vector2(158, 32)
+
+[node name="Card2" parent="UI" instance=ExtResource("9_hxkkv")]
+position = Vector2(135, 42)
+
+[node name="Card3" parent="UI" instance=ExtResource("9_hxkkv")]
+position = Vector2(150, 52)
+
 [node name="Deco" type="Node2D" parent="."]
 
 [node name="ActiveCardZone" type="Sprite2D" parent="Deco"]
@@ -436,21 +257,3 @@ position = Vector2(18, 19)
 scale = Vector2(2, 2)
 texture = ExtResource("10_tncly")
 hframes = 4
-
-[node name="Deck" type="Sprite2D" parent="Deco"]
-position = Vector2(290, 154)
-texture = ExtResource("11_fagv1")
-
-[node name="RedJoker" type="AnimatedSprite2D" parent="Deco"]
-position = Vector2(254, 151)
-sprite_frames = SubResource("SpriteFrames_l2gcq")
-autoplay = "default"
-
-[node name="Card" parent="." instance=ExtResource("9_hxkkv")]
-position = Vector2(157, 26)
-
-[node name="Card2" parent="." instance=ExtResource("9_hxkkv")]
-position = Vector2(134, 36)
-
-[node name="Card3" parent="." instance=ExtResource("9_hxkkv")]
-position = Vector2(149, 46)

@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://3cigtxa77myn" path="res://Assets/HealthBar/Art/progress_bar_fill_ends.png" id="2_3ug1x"]
 [ext_resource type="Texture2D" uid="uid://b7tg1newypsa1" path="res://Assets/HealthBar/Art/progress_bar.png" id="3_c8mlk"]
 
+[sub_resource type="Animation" id="Animation_c8mlk"]
+length = 0.001
+
 [sub_resource type="Animation" id="Animation_3ug1x"]
 resource_name = "wiggle"
 loop_mode = 1
@@ -38,9 +41,6 @@ tracks/1/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_c8mlk"]
-length = 0.001
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c8mlk"]
 _data = {
 &"RESET": SubResource("Animation_c8mlk"),
@@ -59,11 +59,12 @@ script = ExtResource("1_3ug1x")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
+theme_override_constants/separation = -1
 
 [node name="Label" type="Label" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
-text = "H"
+text = "HP"
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2

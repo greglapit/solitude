@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdxlm3hc6kd1d"
-path="res://.godot/imported/card_outline.png-16cb26976773f62c95a05b84a39a1618.ctex"
+uid="uid://csmybm73e8y4"
+path="res://.godot/imported/deck.png-1185465a984b401283699bcb451e8d22.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scene Presets/Round/Art/card_outline.png"
-dest_files=["res://.godot/imported/card_outline.png-16cb26976773f62c95a05b84a39a1618.ctex"]
+source_file="res://Assets/Background/Art/deck.png"
+dest_files=["res://.godot/imported/deck.png-1185465a984b401283699bcb451e8d22.ctex"]
 
 [params]
 

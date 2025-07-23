@@ -11,6 +11,8 @@ enum Suits {
 var suit : Suits
 var rank : int
 var hp : int
+var is_player_card : bool = false
+var is_card_attacking : bool = false
 const card_scn : PackedScene = preload("res://Entities/Cards/Scenes/card.tscn")
 var red = Color.html("#b33831")
 var black = Color.html("#2e222f")
@@ -24,6 +26,7 @@ var ranks = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K
 @onready var lower_right_label : Label = $Control/LowerRightLabel
 @onready var health_ticks : Array[Node] = self.find_children("HealthTick?")
 
+signal dead(node)
 
 # Custom Methods
 
@@ -90,13 +93,12 @@ func update_card_visuals():
 	lower_right_label.text = card_text
 	
 	# Health Ticks
-	for tick in health_ticks:
-		tick.visible = true
-		var tick_num = int(tick.name.erase(0,10))
-		print(tick_num)
-		print("hp: " + str(hp))
-		if tick_num >= hp:
-			tick.visible = false
+	if is_player_card:
+		for tick in health_ticks:
+			tick.visible = true
+			var tick_num = int(tick.name.erase(0,10))
+			if tick_num >= hp:
+				tick.visible = false
 	
 func select():
 	selected = true
@@ -119,9 +121,11 @@ func sharpen():
 func damage(amount : int = 1):
 	set_hp(hp-amount)
 	if hp < 1:
+		dead.emit(self)
 		queue_free()
 
 # Built in
 
 func _ready() -> void:
 	set_hp(rank)
+	AP.play("spawn_bottom")
