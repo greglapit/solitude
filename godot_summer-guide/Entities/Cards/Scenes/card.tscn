@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bt8nqftk4jkv3"]
+[gd_scene load_steps=15 format=3 uid="uid://bt8nqftk4jkv3"]
 
 [ext_resource type="Script" uid="uid://bb44j18wfyhe3" path="res://Entities/Cards/card.gd" id="1_0oiq5"]
 [ext_resource type="Texture2D" uid="uid://dm2gitgrwpvax" path="res://Entities/Cards/Art/bare_diamond.png" id="2_q0hhy"]
@@ -250,10 +250,39 @@ tracks/1/keys = {
 "values": [Vector2(0, 39), Vector2(0, -7), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_783qy"]
+resource_name = "player_attack"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.6, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-14, -23), Vector2(-14, -18), Vector2(-14, -31), Vector2(-14, -21), Vector2(-14, -23)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.6, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 5), Vector2(0, -8), Vector2(0, 2), Vector2(0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7w06l"]
 _data = {
 &"RESET": SubResource("Animation_4ryhe"),
 &"chip": SubResource("Animation_qdsni"),
+&"player_attack": SubResource("Animation_783qy"),
 &"queue_free": SubResource("Animation_7w06l"),
 &"selected": SubResource("Animation_05v2h"),
 &"sharpen": SubResource("Animation_aqilr"),

@@ -5,7 +5,7 @@ extends TextEdit
 func display_text(pattern : String):
 	text = pattern
 	AP.play("RESET")
-	AP.play("fade_text")
+	AP.play("flash_fade_text")
 	
 func _ready() -> void:
-	AP.play("fade_text")
+	AP.play("flash_fade_text")

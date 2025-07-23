@@ -26,6 +26,7 @@ var ranks = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K
 @onready var lower_right_label : Label = $Control/LowerRightLabel
 @onready var health_ticks : Array[Node] = self.find_children("HealthTick?")
 
+signal animation_finished(node)
 signal dead(node)
 
 # Custom Methods
@@ -123,9 +124,19 @@ func damage(amount : int = 1):
 	if hp < 1:
 		dead.emit(self)
 		queue_free()
+		
+func AP_play(anim : String):
+	AP.play(anim)
 
 # Built in
 
 func _ready() -> void:
 	set_hp(rank)
+	AP.animation_finished.connect(_on_AP_animation_finished)
 	AP.play("spawn_bottom")
+	
+
+# Signals
+
+func _on_AP_animation_finished(anim : String):
+	animation_finished.emit(self, anim)

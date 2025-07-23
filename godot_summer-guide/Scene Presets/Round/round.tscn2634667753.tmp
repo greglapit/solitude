@@ -631,9 +631,12 @@ animation = &"fill"
 
 [node name="Card" parent="." instance=ExtResource("9_hxkkv")]
 position = Vector2(157, 26)
+selected = false
 
 [node name="Card2" parent="." instance=ExtResource("9_hxkkv")]
 position = Vector2(134, 36)
+selected = false
 
 [node name="Card3" parent="." instance=ExtResource("9_hxkkv")]
 position = Vector2(149, 46)
+selected = false
