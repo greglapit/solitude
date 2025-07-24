@@ -1,6 +1,16 @@
+
+For Demo, will need to Enable "Open anyway" in privacy & security settings because I'm not paying $100 to apple rn
+**Download summer_guidemac.zip for mac**
+Drive Link: https://drive.google.com/drive/folders/1EcHtv_RQNp7yU5eUHrNqzyOLKNFxkxFV?usp=drive_link
+
+# Preface
+
+* I'm fine with a complete retheme of the game. The only thing I want to keep the focus is the weapons, the sharpening and chipping, and the bosses
+* All art is temporary
+* I am kinda capable with shaders and tweening animations
 # Description
 
-Creating a card game dungeon crawler. You draw diamond cards as your weapons to fight enemies and bosses of the heart, club, and spade suits. Each weapon you draw has a unique effect on the enemies. Careful, because each suit has their own tricks up their sleeve.
+Creating a card game dungeon crawler. You draw diamond cards as your weapons to fight enemies and bosses of the heart, club, and spade suits. Each weapon you draw has a unique effect on the enemies. Careful, because each suit has their own tricks up their sleeve!
 
 ![[test_game_screen 1.gif]]
 
@@ -48,8 +58,3 @@ Red Joker has been wronged somehow by black joker (final boss of the game). He i
 ## Clubs
 
 
-# Help
-
-* I'm fine with a complete retheme of the game. The only thing I want to keep the focus is the weapons, the sharpening and chipping, and the bosses
-* All art is temporary
-* I am kinda capable with shaders and tweening animations

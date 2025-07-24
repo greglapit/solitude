@@ -11,6 +11,7 @@ enum Suits {
 var suit : Suits
 var rank : int
 var hp : int
+var power_incr : int = 0   #Keeps track of suit specific interactions. See *suit*_effect
 var is_player_card : bool = false
 var is_card_attacking : bool = false
 const card_scn : PackedScene = preload("res://Entities/Cards/Scenes/card.tscn")
@@ -29,7 +30,7 @@ var ranks = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K
 signal animation_finished(node, anim)
 signal dead(node)
 
-# Custom Methods
+# === Custom Methods ===========================================================
 
 func set_hp(_hp : int):
 	hp = _hp
@@ -134,7 +135,17 @@ func check_dead():
 func AP_play(anim : String):
 	AP.play(anim)
 
-# Built in
+func heart_effect():
+	if power_incr == 1:
+		hp += 1
+		rank = hp
+		update_card_visuals()
+	else:
+		upper_left_label.text = str(rank) + "+"
+		lower_right_label.text = str(rank) + "+"
+		power_incr +=1
+
+# === Built In =================================================================
 
 func _ready() -> void:
 	set_hp(rank)
@@ -142,7 +153,11 @@ func _ready() -> void:
 	AP.play("spawn_bottom")
 	
 
-# Signals
+# === Signals ==================================================================
 
 func _on_AP_animation_finished(anim : String):
 	animation_finished.emit(self, anim)
+	
+	if suit == Suits.HEART && !is_player_card && anim == "delayed_chip":
+		heart_effect()
+	

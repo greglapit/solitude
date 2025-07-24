@@ -11,7 +11,7 @@ const max_enemies : int = 3
 # Round
 var curr_round : int = 1
 var max_round : int = 7
-var player_card_range : Array = range(2,3) # Which suits enemy and player can generate
+var player_card_range : Array = range(1,5) # Which suits enemy and player can generate
 var enemy_card_range : Array = range(1,11)
 
 # Energy System
@@ -28,6 +28,7 @@ var enemy_card_pos : Array[Vector2] = [Vector2(149,46), Vector2(134,36), Vector2
 # Actions
 var actioned : bool = false
 var card_selected : bool = false
+var card_queued : bool = false # Checks if card is queued to player inventory after it dies
 
 # Node Tracking
 var player_cards : Dictionary
@@ -82,6 +83,7 @@ func reset_enemy_cards_pos():
 
 func combat():
 	var enemy_target : Card = enemy_cards[0]
+	enemy_target.is_card_attacking = true
 	for player_card : Card in player_cards:
 		if player_card.is_card_attacking:
 			
@@ -164,7 +166,43 @@ func charge_ace_up():
 	for ace_charge in ace_charges:
 		if int(ace_charge.name.erase(0,9)) == ace_curr_charge:
 			ace_charge.play("fill")
-			
+
+func summon_card():
+	# Checks
+	if joker_energy < 1:
+		red_joker.play("phew")
+		return
+	if len(player_cards) >= max_cards:
+		return
+	
+	# Card Setup
+	var card : Card = Card.new_random_card(player_card_range, Card.Suits.DIAMOND)
+	
+	for i in range(4):
+		if player_cards.find_key(i) == null:
+			player_cards[card] = i
+			break
+
+	card.name = "PlayerCard" + str(len(player_cards))
+	card.is_player_card = true
+	card.position = Vector2(first_card_pos.x + 35 * player_cards[card], first_card_pos.y)
+	add_child(card)
+	card.set_hp(player_card_hp)
+	
+	# Connect card signals
+	var card_area2d : Area2D = card.area2d
+	
+	# Signals
+	card_area2d.input_event.connect(_on_area2d_input.bind(card))
+	card.dead.connect(_on_card_dead)
+	card.animation_finished.connect(_on_card_animation_finished)
+	
+	# Update UI
+	joker_energy -= 1
+	joker_energy_label.text = "Joker Energy: " + str(joker_energy)
+	
+	# DECO
+	red_joker.play("summon")
 
 func reset_energy():
 	joker_energy = max_energy
@@ -193,6 +231,7 @@ func new_game():
 	# Actions
 	actioned = false
 	card_selected = false
+	card_queued = false
 	
 	joker_energy = max_energy
 	
@@ -244,7 +283,16 @@ func _on_atk_button_down():
 	if !attacking_card:
 		console_log.display_text("Must pick card")
 		return
+		
+	# Draw for player if they havent used action
+	if !actioned && len(player_cards) >= max_cards:
+		card_queued = true
+	elif !actioned:
+		summon_card()
+
 	combat()
+	
+		
 	actioned = false
 
 func _on_area2d_input(_viewport: Node, event: InputEvent, _shape_idx: int, card : Card):
@@ -316,37 +364,7 @@ func _on_draw_button_down():
 		return
 	actioned = true
 	
-	
-	# Card Setup
-	var card : Card = Card.new_random_card(player_card_range, Card.Suits.DIAMOND)
-	
-	for i in range(4):
-		if player_cards.find_key(i) == null:
-			player_cards[card] = i
-			break
-
-	card.name = "PlayerCard" + str(len(player_cards))
-	card.is_player_card = true
-	reset_cards_pos()
-	add_child(card)
-	card.set_hp(player_card_hp)
-	
-	# Connect card signals
-	var card_area2d : Area2D = card.area2d
-	
-	# Signals
-	card_area2d.input_event.connect(_on_area2d_input.bind(card))
-	card.dead.connect(_on_card_dead)
-	card.animation_finished.connect(_on_card_animation_finished)
-	
-	# Update UI
-	joker_energy -= 1
-	joker_energy_label.text = "Joker Energy: " + str(joker_energy)
-	
-	
-	
-	# DECO
-	red_joker.play("summon")
+	summon_card()
 
 func _on_card_dead(node : Card):
 	if node in enemy_cards:
@@ -356,6 +374,9 @@ func _on_card_dead(node : Card):
 		
 	if node in player_cards:
 		player_cards.erase(node)
+		
+		if card_queued:
+			summon_card()
 
 func _on_card_animation_finished(_card : Card, anim : String):
 	if anim != "RESET" && _card.is_player_card == true:
