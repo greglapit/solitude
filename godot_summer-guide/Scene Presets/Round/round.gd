@@ -22,8 +22,8 @@ const aces_needed : int = 3
 var ace_charges : Array[AnimatedSprite2D]
 
 # Card Positions
-var first_card_pos = Vector2(100,152)
-var enemy_card_pos : Array[Vector2] = [Vector2(149,46), Vector2(134,36), Vector2(157,26)]
+var first_card_pos = Vector2(100*2,152*2)
+var enemy_card_pos : Array[Vector2] = [Vector2(149*2,46*2), Vector2(134*2,36*2), Vector2(157*2,26*2)]
 
 # Actions
 var actioned : bool = false
@@ -39,11 +39,9 @@ var enemy_cards : Array[Node]
 @onready var active_zone : Sprite2D = $Deco/ActiveCardZone
 @onready var round_label : Label = $UI/RoundLabel
 @onready var red_joker : AnimatedSprite2D = $Deco/RedJoker
-@onready var ace_charge1 = $Deco/AceCharge1
-@onready var ace_charge2 = $Deco/AceCharge2
-@onready var ace_charge3 = $Deco/AceCharge3
-#@onready var ace_charge4 = $Deco/AceCharge3
-#@onready var ace_charge5 = $Deco/AceCharge3
+@onready var ace_charge1 = $Deco/AceCharges/AceCharge1
+@onready var ace_charge2 = $Deco/AceCharges/AceCharge2
+@onready var ace_charge3 = $Deco/AceCharges/AceCharge3
 
 # UI
 @onready var help_screen : CanvasLayer = $HelpScreen
@@ -71,7 +69,7 @@ func signal_setup():
 
 func reset_cards_pos():
 	for card : Card in player_cards:
-		card.position = Vector2(first_card_pos.x + 35 * player_cards[card], first_card_pos.y)
+		card.position = Vector2(first_card_pos.x + 50 * player_cards[card], first_card_pos.y)
 		card.is_card_attacking = false
 	
 func reset_enemy_cards_pos():
@@ -93,12 +91,7 @@ func combat():
 			var difference = enemy_target.rank - player_card.rank
 			# Player
 			
-			var shielded_this_turn : bool = false
-			if difference > 0:
-				if hp_shield:
-					shielded_this_turn = true
-					hp_shield = false
-					hp_bar.health_shield(false)
+			var shielded_this_turn : bool = false    # Prevents protecting from damage during this current turn
 			
 			# Enemy
 			match player_card.rank:
@@ -122,13 +115,18 @@ func combat():
 						enemy_target.damage(3)
 				4:
 					enemy_target.damage(4)
-					if !shielded_this_turn:
-						hp_shield = true
-						hp_bar.health_shield(true)
+					if !hp_shield:
+						shielded_this_turn = true
+					hp_shield = true
+					hp_bar.health_shield(true)
 			
 			# Done after enemy so damage could be adjusted for "effective" interactions
-			if !shielded_this_turn:
-				player_hp -= max(0,difference*5)
+			if difference > 0:
+				if shielded_this_turn or !hp_shield:
+					player_hp -= max(0,difference*5)
+				else:
+					hp_shield = false
+					hp_bar.health_shield(false)
 	# UI
 	hp_bar.display_health(player_hp)
 	if player_hp < 1:
@@ -185,7 +183,7 @@ func summon_card():
 
 	card.name = "PlayerCard" + str(len(player_cards))
 	card.is_player_card = true
-	card.position = Vector2(first_card_pos.x + 35 * player_cards[card], first_card_pos.y)
+	reset_cards_pos()
 	add_child(card)
 	card.set_hp(player_card_hp)
 	

@@ -43,7 +43,7 @@ You are limited on how many cards you can summon based on the red joker's energy
 * Final boss is black joker
 # Lore
 
-Red Joker has been wronged somehow by black joker (final boss of the game). He is helping you claw your way back to the black joker and defeat him. Have to defeat other suit bosses first. Sits in the corner summoning your cards, trying to help you through the level
+Red Joker has been wronged somehow by black joker (final boss of the game). He is helping you claw your way back to the black joker and defeat him. Have to defeat other suit bosses first. Sits in the corner summoning your cards, trying to help you through the level.
 
 ![[red_joker.gif]]
 # Suits

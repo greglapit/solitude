@@ -108,7 +108,8 @@ func select():
 
 func deselect():
 	selected = false
-	AP.play("RESET")
+	if AP.current_animation == "selected":
+		AP.play("RESET")
 	
 func chip():
 	if rank > 1:
@@ -126,6 +127,7 @@ func damage(amount : int = 1):
 		rank = hp
 		AP.play("delayed_chip")
 
+# Called in anim player
 func check_dead():
 	if hp < 1:
 		dead.emit(self)
@@ -139,10 +141,11 @@ func heart_effect():
 	if power_incr == 1:
 		hp += 1
 		rank = hp
+		power_incr = 0
 		update_card_visuals()
 	else:
-		upper_left_label.text = str(rank) + "+"
-		lower_right_label.text = str(rank) + "+"
+		upper_left_label.text = str(ranks[rank]) + "+"
+		lower_right_label.text = str(ranks[rank]) + "+"
 		power_incr +=1
 
 # === Built In =================================================================

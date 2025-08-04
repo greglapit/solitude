@@ -349,6 +349,7 @@ _data = {
 size = Vector2(29, 45)
 
 [node name="Card" type="Node2D"]
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_0oiq5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
