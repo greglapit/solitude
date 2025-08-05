@@ -1,1 +1,4 @@
-* Create pixel art font and make sure it meshes with either canvas_item or viewport stretch mode
+- [ ] Make the cards look like weapons
+- [ ] Create pixel art font and make sure it meshes with either canvas_item or viewport stretch model
+- [ ] Tooltip displaying card effects when in play
+- [ ] HP show expected health lost in progress bar. Maybe flashing

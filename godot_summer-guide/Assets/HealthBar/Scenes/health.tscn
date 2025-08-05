@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://7p7q03k0yrpy"]
+[gd_scene load_steps=10 format=3 uid="uid://7p7q03k0yrpy"]
 
 [ext_resource type="Script" uid="uid://b0gr6wekg1md5" path="res://Assets/HealthBar/health.gd" id="1_3ug1x"]
 [ext_resource type="Texture2D" uid="uid://beexnua1fnl1k" path="res://Assets/HealthBar/Art/progress_bar_fill.png" id="1_eds4i"]
@@ -8,6 +8,9 @@
 
 [sub_resource type="Animation" id="Animation_c8mlk"]
 length = 0.001
+
+[sub_resource type="Animation" id="Animation_pcnav"]
+resource_name = "chip"
 
 [sub_resource type="Animation" id="Animation_3ug1x"]
 resource_name = "wiggle"
@@ -45,12 +48,13 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c8mlk"]
 _data = {
 &"RESET": SubResource("Animation_c8mlk"),
+&"shake": SubResource("Animation_pcnav"),
 &"wiggle": SubResource("Animation_3ug1x")
 }
 
 [node name="Health" type="PanelContainer"]
-offset_right = 78.0
-offset_bottom = 24.0
+offset_right = 152.0
+offset_bottom = 54.0
 script = ExtResource("1_3ug1x")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]

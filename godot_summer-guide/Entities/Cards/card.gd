@@ -13,6 +13,7 @@ var rank : int
 var hp : int
 var power_incr : int = 0   #Keeps track of suit specific interactions. See *suit*_effect
 var is_player_card : bool = false
+var is_boss_card : bool = false
 var is_card_attacking : bool = false
 const card_scn : PackedScene = preload("res://Entities/Cards/Scenes/card.tscn")
 var red = Color.html("#b33831")
@@ -84,15 +85,25 @@ func update_card_visuals():
 	var card_num_res = "res://Entities/Cards/Resources/card_numbers.tres"
 	upper_left_label.label_settings = load(card_num_res).duplicate()
 	lower_right_label.label_settings = upper_left_label.label_settings
-	if suit == Suits.DIAMOND or suit == Suits.HEART:
-		upper_left_label.label_settings.font_color = red
-	else:
-		upper_left_label.label_settings.font_color = black
 	
 	# Rank
 	var card_text : String = ranks[rank]
 	upper_left_label.text = card_text
 	lower_right_label.text = card_text
+	
+	match suit:
+		Suits.DIAMOND:
+			upper_left_label.label_settings.font_color = red
+		Suits.HEART:
+			upper_left_label.label_settings.font_color = red
+			if power_incr >= 1:
+				upper_left_label.text = str(ranks[rank]) + "+"
+				lower_right_label.text = "+" + str(ranks[rank])
+		Suits.CLUB:
+			upper_left_label.label_settings.font_color = black
+		Suits.SPADE:
+			upper_left_label.label_settings.font_color = black
+	
 	
 	# Health Ticks
 	if is_player_card:
@@ -122,31 +133,37 @@ func sharpen():
 		AP.play("sharpen")
 
 func damage(amount : int = 1):
-	set_hp(hp-amount)
-	if !is_player_card:
+	hp -= amount
+	if is_player_card:
+		update_card_visuals()		# Enemy cards need upating after doing attack
+	if !is_player_card and !is_boss_card:
 		rank = hp
 		AP.play("delayed_chip")
+		# Checks dead after animation
 
 # Called in anim player
 func check_dead():
 	if hp < 1:
 		dead.emit(self)
 		queue_free()
-	update_card_visuals()
+	
+	if is_player_card:
+		update_card_visuals()
 
 func AP_play(anim : String):
 	AP.play(anim)
 
 func heart_effect():
-	if power_incr == 1:
+	if is_boss_card:
+		return
+	if power_incr >= 1:
 		hp += 1
 		rank = hp
 		power_incr = 0
-		update_card_visuals()
+		#update_card_visuals()
 	else:
-		upper_left_label.text = str(ranks[rank]) + "+"
-		lower_right_label.text = str(ranks[rank]) + "+"
 		power_incr +=1
+		#update_card_visuals()
 
 # === Built In =================================================================
 
@@ -155,12 +172,23 @@ func _ready() -> void:
 	AP.animation_finished.connect(_on_AP_animation_finished)
 	AP.play("spawn_bottom")
 	
+	
 
 # === Signals ==================================================================
 
 func _on_AP_animation_finished(anim : String):
 	animation_finished.emit(self, anim)
-	
-	if suit == Suits.HEART && !is_player_card && anim == "delayed_chip":
-		heart_effect()
+	if is_player_card:
+		match anim:
+			"delayed_chip":
+				check_dead()
+	if !is_player_card and !is_boss_card:
+		match anim: 
+			"delayed_chip":
+				if suit == Suits.HEART:
+					heart_effect()
+				AP.play("enemy_attack")
+				check_dead()
+			"enemy_attack":
+				update_card_visuals()
 	

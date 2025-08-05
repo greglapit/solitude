@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8svyhmhccgte"
-path="res://.godot/imported/bare_diamond.png-468f28fc640e33cf9a07d2b6ca3df171.ctex"
+uid="uid://ibxrccsl355o"
+path="res://.godot/imported/queen_hearts.png-f2b0614b87b686fc2a505d8e5a7a8fd3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Cards/Art/bare_diamond.png"
-dest_files=["res://.godot/imported/bare_diamond.png-468f28fc640e33cf9a07d2b6ca3df171.ctex"]
+source_file="res://Entities/Queens/Hearts/Art/queen_hearts.png"
+dest_files=["res://.godot/imported/queen_hearts.png-f2b0614b87b686fc2a505d8e5a7a8fd3.ctex"]
 
 [params]
 

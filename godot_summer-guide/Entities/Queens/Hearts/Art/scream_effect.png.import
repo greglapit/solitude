@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8svyhmhccgte"
-path="res://.godot/imported/bare_diamond.png-468f28fc640e33cf9a07d2b6ca3df171.ctex"
+uid="uid://bnfq5qhs467xj"
+path="res://.godot/imported/scream_effect.png-0f45d5f1bc1c10166809b1cd568061c8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Cards/Art/bare_diamond.png"
-dest_files=["res://.godot/imported/bare_diamond.png-468f28fc640e33cf9a07d2b6ca3df171.ctex"]
+source_file="res://Entities/Queens/Hearts/Art/scream_effect.png"
+dest_files=["res://.godot/imported/scream_effect.png-0f45d5f1bc1c10166809b1cd568061c8.ctex"]
 
 [params]
 

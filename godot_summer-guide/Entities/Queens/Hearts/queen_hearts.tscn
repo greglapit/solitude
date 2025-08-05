@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://ch6h352xqxfb7"]
+
+[ext_resource type="Texture2D" uid="uid://bnfq5qhs467xj" path="res://Entities/Queens/Hearts/Art/scream_effect.png" id="1_0gkhg"]
+[ext_resource type="Script" uid="uid://ctedgrp2lb262" path="res://Entities/Queens/Hearts/queen_hearts.gd" id="1_sc02k"]
+[ext_resource type="SpriteFrames" uid="uid://ctrwcnng2em5s" path="res://Entities/Queens/Hearts/queen_hearts.tres" id="2_1olyu"]
+[ext_resource type="PackedScene" uid="uid://bt8nqftk4jkv3" path="res://Entities/Cards/Scenes/card.tscn" id="4_sc02k"]
+
+[sub_resource type="Curve" id="Curve_sc02k"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="QueenHearts" type="Node2D"]
+z_index = 1
+script = ExtResource("1_sc02k")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -15.0
+offset_top = -96.0
+offset_right = 223.0
+offset_bottom = 131.0
+theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
+theme_override_font_sizes/font_size = 64
+text = "12"
+
+[node name="ScreamEffect" type="CPUParticles2D" parent="."]
+modulate = Color(1, 1, 1, 0.702)
+emitting = false
+amount = 4
+texture = ExtResource("1_0gkhg")
+lifetime = 0.8
+one_shot = true
+gravity = Vector2(0, 0)
+scale_amount_min = 8.0
+scale_amount_max = 8.0
+scale_amount_curve = SubResource("Curve_sc02k")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 13)
+sprite_frames = ExtResource("2_1olyu")
+animation = &"idle"
+
+[node name="Card" parent="." instance=ExtResource("4_sc02k")]
+visible = false

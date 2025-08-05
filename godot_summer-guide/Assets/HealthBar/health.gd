@@ -10,7 +10,7 @@ var wiggle_amt : int = 1
 @onready var ends : TextureProgressBar = $VBoxContainer/HBoxContainer/PanelContainer/ProgressBarEnds
 @onready var shield : TextureRect = $VBoxContainer/HBoxContainer/PanelContainer/Shield
 
-func display_health(_hp : float):
+func display_health(_hp : float, _max_health : int = 20):
 	hp = _hp
 	
 	#Bar
@@ -20,7 +20,8 @@ func display_health(_hp : float):
 		AP.play("wiggle")
 	
 	# Number
-	nums.text = str(int(round(hp / 5))) + "/20"
+	var _display_health = int(round(hp / (100 / _max_health)))
+	nums.text = str(_display_health) + "/" + str(_max_health)
 
 func health_shield(toggle : bool):
 	shield.visible = toggle
