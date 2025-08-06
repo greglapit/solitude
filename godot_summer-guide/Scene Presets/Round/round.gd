@@ -161,6 +161,7 @@ func boss_combat():
 				player_hp -= 25
 				hp_update()
 	boss.combat()
+	boss.damage()
 	card_combat()
 	
 	if boss_card.hp <= 0:
@@ -201,6 +202,7 @@ func spawn_enemies(count : int = 3):
 		var card = Card.new_random_card(enemy_card_range, suit)
 		
 		# Properties
+		card.name = "EnemyCard"
 		card.position = enemy_card_pos[card_place]
 		card.scale = Vector2(2,2)
 		card.z_index = -card_place
@@ -218,12 +220,23 @@ func start_boss():
 	for enemy in enemy_cards:
 		enemy.queue_free()
 	enemy_cards.clear()
+	
+	# Boss Card Setup
 	boss_card = Card.new_card(Card.Suits.HEART, 12)
 	boss_card.visible = false
 	add_child(boss_card)
 	enemy_cards.append(boss_card)
 	enemy_cards[0].is_boss_card = true
 	screen_cover.fade_black() # Handles boss event starting in signal below
+	
+	# Boss Setup
+	var _boss = boss_scene.instantiate()
+	_boss.position = Vector2(320,100)
+	add_child(_boss)
+	boss = _boss
+	_boss.anim_finished.connect(_on_boss_anim_finished)
+	
+	enemy_cards[0].hp = 50 # Pair with hidden boss card which is used for combat functionality
 
 func charge_ace_up():
 	ace_curr_charge += 1
@@ -453,9 +466,7 @@ func _on_draw_button_down():
 func _on_card_dead(node : Card):
 	if node in enemy_cards:
 		enemy_cards.pop_front()
-		#reset_enemy_cards_pos()
-		#reset_cards_pos()
-		#check_round_end()
+		reset_cards_pos()
 		hp_update()
 		
 	if node in player_cards:
@@ -471,16 +482,19 @@ func _on_card_animation_finished(_card : Card, anim : String):
 				_card.AP_play("RESET")
 				reset_cards_pos()
 			"player_attack":
-				_card.AP_play("RESET")
+				# Play boss damage animation
 				if curr_round == boss_round:
 					reset_cards_pos()
 					hp_update()
+				
+				_card.AP_play("RESET")
 				reset_enemy_cards_pos()
 				check_round_end()
 			_:
 				_card.AP_play("RESET")
 				reset_enemy_cards_pos()
 				check_round_end()
+	
 	if !_card.is_player_card && _card == enemy_cards[0]:
 		match anim:
 			"delayed_chip":
@@ -498,16 +512,7 @@ func _on_screen_cover_screen_black():
 		boss = null
 		gg_notif.visible = true
 		return
-	var _boss = boss_scene.instantiate()
-	_boss.position = Vector2(320,100)
 	round_label.text = "Round: BOSS"
-	
-	
-	add_child(_boss)
-	boss = _boss
-	_boss.anim_finished.connect(_on_boss_anim_finished)
-	
-	enemy_cards[0].hp = 50 # Pair with hidden boss card which is used for combat functionality
 	
 	
 func _on_boss_anim_finished(anim : String):
@@ -517,6 +522,8 @@ func _on_boss_anim_finished(anim : String):
 			boss_hp_bar.display_health(100, 50)
 			screen_cover.reset()
 			tooltip.visible = true
+		"damaged":
+			pass
 		_:
 			pass
 

@@ -157,7 +157,7 @@ func heart_effect():
 	if is_boss_card:
 		return
 	if power_incr >= 1:
-		hp += 1
+		hp = min(hp+1,10)
 		rank = hp
 		power_incr = 0
 		#update_card_visuals()

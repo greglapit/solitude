@@ -323,6 +323,7 @@ script = ExtResource("1_v51kp")
 layer = -1
 
 [node name="Tooltip" type="PanelContainer" parent="UI"]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -457,6 +458,7 @@ theme_override_font_sizes/font_size = 32
 text = "Round: 00/00"
 
 [node name="BossHealth" parent="UI" instance=ExtResource("5_mnfhq")]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -724,9 +726,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -59.0
+offset_left = -205.0
 offset_top = -28.0
-offset_right = -19.0
+offset_right = -70.0
 offset_bottom = -8.395
 grow_horizontal = 2
 grow_vertical = 2
@@ -753,7 +755,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_mrwyy")
 [node name="Label" type="Label" parent="UI/DeathNotif/PanelContainer/MarginContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "You Died"
+text = "You Died. Press r to restart"
 
 [node name="GGNotif" type="CanvasLayer" parent="UI"]
 visible = false

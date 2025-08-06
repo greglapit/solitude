@@ -20,7 +20,7 @@ func display_health(_hp : float, _max_health : int = 20):
 		AP.play("wiggle")
 	
 	# Number
-	var _display_health = int(round(hp / (100 / _max_health)))
+	var _display_health = int(hp) / (100 / _max_health)
 	nums.text = str(_display_health) + "/" + str(_max_health)
 
 func health_shield(toggle : bool):

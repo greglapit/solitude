@@ -3,6 +3,7 @@ extends Node2D
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var scream_effect : CPUParticles2D = $ScreamEffect
 @onready var label : Label = $Label
+@onready var AP : AnimationPlayer = $AnimationPlayer
 
 var scream_counter : int = 3
 var starting_health : int = 50
@@ -19,8 +20,12 @@ func combat():
 		scream()
 		scream_counter = 3
 
+func damage():
+	AP.play("delayed_damaged")
+
 func _ready() -> void:
 	animated_sprite.animation_finished.connect(_on_animated_sprite_animation_finished)
+	AP.animation_finished.connect(_on_AP_animation_finished)
 	animated_sprite.play("spawn")
 	label.visible = false
 
@@ -32,3 +37,6 @@ func _on_animated_sprite_animation_finished():
 			label.visible = true
 		_:
 			animated_sprite.play("idle")
+
+func _on_AP_animation_finished(anim : String):
+	anim_finished.emit(anim)

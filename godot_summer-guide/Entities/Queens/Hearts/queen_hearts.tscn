@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ch6h352xqxfb7"]
+[gd_scene load_steps=9 format=3 uid="uid://ch6h352xqxfb7"]
 
 [ext_resource type="Texture2D" uid="uid://bnfq5qhs467xj" path="res://Entities/Queens/Hearts/Art/scream_effect.png" id="1_0gkhg"]
 [ext_resource type="Script" uid="uid://ctedgrp2lb262" path="res://Entities/Queens/Hearts/queen_hearts.gd" id="1_sc02k"]
@@ -8,6 +8,42 @@
 [sub_resource type="Curve" id="Curve_sc02k"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="Animation" id="Animation_ivvgl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_sc02k"]
+resource_name = "shake"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.3, 0.4, 0.5, 0.591667, 0.691667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2, -2), Vector2(-1, 0), Vector2(1, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7raii"]
+_data = {
+&"RESET": SubResource("Animation_ivvgl"),
+&"delayed_damaged": SubResource("Animation_sc02k")
+}
 
 [node name="QueenHearts" type="Node2D"]
 z_index = 1
@@ -41,3 +77,8 @@ animation = &"idle"
 
 [node name="Card" parent="." instance=ExtResource("4_sc02k")]
 visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_7raii")
+}
