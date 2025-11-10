@@ -9,3 +9,8 @@
 * gameplay -> fight enemies-> boss x3 -> final boss joker
 * playing with only one suit. Sharpening and chipping.
 
+# Reuben
+
+* Each rank is a weapon type, can trade what is in your armory throughout the game
+* Legendary weapons
+* 
