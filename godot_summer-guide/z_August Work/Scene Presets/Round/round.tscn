@@ -1,0 +1,843 @@
+[gd_scene load_steps=63 format=3 uid="uid://dg6vpywhj8ysh"]
+
+[ext_resource type="Script" uid="uid://cv86rhc4ky02b" path="res://z_August Work/Scene Presets/Round/round.gd" id="1_v51kp"]
+[ext_resource type="Texture2D" uid="uid://btl4p5tbxryyf" path="res://z_August Work/Common/tmp.png" id="2_42ffi"]
+[ext_resource type="Theme" uid="uid://dd180w5mog0qu" path="res://Common/base_theme.tres" id="3_42ffi"]
+[ext_resource type="PackedScene" uid="uid://bok4as3sg7pla" path="res://z_August Work/Assets/ConsoleLog/Scenes/console_log.tscn" id="4_sru8x"]
+[ext_resource type="Texture2D" uid="uid://bdxlm3hc6kd1d" path="res://z_August Work/Assets/Background/Art/card_outline.png" id="5_a85n5"]
+[ext_resource type="PackedScene" uid="uid://7p7q03k0yrpy" path="res://z_August Work/Assets/HealthBar/Scenes/health.tscn" id="5_mnfhq"]
+[ext_resource type="Texture2D" uid="uid://dak1vyn51cvle" path="res://z_August Work/Scene Presets/Round/Art/atk_button1.png" id="7_tncly"]
+[ext_resource type="Texture2D" uid="uid://c74e5cpcovb3n" path="res://z_August Work/Assets/Background/Art/stats_filler.png" id="8_a6nff"]
+[ext_resource type="PackedScene" uid="uid://cb3fnnmlf5dsy" path="res://z_August Work/Assets/JokerEnergy/Scenes/joker_energy.tscn" id="8_fak21"]
+[ext_resource type="Texture2D" uid="uid://d01xupnitmuds" path="res://z_August Work/Scene Presets/Round/Art/atk_button2.png" id="8_hxkkv"]
+[ext_resource type="Shader" uid="uid://ckjucnwkpcxca" path="res://z_August Work/Common/screen_shader.gdshader" id="9_50pvf"]
+[ext_resource type="Texture2D" uid="uid://k6dbq05uuw08" path="res://z_August Work/Assets/Round Counter/Art/small_suits.png" id="10_tncly"]
+[ext_resource type="Texture2D" uid="uid://csmybm73e8y4" path="res://z_August Work/Assets/Background/Art/deck.png" id="11_fagv1"]
+[ext_resource type="PackedScene" uid="uid://ohg3tx37a32g" path="res://z_August Work/Common/Screen Effects/screen_cover.tscn" id="11_fak21"]
+[ext_resource type="Texture2D" uid="uid://cru4vxl1q4tnm" path="res://z_August Work/Assets/Background/Art/red_joker.png" id="13_l8mpv"]
+[ext_resource type="SpriteFrames" uid="uid://c7phi7jsw4333" path="res://z_August Work/Assets/JokerEnergy/AceCounter/sprite_frames.tres" id="15_fak21"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eogvb"]
+bg_color = Color(0.180392, 0.133333, 0.184314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jrk2"]
+bg_color = Color(0.780392, 0.862745, 0.815686, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l8mpv"]
+shader = ExtResource("9_50pvf")
+shader_parameter/radius = 1.0
+shader_parameter/speed = 1.0
+shader_parameter/effect_color = Color(0.251, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6w0o"]
+bg_color = Color(0, 0, 0, 0.343)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42ffi"]
+bg_color = Color(0.180392, 0.133333, 0.184314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jh6ix"]
+bg_color = Color(0.780392, 0.862745, 0.815686, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sru8x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nhgmu"]
+bg_color = Color(0.180392, 0.133333, 0.184314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fak21"]
+bg_color = Color(0.180392, 0.133333, 0.184314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrwyy"]
+bg_color = Color(0.780392, 0.862745, 0.815686, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8mpv"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhgmu"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fak21"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrwyy"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6w0o"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eogvb"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jrk2"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fdul"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xmsh"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7evi"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_20liu"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(640, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pi08c"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(672, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6j1s"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(704, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4yyl"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(736, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l2fix"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(768, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rysvg"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(800, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3aebh"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(832, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfop1"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(864, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yp4qh"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(896, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17ne1"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(928, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dfwju"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(960, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8wv2"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(992, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1pl6"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(1024, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqveh"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(1056, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bv1pt"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(1088, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62k3y"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5kcw"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10rks"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(384, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjlto"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(416, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cb5ju"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(448, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whnfn"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(480, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ets3j"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(512, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oj1rg"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(544, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcpr3"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(576, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8bnlb"]
+atlas = ExtResource("13_l8mpv")
+region = Rect2(608, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l2gcq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8mpv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nhgmu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fak21")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mrwyy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6w0o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eogvb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7jrk2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fdul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2xmsh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7evi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_20liu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pi08c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6j1s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4yyl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l2fix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rysvg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3aebh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nfop1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yp4qh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17ne1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dfwju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8wv2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q1pl6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqveh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bv1pt")
+}],
+"loop": false,
+"name": &"phew",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62k3y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5kcw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10rks")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yjlto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cb5ju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whnfn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ets3j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oj1rg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcpr3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8bnlb")
+}],
+"loop": false,
+"name": &"summon",
+"speed": 10.0
+}]
+
+[node name="Round" type="Node"]
+script = ExtResource("1_v51kp")
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Tooltip" type="PanelContainer" parent="UI"]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -170.0
+offset_top = 64.0
+offset_right = -6.0
+offset_bottom = 223.0
+grow_horizontal = 0
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="UI/Tooltip"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_eogvb")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Tooltip"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Panel" type="Panel" parent="UI/Tooltip/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7jrk2")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Tooltip/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="UI/Tooltip/MarginContainer/MarginContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.180392, 0.133333, 0.184314, 1)
+theme_override_constants/line_spacing = -4
+text = "--------Queen Stats-------
+Doesnt attack directly. Counts as even card
+Screams every 2 rounds:
+ - Damages and chips all 
+   player cards
+ - Deals 5 damage to player
+ - Shields inneffective 
+   against scream
+
+
+PRESS H TO CLOSE"
+autowrap_mode = 2
+text_overrun_behavior = 4
+
+[node name="Background" type="Node" parent="UI"]
+
+[node name="Shader" type="ColorRect" parent="UI/Background"]
+material = SubResource("ShaderMaterial_l8mpv")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Background" type="ColorRect" parent="UI/Background"]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.780392, 0.862745, 0.815686, 1)
+
+[node name="TempStats" type="TextureRect" parent="UI/Background"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 14.0
+offset_top = -51.0
+offset_right = 80.0
+offset_bottom = 50.0
+grow_vertical = 2
+texture = ExtResource("8_a6nff")
+
+[node name="CardPanel2" type="Panel" parent="UI/Background"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -116.0
+offset_top = -100.0
+offset_right = 109.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_c6w0o")
+
+[node name="CardPanel" type="Panel" parent="UI/Background"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -113.0
+offset_top = -97.0
+offset_right = 105.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_c6w0o")
+
+[node name="ConsoleLog" parent="UI" instance=ExtResource("4_sru8x")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = -19.0
+offset_right = 108.0
+offset_bottom = 5.0
+grow_vertical = 0
+pivot_offset = Vector2(43, -22)
+mouse_filter = 2
+
+[node name="RoundLabel" type="Label" parent="UI"]
+offset_left = 42.0
+offset_top = 5.0
+offset_right = 101.0
+offset_bottom = 19.0
+pivot_offset = Vector2(4, 4)
+theme_override_font_sizes/font_size = 32
+text = "Round: 00/00"
+
+[node name="BossHealth" parent="UI" instance=ExtResource("5_mnfhq")]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -160.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 62.0
+grow_horizontal = 0
+
+[node name="Health" parent="UI" instance=ExtResource("5_mnfhq")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -75.0
+offset_right = 162.0
+offset_bottom = -21.0
+grow_vertical = 0
+
+[node name="Atk" type="TextureButton" parent="UI"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -278.0
+offset_top = 21.0
+offset_right = -246.0
+offset_bottom = 53.0
+grow_horizontal = 0
+grow_vertical = 2
+texture_normal = ExtResource("7_tncly")
+texture_pressed = ExtResource("8_hxkkv")
+
+[node name="JokerEnergy" parent="UI" instance=ExtResource("8_fak21")]
+visible = false
+offset_left = -83.0
+offset_right = -11.0
+text = "Joker Energy: 5"
+
+[node name="Buttons" type="VBoxContainer" parent="UI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 117.0
+offset_top = -98.0
+offset_right = 186.0
+offset_bottom = -27.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(53, 12)
+theme_override_constants/separation = 1
+
+[node name="Actions" type="Label" parent="UI/Buttons"]
+layout_mode = 2
+text = "Actions:"
+
+[node name="SharpenPanel" type="PanelContainer" parent="UI/Buttons"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="UI/Buttons/SharpenPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_42ffi")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Buttons/SharpenPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="Panel" type="Panel" parent="UI/Buttons/SharpenPanel/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jh6ix")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Buttons/SharpenPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Buttons/SharpenPanel/MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Buttons/SharpenPanel/MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_42ffi")
+
+[node name="VSeparator" type="VSeparator" parent="UI/Buttons/SharpenPanel/MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 1
+theme_override_styles/separator = SubResource("StyleBoxEmpty_sru8x")
+
+[node name="Label" type="Label" parent="UI/Buttons/SharpenPanel/MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_42ffi")
+text = "Sharpen"
+
+[node name="Sharpen" type="Button" parent="UI/Buttons/SharpenPanel/MarginContainer"]
+layout_mode = 2
+flat = true
+
+[node name="ChipPanel" type="PanelContainer" parent="UI/Buttons"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="UI/Buttons/ChipPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_42ffi")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Buttons/ChipPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="Panel" type="Panel" parent="UI/Buttons/ChipPanel/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jh6ix")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Buttons/ChipPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Buttons/ChipPanel/MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Buttons/ChipPanel/MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_42ffi")
+
+[node name="VSeparator" type="VSeparator" parent="UI/Buttons/ChipPanel/MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 1
+theme_override_styles/separator = SubResource("StyleBoxEmpty_sru8x")
+
+[node name="Label" type="Label" parent="UI/Buttons/ChipPanel/MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_42ffi")
+text = "Chip"
+
+[node name="Chip" type="Button" parent="UI/Buttons/ChipPanel/MarginContainer"]
+layout_mode = 2
+flat = true
+
+[node name="DrawPanel" type="PanelContainer" parent="UI/Buttons"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="UI/Buttons/DrawPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_42ffi")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Buttons/DrawPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="Panel" type="Panel" parent="UI/Buttons/DrawPanel/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jh6ix")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Buttons/DrawPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Buttons/DrawPanel/MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Buttons/DrawPanel/MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_42ffi")
+
+[node name="VSeparator" type="VSeparator" parent="UI/Buttons/DrawPanel/MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 1
+theme_override_styles/separator = SubResource("StyleBoxEmpty_sru8x")
+
+[node name="Label" type="Label" parent="UI/Buttons/DrawPanel/MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_42ffi")
+text = "Draw"
+
+[node name="Draw" type="Button" parent="UI/Buttons/DrawPanel/MarginContainer"]
+layout_mode = 2
+flat = true
+
+[node name="HelpScreen" type="CanvasLayer" parent="UI"]
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/HelpScreen"]
+clip_contents = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="UI/HelpScreen/PanelContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nhgmu")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/HelpScreen/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="Label" type="Label" parent="UI/HelpScreen/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_constants/line_spacing = -4
+theme_override_font_sizes/font_size = 16
+text = "--------------------------Controls----------------------------
+Double click to select cards. Only one action per turn.
+h - help
+r - restart game
+q - quit
+
+------------------------Gameplay---------------------------
+
+Heal by charing up ace power
+
+---------------------------Cards------------------------------
+EACH HAS DURABILITY OF 3
+Ace - Recharge ace energy. Recharges two when hitting other ace
+2 - Deals 3X damage to even cards
+3 - Deals 2X damage to odd cards
+4 - Provides one hit shield after hit (cant shield twice)
+5 - Something cool
+6 - Something cooler
+7-13 - Absolutely cracked
+Ace High (endgame) - Insanity
+"
+autowrap_mode = 1
+text_overrun_behavior = 4
+
+[node name="DeathNotif" type="CanvasLayer" parent="UI"]
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/DeathNotif"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -205.0
+offset_top = -28.0
+offset_right = -70.0
+offset_bottom = -8.395
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+
+[node name="Panel" type="Panel" parent="UI/DeathNotif/PanelContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fak21")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/DeathNotif/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/DeathNotif/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="UI/DeathNotif/PanelContainer/MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mrwyy")
+
+[node name="Label" type="Label" parent="UI/DeathNotif/PanelContainer/MarginContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "You Died. Press r to restart"
+
+[node name="GGNotif" type="CanvasLayer" parent="UI"]
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/GGNotif"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -164.0
+offset_top = -32.0
+offset_right = -55.0
+offset_bottom = -12.395
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+
+[node name="Panel" type="Panel" parent="UI/GGNotif/PanelContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fak21")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GGNotif/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GGNotif/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="UI/GGNotif/PanelContainer/MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mrwyy")
+
+[node name="Label" type="Label" parent="UI/GGNotif/PanelContainer/MarginContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = " GG. Press r to restart "
+
+[node name="ScreenCover" parent="." instance=ExtResource("11_fak21")]
+z_index = 1
+
+[node name="Deco" type="Node2D" parent="."]
+
+[node name="ActiveCardZone" type="Sprite2D" parent="Deco"]
+position = Vector2(320, 217)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("5_a85n5")
+flip_v = true
+
+[node name="SuitZone" type="Sprite2D" parent="Deco"]
+position = Vector2(18, 19)
+scale = Vector2(2, 2)
+texture = ExtResource("10_tncly")
+hframes = 4
+
+[node name="Deck" type="Sprite2D" parent="Deco"]
+position = Vector2(580, 283)
+scale = Vector2(2, 2)
+texture = ExtResource("11_fagv1")
+
+[node name="RedJoker" type="AnimatedSprite2D" parent="Deco"]
+position = Vector2(565, 265)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_l2gcq")
+autoplay = "default"
+offset = Vector2(5, -7)
+
+[node name="AceCharges" type="Node2D" parent="Deco"]
+position = Vector2(-613, -354)
+scale = Vector2(2, 2)
+
+[node name="AceCharge1" type="AnimatedSprite2D" parent="Deco/AceCharges"]
+position = Vector2(579, 341)
+sprite_frames = ExtResource("15_fak21")
+
+[node name="AceCharge2" type="AnimatedSprite2D" parent="Deco/AceCharges"]
+position = Vector2(595, 341)
+sprite_frames = ExtResource("15_fak21")
+
+[node name="AceCharge3" type="AnimatedSprite2D" parent="Deco/AceCharges"]
+position = Vector2(611, 341)
+sprite_frames = ExtResource("15_fak21")

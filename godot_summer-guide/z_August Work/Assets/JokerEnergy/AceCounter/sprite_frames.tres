@@ -1,0 +1,69 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://c7phi7jsw4333"]
+
+[ext_resource type="Texture2D" uid="uid://c0m7uidgt44to" path="res://z_August Work/Assets/JokerEnergy/AceCounter/Art/joker_energy_empty.png" id="1_nadcr"]
+[ext_resource type="Texture2D" uid="uid://dx737pn3l6nj5" path="res://z_August Work/Assets/JokerEnergy/AceCounter/Art/joker_energy.png" id="2_r7gv0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oa2au"]
+atlas = ExtResource("2_r7gv0")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cln15"]
+atlas = ExtResource("2_r7gv0")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1a243"]
+atlas = ExtResource("2_r7gv0")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wa7ns"]
+atlas = ExtResource("2_r7gv0")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4eqn"]
+atlas = ExtResource("2_r7gv0")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18dd7"]
+atlas = ExtResource("2_r7gv0")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qcv1f"]
+atlas = ExtResource("2_r7gv0")
+region = Rect2(96, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_nadcr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oa2au")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cln15")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1a243")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wa7ns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4eqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18dd7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qcv1f")
+}],
+"loop": false,
+"name": &"fill",
+"speed": 15.0
+}]

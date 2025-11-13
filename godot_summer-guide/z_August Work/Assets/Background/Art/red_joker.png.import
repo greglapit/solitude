@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yk4odrrcvqpd"
-path="res://.godot/imported/icon.svg-c8ac8d3c6e6f1bec1ea8f58db377ead4.ctex"
+uid="uid://cru4vxl1q4tnm"
+path="res://.godot/imported/red_joker.png-9938eded0629da0bce73d77618ff1199.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Common/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-c8ac8d3c6e6f1bec1ea8f58db377ead4.ctex"]
+source_file="res://z_August Work/Assets/Background/Art/red_joker.png"
+dest_files=["res://.godot/imported/red_joker.png-9938eded0629da0bce73d77618ff1199.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

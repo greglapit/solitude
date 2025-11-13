@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yk4odrrcvqpd"
-path="res://.godot/imported/icon.svg-c8ac8d3c6e6f1bec1ea8f58db377ead4.ctex"
+uid="uid://doqvwypsairv4"
+path="res://.godot/imported/icon.svg-386a5f8699d67908e171fe7c040cc346.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Common/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-c8ac8d3c6e6f1bec1ea8f58db377ead4.ctex"]
+source_file="res://z_August Work/Common/icon.svg"
+dest_files=["res://.godot/imported/icon.svg-386a5f8699d67908e171fe7c040cc346.ctex"]
 
 [params]
 

@@ -5,6 +5,7 @@
 * Representative of new beginnings
 	* New beginnings of player game runs
 * Constantly being born anew
+* Tragedy emerges from constantly being thrown into the world, journeying, saving people, ending black jokers reign, yet forced to repeatedly forget, begin anew, all experience wiped from existence
 
 # Key Visuals
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yk4odrrcvqpd"
-path="res://.godot/imported/icon.svg-c8ac8d3c6e6f1bec1ea8f58db377ead4.ctex"
+uid="uid://bdxlm3hc6kd1d"
+path="res://.godot/imported/card_outline.png-793c37083dd61c5e88654145065676c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Common/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-c8ac8d3c6e6f1bec1ea8f58db377ead4.ctex"]
+source_file="res://z_August Work/Assets/Background/Art/card_outline.png"
+dest_files=["res://.godot/imported/card_outline.png-793c37083dd61c5e88654145065676c3.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

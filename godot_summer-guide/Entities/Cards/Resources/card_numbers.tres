@@ -1,8 +1,0 @@
-[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://bv4ikr3pa37qo"]
-
-[ext_resource type="FontFile" uid="uid://2j1mnjkq0kkf" path="res://Common/BitPotionExt.ttf" id="1_hoocc"]
-
-[resource]
-font = ExtResource("1_hoocc")
-font_size = 320
-font_color = Color(0.180392, 0.133333, 0.184314, 1)

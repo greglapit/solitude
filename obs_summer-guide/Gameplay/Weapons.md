@@ -31,6 +31,8 @@
 * Powers: Healing, shielding, intangability, shield bashing for stuns
 * 
 ![[Pasted image 20251031213453.png|200]]
+
+* Variants : Bubble
 ## 5 - Gauntlet
 
 * Protection + Chaos
