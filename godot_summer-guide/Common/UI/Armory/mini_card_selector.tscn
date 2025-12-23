@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=3 uid="uid://c77td77xx3lmt"]
+
+[ext_resource type="Script" uid="uid://cekuira0t1ibx" path="res://Common/UI/Armory/mini_card_selector.gd" id="1_gg1fl"]
+
+[node name="MiniCardSelector" type="Control"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_gg1fl")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -196.0
+offset_top = -68.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 48)
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 48)
+layout_mode = 2
+
+[node name="Panel3" type="Panel" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 48)
+layout_mode = 2
+
+[node name="Panel4" type="Panel" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 48)
+layout_mode = 2
+
+[node name="Panel5" type="Panel" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 48)
+layout_mode = 2

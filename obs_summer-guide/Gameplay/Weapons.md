@@ -15,14 +15,15 @@
 * Powers: Bleed, double attack, momentum building (attacking multiple times does more damage)
 ![[Dualdaggers.png|300]]
 
-* Variants: Nunchucks
+* Variants: Nunchucks. Respawning Throwing Knives
 ## 3 - Trident
 
 * Illusion, seas, storm. Cycles, motion
 * Gem is the three of the prongs
 * Example: Poseidon
 * Powers: Illusory, moving enemy, adjusting turn order, stabbing
-* ![[Pasted image 20251031213431.png|300]]
+![[Pasted image 20251031213431.png|300]]
+* A Fork, an outlet
 ## 4 - Shield
 
 * Cardinal directions, 4 elements, protection
@@ -37,17 +38,18 @@
 
 * Protection + Chaos
 * Gem on each finger. Can appear as gauntlet, claw hand
-* Example: Thanos, terraria
-* Powers: Double gauntlet, single, infinity stones, 
+* Example: Thanos, terraria, Creeping Hunger (hands eating enemies for power?)
+* Powers: Double gauntlet, single, infinity stones,
 ![[Pasted image 20251031213533.png|300]]
 ## 6 - Chain
 * Binding, hexes, whip
 * Hexagrams
 * Examples: Rider (Fate series)
 * Powers: Stunning enemies, binding, self-restraining (sylas, kurupika personal vow)
+* Fiddlesticks tether to all cards
 
 ![[Pasted image 20251031213553.png]]
-* Variants: Tentacle
+* Variants: Tentacle. The Yoyo. Chain. String. Urumi
 ## 7 - Scythe
 * Reaping, life-stealing, death, fates
 * 7 is shaped like scythe
@@ -72,6 +74,7 @@
 * Powers: Channeling, knowledge, counterattacking, blocking
 
 ![[Pasted image 20251031213814.png | 300]]
+* Variations: Flail. Staff. Mordekaiser Weapon
 ## 10 - The Wheel 
 
 * Counting, completion, rebirth,

@@ -1,4 +1,4 @@
-class_name Card
+#class_name Card
 extends Node2D
 
 enum Suits {
@@ -15,7 +15,7 @@ var power_incr : int = 0   #Keeps track of suit specific interactions. See *suit
 var is_player_card : bool = false
 var is_boss_card : bool = false
 var is_card_attacking : bool = false
-const card_scn : PackedScene = preload("res://Entities/Cards/Scenes/card.tscn")
+const card_scn : PackedScene = preload("res://z_August Work/Entities/Cards/Scenes/card.tscn")
 var red = Color.html("#b33831")
 var black = Color.html("#2e222f")
 var ranks = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]

@@ -8,7 +8,6 @@ Enemies
 * Benefits ranks as health
 * Benefits:
 	* Easy understandability/implementation
-	* 
 
 Outside Combat:  
 * Deck alterations/Pool weighting Removing weapons from weapon pool. "I don't need to remember this recipe. I've got more important things"  

@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbuv41jwgctxt"]
+
+[ext_resource type="Texture2D" uid="uid://lm5lr2v6x8fn" path="res://Common/UI/Armory/Art/mini_cards.png" id="1_80ril"]
+[ext_resource type="Script" uid="uid://n8p0o6l1vo3d" path="res://Common/UI/Armory/mini_card.gd" id="1_lgfv0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_80ril"]
+size = Vector2(28, 43)
+
+[node name="MiniCard" type="Area2D"]
+script = ExtResource("1_lgfv0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_80ril")
+hframes = 4
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -10.0
+offset_top = -15.0
+offset_right = 10.0
+offset_bottom = 15.0
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = -4.0
+offset_right = 41.0
+offset_bottom = 10.0
+text = "A"
+
+[node name="Label2" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -12.0
+offset_bottom = 2.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "A"
+horizontal_alignment = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_80ril")
