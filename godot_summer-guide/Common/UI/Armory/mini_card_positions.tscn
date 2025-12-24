@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://c77td77xx3lmt"]
+[gd_scene load_steps=4 format=3 uid="uid://c77td77xx3lmt"]
 
-[ext_resource type="Script" uid="uid://cekuira0t1ibx" path="res://Common/UI/Armory/mini_card_selector.gd" id="1_gg1fl"]
+[ext_resource type="Script" uid="uid://cekuira0t1ibx" path="res://Common/UI/Armory/mini_card_positions.gd" id="1_gg1fl"]
 
-[node name="MiniCardSelector" type="Control"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gg1fl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6o48v"]
+
+[node name="MiniCardPositions" type="Control"]
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -11,6 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 0
+mouse_behavior_recursive = 1
 script = ExtResource("1_gg1fl")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -30,24 +35,31 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_direction = 3
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 48)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_gg1fl")
 
 [node name="Panel2" type="Panel" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 48)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6o48v")
 
 [node name="Panel3" type="Panel" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 48)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6o48v")
 
 [node name="Panel4" type="Panel" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 48)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6o48v")
 
 [node name="Panel5" type="Panel" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 48)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6o48v")

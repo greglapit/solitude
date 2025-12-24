@@ -6,6 +6,10 @@ extends Control
 @onready var panel4 : Panel = $MarginContainer/HBoxContainer/Panel4
 @onready var panel5 : Panel = $MarginContainer/HBoxContainer/Panel5
 
-func get_mini_pos() -> Array[Vector2]:
-	var positions = [panel1.position, panel2.position, panel3.position, panel4.position, panel5.position]
+func get_mini_pos() -> Array:
+	var positions : Array = [panel1.global_position, panel2.global_position, panel3.global_position, panel4.global_position, panel5.global_position]
+	
+	# Changes positions to center
+	positions = positions.map(func(v: Vector2) -> Vector2: return v + (panel1.size * .5))
+		
 	return positions

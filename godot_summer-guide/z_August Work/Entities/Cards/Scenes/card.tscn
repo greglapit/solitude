@@ -1,9 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://bt8nqftk4jkv3"]
+[gd_scene load_steps=16 format=3 uid="uid://bt8nqftk4jkv3"]
 
 [ext_resource type="Script" uid="uid://bb44j18wfyhe3" path="res://z_August Work/Entities/Cards/card.gd" id="1_0oiq5"]
 [ext_resource type="Texture2D" uid="uid://b8svyhmhccgte" path="res://z_August Work/Entities/Cards/Art/bare_diamond.png" id="2_q0hhy"]
+[ext_resource type="Material" uid="uid://caqufdbmf7gd0" path="res://Common/highlight_material.tres" id="3_ioggq"]
 [ext_resource type="FontFile" uid="uid://2j1mnjkq0kkf" path="res://z_August Work/Common/BitPotionExt.ttf" id="3_m2hva"]
-[ext_resource type="Shader" uid="uid://dpl8wpt3i7od7" path="res://z_August Work/Entities/Cards/Shaders/selected_shader.gdshader" id="4_qdsni"]
 
 [sub_resource type="Animation" id="Animation_4ryhe"]
 length = 0.001
@@ -223,12 +223,6 @@ tracks/2/keys = {
 [sub_resource type="Animation" id="Animation_7w06l"]
 resource_name = "queue_free"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qdsni"]
-shader = ExtResource("4_qdsni")
-shader_parameter/shine_color = Vector4(1, 1, 1, 1)
-shader_parameter/shine_speed = 1.5
-shader_parameter/shine_size = 0.1
-
 [sub_resource type="Animation" id="Animation_05v2h"]
 resource_name = "selected"
 loop_mode = 1
@@ -266,7 +260,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [SubResource("ShaderMaterial_qdsni")]
+"values": [ExtResource("3_ioggq")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false

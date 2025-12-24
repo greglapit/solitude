@@ -28,12 +28,12 @@ offset_bottom = 360.0
 texture = ExtResource("1_wqxgi")
 
 [node name="PixelFogShader" type="ColorRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_7e3i2")
 offset_left = -188.0
 offset_top = -54.0
 offset_right = 760.0
 offset_bottom = 446.0
-mouse_filter = 2
 
 [node name="Player" parent="." instance=ExtResource("2_3qw02")]
-position = Vector2(302, 246)
+position = Vector2(326, 223)

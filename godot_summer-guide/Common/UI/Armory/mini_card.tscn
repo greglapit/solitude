@@ -1,50 +1,184 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbuv41jwgctxt"]
+[gd_scene load_steps=10 format=3 uid="uid://bbuv41jwgctxt"]
 
 [ext_resource type="Texture2D" uid="uid://lm5lr2v6x8fn" path="res://Common/UI/Armory/Art/mini_cards.png" id="1_80ril"]
 [ext_resource type="Script" uid="uid://n8p0o6l1vo3d" path="res://Common/UI/Armory/mini_card.gd" id="1_lgfv0"]
+[ext_resource type="Material" uid="uid://caqufdbmf7gd0" path="res://Common/highlight_material.tres" id="2_1ir2r"]
+
+[sub_resource type="Animation" id="Animation_1ir2r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D/Sprite2D:material")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+
+[sub_resource type="Animation" id="Animation_lgfv0"]
+resource_name = "raised"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D/Sprite2D:material")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_1ir2r")]
+}
+
+[sub_resource type="Animation" id="Animation_etsk7"]
+resource_name = "break"
+length = 0.6
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [27, 28]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_88lvb"]
+resource_name = "shake"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2, 0), Vector2(-2, 0), Vector2(2, 0), Vector2(-2, 0), Vector2(0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"RESET", -1, 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_etsk7"]
+_data = {
+&"RESET": SubResource("Animation_1ir2r"),
+&"break": SubResource("Animation_etsk7"),
+&"selected": SubResource("Animation_lgfv0"),
+&"shake": SubResource("Animation_88lvb")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80ril"]
-size = Vector2(28, 43)
+size = Vector2(27, 43.5)
 
 [node name="MiniCard" type="Area2D"]
 script = ExtResource("1_lgfv0")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_80ril")
-hframes = 4
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_etsk7")
+}
 
-[node name="Control" type="Control" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_80ril")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+position = Vector2(-0.5, -0.25)
+texture = ExtResource("1_80ril")
+hframes = 32
+frame = 27
+
+[node name="Labels" type="Control" parent="CollisionShape2D"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -10.0
-offset_top = -15.0
+offset_top = -15.5
 offset_right = 10.0
-offset_bottom = 15.0
+offset_bottom = 14.5
+mouse_behavior_recursive = 1
 
-[node name="Label" type="Label" parent="Control"]
+[node name="Label" type="Label" parent="CollisionShape2D/Labels"]
 layout_mode = 0
 offset_left = 1.0
 offset_top = -4.0
 offset_right = 41.0
 offset_bottom = 10.0
+theme_override_colors/font_color = Color(0.7019608, 0.21960784, 0.19215687, 1)
 text = "A"
 
-[node name="Label2" type="Label" parent="Control"]
+[node name="Label2" type="Label" parent="CollisionShape2D/Labels"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -12.0
-offset_bottom = 2.0
+offset_left = -41.0
+offset_top = -11.5
+offset_right = -1.0
+offset_bottom = 2.5
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_colors/font_color = Color(0.7019608, 0.21960784, 0.19215687, 1)
 text = "A"
 horizontal_alignment = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_80ril")

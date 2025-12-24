@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://wserlwv1gm1i"]
+
+[ext_resource type="Script" uid="uid://bxhlinkagf4tr" path="res://Entities/Weapons/1/1_base_weapon.gd" id="1_xd8nw"]
+
+[node name="7BaseWeapon" type="Node2D"]
+script = ExtResource("1_xd8nw")
+
+[node name="WeaponEffects" type="AnimationPlayer" parent="."]
