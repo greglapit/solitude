@@ -1,3 +1,21 @@
+* Joker Reaction Corner.  Ultra kill. Mega Kill. Ludacrious kill. Holy SHIT (ALLBL4CK)
+	* Joker spits out card into weapon slot when drawing. Draw button is under image
+* Weapon Display corner. Weapon details, image, name, cut and polish
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Create satisfying player attack system first, ignore enemies, just have dummy hit system  
 * Drawing random weapon  
 * Chipping and sharpening, 5 total durability  

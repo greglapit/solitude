@@ -1,0 +1,142 @@
+[gd_scene load_steps=10 format=3 uid="uid://dhcp5xhhbvfsa"]
+
+[ext_resource type="Texture2D" uid="uid://dq3lmmcwyqks6" path="res://Common/UI/WeaponDisplay/Art/BackgroundElements/border.png" id="1_lakbu"]
+[ext_resource type="Script" uid="uid://cusppjlshxdy4" path="res://Common/UI/WeaponDisplay/weapon_display.gd" id="1_mm5xb"]
+[ext_resource type="Texture2D" uid="uid://c33momyuwfb5g" path="res://Common/UI/WeaponDisplay/Art/BackgroundElements/weapon_display_background.png" id="1_qtw0e"]
+[ext_resource type="Texture2D" uid="uid://dp5xoqoe5e5sa" path="res://Common/UI/WeaponDisplay/Art/BackgroundElements/name_banner.png" id="3_yvjsa"]
+[ext_resource type="Texture2D" uid="uid://c511lxg4jtk1f" path="res://Common/UI/WeaponDisplay/Art/BackgroundElements/weapon_banner.png" id="4_mm5xb"]
+[ext_resource type="Texture2D" uid="uid://dcqixavooiiev" path="res://Common/UI/WeaponDisplay/Art/BackgroundElements/button1.png" id="5_lfrrw"]
+[ext_resource type="Texture2D" uid="uid://byjwkfff5cxqe" path="res://Common/UI/WeaponDisplay/Art/BackgroundElements/weapon_art_filler.png" id="5_yvjsa"]
+[ext_resource type="Texture2D" uid="uid://t8wqj3ln7bdw" path="res://Common/UI/WeaponDisplay/Art/BackgroundElements/button2.png" id="6_q6tnq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2jaol"]
+bg_color = Color(0.49803922, 0.4392157, 0.5411765, 1)
+
+[node name="WeaponDisplay" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_mm5xb")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -178.0
+offset_top = -180.0
+offset_bottom = 180.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = -2
+alignment = 2
+
+[node name="Border" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_lakbu")
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2jaol")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="JokerBg" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_qtw0e")
+
+[node name="Equipped" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = " Equipped:"
+
+[node name="NameBanner" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_yvjsa")
+
+[node name="WeaponName" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/NameBanner"]
+layout_mode = 0
+offset_top = 2.0
+offset_right = 160.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 32
+text = "WEAPON NAME :D"
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="WeaponBanner" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("4_mm5xb")
+
+[node name="WeaponArt" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("5_yvjsa")
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="DrawButton" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_lfrrw")
+
+[node name="Draw" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 2.0
+offset_right = 50.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
+text = "DRAW"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="CutButton" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_lfrrw")
+
+[node name="Cut" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/CutButton"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 2.0
+offset_right = 50.0
+offset_bottom = 16.0
+text = "CUT"
+horizontal_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="PolishButton" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("6_q6tnq")
+
+[node name="Polish" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/PolishButton"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 2.0
+offset_right = 50.0
+offset_bottom = 16.0
+text = "POLISH"
+horizontal_alignment = 1
+
+[node name="ItemDescription" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "-FILLER FILLER FILLER
+-FILLER FILLER FILLER
+-FILLER FILLER FILLER"
+
+[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton" to="." method="_on_draw_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/CutButton" to="." method="_on_cut_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/PolishButton" to="." method="_on_polish_button_pressed"]

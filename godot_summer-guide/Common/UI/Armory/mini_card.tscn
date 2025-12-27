@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bbuv41jwgctxt"]
+[gd_scene load_steps=12 format=3 uid="uid://bbuv41jwgctxt"]
 
 [ext_resource type="Texture2D" uid="uid://lm5lr2v6x8fn" path="res://Common/UI/Armory/Art/mini_cards.png" id="1_80ril"]
 [ext_resource type="Script" uid="uid://n8p0o6l1vo3d" path="res://Common/UI/Armory/mini_card.gd" id="1_lgfv0"]
@@ -6,6 +6,7 @@
 
 [sub_resource type="Animation" id="Animation_1ir2r"]
 length = 0.001
+step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -30,32 +31,19 @@ tracks/1/keys = {
 "update": 1,
 "values": [null]
 }
-
-[sub_resource type="Animation" id="Animation_lgfv0"]
-resource_name = "raised"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -4)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape2D/Sprite2D:material")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_1ir2r")]
+"values": [{
+"args": [],
+"method": &"update_visuals"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_etsk7"]
@@ -89,6 +77,49 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_8g1oc"]
+resource_name = "equip"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [27, 28]
+}
+
+[sub_resource type="Animation" id="Animation_lgfv0"]
+resource_name = "raised"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D/Sprite2D:material")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_1ir2r")]
+}
+
 [sub_resource type="Animation" id="Animation_88lvb"]
 resource_name = "shake"
 length = 0.5
@@ -120,12 +151,31 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_tsy6o"]
+resource_name = "spawn"
+length = 0.5
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [28, 27]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_etsk7"]
 _data = {
 &"RESET": SubResource("Animation_1ir2r"),
 &"break": SubResource("Animation_etsk7"),
+&"equip": SubResource("Animation_8g1oc"),
 &"selected": SubResource("Animation_lgfv0"),
-&"shake": SubResource("Animation_88lvb")
+&"shake": SubResource("Animation_88lvb"),
+&"spawn": SubResource("Animation_tsy6o")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80ril"]
@@ -182,3 +232,5 @@ grow_vertical = 0
 theme_override_colors/font_color = Color(0.7019608, 0.21960784, 0.19215687, 1)
 text = "A"
 horizontal_alignment = 2
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

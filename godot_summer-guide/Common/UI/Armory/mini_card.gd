@@ -71,7 +71,8 @@ func select() -> void:
 	
 func deselect() -> void:
 	selected = false
-	animation_player.play("RESET")
+	if animation_player.current_animation == "selected":		# Prevents overwriting of animation
+		animation_player.play("RESET")							# if player stops hovering
 	return
 
 func damage(amount : int = 1) -> void:
@@ -103,22 +104,29 @@ func update_visuals() -> void:
 	# Frames for card variant are stored every 4. Obscure math to account for this animation
 	var frame : int = (sprite2d.frame) % 4
 	sprite2d.frame = frame + (4 * (5 - durability))
-	label1.text = str(rank)
-	label2.text = str(rank)
+	label1.text = ranks[rank]
+	label2.text = ranks[rank]
+
+func play(anim : String, reverse : bool = false) -> void:
+	if reverse:
+		animation_player.play_backwards(anim)
+	else:
+		animation_player.play(anim)
 
 # === Built In =================================================================
 
 func _ready() -> void:
-	
-	# Set labels
-	label1.text = str(ranks[rank])
-	label2.text = str(ranks[rank])
-	
 	# Assigns random edge texture
 	sprite2d.frame = randi() % 4
+	animation_player.play("spawn")
+	update_visuals()
 	pass
 	
 func _input(_event: InputEvent) -> void:
 	pass
 
 # === Signals ==================================================================
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name != "RESET":
+		animation_player.play("RESET")

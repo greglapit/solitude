@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://0tk7al8pp3w"]
+[gd_scene load_steps=8 format=3 uid="uid://0tk7al8pp3w"]
 
 [ext_resource type="Shader" uid="uid://bvu6mr6dwkfa5" path="res://Scenes/Battle/Art/fog_shader.gdshader" id="1_c8wje"]
 [ext_resource type="Script" uid="uid://bvnir8m4dq0uv" path="res://Scenes/battle.gd" id="1_o8bsx"]
 [ext_resource type="Texture2D" uid="uid://cmbcyj88a71q5" path="res://Scenes/Battle/Art/game_background.png" id="1_wqxgi"]
 [ext_resource type="PackedScene" uid="uid://bewmpgn4nhlxk" path="res://Entities/Player/player.tscn" id="2_3qw02"]
+[ext_resource type="PackedScene" uid="uid://dhcp5xhhbvfsa" path="res://Common/UI/WeaponDisplay/weapon_display.tscn" id="2_en5gs"]
 [ext_resource type="PackedScene" uid="uid://c77td77xx3lmt" path="res://Common/UI/Armory/mini_card_positions.tscn" id="2_o8bsx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7e3i2"]
@@ -18,6 +19,15 @@ shader_parameter/NumDivisions = 32
 script = ExtResource("1_o8bsx")
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="WeaponDisplay" parent="UI" instance=ExtResource("2_en5gs")]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="MiniCardPositions" parent="UI" instance=ExtResource("2_o8bsx")]
 mouse_filter = 2
@@ -36,4 +46,5 @@ offset_bottom = 446.0
 mouse_filter = 2
 
 [node name="Player" parent="." instance=ExtResource("2_3qw02")]
-position = Vector2(302, 246)
+position = Vector2(309, 242)
+scale = Vector2(1, 1)
