@@ -8,7 +8,7 @@ enum Suits {
 	SPADE,
 	CLUB
 }
-var rank : int = 0
+var rank : int = -1
 var suit : Suits = Suits.DIAMOND
 var ranks : Array = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 var selected : bool = false
@@ -80,25 +80,27 @@ func damage(amount : int = 1) -> void:
 	if durability <= 0:
 		free.emit(self)
 		animation_player.play("break")
-	
-func chip(amount : int = 1) -> void:
-	if durability <= 1 or \
-	not Globals.available_ranks.has(rank - amount):
+
+## Returns true if successful
+func cut(amount : int = 1) -> bool:
+	if durability <= 1 or not Globals.available_ranks.has(rank - amount):
 		animation_player.play("shake")
-		return
+		return false
 		
 	damage()
 	rank -= amount
 	update_visuals()
+	return true
 	
-func sharpen(amount : int = 1) -> void:
-	if durability <= 1 or \
-	not Globals.available_ranks.has(rank + amount):
+## Returns true if successful
+func polish(amount : int = 1) -> bool:
+	if durability <= 1 or not Globals.available_ranks.has(rank + amount):
 		animation_player.play("shake")
-		return
+		return false
 	damage()
 	rank += amount
 	update_visuals()
+	return true
 	
 func update_visuals() -> void:
 	# Frames for card variant are stored every 4. Obscure math to account for this animation

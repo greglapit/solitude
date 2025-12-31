@@ -5,7 +5,9 @@ extends Weapon
 # === Built In =================================================================
 
 func _ready() -> void:
-	pass
+	rank = 5
+	file_name = "5_base_weapon"
+	display_name = "PLACEHOLDER"
 	
 func _input(_event: InputEvent) -> void:
 	pass

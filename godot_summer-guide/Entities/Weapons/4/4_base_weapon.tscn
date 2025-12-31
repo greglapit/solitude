@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://c6sg4ux65847u"]
 
-[ext_resource type="Script" uid="uid://bxhlinkagf4tr" path="res://Entities/Weapons/1/1_base_weapon.gd" id="1_p3igp"]
+[ext_resource type="Script" uid="uid://bxo61dbmcgej4" path="res://Entities/Weapons/4/4_base_weapon.gd" id="1_ordne"]
 
 [node name="4BaseWeapon" type="Node2D"]
-script = ExtResource("1_p3igp")
+script = ExtResource("1_ordne")
 
 [node name="WeaponEffects" type="AnimationPlayer" parent="."]
