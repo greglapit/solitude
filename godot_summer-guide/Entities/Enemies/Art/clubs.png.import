@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lm5lr2v6x8fn"
-path="res://.godot/imported/mini_cards.png-aad1456ec8f066b1a35f62e5fe5c0398.ctex"
+uid="uid://dmu88ul61y68r"
+path="res://.godot/imported/clubs.png-838a5e2eb85aed31eb644aeb2965f0a5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Common/UI/Armory/Art/mini_cards.png"
-dest_files=["res://.godot/imported/mini_cards.png-aad1456ec8f066b1a35f62e5fe5c0398.ctex"]
+source_file="res://Entities/Enemies/Art/clubs.png"
+dest_files=["res://.godot/imported/clubs.png-838a5e2eb85aed31eb644aeb2965f0a5.ctex"]
 
 [params]
 

@@ -11,11 +11,6 @@
 
 
 
-
-
-
-
-
 Create satisfying player attack system first, ignore enemies, just have dummy hit system  
 * Drawing random weapon  
 * Chipping and sharpening, 5 total durability  

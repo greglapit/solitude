@@ -78,7 +78,7 @@
 ## 10 - The Wheel 
 
 * Counting, completion, rebirth,
-* Examples: Mahoraga, pirate ship wheel
+* Examples: Mahoraga, pirate ship wheel. Giant Clock
 * Powers: Countdown fights only one leaves (mahoraga summoning), enemy 
 
 ![[Pasted image 20251031213836.png|500]]

@@ -15,7 +15,7 @@ void fragment() {
 		COLOR = COLOR + vec4(.1);
 	}
 	// Shine Effect
-	vec4 target_red = vec4(0.702, 0.22, 0.192, 1.0);
+	//vec4 target_red = vec4(0.702, 0.22, 0.192, 1.0);
 	if (COLOR.r > 0.7 && COLOR.g < 0.3) {
 		COLOR = texture(TEXTURE,UV);
 		float shine = step(1.0 - shine_size * 0.5, 0.5 + 0.5 * sin(UV.x + UV.y + TIME * shine_speed * 5.0));

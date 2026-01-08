@@ -15,9 +15,10 @@ var selected : bool = false
 var durability : int = 5
 
 # Visuals
-const card_scn : PackedScene = preload("res://Common/UI/Armory/mini_card.tscn")
+const card_scn : PackedScene = preload("res://Entities/MiniCard/mini_card.tscn")
 var red : Color = Color.html("#b33831")
 var black : Color = Color.html("#2e222f")
+var sprite_variant : int = -1
 
 signal free
 
@@ -66,7 +67,7 @@ func set_suit(_suit : Suits) -> void:
 
 func select() -> void:
 	selected = true
-	animation_player.play("selected")
+	animation_player.queue("selected")
 	return
 	
 func deselect() -> void:
@@ -103,9 +104,8 @@ func polish(amount : int = 1) -> bool:
 	return true
 	
 func update_visuals() -> void:
-	# Frames for card variant are stored every 4. Obscure math to account for this animation
-	var frame : int = (sprite2d.frame) % 4
-	sprite2d.frame = frame + (4 * (5 - durability))
+	# Frames for card variant are stored every 4. Math to account for this animation
+	sprite2d.frame = sprite_variant + (4 * (5 - durability))
 	label1.text = ranks[rank]
 	label2.text = ranks[rank]
 
@@ -120,6 +120,7 @@ func play(anim : String, reverse : bool = false) -> void:
 func _ready() -> void:
 	# Assigns random edge texture
 	sprite2d.frame = randi() % 4
+	sprite_variant = sprite2d.frame
 	animation_player.play("spawn")
 	update_visuals()
 	pass

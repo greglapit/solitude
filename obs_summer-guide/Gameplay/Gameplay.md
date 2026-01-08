@@ -15,6 +15,7 @@
 * Player only begins with lower ranked cards. Slowly gain the ability to conjure higher weapon classes as the game progresses.
 * Player can hold two weapons at once which they can use in combat, increases as game goes on
 * Player knows how to sharpen and chip the diamonds on the card, changing the rank and the weapon that it morphs into
+* Lower ranks are swifter enemies/weapons. They attack first
 
 # Enemies
 * Enemies will have general themes depending on their suit, will consist of hearts, spades, clubs
@@ -25,6 +26,7 @@
 	* increasing rank
 	* resistance to specific class of player weapon
 	* New abilities
+* Clubs feign rank
 
 
 # Friendly NPCs
@@ -32,3 +34,4 @@
 * Jack of Diamonds as shopkeeper
 * Queen of Diamonds as blacksmith + reforger
 * King of Diamonds as Ability giver
+

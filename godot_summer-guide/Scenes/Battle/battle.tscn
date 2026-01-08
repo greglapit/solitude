@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://0tk7al8pp3w"]
 
-[ext_resource type="Shader" uid="uid://bvu6mr6dwkfa5" path="res://Scenes/Battle/Art/fog_shader.gdshader" id="1_c8wje"]
-[ext_resource type="Script" uid="uid://bvnir8m4dq0uv" path="res://Scenes/battle.gd" id="1_o8bsx"]
+[ext_resource type="Shader" uid="uid://bvu6mr6dwkfa5" path="res://Common/Shaders/fog_shader.gdshader" id="1_c8wje"]
+[ext_resource type="Script" uid="uid://bvnir8m4dq0uv" path="res://Scenes/Battle/battle.gd" id="1_o8bsx"]
 [ext_resource type="Texture2D" uid="uid://cmbcyj88a71q5" path="res://Scenes/Battle/Art/game_background.png" id="1_wqxgi"]
 [ext_resource type="PackedScene" uid="uid://bewmpgn4nhlxk" path="res://Entities/Player/player.tscn" id="2_3qw02"]
 [ext_resource type="PackedScene" uid="uid://dhcp5xhhbvfsa" path="res://Common/UI/WeaponDisplay/weapon_display.tscn" id="2_en5gs"]
@@ -35,26 +35,18 @@ expand_mode = 1
 
 [node name="PixelFogShader" type="ColorRect" parent="UI"]
 material = SubResource("ShaderMaterial_7e3i2")
-offset_left = -184.0
-offset_top = -88.0
-offset_right = 727.0
-offset_bottom = 435.0
+offset_left = -203.0
+offset_top = -79.0
+offset_right = 708.0
+offset_bottom = 444.0
 mouse_filter = 2
 
 [node name="WeaponDisplay" parent="UI" instance=ExtResource("2_en5gs")]
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-grow_horizontal = 0
-grow_vertical = 2
 
 [node name="Health" parent="UI" instance=ExtResource("3_en5gs")]
 offset_right = 157.0
 
 [node name="PanelContainer" type="PanelContainer" parent="UI"]
-visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -68,16 +60,19 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="AttackButton" type="TextureButton" parent="UI/PanelContainer"]
+visible = false
 layout_mode = 2
 texture_normal = ExtResource("6_j1k4e")
 texture_pressed = ExtResource("7_17ekq")
 texture_disabled = ExtResource("7_17ekq")
 
-[node name="CenterContainer" type="CenterContainer" parent="UI/PanelContainer"]
-layout_mode = 2
+[node name="CenterContainer" type="CenterContainer" parent="UI/PanelContainer/AttackButton"]
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 48.0
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="UI/PanelContainer/CenterContainer"]
+[node name="Label" type="Label" parent="UI/PanelContainer/AttackButton/CenterContainer"]
 layout_mode = 2
 text = "ATTACK"
 
@@ -85,4 +80,5 @@ text = "ATTACK"
 position = Vector2(240, 242)
 scale = Vector2(1, 1)
 
+[connection signal="timeout" from="SpamTimer" to="." method="_on_spam_timer_timeout"]
 [connection signal="pressed" from="UI/PanelContainer/AttackButton" to="." method="_on_attack_button_pressed"]

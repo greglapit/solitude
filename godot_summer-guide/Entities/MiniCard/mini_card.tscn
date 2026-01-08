@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://bbuv41jwgctxt"]
 
-[ext_resource type="Texture2D" uid="uid://lm5lr2v6x8fn" path="res://Common/UI/Armory/Art/mini_cards.png" id="1_80ril"]
-[ext_resource type="Script" uid="uid://n8p0o6l1vo3d" path="res://Common/UI/Armory/mini_card.gd" id="1_lgfv0"]
-[ext_resource type="Material" uid="uid://caqufdbmf7gd0" path="res://Common/highlight_material.tres" id="2_1ir2r"]
+[ext_resource type="Texture2D" uid="uid://lm5lr2v6x8fn" path="res://Entities/MiniCard/Art/mini_cards.png" id="1_80ril"]
+[ext_resource type="Script" uid="uid://n8p0o6l1vo3d" path="res://Entities/MiniCard/mini_card.gd" id="1_lgfv0"]
+[ext_resource type="Material" uid="uid://caqufdbmf7gd0" path="res://Common/Shaders/highlight_material.tres" id="2_1ir2r"]
 
 [sub_resource type="Animation" id="Animation_1ir2r"]
 length = 0.001

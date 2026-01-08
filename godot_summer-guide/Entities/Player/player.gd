@@ -16,7 +16,10 @@ var count : int = 0
 
 # === Custom Methods ===========================================================
 func play(anim : StringName) -> void:
-	animation_player.play(anim)
+	if animation_player.current_animation.contains("_attack"):
+		animation_player.queue(anim)
+	else:
+		animation_player.play(anim)
 	return
 	
 func queue(anim : StringName) -> void:

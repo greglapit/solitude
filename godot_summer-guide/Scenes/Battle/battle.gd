@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var player : Node2D = $Player
 @onready var weapons_display : Control = $UI/WeaponDisplay
-@onready var attack_button : PanelContainer = $UI/PanelContainer
+@onready var attack_button : TextureButton = $UI/PanelContainer/AttackButton
 @onready var spam_timer : Timer = $SpamTimer
 
 var mini_pos : Array								# Mini Card Positions
@@ -31,7 +31,7 @@ func load_weapons_display() -> void:
 	weapons_display.weapon_box_click.connect(_on_weapon_box_click)
 	weapons_display.cut.connect(_on_cut_button_pressed)
 	weapons_display.polish.connect(_on_polish_button_pressed)
-	weapons_display.change_display.connect(_on_change_display)
+	weapons_display.weapon_display_update.connect(_on_weapon_display_update)
 
 
 # Mini Cards
@@ -50,8 +50,7 @@ func draw_card(amount : int = 1) -> void:
 		
 		# Equips only first one
 		if i == 0:
-			equip_mini_card(mini_card)
-			attack_button.visible = false
+			equip_mini_card(mini_card, false)
 		
 		
 		# Signals
@@ -69,11 +68,17 @@ func align_mini_cards(tweening : bool = true) -> void:
 	var half : float = (num_cards - 1) / 2.0
 	var positions : Array[Vector2]
 	
+	# Sort nodes based on current x position to account for dragging
+	mini_cards.sort_custom(func(a: Card, b: Card) -> bool: \
+		return a.global_position.x < b.global_position.x)
+	
 	for i : int in range(num_cards):
 		var offset_x : float = (i - half) * spacing
 		positions.append(armory_position + Vector2(offset_x, 0))
 	
 	for i : int in range(mini_cards.size()):
+		mini_cards[i].visible = true
+		mini_cards[i].z_index = 0
 		if tweening:
 			var tween : Tween = create_tween()
 			tween.tween_property(mini_cards[i], "position", positions[i], 0.3)\
@@ -82,7 +87,7 @@ func align_mini_cards(tweening : bool = true) -> void:
 		else:
 			mini_cards[i].global_position = positions[i]
 
-func equip_mini_card(mini_card : Card = null) -> void:
+func equip_mini_card(mini_card : Card = null, visual_update : bool = true) -> void:
 	if mini_card:
 		curr_weapon =  player_weapons[mini_card.rank - 1]
 		
@@ -93,7 +98,6 @@ func equip_mini_card(mini_card : Card = null) -> void:
 		mini_cards.append(mini_equipped)
 		mini_equipped = mini_card
 		mini_cards.erase(mini_equipped)
-		attack_button.visible = true
 		
 	else:
 		curr_weapon =  null
@@ -105,11 +109,18 @@ func equip_mini_card(mini_card : Card = null) -> void:
 			mini_cards.append(mini_equipped)
 			mini_equipped = null
 		player.queue("base_idle")
-		attack_button.visible = false
 		
 	mini_cards = mini_cards.filter(func(e : Card) -> bool: return e != null)		# Remove Null values
 	weapons_display.displayed_weapon = curr_weapon
 	weapons_display.card = mini_equipped
+	
+	if visual_update:
+		weapons_display.display_weapon(curr_weapon, mini_equipped)
+		if mini_equipped:
+			player.queue(str(mini_equipped.rank) + "_base_idle")
+		else:
+			player.play("base_idle")
+	
 	align_mini_cards()
 
 
@@ -118,7 +129,6 @@ func equip_mini_card(mini_card : Card = null) -> void:
 func _ready() -> void:
 	load_armory()
 	load_weapons_display()
-	
 	# Runs after first frame
 	#await get_tree().process_frame
 
@@ -132,18 +142,22 @@ func _input(event: InputEvent) -> void:
 	and event.pressed:
 		pass
 
+func _process(_delta: float) -> void:
+	if dragged_card:
+		dragged_card.z_index = 1
+		dragged_card.position = get_global_mouse_position()
+
 # === Signals ==================================================================
 # UI
 #-------------------------------------------------------------------------------
 func _on_weapon_box_click() -> void:
 	equip_mini_card(null)
-	weapons_display.display_weapon(curr_weapon, mini_equipped)
 	
 func _on_draw_button_pressed() -> void:
 	if mini_cards.size() >= Globals.max_draw:
 		return
 	draw_card(Globals.draw_amt)
-	spam_timer.wait_time = 7.0
+	spam_timer.wait_time = 6.5
 	spam_timer.start()
 	weapons_display.play("joker_open_mouth")
 
@@ -152,44 +166,80 @@ func _on_cut_button_pressed() -> void:
 	if !cut:
 		return
 	equip_mini_card(mini_equipped)
-	player.play(str(mini_equipped.rank) + "_base_idle")
 	weapons_display.timeout_buttons()
-	weapons_display.display_weapon(curr_weapon, mini_equipped)
 
 func _on_polish_button_pressed() -> void:
 	var polished : bool = mini_equipped.polish()
 	if !polished:
 		return
 	equip_mini_card(mini_equipped)
-	player.play(str(mini_equipped.rank) + "_base_idle")
 	weapons_display.timeout_buttons()
-	weapons_display.display_weapon(curr_weapon, mini_equipped)
 
 func _on_attack_button_pressed() -> void:
+	attack_button.disabled = true
+	if !spam_timer.is_stopped():
+		return
 	player.play(str(mini_equipped.rank) + "_base_attack")
 	mini_equipped.damage()
 	equip_mini_card(mini_equipped)
-	weapons_display.display_weapon(curr_weapon, mini_equipped)
+	spam_timer.wait_time = 1.0
+	spam_timer.start()
 	
-func _on_change_display() -> void:
+func _on_weapon_display_update() -> void:
 	align_mini_cards()
-	await get_tree().create_timer(.6).timeout 			#Time it takes for equip animation to play
-	player.play(str(mini_equipped.rank) + "_base_idle")
-	attack_button.visible = true
+	if mini_equipped:
+		player.play(str(mini_equipped.rank) + "_base_idle")
+		attack_button.visible = true
+	else:
+		player.play("base_idle")
+		attack_button.visible = false
 
 # Mini Cards
 #-------------------------------------------------------------------------------
+
+# Card dragging and equipping
+var click_pos : Vector2 = Vector2.ZERO
+var dragging: bool = false
+var dragged_card : Card = null
+const DRAG_THRESHOLD : float = 2.0
+
 func _on_mini_card_input_event(_viewport: Node, event: InputEvent, _shape_idx: int, mini_card : Card) -> void:
+	if !spam_timer.is_stopped():
+		return
+	
+	if dragging and mini_card != dragged_card:
+		return
+		
 	if event is InputEventMouseButton \
-	and event.button_index == MOUSE_BUTTON_LEFT \
-	and event.pressed:
-		if !spam_timer.is_stopped():
-			return
-		equip_mini_card(mini_card)
-		weapons_display.display_weapon(curr_weapon, mini_equipped)
-		player.play(str(mini_equipped.rank) + "_base_idle")
+	and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			click_pos = event.position
+			dragging = false
+			dragged_card = null
+		else:
+			# Letting go of mouse button. If you were dragging or not
+			if !dragging:
+				equip_mini_card(mini_card)
+				spam_timer.wait_time = 1.0
+				spam_timer.start()
+			else:
+				# Equips if dragged over weapons display
+				if dragged_card.global_position.x > 490:
+					equip_mini_card(dragged_card)
+				dragging = false
+				dragged_card = null
+				align_mini_cards()
+				
+	if event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		if event.position.distance_to(click_pos) > DRAG_THRESHOLD:
+			dragging = true
+			dragged_card = mini_card
+			
 
 func _on_mini_card_mouse_entered(mini_card : Card) -> void:
+	if dragging:
+		return
+	
 	for card : Card in mini_cards:
 		card.deselect()
 	mini_card.select()
@@ -198,7 +248,12 @@ func _on_mini_card_mouse_exited(mini_card : Card) -> void:
 	mini_card.deselect()
 
 func _on_mini_card_free(mini_card : Card) -> void:
+	attack_button.visible = false
 	mini_cards.erase(mini_card)
 	mini_equipped = null
 	player.queue("base_idle")
-	
+
+
+func _on_spam_timer_timeout() -> void:
+	attack_button.disabled = false
+	pass # Replace with function body.

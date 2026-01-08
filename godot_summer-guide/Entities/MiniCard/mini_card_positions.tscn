@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c77td77xx3lmt"]
 
-[ext_resource type="Script" uid="uid://cekuira0t1ibx" path="res://Common/UI/Armory/mini_card_positions.gd" id="1_gg1fl"]
+[ext_resource type="Script" uid="uid://cekuira0t1ibx" path="res://Entities/MiniCard/mini_card_positions.gd" id="1_gg1fl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gg1fl"]
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bb44j18wfyhe3" path="res://z_August Work/Entities/Cards/card.gd" id="1_0oiq5"]
 [ext_resource type="Texture2D" uid="uid://b8svyhmhccgte" path="res://z_August Work/Entities/Cards/Art/bare_diamond.png" id="2_q0hhy"]
-[ext_resource type="Material" uid="uid://caqufdbmf7gd0" path="res://Common/highlight_material.tres" id="3_ioggq"]
+[ext_resource type="Material" uid="uid://caqufdbmf7gd0" path="res://Common/Shaders/highlight_material.tres" id="3_ioggq"]
 [ext_resource type="FontFile" uid="uid://2j1mnjkq0kkf" path="res://z_August Work/Common/BitPotionExt.ttf" id="3_m2hva"]
 
 [sub_resource type="Animation" id="Animation_4ryhe"]

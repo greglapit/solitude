@@ -1,7 +1,7 @@
 extends Node
 
 var health : int = 100
-var draw_amt : int = 1
+var draw_amt : int = 3
 var max_draw : int = 5			# How many items player can have drawn at a time
 var available_ranks : Array = [1,2,3,4,5,6,7,8,9,10]
 var armory : Array[String] = ['1_base_weapon', '2_base_weapon', '3_base_weapon', '4_base_weapon', '5_base_weapon', \

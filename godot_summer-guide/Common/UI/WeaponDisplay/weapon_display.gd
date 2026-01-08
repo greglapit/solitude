@@ -30,11 +30,12 @@ signal drawn
 signal weapon_box_click
 signal cut
 signal polish
-signal change_display 	# Sent when Weapons display should update name and weapon banner
+@warning_ignore("unused_signal")
+signal weapon_display_update 			# Sent when Weapons display should update name and weapon banner
 
 # === Custom Methods ===========================================================
 ## Updates weapon display's weapon and card objects. Puts weapon arts and name
-func display_weapon(weapon : Weapon = null, mini_card : Card = null) -> void:
+func display_weapon(weapon : Weapon = displayed_weapon, mini_card : Card = card) -> void:
 	if weapon and mini_card:
 		weapon_name_label.text = weapon.display_name
 		weapon_art.texture = weapon_arts[weapon.rank - 1]
@@ -49,6 +50,7 @@ func display_weapon(weapon : Weapon = null, mini_card : Card = null) -> void:
 		cut_button.disabled = true
 		polish_button.disabled = true
 		show_ticks()
+	weapon_display_update.emit()
 	
 func timeout_buttons(time : float = 0.5) -> void:
 	draw_button.disabled = true
@@ -73,7 +75,7 @@ func _ready() -> void:
 	ticks = [tick1,tick2,tick3,tick4,tick5,tick6,tick7]
 	for i : int in Globals.armory.size():
 		weapon_arts.append(load(art_path + str(i + 1) + "/" + Globals.armory[i] + ".png"))
-	display_weapon()
+	display_weapon(null, null)
 	
 func _input(_event: InputEvent) -> void:
 	pass
@@ -81,6 +83,10 @@ func _input(_event: InputEvent) -> void:
 # === Signals ==================================================================
 
 func _on_center_container_gui_input(event: InputEvent) -> void:
+	# Prevent player removing equipped weapon before its displayed
+	if !displayed_weapon:
+		return
+		
 	if event is InputEventMouseButton \
 	and event.button_index == MOUSE_BUTTON_LEFT \
 	and event.pressed:
@@ -116,6 +122,3 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		card_label1.text = str(card.ranks[card.rank])
 		card_label2.text = str(card.ranks[card.rank])
 		animation_player.play("joker_end_spin")
-
-func _on_change_display() -> void:
-	display_weapon(displayed_weapon, card)
