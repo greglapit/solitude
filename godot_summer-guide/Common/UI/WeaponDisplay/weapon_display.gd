@@ -6,7 +6,9 @@ extends Control
 @onready var card_label2 : Label = $Joker/CardLabel2
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var weapon_name_label : Label = $HBoxContainer/PanelContainer/VBoxContainer/NameBanner/WeaponName
+@onready var second_name : Label = $HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/SecondName
 @onready var weapon_box : PanelContainer = $HBoxContainer/PanelContainer/VBoxContainer/PanelContainer
+@onready var weapon_desc : Label = $HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/WeapDesc
 @onready var tick1 : TextureRect = $HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer/Tick1
 @onready var tick2 : TextureRect = $HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer/Tick2
 @onready var tick3 : TextureRect = $HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer/Tick3
@@ -23,8 +25,9 @@ extends Control
 var displayed_weapon : Weapon
 var card : Card
 var art_path : String = "res://Common/UI/WeaponDisplay/Art/Weapons/"
-var weapon_arts : Array[Resource]
+#var weapon_arts : Array[Resource]
 var ticks : Array[TextureRect] 
+var actions : int
 
 signal drawn
 signal weapon_box_click
@@ -35,20 +38,34 @@ signal weapon_display_update 			# Sent when Weapons display should update name a
 
 # === Custom Methods ===========================================================
 ## Updates weapon display's weapon and card objects. Puts weapon arts and name
-func display_weapon(weapon : Weapon = displayed_weapon, mini_card : Card = card) -> void:
-	if weapon and mini_card:
-		weapon_name_label.text = weapon.display_name
-		weapon_art.texture = weapon_arts[weapon.rank - 1]
-		draw_button.visible = false
+func display_weapon(weapon : Weapon = displayed_weapon, mini_card : Card = card, _actions : int = 0) -> void:
+	actions = _actions
+	if _actions >= 1:
+		draw_button.disabled = false
 		cut_button.disabled = false
 		polish_button.disabled = false
+	else:
+		draw_button.disabled = true
+		cut_button.disabled = true
+		polish_button.disabled = true
+	
+	if weapon and mini_card:
+		weapon_name_label.text = weapon.display_name
+		second_name.text = weapon.second_name
+		weapon_art.texture = weapon.display_texture
+		weapon_desc.text = weapon.description
+		draw_button.visible = false
+		cut_button.visible = true
+		polish_button.visible = true
 		show_ticks(mini_card.durability)
 	else:
 		weapon_name_label.text = ""
+		second_name.text = ""
 		weapon_art.texture = load("res://Common/UI/WeaponDisplay/Art/Main/weapon_art_filler.png")
+		weapon_desc.text = ""
 		draw_button.visible = true
-		cut_button.disabled = true
-		polish_button.disabled = true
+		cut_button.visible = false
+		polish_button.visible = false
 		show_ticks()
 	weapon_display_update.emit()
 	
@@ -58,6 +75,11 @@ func timeout_buttons(time : float = 0.5) -> void:
 	polish_button.disabled = true
 	click_timer.wait_time = time
 	click_timer.start()
+
+func button_enabled(enabled : bool = true) -> void:
+	draw_button.disabled = !enabled
+	cut_button.disabled = !enabled
+	polish_button.disabled = !enabled
 
 func show_ticks(num : int = 0) -> void:
 	for tick : int in range(ticks.size()):
@@ -73,9 +95,9 @@ func play(anim : String = "RESET") -> void:
 
 func _ready() -> void:
 	ticks = [tick1,tick2,tick3,tick4,tick5,tick6,tick7]
-	for i : int in Globals.armory.size():
-		weapon_arts.append(load(art_path + str(i + 1) + "/" + Globals.armory[i] + ".png"))
-	display_weapon(null, null)
+	#for i : int in Globals.armory.size():
+		#weapon_arts.append(load(art_path + str(i + 1) + "/" + Globals.armory[i] + ".png"))
+	display_weapon(null, null, Globals.actions)
 	
 func _input(_event: InputEvent) -> void:
 	pass
@@ -91,29 +113,33 @@ func _on_center_container_gui_input(event: InputEvent) -> void:
 	and event.button_index == MOUSE_BUTTON_LEFT \
 	and event.pressed:
 		weapon_box_click.emit()
-		cut_button.disabled = true
-		polish_button.disabled = true
 
 func _on_draw_button_pressed() -> void:
 	if click_timer.is_stopped():
 		drawn.emit()
-		timeout_buttons(6)
+		button_enabled(false)
 
 func _on_cut_button_pressed() -> void:
 	if click_timer.is_stopped():
 		cut.emit()
 		click_timer.start()
+		button_enabled(false)
 
 func _on_polish_button_pressed() -> void:
 	if click_timer.is_stopped():
 		polish.emit()
 		click_timer.start()
+		button_enabled(false)
 
 func _on_click_timer_timeout() -> void:
-	draw_button.disabled = false
-	if displayed_weapon:
+	if displayed_weapon and actions > 1:
+		draw_button.disabled = false
 		cut_button.disabled = false
 		polish_button.disabled = false
+	else:
+		draw_button.disabled = true
+		cut_button.disabled = true
+		polish_button.disabled = true
 		
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:

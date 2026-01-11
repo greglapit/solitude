@@ -13,6 +13,7 @@ var suit : Suits = Suits.DIAMOND
 var ranks : Array = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 var selected : bool = false
 var durability : int = 5
+var used : bool = false
 
 # Visuals
 const card_scn : PackedScene = preload("res://Entities/MiniCard/mini_card.tscn")
@@ -115,6 +116,8 @@ func play(anim : String, reverse : bool = false) -> void:
 	else:
 		animation_player.play(anim)
 
+func queue(anim : String) -> void:
+	animation_player.queue(anim)
 # === Built In =================================================================
 
 func _ready() -> void:
@@ -131,5 +134,5 @@ func _input(_event: InputEvent) -> void:
 # === Signals ==================================================================
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	if anim_name != "RESET":
+	if anim_name != "RESET" and anim_name != "used":
 		animation_player.play("RESET")

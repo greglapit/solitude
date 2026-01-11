@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsccfiorb13ws"
-path="res://.godot/imported/hearts.png-fdb2aad7c45ca9d15def8ee6af887d2f.ctex"
+uid="uid://v6tnx8u7ikn2"
+path="res://.godot/imported/spades.png-581ab6263f76a00bc898ebda415f7e28.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Enemies/Art/hearts.png"
-dest_files=["res://.godot/imported/hearts.png-fdb2aad7c45ca9d15def8ee6af887d2f.ctex"]
+source_file="res://Entities/Enemies/Base/Art/spades.png"
+dest_files=["res://.godot/imported/spades.png-581ab6263f76a00bc898ebda415f7e28.ctex"]
 
 [params]
 

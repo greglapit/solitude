@@ -24,10 +24,10 @@
 
 # Weapon Effects
 
-* Ace/Gem: 
-* Two/Daggers: Combos into itself. 2 piece combo, triggers if the player attacks with its rank twice
-* Three/Trident:
-* Four/Shield:
+* Ace/Gem: Normal damage/Minor heal
+* Two/Daggers: Marks/Active effect consumes mark. Other weapons do minimal damage with mark
+* Three/Trident: Attack/Soft AOE (Wave spreads across creen)
+* Four/Shield: Damage/Some t
 * Five/Gauntlet: 
 * Six/Chain:
 * Seven/Scythe:

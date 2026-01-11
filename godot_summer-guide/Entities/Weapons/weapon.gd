@@ -1,20 +1,110 @@
-class_name Weapon
+@abstract class_name Weapon
 extends Node2D
 
 var rank : int = -1
-var file_name : String = "PlaceHolder"
-var display_name : String = "PlaceHolder"
+var file_name : String
+var display_name : String
+var second_name : String
+var description : String
+var display_texture : Resource
+
+# Player/Enemy info
+var player_idle_anim : String
+var player_attack_anim : String
+var player_defend_anim : String
+
+var player : Node2D
+var enemies : Array[Enemy]			## Enemies the player is in combat with. Position 0 is main target
 @onready var animation_player : AnimationPlayer = $WeaponEffects
 
-# === Custom Methods ===========================================================
+var active : bool = false 			## Whether weapon is active (equipped)
+var reciprocal_attack : bool = false
 
+var combat_data : Dictionary = {
+	"hp_lost" = 0.0,
+	"durability_lost" = 1,
+	"attacks" = 0
+	}
+
+
+@warning_ignore("unused_signal")
+signal crit
+@warning_ignore("unused_signal")
+signal weapon_used							## Signals when weapon is put marked as used after attack
+@warning_ignore("unused_signal")
+signal combat_fin							## Signals when attack cycle is over
+
+# === Custom Methods ===========================================================
+@abstract func assign_prop() -> void
+
+func equip() -> void:
+	player.play(player_idle_anim)
+
+func resolve_combat(_player : Node2D, _hp : float, _attacks : int, _enemy_array : Array[Enemy]) -> Dictionary:
+	player = _player
+	enemies = _enemy_array
+	combat_data = {
+	"hp_lost" = 0.0,
+	"durability_lost" = 1,
+	"attacks" = _attacks
+	}
+	
+	# Player has no attacks left, enemy attacks
+	if _attacks <= 0:
+		enemies[0].attack()
+	
+	if rank <= enemies[0].rank:
+		player.play(player_attack_anim)
+		return combat_data
+	else:
+		reciprocal_attack = true
+		enemies[0].attack()
+		return combat_data
 
 # === Built In =================================================================
 
 func _ready() -> void:
-	pass
+	assign_prop()
 	
 func _input(_event: InputEvent) -> void:
 	pass
+
+# === Signals ==================================================================
+
+func _on_player_anim_finished(anim : String) -> void:
+	if !active:
+		return
+	if anim.contains("attack"):
+		
+		# Attacked after enemy due to higher card rank
+		if reciprocal_attack:
+			combat_fin.emit()
+			reciprocal_attack = false
+			equip()
+			
+		# Player lower with higher rank card
+		else:
+			weapon_used.emit(self)
+	if anim.contains("defend"):
+		if !reciprocal_attack:
+			combat_fin.emit()
+		else:
+			player.play(player_attack_anim)
+
+func _on_player_attack_impact() -> void:
+	if !active:
+		return
+	# Lower rank weapon attacks faster
+	if rank == enemies[0].rank:
+		crit.emit()
+		combat_fin.emit()
+	enemies[0].damage(rank)
+
+func _on_enemy_attack_impact() -> void:
+	if !active:
+		return
+	player.play(player_defend_anim)
+# === Built In =================================================================
+
 
 # === Signals ==================================================================

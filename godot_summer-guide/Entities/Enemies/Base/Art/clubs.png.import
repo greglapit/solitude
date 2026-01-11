@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://v6tnx8u7ikn2"
-path="res://.godot/imported/spades.png-6fa093cabe242bb56ea60148786c2933.ctex"
+uid="uid://dmu88ul61y68r"
+path="res://.godot/imported/clubs.png-9121bad2fecd3faaf02c3f2316133778.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Enemies/Art/spades.png"
-dest_files=["res://.godot/imported/spades.png-6fa093cabe242bb56ea60148786c2933.ctex"]
+source_file="res://Entities/Enemies/Base/Art/clubs.png"
+dest_files=["res://.godot/imported/clubs.png-9121bad2fecd3faaf02c3f2316133778.ctex"]
 
 [params]
 

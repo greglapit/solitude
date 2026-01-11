@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dhcp5xhhbvfsa"]
+[gd_scene load_steps=22 format=3 uid="uid://dhcp5xhhbvfsa"]
 
 [ext_resource type="Texture2D" uid="uid://dq3lmmcwyqks6" path="res://Common/UI/WeaponDisplay/Art/Main/border.png" id="1_lakbu"]
 [ext_resource type="Script" uid="uid://cusppjlshxdy4" path="res://Common/UI/WeaponDisplay/weapon_display.gd" id="1_mm5xb"]
@@ -15,6 +15,10 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2jaol"]
 bg_color = Color(0.043137256, 0.36862746, 0.39607844, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2atbk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ti0hy"]
 
 [sub_resource type="Animation" id="Animation_ti0hy"]
 length = 0.001
@@ -382,6 +386,16 @@ theme_override_font_sizes/font_size = 32
 text = "WEAPON NAME :D"
 horizontal_alignment = 1
 
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = -6
+theme_override_constants/margin_bottom = -3
+
+[node name="SecondName" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "desc"
+horizontal_alignment = 1
+
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -481,6 +495,7 @@ horizontal_alignment = 1
 [node name="VSeparator" type="VSeparator" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 14
+theme_override_styles/separator = SubResource("StyleBoxEmpty_2atbk")
 
 [node name="PolishButton" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -497,7 +512,14 @@ offset_bottom = 16.0
 text = "POLISH"
 horizontal_alignment = 1
 
-[node name="ItemDescription" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ti0hy")
+
+[node name="WeapDesc" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "-FILLER FILLER FILLER
 -FILLER FILLER FILLER

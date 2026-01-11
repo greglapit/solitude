@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmu88ul61y68r"
-path="res://.godot/imported/clubs.png-838a5e2eb85aed31eb644aeb2965f0a5.ctex"
+uid="uid://bsccfiorb13ws"
+path="res://.godot/imported/hearts.png-370b6b303be612691d3368b42b9678b5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Enemies/Art/clubs.png"
-dest_files=["res://.godot/imported/clubs.png-838a5e2eb85aed31eb644aeb2965f0a5.ctex"]
+source_file="res://Entities/Enemies/Base/Art/hearts.png"
+dest_files=["res://.godot/imported/hearts.png-370b6b303be612691d3368b42b9678b5.ctex"]
 
 [params]
 

@@ -77,8 +77,8 @@ layout_mode = 2
 text = "ATTACK"
 
 [node name="Player" parent="." instance=ExtResource("2_3qw02")]
-z_index = 10
-position = Vector2(240, 248)
+z_index = 1
+position = Vector2(240, 242)
 scale = Vector2(1, 1)
 
 [connection signal="timeout" from="SpamTimer" to="." method="_on_spam_timer_timeout"]
