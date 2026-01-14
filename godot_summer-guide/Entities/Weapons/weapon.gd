@@ -14,11 +14,12 @@ var player_attack_anim : String
 var player_defend_anim : String
 
 var player : Node2D
-var enemies : Array[Enemy]			## Enemies the player is in combat with. Position 0 is main target
+var enemies : Array			## Enemies the player is in combat with. Position 0 is main target
 @onready var animation_player : AnimationPlayer = $WeaponEffects
 
 var active : bool = false 			## Whether weapon is active (equipped)
 var reciprocal_attack : bool = false
+var critting : bool = false
 
 var combat_data : Dictionary = {
 	"hp_lost" = 0.0,
@@ -40,9 +41,11 @@ signal combat_fin							## Signals when attack cycle is over
 func equip() -> void:
 	player.play(player_idle_anim)
 
-func resolve_combat(_player : Node2D, _hp : float, _attacks : int, _enemy_array : Array[Enemy]) -> Dictionary:
+func resolve_combat(_player : Node2D, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
 	player = _player
 	enemies = _enemy_array
+	critting = false
+	reciprocal_attack = false
 	combat_data = {
 	"hp_lost" = 0.0,
 	"durability_lost" = 1,
@@ -52,6 +55,7 @@ func resolve_combat(_player : Node2D, _hp : float, _attacks : int, _enemy_array 
 	# Player has no attacks left, enemy attacks
 	if _attacks <= 0:
 		enemies[0].attack()
+		return combat_data
 	
 	if rank <= enemies[0].rank:
 		player.play(player_attack_anim)
@@ -77,25 +81,27 @@ func _on_player_anim_finished(anim : String) -> void:
 	if anim.contains("attack"):
 		
 		# Attacked after enemy due to higher card rank
-		if reciprocal_attack:
+		if critting or reciprocal_attack:
 			combat_fin.emit()
 			reciprocal_attack = false
-			equip()
-			
 		# Player lower with higher rank card
 		else:
 			weapon_used.emit(self)
+		equip()
 	if anim.contains("defend"):
 		if !reciprocal_attack:
+			player.play(player_idle_anim)
 			combat_fin.emit()
 		else:
 			player.play(player_attack_anim)
+			reciprocal_attack = false
 
 func _on_player_attack_impact() -> void:
 	if !active:
 		return
 	# Lower rank weapon attacks faster
 	if rank == enemies[0].rank:
+		critting = true
 		crit.emit()
 		combat_fin.emit()
 	enemies[0].damage(rank)
@@ -104,7 +110,7 @@ func _on_enemy_attack_impact() -> void:
 	if !active:
 		return
 	player.play(player_defend_anim)
-# === Built In =================================================================
+	
 
-
-# === Signals ==================================================================
+func _on_enemy_freed(_enemy : Enemy) -> void:
+	combat_fin.emit()

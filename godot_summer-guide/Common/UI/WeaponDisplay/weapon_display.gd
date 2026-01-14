@@ -25,7 +25,6 @@ extends Control
 var displayed_weapon : Weapon
 var card : Card
 var art_path : String = "res://Common/UI/WeaponDisplay/Art/Weapons/"
-#var weapon_arts : Array[Resource]
 var ticks : Array[TextureRect] 
 var actions : int
 
@@ -34,20 +33,18 @@ signal weapon_box_click
 signal cut
 signal polish
 @warning_ignore("unused_signal")
-signal weapon_display_update 			# Sent when Weapons display should update name and weapon banner
+signal weapon_display_update 			## Sent when Weapons display should update has occured
 
 # === Custom Methods ===========================================================
 ## Updates weapon display's weapon and card objects. Puts weapon arts and name
 func display_weapon(weapon : Weapon = displayed_weapon, mini_card : Card = card, _actions : int = 0) -> void:
 	actions = _actions
-	if _actions >= 1:
+	if actions >= 1:
 		draw_button.disabled = false
-		cut_button.disabled = false
-		polish_button.disabled = false
 	else:
-		draw_button.disabled = true
-		cut_button.disabled = true
-		polish_button.disabled = true
+		draw_button.disabled = false
+	cut_button.disabled = true
+	polish_button.disabled = true
 	
 	if weapon and mini_card:
 		weapon_name_label.text = weapon.display_name
@@ -58,6 +55,16 @@ func display_weapon(weapon : Weapon = displayed_weapon, mini_card : Card = card,
 		cut_button.visible = true
 		polish_button.visible = true
 		show_ticks(mini_card.durability)
+		
+		# Adjust button visibility
+		print(mini_card.rank + 1)
+		print(Globals.available_ranks.has(mini_card.rank + 1))
+		if actions >= 1:
+			draw_button.disabled = false
+			if Globals.available_ranks.has(mini_card.rank - 1):
+				cut_button.disabled = false
+			if Globals.available_ranks.has(mini_card.rank + 1):
+				polish_button.disabled = false
 	else:
 		weapon_name_label.text = ""
 		second_name.text = ""

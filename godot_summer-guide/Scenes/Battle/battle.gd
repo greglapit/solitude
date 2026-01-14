@@ -9,15 +9,17 @@ var mini_pos : Array								# Mini Card Positions
 var armory_position : Vector2 = Vector2(250,335)
 var enemy_positions : Array[Vector2] = [Vector2(250,80), Vector2(215,70), Vector2(280, 60), \
 										Vector2.ZERO, Vector2.ZERO, Vector2.ZERO, Vector2.ZERO]
-var mini_cards : Array[Card]						# Stores drawn card nodes
 var mini_equipped : Card							# Current card player has equipped
 var curr_weapon : Weapon							# String name of player weapon
 var player_weapons : Dictionary
 var hp : float = 100
-var attacks : int = Globals.attacks								# Attacks player has left
-var actions : int = Globals.actions								# Actions player has left (draw, cut, polish)
-var enemies : Array[Enemy]
-var drawing : bool = false
+var attacks : int = Globals.attacks					# Attacks player has left
+var actions : int = Globals.actions					# Actions player has left (draw, cut, polish)
+#var enemies : Array[Enemy]
+var drawing : bool = false							# Turned on when drawing started, off when it ends
+var click_prevention : bool = false					# Stops minicard/attack inputs when drawing or attacking
+
+var combat_data : Dictionary
 
 # === Custom Methods ===========================================================
 # General
@@ -56,19 +58,26 @@ func load_weapons_display() -> void:
 
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
-		
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART, randi() % 10 + 1)
-		enemy.position = Vector2(250,80)
+		var enemies : Array = get_tree().get_nodes_in_group("enemies")
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,3) # randi() % 10 + 1)
+		enemy.name = "Enemy%d" % [randi()%10000]
+		enemy.position = enemy_positions[enemies.size()]
+		enemy.z_index -= enemies.size()-1
 		add_child(enemy)
-		enemies.append(enemy)
+		enemy.add_to_group("enemies")
 		enemy.freed.connect(_on_enemy_freed)
 	
 		for weapon : Weapon in player_weapons.values():
 			enemy.attack_impact.connect(weapon._on_enemy_attack_impact)
+			enemy.freed.connect(weapon._on_enemy_freed)
+			
+		await get_tree().create_timer(randf_range(0.2, 0.3)).timeout
 	
 	align_enemies()
+		
 
 func align_enemies() -> void:
+	var enemies : Array = get_tree().get_nodes_in_group("enemies")
 	for i : int in enemies.size():
 		enemies[i].position = enemy_positions[i]
 		enemies[i].z_index = 5 - i
@@ -76,9 +85,8 @@ func align_enemies() -> void:
 	
 
 func initiate_combat() -> void:
-	var combat_data : Dictionary = curr_weapon.resolve_combat(player, hp, attacks, enemies)
-	mini_equipped.damage(combat_data["durability_lost"])
-	equip_mini_card(mini_equipped, false)
+	var enemies : Array = get_tree().get_nodes_in_group("enemies")
+	combat_data = curr_weapon.resolve_combat(player, hp, attacks, enemies)
 	
 	
 #endregion
@@ -88,17 +96,23 @@ func initiate_combat() -> void:
 #region
 
 func draw_card(amount : int = 1) -> void:
+	var available_slots : int = \
+		Globals.max_draw - get_tree().get_node_count_in_group("mini_cards") - int(mini_equipped != null)
+	
 	drawing = true
-	var available_slots : int = Globals.max_draw - mini_cards.size()
 	amount = min(amount, available_slots)
 	
+	if amount <= 0:
+		print("No space to draw")
+		click_prevention = false
+		
 	for i : int in range(amount):
 		var mini_card : Card = Card.new_random_card(Globals.armory.keys())
-		mini_card.name = "MiniCard"
+		mini_card.name = "MiniCard%d" % [randi()%10000]
 		mini_card.position = armory_position
 		mini_card.visible = false
 		add_child(mini_card)
-		mini_cards.append(mini_card)
+		mini_card.add_to_group("mini_cards")
 		
 		# Equips only first one
 		if i == 0:
@@ -110,13 +124,12 @@ func draw_card(amount : int = 1) -> void:
 		mini_card.mouse_entered.connect(_on_mini_card_mouse_entered.bind(mini_card))
 		mini_card.mouse_exited.connect(_on_mini_card_mouse_exited.bind(mini_card))
 		mini_card.free.connect(_on_mini_card_free)
-		
-	mini_cards = mini_cards.filter(func(e : Card) -> bool: return e != null)		# Remove Null values
 	return
 
 func align_mini_cards(tweening : bool = true) -> void:
 	var spacing : float = 30
-	var num_cards : int = mini_cards.size()
+	var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
+	var num_cards : int = get_tree().get_node_count_in_group("mini_cards")
 	var half : float = (num_cards - 1) / 2.0
 	var positions : Array[Vector2]
 	
@@ -140,21 +153,18 @@ func align_mini_cards(tweening : bool = true) -> void:
 			mini_cards[i].global_position = positions[i]
 
 func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> void:
-	
 	if mini_card:
-		if mini_card.used:
-			return
 		curr_weapon =  player_weapons[mini_card.rank]
 		curr_weapon.player = player
-		curr_weapon.enemies = enemies
+		curr_weapon.enemies = get_tree().get_nodes_in_group("enemies")
 		active_weapon(curr_weapon)
 		if mini_equipped and mini_equipped != mini_card:
 			mini_equipped.position = mini_card.position + Vector2(30,0)
 			mini_equipped.visible = true
+			mini_equipped.add_to_group("mini_cards")
 		mini_card.play("equip")
-		mini_cards.append(mini_equipped)
 		mini_equipped = mini_card
-		mini_cards.erase(mini_equipped)
+		mini_equipped.remove_from_group("mini_cards")
 		
 	else:
 		curr_weapon =  null
@@ -162,13 +172,11 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 		player.queue("base_idle")
 		
 		if mini_equipped:
-			mini_equipped.position = armory_position + (Vector2(30,0) * mini_cards.size())
+			mini_equipped.position = armory_position + (Vector2(30,0) * get_tree().get_node_count_in_group("mini_cards"))
 			mini_equipped.visible = true
 			mini_equipped.queue("spawn")
-			mini_cards.append(mini_equipped)
-			mini_equipped = null
-	
-	mini_cards = mini_cards.filter(func(e : Card) -> bool: return e != null)		# Remove Null values
+			mini_equipped.add_to_group("mini_cards")
+		mini_equipped = null
 	
 	# Update Child's variables
 	weapons_display.displayed_weapon = curr_weapon
@@ -177,6 +185,10 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 	
 	# Doesn't update weapon display until after drawing
 	if !drawing:
+		if mini_equipped:
+			attack_button.visible = true
+		else:
+			attack_button.visible = false
 		weapons_display.display_weapon(curr_weapon, mini_equipped, actions)
 	
 	# Only update when equipping different weapon
@@ -194,9 +206,8 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 func _ready() -> void:
 	load_armory()
 	load_weapons_display()
-	
 	spawn_enemy(3)
-	
+	equip_mini_card(null)
 	# Runs after first frame
 	#await get_tree().process_frame
 
@@ -214,7 +225,6 @@ func _process(_delta: float) -> void:
 	if dragged_card:
 		dragged_card.z_index = 12
 		dragged_card.position = get_global_mouse_position()
-
 #endregion
 
 # === Signals ==================================================================
@@ -223,10 +233,14 @@ func _process(_delta: float) -> void:
 #region
 
 func _on_weapon_box_click() -> void:
+	if click_prevention:
+		return
 	equip_mini_card(null)
 	
 func _on_draw_button_pressed() -> void:
-	if mini_cards.size() >= Globals.max_draw:
+	click_prevention = true
+	if get_tree().get_node_count_in_group("mini_cards") + int(mini_equipped != null) >= Globals.max_draw:
+		click_prevention = false
 		return
 	actions -= 1
 	draw_card(Globals.draw_amt)
@@ -247,12 +261,12 @@ func _on_polish_button_pressed() -> void:
 	actions -= 1
 
 func _on_attack_button_pressed() -> void:
-	attack_button.disabled = true
-	if !spam_timer.is_stopped() or !curr_weapon or !enemies[0]:
+	if click_prevention:
+		return
+	click_prevention = true
+	if !curr_weapon or get_tree().get_nodes_in_group("enemies").is_empty():
 		return
 	initiate_combat()
-	spam_timer.wait_time = 1.0
-	spam_timer.start()
 	
 ## Emitted by weapon display once ready for update
 func _on_weapon_display_update() -> void:
@@ -264,6 +278,7 @@ func _on_weapon_display_update() -> void:
 		else:
 			player.play("base_idle")
 			attack_button.visible = false
+		click_prevention = false
 		drawing = false
 #endregion
 
@@ -278,7 +293,7 @@ var dragged_card : Card = null
 const DRAG_THRESHOLD : float = 2.0
 
 func _on_mini_card_input_event(_viewport: Node, event: InputEvent, _shape_idx: int, mini_card : Card) -> void:
-	if !spam_timer.is_stopped():
+	if !spam_timer.is_stopped() or click_prevention:
 		return
 	
 	if dragging and mini_card != dragged_card:
@@ -314,7 +329,7 @@ func _on_mini_card_mouse_entered(mini_card : Card) -> void:
 	if dragging or mini_card.used:
 		return
 	
-	for card : Card in mini_cards:
+	for card : Card in get_tree().get_nodes_in_group("mini_cards"):
 		card.deselect()
 	mini_card.select()
 	
@@ -322,13 +337,14 @@ func _on_mini_card_mouse_exited(mini_card : Card) -> void:
 	mini_card.deselect()
 
 func _on_mini_card_free(mini_card : Card) -> void:
-	attack_button.visible = false
-	mini_cards.erase(mini_card)
-	mini_equipped = null
-	player.queue("base_idle")
+	if mini_card == mini_equipped:
+		pass
+		#equip_mini_card(null)
+		#player.queue("base_idle")
 
 func _on_spam_timer_timeout() -> void:
-	attack_button.disabled = false
+	pass
+	#attack_button.disabled = false
 
 #endregion
 
@@ -336,36 +352,45 @@ func _on_spam_timer_timeout() -> void:
 #-------------------------------------------------------------------------------
 #region
 
-## After weapon is used and must be uneqipped
+## Only called when player card < enemy card. After weapon is used and must be uneqipped
 func _on_weapon_weapon_used(_weapon : Weapon) -> void:
+	mini_equipped.used = true
+	var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
+	# If all weapons have been used
 	if mini_cards.all(func(n : Card) -> bool: return n.used):
 		attacks = 0
-		# Resolves combat with defend
-		curr_weapon.resolve_combat(player, hp, attacks, enemies)
+		var enemies : Array = get_tree().get_nodes_in_group("enemies")
+		curr_weapon.resolve_combat(player, hp, attacks, enemies) # Resolves combat with defend
+		mini_equipped.damage(combat_data["durability_lost"])
 	else:
-		mini_equipped.used = true
 		mini_equipped.play("used")
-		curr_weapon = null
-		equip_mini_card(null, true)
+		click_prevention = false
+		equip_mini_card(null)
+		mini_equipped.damage(combat_data["durability_lost"])
 	
 ## After weapon is used and combat cycle restarts
 func _on_weapon_combat_fin(_weapon : Weapon) -> void:
+	click_prevention = false
 	attacks = Globals.attacks
 	actions = Globals.actions
-	weapons_display.display_weapon(curr_weapon, mini_equipped, actions)
+	var mini_cards : Array= get_tree().get_nodes_in_group("mini_cards")
+	var space_in_armory : bool = Globals.max_draw > mini_cards.size() + int(mini_equipped != null)
+	if space_in_armory:
+		print("Space in armory. Draw some more!")
+		equip_mini_card(null)
 	for mini_card : Card in mini_cards:
 		mini_card.play("RESET")
 		mini_card.used = false
-		
+	equip_mini_card(mini_equipped)
 
 func _on_weapon_crit() -> void:
-	print("CRIT!")
-	print("Insert joker effect")
+	weapons_display.play("joker_crit")
 
 #endregion
 
-func _on_enemy_freed(enemy : Enemy) -> void:
-	enemies.erase(enemy)
+func _on_enemy_freed(_enemy : Enemy) -> void:
+	await _enemy.tree_exited
+	var enemies : Array = get_tree().get_nodes_in_group("enemies")
 	if enemies.is_empty():
 		spawn_enemy(3)
 	else:

@@ -1,9 +1,16 @@
-* Joker Reaction Corner.  Ultra kill. Mega Kill. Ludacrious kill. Holy SHIT (ALLBL4CK)
-	* Joker spits out card into weapon slot when drawing. Draw button is under image
-* Weapon Display corner. Weapon details, image, name, cut and polish
-
-
-
+- [ ] fix bug of weapon display not updating after using last of durability
+- [ ] chain hit button
+- [ ] secondary attack button + weapon passive effects
+- [ ] health bar connection
+- [ ] Visually communicate enemy will attack first or player will attack first
+- [ ] Visually communicate you have space to draw so unequipping
+- [ ] Visually communicate player has run out of weapons, enemy attacks
+- [ ] enemy spawn pool in globals
+- [ ] boss encounter
+- [ ] Joker Reaction Corner.  Ultra kill. Mega Kill. Ludacrious kill. Holy SHIT (ALLBL4CK)
+- [ ] new weapons
+- [ ] 3 boss encounters
+- [ ] save file? -> 3 game states (early 1-4, mid 1-10, late 1-10 with legendaries)
 
 
 

@@ -45,6 +45,8 @@ func damage(amt : int) -> Callable:
 	return func() -> void: return
 
 func attack() -> float:
+	if rank <= 0:
+		return rank
 	animation_player.play("attack")
 	return rank
 
@@ -54,6 +56,7 @@ func play(anim : String = "RESET") -> void:
 @warning_ignore("unused_parameter")
 func emit_freed(card : Enemy = self) -> void:
 	freed.emit(self)
+	
 # === Built In =================================================================
 
 func _ready() -> void:
@@ -63,7 +66,7 @@ func _ready() -> void:
 	suit_sprite.frame = randi() % 4
 	
 	update_labels()
-	play("idle")
+	play("spawn")
 	
 func _input(_event: InputEvent) -> void:
 	pass

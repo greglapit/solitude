@@ -82,6 +82,7 @@ func damage(amount : int = 1) -> void:
 	if durability <= 0:
 		free.emit(self)
 		animation_player.play("break")
+		queue_free()
 
 ## Returns true if successful
 func cut(amount : int = 1) -> bool:
