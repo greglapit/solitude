@@ -9,7 +9,9 @@ signal anim_finished(anim : String)
 # === Custom Methods ===========================================================
 
 func play(anim : StringName) -> void:
+	animation_player.stop()
 	animation_player.play(anim)
+	animation_player.seek(0.0, true)
 	return
 	
 func queue(anim : StringName) -> void:
@@ -24,6 +26,8 @@ func _ready() -> void:
 func _input(_event: InputEvent) -> void:
 	pass
 
+func _process(_delta: float) -> void:
+	pass
 
 # === Signals ==================================================================
 

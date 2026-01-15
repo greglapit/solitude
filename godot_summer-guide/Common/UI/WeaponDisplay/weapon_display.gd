@@ -57,8 +57,6 @@ func display_weapon(weapon : Weapon = displayed_weapon, mini_card : Card = card,
 		show_ticks(mini_card.durability)
 		
 		# Adjust button visibility
-		print(mini_card.rank + 1)
-		print(Globals.available_ranks.has(mini_card.rank + 1))
 		if actions >= 1:
 			draw_button.disabled = false
 			if Globals.available_ranks.has(mini_card.rank - 1):

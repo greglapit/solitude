@@ -2,7 +2,8 @@ extends Node2D
 
 @onready var player : Node2D = $Player
 @onready var weapons_display : Control = $UI/WeaponDisplay
-@onready var attack_button : TextureButton = $UI/PanelContainer/AttackButton
+@onready var chain_button : TextureButton = $UI/Buttons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton
+@onready var attack_button : TextureButton = $UI/Buttons/MarginContainer/VBoxContainer/PanelContainer/AttackButton
 @onready var spam_timer : Timer = $SpamTimer
 
 var mini_pos : Array								# Mini Card Positions
@@ -17,6 +18,7 @@ var attacks : int = Globals.attacks					# Attacks player has left
 var actions : int = Globals.actions					# Actions player has left (draw, cut, polish)
 #var enemies : Array[Enemy]
 var drawing : bool = false							# Turned on when drawing started, off when it ends
+var chaining : bool = false							# Turned on when chain attack is occuring
 var click_prevention : bool = false					# Stops minicard/attack inputs when drawing or attacking
 
 var combat_data : Dictionary
@@ -59,7 +61,7 @@ func load_weapons_display() -> void:
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
 		var enemies : Array = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,3) # randi() % 10 + 1)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,2 * (2 + randi() % 4)) # randi() % 10 + 1)
 		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
@@ -71,7 +73,7 @@ func spawn_enemy(num : int = 1) -> void:
 			enemy.attack_impact.connect(weapon._on_enemy_attack_impact)
 			enemy.freed.connect(weapon._on_enemy_freed)
 			
-		await get_tree().create_timer(randf_range(0.2, 0.3)).timeout
+		await get_tree().create_timer(0.2).timeout
 	
 	align_enemies()
 		
@@ -82,7 +84,7 @@ func align_enemies() -> void:
 		enemies[i].position = enemy_positions[i]
 		enemies[i].z_index = 5 - i
 	pass
-	
+
 
 func initiate_combat() -> void:
 	var enemies : Array = get_tree().get_nodes_in_group("enemies")
@@ -159,7 +161,13 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 		curr_weapon.enemies = get_tree().get_nodes_in_group("enemies")
 		active_weapon(curr_weapon)
 		if mini_equipped and mini_equipped != mini_card:
-			mini_equipped.position = mini_card.position + Vector2(30,0)
+			
+			# Position
+			var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards") 
+			mini_cards.sort_custom(func(a: Card, b: Card) -> bool: \
+			return a.global_position.x < b.global_position.x)
+			mini_equipped.position = mini_cards.back().position + Vector2(30,0)
+			
 			mini_equipped.visible = true
 			mini_equipped.add_to_group("mini_cards")
 		mini_card.play("equip")
@@ -185,11 +193,17 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 	
 	# Doesn't update weapon display until after drawing
 	if !drawing:
-		if mini_equipped:
-			attack_button.visible = true
+		if mini_equipped and !chaining:
+			attack_button.disabled = false
+			chain_button.disabled = false
 		else:
-			attack_button.visible = false
+			attack_button.disabled = true
+			chain_button.disabled = true
 		weapons_display.display_weapon(curr_weapon, mini_equipped, actions)
+		var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
+		var space_in_armory : bool = Globals.max_draw > mini_cards.size() + int(mini_equipped != null)
+		if !space_in_armory:
+			weapons_display.draw_button.disabled = true
 	
 	# Only update when equipping different weapon
 	if player_update:
@@ -214,15 +228,17 @@ func _ready() -> void:
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("quit_game"):
-			get_tree().quit()
-	# Case for clicking on nothing
-	if event is InputEventMouseButton \
-	and event.button_index == MOUSE_BUTTON_LEFT \
-	and event.pressed:
-		pass
+		get_tree().quit()
+	elif event.is_action_pressed("draw_button"):
+		weapons_display.button_enabled(false)
+		_on_draw_button_pressed()
+	elif event.is_action_pressed("attack_button"):
+		_on_attack_button_pressed()
+	elif event.is_action_pressed("chain_button"):
+		_on_chain_button_pressed()
 
 func _process(_delta: float) -> void:
-	if dragged_card:
+	if dragging and dragged_card:
 		dragged_card.z_index = 12
 		dragged_card.position = get_global_mouse_position()
 #endregion
@@ -263,21 +279,39 @@ func _on_polish_button_pressed() -> void:
 func _on_attack_button_pressed() -> void:
 	if click_prevention:
 		return
+	attack_button.disabled = true
+	chain_button.disabled = true
+	if !curr_weapon or get_tree().get_nodes_in_group("enemies").is_empty():
+		return
 	click_prevention = true
 	if !curr_weapon or get_tree().get_nodes_in_group("enemies").is_empty():
 		return
 	initiate_combat()
-	
+
+
+func _on_chain_button_pressed() -> void:
+	if click_prevention:
+		return
+	attack_button.disabled = true
+	chain_button.disabled = true
+	if !curr_weapon or get_tree().get_nodes_in_group("enemies").is_empty():
+		return
+	click_prevention = true
+	chaining = true
+	initiate_combat()
+
 ## Emitted by weapon display once ready for update
 func _on_weapon_display_update() -> void:
-	align_mini_cards()
 	if drawing:
+		align_mini_cards()
 		if mini_equipped:
-			attack_button.visible = true
+			attack_button.disabled = false
+			chain_button.disabled = false
 			curr_weapon.equip()
 		else:
 			player.play("base_idle")
-			attack_button.visible = false
+			attack_button.disabled = true
+			chain_button.disabled = true
 		click_prevention = false
 		drawing = false
 #endregion
@@ -296,7 +330,7 @@ func _on_mini_card_input_event(_viewport: Node, event: InputEvent, _shape_idx: i
 	if !spam_timer.is_stopped() or click_prevention:
 		return
 	
-	if dragging and mini_card != dragged_card:
+	if dragged_card and mini_card != dragged_card:
 		return
 	
 	if event is InputEventMouseButton \
@@ -316,8 +350,9 @@ func _on_mini_card_input_event(_viewport: Node, event: InputEvent, _shape_idx: i
 				if dragged_card.global_position.x > 490:
 					equip_mini_card(dragged_card)
 				dragging = false
-				dragged_card = null
 				align_mini_cards()
+				await get_tree().create_timer(.1).timeout # Prevents drawing minicard when hovering over another card
+				dragged_card = null
 				
 	if event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		if event.position.distance_to(click_pos) > DRAG_THRESHOLD:
@@ -339,12 +374,9 @@ func _on_mini_card_mouse_exited(mini_card : Card) -> void:
 func _on_mini_card_free(mini_card : Card) -> void:
 	if mini_card == mini_equipped:
 		pass
-		#equip_mini_card(null)
-		#player.queue("base_idle")
 
 func _on_spam_timer_timeout() -> void:
 	pass
-	#attack_button.disabled = false
 
 #endregion
 
@@ -354,30 +386,51 @@ func _on_spam_timer_timeout() -> void:
 
 ## Only called when player card < enemy card. After weapon is used and must be uneqipped
 func _on_weapon_weapon_used(_weapon : Weapon) -> void:
+	if !_weapon.active:
+		return
 	mini_equipped.used = true
 	var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
+	var enemies : Array = get_tree().get_nodes_in_group("enemies")
+	
 	# If all weapons have been used
 	if mini_cards.all(func(n : Card) -> bool: return n.used):
 		attacks = 0
-		var enemies : Array = get_tree().get_nodes_in_group("enemies")
 		curr_weapon.resolve_combat(player, hp, attacks, enemies) # Resolves combat with defend
 		mini_equipped.damage(combat_data["durability_lost"])
+		return
+	
+	if chaining and enemies[0].rank > 0:
+		mini_equipped.play("used")
+		mini_equipped.damage(combat_data["durability_lost"])
+		# Sort minis by order in player armory
+		mini_cards.sort_custom(func(a: Card, b: Card) -> bool: \
+			return a.global_position.x < b.global_position.x)
+			
+		var sorted_unused : Array = mini_cards.filter(func(e : Card) -> bool: return !e.used)
+		sorted_unused.erase(mini_equipped)
+		var next_mini : Card = sorted_unused[0]
+		equip_mini_card(next_mini)
+		await get_tree().create_timer(0.2).timeout
+		initiate_combat()
 	else:
 		mini_equipped.play("used")
+		mini_equipped.damage(combat_data["durability_lost"])
 		click_prevention = false
 		equip_mini_card(null)
-		mini_equipped.damage(combat_data["durability_lost"])
 	
 ## After weapon is used and combat cycle restarts
 func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 	click_prevention = false
+	chaining = false
 	attacks = Globals.attacks
 	actions = Globals.actions
 	var mini_cards : Array= get_tree().get_nodes_in_group("mini_cards")
 	var space_in_armory : bool = Globals.max_draw > mini_cards.size() + int(mini_equipped != null)
+	
 	if space_in_armory:
 		print("Space in armory. Draw some more!")
 		equip_mini_card(null)
+		
 	for mini_card : Card in mini_cards:
 		mini_card.play("RESET")
 		mini_card.used = false

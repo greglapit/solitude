@@ -1,5 +1,5 @@
-- [ ] fix bug of weapon display not updating after using last of durability
-- [ ] chain hit button
+- [x] fix bug of weapon display not updating after using last of durability ✅ 2026-01-14
+- [x] chain hit button ✅ 2026-01-14
 - [ ] secondary attack button + weapon passive effects
 - [ ] health bar connection
 - [ ] Visually communicate enemy will attack first or player will attack first
@@ -11,6 +11,7 @@
 - [ ] new weapons
 - [ ] 3 boss encounters
 - [ ] save file? -> 3 game states (early 1-4, mid 1-10, late 1-10 with legendaries)
+- [ ] Find difficult but satisfying execution of player weapon order. Make more satsifying by adding joker reaction + possible enemy damage/effect (joker blasts screen as reward)
 
 
 

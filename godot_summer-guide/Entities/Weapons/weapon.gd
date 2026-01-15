@@ -76,7 +76,7 @@ func _input(_event: InputEvent) -> void:
 # === Signals ==================================================================
 
 func _on_player_anim_finished(anim : String) -> void:
-	if !active:
+	if !active or !anim.contains(str(rank)):
 		return
 	if anim.contains("attack"):
 		
@@ -87,7 +87,7 @@ func _on_player_anim_finished(anim : String) -> void:
 		# Player lower with higher rank card
 		else:
 			weapon_used.emit(self)
-		equip()
+		#equip()
 	if anim.contains("defend"):
 		if !reciprocal_attack:
 			player.play(player_idle_anim)
@@ -103,7 +103,6 @@ func _on_player_attack_impact() -> void:
 	if rank == enemies[0].rank:
 		critting = true
 		crit.emit()
-		combat_fin.emit()
 	enemies[0].damage(rank)
 
 func _on_enemy_attack_impact() -> void:
