@@ -1,0 +1,11 @@
+- Ace: Minor Heal
+	- Philosopher's stone. Transmutes part of the diamond into a heal
+- Two: Mark target, triggers on next hit. More if hit with daggers
+- Three:  Aoe Wave
+- Four: Bulwark stance. Reduces next attack to 1
+- Five: 
+- Six: Bind Enemy. Enemy will always act last
+- Seven: Harvest. 
+- Eight: Skysplitter, 
+- Nine: 
+- Nine

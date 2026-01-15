@@ -13,6 +13,7 @@
 * Gem exists in handle of each dagger
 * Examples: Levi, Soshiro (Kaijuu), Sound Hashira
 * Powers: Bleed, double attack, momentum building (attacking multiple times does more damage)
+
 ![[Dualdaggers.png|300]]
 
 * Variants: Nunchucks. Respawning Throwing Knives
