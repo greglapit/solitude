@@ -13,3 +13,7 @@ func assign_prop() -> void:
 	player_attack_anim = "1_base_attack"
 	player_defend_anim = "1_base_defend"
 	
+func _on_player_weap_effect_start() -> void:
+	if !active:
+		return
+	animation_player.play("siphon")

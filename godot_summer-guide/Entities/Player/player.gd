@@ -4,6 +4,8 @@ extends Node2D
 
 @warning_ignore("unused_signal")
 signal attack_impact				## Time in animation when animation hits. Emitted by animation player
+@warning_ignore("unused_signal")
+signal weap_effect_start			## Time in animation when weapon effect should start. Sent to weapon in battle scene
 signal anim_finished(anim : String)
 
 # === Custom Methods ===========================================================
@@ -11,7 +13,7 @@ signal anim_finished(anim : String)
 func play(anim : StringName) -> void:
 	animation_player.stop()
 	animation_player.play(anim)
-	animation_player.seek(0.0, true)
+	#animation_player.seek(0.0, true)
 	return
 	
 func queue(anim : StringName) -> void:

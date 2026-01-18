@@ -34,6 +34,7 @@ func update_labels() -> void:
 	label1.text = ranks[rank]
 	label2.text = ranks[rank]
 
+## Damage the enemy
 func damage(amt : int) -> Callable:
 	rank  = max(rank-amt, 0)
 	if rank <= 0:
@@ -44,11 +45,16 @@ func damage(amt : int) -> Callable:
 	
 	return func() -> void: return
 
-func attack() -> float:
+## Damage the player
+func attack(_weapon : Weapon, _combat_data : Dictionary) -> Dictionary:
+	var combat_data : Dictionary = _combat_data
+	
 	if rank <= 0:
-		return rank
+		combat_data["hp_lost"] = rank
+		return combat_data
 	animation_player.play("attack")
-	return rank
+	combat_data["hp_lost"] = rank
+	return combat_data
 
 func play(anim : String = "RESET") -> void:
 	animation_player.play(anim)

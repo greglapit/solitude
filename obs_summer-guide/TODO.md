@@ -1,8 +1,8 @@
 - [x] fix bug of weapon display not updating after using last of durability ✅ 2026-01-14
 - [x] chain hit button ✅ 2026-01-14
 - [ ] secondary attack button + weapon passive effects
-- [ ] health bar connection
-- [ ] Visually communicate enemy will attack first or player will attack first
+- [x] health bar connection ✅ 2026-01-17
+- [x] Visually communicate enemy will attack first or player will attack first ✅ 2026-01-17
 - [ ] Visually communicate you have space to draw so unequipping
 - [ ] Visually communicate player has run out of weapons, enemy attacks
 - [ ] enemy spawn pool in globals
@@ -12,6 +12,9 @@
 - [ ] 3 boss encounters
 - [ ] save file? -> 3 game states (early 1-4, mid 1-10, late 1-10 with legendaries)
 - [ ] Find difficult but satisfying execution of player weapon order. Make more satsifying by adding joker reaction + possible enemy damage/effect (joker blasts screen as reward)
+- [ ] In between player sitting at campfire. Will be where they edit their memory and recallable weapons. Player daydreaming at the sky, availible weapons circling their head
+	- [ ] Click campfire to sleep the night and enter spread again. Gain a little health back
+	- [ ] Chance encounters in dusk of shop with king, queen, jack of diamonds. Provide player weapons/upgrades 
 
 
 

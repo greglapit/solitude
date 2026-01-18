@@ -1,16 +1,17 @@
-[gd_scene load_steps=13 format=3 uid="uid://0tk7al8pp3w"]
+[gd_scene load_steps=14 format=3 uid="uid://0tk7al8pp3w"]
 
 [ext_resource type="Shader" uid="uid://bvu6mr6dwkfa5" path="res://Common/Shaders/fog_shader.gdshader" id="1_c8wje"]
 [ext_resource type="Script" uid="uid://bvnir8m4dq0uv" path="res://Scenes/Battle/battle.gd" id="1_o8bsx"]
 [ext_resource type="Texture2D" uid="uid://cmbcyj88a71q5" path="res://Scenes/Battle/Art/game_background.png" id="1_wqxgi"]
 [ext_resource type="PackedScene" uid="uid://bewmpgn4nhlxk" path="res://Entities/Player/player.tscn" id="2_3qw02"]
 [ext_resource type="PackedScene" uid="uid://dhcp5xhhbvfsa" path="res://Common/UI/WeaponDisplay/weapon_display.tscn" id="2_en5gs"]
-[ext_resource type="PackedScene" uid="uid://dpn0wn5vhd8du" path="res://Common/UI/HealthBar/health.tscn" id="3_en5gs"]
+[ext_resource type="PackedScene" uid="uid://dpn0wn5vhd8du" path="res://Common/UI/HealthBar/health_bar.tscn" id="3_en5gs"]
 [ext_resource type="Texture2D" uid="uid://fni0n8450q3x" path="res://Common/UI/Attack/Art/button_background.png" id="4_17ekq"]
 [ext_resource type="Texture2D" uid="uid://dab06hwckatf2" path="res://Common/UI/Attack/Art/attack_button_up.png" id="5_rgg0r"]
 [ext_resource type="Texture2D" uid="uid://b2o2xbjprmy24" path="res://Common/UI/Attack/Art/attack_button_down.png" id="6_bch6i"]
 [ext_resource type="Texture2D" uid="uid://nsnsa5s7wqcy" path="res://Common/UI/Attack/Art/chain_button_up.png" id="7_bch6i"]
 [ext_resource type="Texture2D" uid="uid://eb7xsouy7gep" path="res://Common/UI/Attack/Art/chain_button_down.png" id="8_q43bu"]
+[ext_resource type="PackedScene" uid="uid://c2e24843ekof6" path="res://Common/UI/TurnClock/turn_clock.tscn" id="11_q43bu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7e3i2"]
 shader = ExtResource("1_c8wje")
@@ -116,8 +117,11 @@ text = "ATTACK [V]"
 
 [node name="WeaponDisplay" parent="UI" instance=ExtResource("2_en5gs")]
 
-[node name="Health" parent="UI" instance=ExtResource("3_en5gs")]
+[node name="HealthBar" parent="UI" instance=ExtResource("3_en5gs")]
 offset_right = 157.0
+
+[node name="TurnClock" parent="UI" instance=ExtResource("11_q43bu")]
+position = Vector2(40, 180)
 
 [node name="Player" parent="." instance=ExtResource("2_3qw02")]
 z_index = 10

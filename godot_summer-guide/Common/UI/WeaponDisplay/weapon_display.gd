@@ -19,7 +19,7 @@ extends Control
 @onready var weapon_art : TextureRect = $HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/WeaponArt
 @onready var draw_button : TextureButton = $HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton
 @onready var cut_button : TextureButton = $HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/CutButton
-@onready var polish_button : TextureButton = $HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/PolishButton
+@onready var socket_button : TextureButton = $HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/SocketButton
 @onready var click_timer : Timer = $ClickTimer
 
 var displayed_weapon : Weapon
@@ -31,7 +31,7 @@ var actions : int
 signal drawn
 signal weapon_box_click
 signal cut
-signal polish
+signal socket
 @warning_ignore("unused_signal")
 signal weapon_display_update 			## Sent when Weapons display should update has occured
 
@@ -44,7 +44,7 @@ func display_weapon(weapon : Weapon = displayed_weapon, mini_card : Card = card,
 	else:
 		draw_button.disabled = false
 	cut_button.disabled = true
-	polish_button.disabled = true
+	socket_button.disabled = true
 	
 	if weapon and mini_card:
 		weapon_name_label.text = weapon.display_name
@@ -53,7 +53,7 @@ func display_weapon(weapon : Weapon = displayed_weapon, mini_card : Card = card,
 		weapon_desc.text = weapon.description
 		draw_button.visible = false
 		cut_button.visible = true
-		polish_button.visible = true
+		socket_button.visible = true
 		show_ticks(mini_card.durability)
 		
 		# Adjust button visibility
@@ -62,7 +62,7 @@ func display_weapon(weapon : Weapon = displayed_weapon, mini_card : Card = card,
 			if Globals.available_ranks.has(mini_card.rank - 1):
 				cut_button.disabled = false
 			if Globals.available_ranks.has(mini_card.rank + 1):
-				polish_button.disabled = false
+				socket_button.disabled = false
 	else:
 		weapon_name_label.text = ""
 		second_name.text = ""
@@ -70,21 +70,21 @@ func display_weapon(weapon : Weapon = displayed_weapon, mini_card : Card = card,
 		weapon_desc.text = ""
 		draw_button.visible = true
 		cut_button.visible = false
-		polish_button.visible = false
+		socket_button.visible = false
 		show_ticks()
 	weapon_display_update.emit()
 	
 func timeout_buttons(time : float = 0.5) -> void:
 	draw_button.disabled = true
 	cut_button.disabled = true
-	polish_button.disabled = true
+	socket_button.disabled = true
 	click_timer.wait_time = time
 	click_timer.start()
 
 func button_enabled(enabled : bool = true) -> void:
 	draw_button.disabled = !enabled
 	cut_button.disabled = !enabled
-	polish_button.disabled = !enabled
+	socket_button.disabled = !enabled
 
 func show_ticks(num : int = 0) -> void:
 	for tick : int in range(ticks.size()):
@@ -100,8 +100,6 @@ func play(anim : String = "RESET") -> void:
 
 func _ready() -> void:
 	ticks = [tick1,tick2,tick3,tick4,tick5,tick6,tick7]
-	#for i : int in Globals.armory.size():
-		#weapon_arts.append(load(art_path + str(i + 1) + "/" + Globals.armory[i] + ".png"))
 	display_weapon(null, null, Globals.actions)
 	
 func _input(_event: InputEvent) -> void:
@@ -130,9 +128,9 @@ func _on_cut_button_pressed() -> void:
 		click_timer.start()
 		button_enabled(false)
 
-func _on_polish_button_pressed() -> void:
+func _on_socket_button_pressed() -> void:
 	if click_timer.is_stopped():
-		polish.emit()
+		socket.emit()
 		click_timer.start()
 		button_enabled(false)
 
@@ -140,11 +138,11 @@ func _on_click_timer_timeout() -> void:
 	if displayed_weapon and actions > 1:
 		draw_button.disabled = false
 		cut_button.disabled = false
-		polish_button.disabled = false
+		socket_button.disabled = false
 	else:
 		draw_button.disabled = true
 		cut_button.disabled = true
-		polish_button.disabled = true
+		socket_button.disabled = true
 		
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
@@ -153,3 +151,5 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		card_label1.text = str(card.ranks[card.rank])
 		card_label2.text = str(card.ranks[card.rank])
 		animation_player.play("joker_end_spin")
+	if anim_name == "joker_crit":
+		animation_player.play("joker_power_idle")

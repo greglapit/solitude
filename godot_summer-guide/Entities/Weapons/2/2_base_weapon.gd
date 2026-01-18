@@ -10,3 +10,17 @@ func assign_prop() -> void:
 	player_idle_anim = "2_base_idle"
 	player_attack_anim = "2_base_attack"
 	player_defend_anim = "2_base_defend"
+
+func resolve_combat(_player : Node2D, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
+	combat_data = super(_player, _hp, _attacks, _enemy_array)
+	if _enemy_array[0].rank == rank:
+		critting = true
+	return combat_data
+
+func _on_player_weap_effect_start() -> void:
+	if !active:
+		return
+	if critting:
+		animation_player.play("double_slash")
+	else:
+		animation_player.play("slash")

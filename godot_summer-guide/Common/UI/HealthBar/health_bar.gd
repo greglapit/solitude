@@ -2,26 +2,29 @@ extends PanelContainer
 
 # Intended only to display visual health values, not keep track of health
 
-var hp : float = 100
 var wiggle_amt : int = 1
-@onready var AP : AnimationPlayer = $AnimationPlayer
+@onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var nums : Label = $MarginContainer/VBoxContainer/Numbers
 @onready var bar : TextureProgressBar = $MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/ProgressBar
 @onready var ends : TextureProgressBar = $MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/ProgressBarEnds
 @onready var shield : TextureRect = $MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/Shield
 
 # === Custom Methods ===========================================================
-func display_health(health : float, max_health : int = 20) -> void:
-	hp = health
+## Health is out of 100. Displays as percentage of max_health
+func display_hp(health : int, max_health : int = Globals.max_hp) -> void:
+	var ratio : float = 100 / float(max_health)
+	var hp_100 : float = float(health) * ratio				#Hp out of 100
 	
 	#Bar
-	bar.value = hp
-	ends.value = hp
-	if hp < 100:
-		AP.play("wiggle")
+	bar.value = hp_100
+	ends.value = hp_100
 	
-	var label_health : int = int(hp / (100 / float(max_health)))
-	nums.text = str(label_health) + "/" + str(max_health)
+	if health < max_health:
+		animation_player.play("wiggle")
+	else:
+		animation_player.play("RESET")
+	
+	nums.text = str(health) + "/" + str(max_health)
 
 func health_shield(toggle : bool) -> void:
 	shield.visible = toggle
@@ -39,7 +42,7 @@ func down() -> void:
 # === Built In =================================================================
 
 func _ready() -> void:
-	display_health(hp)
+	display_hp(Globals.hp)
 
 func _input(_event: InputEvent) -> void:
 	pass

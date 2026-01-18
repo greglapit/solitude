@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dhcp5xhhbvfsa"]
+[gd_scene load_steps=24 format=3 uid="uid://dhcp5xhhbvfsa"]
 
 [ext_resource type="Texture2D" uid="uid://dq3lmmcwyqks6" path="res://Common/UI/WeaponDisplay/Art/Main/border.png" id="1_lakbu"]
 [ext_resource type="Script" uid="uid://cusppjlshxdy4" path="res://Common/UI/WeaponDisplay/weapon_display.gd" id="1_mm5xb"]
@@ -146,20 +146,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [31, 32, 33, 34, 35, 36, 37, 38, 35, 36, 37, 34, 35, 36, 37, 38, 35, 38, 39, 40]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(2),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": ["joker_idle"],
-"method": &"play"
-}]
 }
 
 [sub_resource type="Animation" id="Animation_1hyfk"]
@@ -345,6 +331,24 @@ tracks/0/keys = {
 "values": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
 }
 
+[sub_resource type="Animation" id="Animation_sqowb"]
+resource_name = "joker_power_idle"
+length = 2.0
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [41, 42, 43, 44]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w10c2"]
 _data = {
 &"RESET": SubResource("Animation_ti0hy"),
@@ -352,6 +356,7 @@ _data = {
 &"joker_end_spin": SubResource("Animation_1hyfk"),
 &"joker_idle": SubResource("Animation_2atbk"),
 &"joker_open_mouth": SubResource("Animation_cjusc"),
+&"joker_power_idle": SubResource("Animation_sqowb"),
 &"joker_spinning": SubResource("Animation_w10c2")
 }
 
@@ -529,19 +534,19 @@ layout_mode = 2
 theme_override_constants/separation = 14
 theme_override_styles/separator = SubResource("StyleBoxEmpty_2atbk")
 
-[node name="PolishButton" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="SocketButton" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("6_q6tnq")
 texture_pressed = ExtResource("10_2jaol")
 texture_disabled = ExtResource("10_2jaol")
 
-[node name="Polish" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/PolishButton"]
+[node name="Socket" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/SocketButton"]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 2.0
 offset_right = 50.0
 offset_bottom = 16.0
-text = "POLISH"
+text = "SOCKET"
 horizontal_alignment = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
@@ -565,7 +570,7 @@ one_shot = true
 position = Vector2(-81, 0)
 scale = Vector2(2, 2)
 texture = ExtResource("12_2atbk")
-hframes = 41
+hframes = 45
 
 [node name="MouthLabel" type="Label" parent="Joker"]
 visible = false
@@ -603,6 +608,6 @@ autoplay = "joker_idle"
 [connection signal="gui_input" from="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer" to="." method="_on_center_container_gui_input"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton" to="." method="_on_draw_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/CutButton" to="." method="_on_cut_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/PolishButton" to="." method="_on_polish_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/SocketButton" to="." method="_on_socket_button_pressed"]
 [connection signal="timeout" from="ClickTimer" to="." method="_on_click_timer_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

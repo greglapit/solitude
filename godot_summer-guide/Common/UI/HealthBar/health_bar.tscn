@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://dpn0wn5vhd8du"]
 
-[ext_resource type="Script" uid="uid://bctd7p7q1ocg2" path="res://Common/UI/HealthBar/health.gd" id="1_xf7an"]
+[ext_resource type="Script" uid="uid://bctd7p7q1ocg2" path="res://Common/UI/HealthBar/health_bar.gd" id="1_xf7an"]
 [ext_resource type="Texture2D" uid="uid://bocc7qt80pb1l" path="res://Common/UI/HealthBar/Art/progress_bar_fill.png" id="2_sr4or"]
 [ext_resource type="Texture2D" uid="uid://twm7rycfxy4q" path="res://Common/UI/HealthBar/Art/progress_bar_fill_ends.png" id="3_6op7r"]
 [ext_resource type="Texture2D" uid="uid://b1s1dqtyyg27f" path="res://Common/UI/HealthBar/Art/progress_bar.png" id="4_8kh2g"]
@@ -52,7 +52,7 @@ _data = {
 &"wiggle": SubResource("Animation_3ug1x")
 }
 
-[node name="Health" type="PanelContainer"]
+[node name="HealthBar" type="PanelContainer"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0

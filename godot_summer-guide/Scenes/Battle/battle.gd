@@ -2,8 +2,10 @@ extends Node2D
 
 @onready var player : Node2D = $Player
 @onready var weapons_display : Control = $UI/WeaponDisplay
+@onready var health_bar : PanelContainer = $UI/HealthBar
 @onready var chain_button : TextureButton = $UI/Buttons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton
 @onready var attack_button : TextureButton = $UI/Buttons/MarginContainer/VBoxContainer/PanelContainer/AttackButton
+@onready var turn_clock : Sprite2D = $UI/TurnClock
 @onready var spam_timer : Timer = $SpamTimer
 
 var mini_pos : Array								# Mini Card Positions
@@ -13,12 +15,12 @@ var enemy_positions : Array[Vector2] = [Vector2(250,80), Vector2(215,70), Vector
 var mini_equipped : Card							# Current card player has equipped
 var curr_weapon : Weapon							# String name of player weapon
 var player_weapons : Dictionary
-var hp : float = 100
+var hp : int
 var attacks : int = Globals.attacks					# Attacks player has left
-var actions : int = Globals.actions					# Actions player has left (draw, cut, polish)
-#var enemies : Array[Enemy]
+var actions : int = Globals.actions					# Actions player has left (draw, cut, socket)
 var drawing : bool = false							# Turned on when drawing started, off when it ends
 var chaining : bool = false							# Turned on when chain attack is occuring
+var crit_stored : int = false						# Number of crits stored
 var click_prevention : bool = false					# Stops minicard/attack inputs when drawing or attacking
 
 var combat_data : Dictionary
@@ -38,8 +40,10 @@ func load_armory() -> void:
 		weapon.weapon_used.connect(_on_weapon_weapon_used)
 		weapon.combat_fin.connect(_on_weapon_combat_fin.bind(weapon))
 		weapon.crit.connect(_on_weapon_crit)
+		weapon.hp_update.connect(_on_weapon_hp_update)
 		player.anim_finished.connect(weapon._on_player_anim_finished)
 		player.attack_impact.connect(weapon._on_player_attack_impact)
+		player.weap_effect_start.connect(weapon._on_player_weap_effect_start)
 		add_child(weapon)
 		
 		player_weapons[i] = weapon
@@ -55,7 +59,7 @@ func load_weapons_display() -> void:
 	weapons_display.drawn.connect(_on_draw_button_pressed)
 	weapons_display.weapon_box_click.connect(_on_weapon_box_click)
 	weapons_display.cut.connect(_on_cut_button_pressed)
-	weapons_display.polish.connect(_on_polish_button_pressed)
+	weapons_display.socket.connect(_on_socket_button_pressed)
 	weapons_display.weapon_display_update.connect(_on_weapon_display_update)
 
 func spawn_enemy(num : int = 1) -> void:
@@ -89,9 +93,21 @@ func align_enemies() -> void:
 func initiate_combat() -> void:
 	var enemies : Array = get_tree().get_nodes_in_group("enemies")
 	combat_data = curr_weapon.resolve_combat(player, hp, attacks, enemies)
-	
+	return
 	
 #endregion
+
+func update_turn_clock() -> void:
+	var enemies : Array = get_tree().get_nodes_in_group("enemies")
+	if !enemies[0] or enemies[0].rank <=0 or !mini_equipped:
+		turn_clock.show_turn(turn_clock.turn.HALF)
+		return
+	
+	if enemies[0].rank >= mini_equipped.rank and !mini_equipped.used:
+		turn_clock.show_turn(turn_clock.turn.DOWN)
+	else:
+		turn_clock.show_turn(turn_clock.turn.UP)
+	
 
 # Mini Cards
 #-------------------------------------------------------------------------------
@@ -204,6 +220,7 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 		var space_in_armory : bool = Globals.max_draw > mini_cards.size() + int(mini_equipped != null)
 		if !space_in_armory:
 			weapons_display.draw_button.disabled = true
+		update_turn_clock()
 	
 	# Only update when equipping different weapon
 	if player_update:
@@ -218,10 +235,13 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 # === Built In =================================================================
 #region
 func _ready() -> void:
+	hp = Globals.hp
+	
 	load_armory()
 	load_weapons_display()
 	spawn_enemy(3)
 	equip_mini_card(null)
+	
 	# Runs after first frame
 	#await get_tree().process_frame
 
@@ -269,9 +289,9 @@ func _on_cut_button_pressed() -> void:
 	equip_mini_card(mini_equipped)
 	actions -= 1
 
-func _on_polish_button_pressed() -> void:
-	var polished : bool = mini_equipped.polish()
-	if !polished:
+func _on_socket_button_pressed() -> void:
+	var socketed : bool = mini_equipped.socket()
+	if !socketed:
 		return
 	equip_mini_card(mini_equipped)
 	actions -= 1
@@ -308,12 +328,14 @@ func _on_weapon_display_update() -> void:
 			attack_button.disabled = false
 			chain_button.disabled = false
 			curr_weapon.equip()
+			update_turn_clock()
 		else:
 			player.play("base_idle")
 			attack_button.disabled = true
 			chain_button.disabled = true
 		click_prevention = false
 		drawing = false
+		
 #endregion
 
 # Mini Cards
@@ -395,13 +417,13 @@ func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 	# If all weapons have been used
 	if mini_cards.all(func(n : Card) -> bool: return n.used):
 		attacks = 0
-		curr_weapon.resolve_combat(player, hp, attacks, enemies) # Resolves combat with defend
+		initiate_combat() # Resolves combat with defend
 		mini_equipped.damage(combat_data["durability_lost"])
 		return
 	
+	mini_equipped.play("used")
+	mini_equipped.damage(combat_data["durability_lost"])
 	if chaining and enemies[0].rank > 0:
-		mini_equipped.play("used")
-		mini_equipped.damage(combat_data["durability_lost"])
 		# Sort minis by order in player armory
 		mini_cards.sort_custom(func(a: Card, b: Card) -> bool: \
 			return a.global_position.x < b.global_position.x)
@@ -413,8 +435,6 @@ func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 		await get_tree().create_timer(0.2).timeout
 		initiate_combat()
 	else:
-		mini_equipped.play("used")
-		mini_equipped.damage(combat_data["durability_lost"])
 		click_prevention = false
 		equip_mini_card(null)
 	
@@ -435,9 +455,16 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 		mini_card.play("RESET")
 		mini_card.used = false
 	equip_mini_card(mini_equipped)
+	
 
 func _on_weapon_crit() -> void:
 	weapons_display.play("joker_crit")
+	crit_stored += 1
+
+func _on_weapon_hp_update(_hp_lost : int = combat_data["hp_lost"]) -> void:
+	# HP
+	hp = max(hp - _hp_lost, 0)
+	health_bar.display_hp(hp, Globals.max_hp)
 
 #endregion
 
@@ -448,3 +475,4 @@ func _on_enemy_freed(_enemy : Enemy) -> void:
 		spawn_enemy(3)
 	else:
 		align_enemies()
+	update_turn_clock()

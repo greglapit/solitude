@@ -10,3 +10,6 @@ func assign_prop() -> void:
 	player_idle_anim = "6_base_idle"
 	player_attack_anim = "6_base_attack"
 	player_defend_anim = "6_base_defend"
+
+func _on_player_weap_effect_start() -> void:
+	animation_player.play("shockwave")
