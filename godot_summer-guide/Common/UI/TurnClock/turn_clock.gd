@@ -7,6 +7,8 @@ var curr_anim : turn
 enum turn {UP, DOWN, HALF,CONFUSED}
 
 func show_turn(_turn : turn) -> void:
+	if _turn == curr_anim:
+		return
 	match _turn:
 		turn.CONFUSED:
 			animation_player.play("confused")

@@ -3,8 +3,9 @@ extends Node2D
 @onready var player : Node2D = $Player
 @onready var weapons_display : Control = $UI/WeaponDisplay
 @onready var health_bar : PanelContainer = $UI/HealthBar
-@onready var chain_button : TextureButton = $UI/Buttons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton
-@onready var attack_button : TextureButton = $UI/Buttons/MarginContainer/VBoxContainer/PanelContainer/AttackButton
+@onready var chain_button : TextureButton = $UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton
+@onready var attack_button : TextureButton = $UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer/AttackButton
+@onready var crit_button : TextureButton = $UI/CritButton
 @onready var turn_clock : Sprite2D = $UI/TurnClock
 @onready var spam_timer : Timer = $SpamTimer
 
@@ -216,10 +217,19 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 			attack_button.disabled = true
 			chain_button.disabled = true
 		weapons_display.display_weapon(curr_weapon, mini_equipped, actions)
+		
+		# Show Draw Button
 		var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
 		var space_in_armory : bool = Globals.max_draw > mini_cards.size() + int(mini_equipped != null)
 		if !space_in_armory:
 			weapons_display.draw_button.disabled = true
+		
+		# Crit Button enable/disable
+		if curr_weapon and curr_weapon.has_special:
+			crit_button.disabled = false
+		else:
+			crit_button.disabled = true
+			
 		update_turn_clock()
 	
 	# Only update when equipping different weapon
@@ -337,6 +347,12 @@ func _on_weapon_display_update() -> void:
 		drawing = false
 		
 #endregion
+
+func _on_crit_button_pressed() -> void:
+	if !crit_stored:
+		return
+	crit_button.spawn(false)
+	weapons_display.play("joker_crit_expend")
 
 # Mini Cards
 #-------------------------------------------------------------------------------
@@ -460,6 +476,7 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 func _on_weapon_crit() -> void:
 	weapons_display.play("joker_crit")
 	crit_stored += 1
+	crit_button.spawn(true)
 
 func _on_weapon_hp_update(_hp_lost : int = combat_data["hp_lost"]) -> void:
 	# HP

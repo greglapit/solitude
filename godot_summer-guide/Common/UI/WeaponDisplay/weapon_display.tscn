@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dhcp5xhhbvfsa"]
+[gd_scene load_steps=29 format=3 uid="uid://dhcp5xhhbvfsa"]
 
 [ext_resource type="Texture2D" uid="uid://dq3lmmcwyqks6" path="res://Common/UI/WeaponDisplay/Art/Main/border.png" id="1_lakbu"]
 [ext_resource type="Script" uid="uid://cusppjlshxdy4" path="res://Common/UI/WeaponDisplay/weapon_display.gd" id="1_mm5xb"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cjohnsu88xgsf" path="res://Common/UI/WeaponDisplay/Art/Main/ticks.png" id="9_2jaol"]
 [ext_resource type="Texture2D" uid="uid://jh2mwiywgras" path="res://Common/UI/WeaponDisplay/Art/Main/button2_grayed.png" id="10_2jaol"]
 [ext_resource type="Texture2D" uid="uid://xrs777rhr3" path="res://Common/UI/WeaponDisplay/Art/Main/joker_ui.png" id="12_2atbk"]
+[ext_resource type="Shader" uid="uid://ligdqt5hrmri" path="res://Common/Shaders/pixel_melt.gdshader" id="12_ti0hy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2jaol"]
 bg_color = Color(0.043137256, 0.36862746, 0.39607844, 1)
@@ -19,6 +20,11 @@ bg_color = Color(0.043137256, 0.36862746, 0.39607844, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2atbk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ti0hy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2atbk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2atbk"]
+size = Vector2(156, 152)
 
 [sub_resource type="Animation" id="Animation_ti0hy"]
 length = 0.001
@@ -130,6 +136,30 @@ tracks/8/keys = {
 "update": 1,
 "values": [null]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath(".:material")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath(".:material:shader_parameter/progress")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.010000000475]
+}
 
 [sub_resource type="Animation" id="Animation_0v25u"]
 resource_name = "joker_crit"
@@ -176,14 +206,86 @@ tracks/1/keys = {
 "update": 1,
 "values": [false, true, false]
 }
-tracks/2/type = "method"
+tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("..")
+tracks/2/path = NodePath("CardLabel2:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(1.9333333, 2.2),
+"times": PackedFloat32Array(1.4000001, 1.5333334, 1.6666666, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-1.5, -38), Vector2(-1.5, -32.5), Vector2(6, -21), Vector2(11, 10.5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CardLabel2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.4000001, 1.9333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CardLabel2:theme_override_font_sizes/font_size")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.4000001, 1.6666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [16, 32]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CardLabel:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.8, 2.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CardLabel:theme_override_font_sizes/font_size")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1.8),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [32]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CardLabel:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(1.8, 1.9333333, 2.0666666, 2.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-26, -43.5), Vector2(-28.5, -25), Vector2(-28.5, -6), Vector2(-28.5, 22)]
+}
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../..")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(1.9333334, 2.2),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
@@ -192,78 +294,6 @@ tracks/2/keys = {
 "args": ["joker_idle"],
 "method": &"play"
 }]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CardLabel2:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(1.4000001, 1.5333334, 1.6666666, 1.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [Vector2(-1.5, -38), Vector2(-1.5, -32.5), Vector2(6, -21), Vector2(11, 10.5)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("CardLabel2:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 1.4000001, 1.9333333),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("CardLabel2:theme_override_font_sizes/font_size")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(1.4000001, 1.6666666),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [16, 32]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("CardLabel:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 1.8, 2.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("CardLabel:theme_override_font_sizes/font_size")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(1.8),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [32]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("CardLabel:position")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(1.8, 1.9333333, 2.0666666, 2.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [Vector2(-26, -43.5), Vector2(-28.5, -25), Vector2(-28.5, -6), Vector2(-28.5, 22)]
 }
 
 [sub_resource type="Animation" id="Animation_2atbk"]
@@ -302,7 +332,7 @@ tracks/0/keys = {
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("..")
+tracks/1/path = NodePath("../..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -349,14 +379,75 @@ tracks/0/keys = {
 "values": [41, 42, 43, 44]
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ti0hy"]
+shader = ExtResource("12_ti0hy")
+shader_parameter/progress = 0.010000000475
+shader_parameter/meltiness = 1.0
+
+[sub_resource type="Animation" id="Animation_utu13"]
+resource_name = "joker_crit_expend"
+length = 2.0000067
+step = 0.06666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.26666668, 0.4, 0.46666667, 0.53333336, 0.6, 0.6666667, 0.73333335, 0.8, 0.8666667, 0.93333334, 1, 1.0666666, 1.1333333, 1.2, 1.2666667, 1.3333334, 1.4000001, 1.4666667, 1.5333334, 1.6000001, 1.6666667, 1.7333335, 1.8666667, 1.9333333, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 3, 4, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 46, 47, 48, 4, 3, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [SubResource("ShaderMaterial_ti0hy"), null]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/progress")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.40232575, 0.5356591, 0.6666667, 1, 1.1310077, 1.5333334, 1.664341),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0.0, 0.034000001615, 0.0, 0.034000001615, 0.0, 0.034000001615, 0.0]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../..")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["joker_idle"],
+"method": &"play"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w10c2"]
 _data = {
 &"RESET": SubResource("Animation_ti0hy"),
 &"joker_crit": SubResource("Animation_0v25u"),
+&"joker_crit_expend": SubResource("Animation_utu13"),
+&"joker_crit_idle": SubResource("Animation_sqowb"),
 &"joker_end_spin": SubResource("Animation_1hyfk"),
 &"joker_idle": SubResource("Animation_2atbk"),
 &"joker_open_mouth": SubResource("Animation_cjusc"),
-&"joker_power_idle": SubResource("Animation_sqowb"),
 &"joker_spinning": SubResource("Animation_w10c2")
 }
 
@@ -566,13 +657,17 @@ text = "-FILLER FILLER FILLER
 wait_time = 0.5
 one_shot = true
 
-[node name="Joker" type="Sprite2D" parent="."]
-position = Vector2(-81, 0)
+[node name="JokerArea2D" type="Area2D" parent="."]
+material = SubResource("ShaderMaterial_2atbk")
+position = Vector2(-640, -180)
+
+[node name="Joker" type="Sprite2D" parent="JokerArea2D"]
+position = Vector2(559, 180)
 scale = Vector2(2, 2)
 texture = ExtResource("12_2atbk")
-hframes = 45
+hframes = 49
 
-[node name="MouthLabel" type="Label" parent="Joker"]
+[node name="MouthLabel" type="Label" parent="JokerArea2D/Joker"]
 visible = false
 offset_left = -19.0
 offset_top = -43.5
@@ -582,14 +677,14 @@ theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
 text = "A"
 horizontal_alignment = 1
 
-[node name="CardLabel" type="Label" parent="Joker"]
+[node name="CardLabel" type="Label" parent="JokerArea2D/Joker"]
 visible = false
 offset_right = 40.0
 offset_bottom = 28.0
 theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
 text = "A"
 
-[node name="CardLabel2" type="Label" parent="Joker"]
+[node name="CardLabel2" type="Label" parent="JokerArea2D/Joker"]
 visible = false
 offset_right = 18.0
 offset_bottom = 28.0
@@ -598,8 +693,12 @@ text = "A"
 horizontal_alignment = 2
 text_direction = 2
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JokerArea2D"]
+position = Vector2(560, 80)
+shape = SubResource("RectangleShape2D_2atbk")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Joker")
+root_node = NodePath("../JokerArea2D/Joker")
 libraries = {
 &"": SubResource("AnimationLibrary_w10c2")
 }

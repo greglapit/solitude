@@ -1,9 +1,9 @@
 extends Control
 
-@onready var joker : Sprite2D = $Joker
-@onready var mouth_label : Label = $Joker/MouthLabel
-@onready var card_label1 : Label = $Joker/CardLabel
-@onready var card_label2 : Label = $Joker/CardLabel2
+@onready var joker : Sprite2D = $JokerArea2D/Joker
+@onready var mouth_label : Label = $JokerArea2D/Joker/MouthLabel
+@onready var card_label1 : Label = $JokerArea2D/Joker/CardLabel
+@onready var card_label2 : Label = $JokerArea2D/Joker/CardLabel2
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var weapon_name_label : Label = $HBoxContainer/PanelContainer/VBoxContainer/NameBanner/WeaponName
 @onready var second_name : Label = $HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/SecondName
@@ -152,4 +152,4 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		card_label2.text = str(card.ranks[card.rank])
 		animation_player.play("joker_end_spin")
 	if anim_name == "joker_crit":
-		animation_player.play("joker_power_idle")
+		animation_player.play("joker_crit_idle")
