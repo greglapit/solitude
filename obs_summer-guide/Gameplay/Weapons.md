@@ -35,7 +35,7 @@
 ![[Pasted image 20251031213453.png|200]]
 
 * Variants : Bubble
-## 5 - Gauntlet
+# 5 - Gauntlet
 
 * Protection + Chaos
 * Gem on each finger. Can appear as gauntlet, claw hand
