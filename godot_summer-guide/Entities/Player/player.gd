@@ -5,6 +5,8 @@ extends Node2D
 @warning_ignore("unused_signal")
 signal attack_impact				## Time in animation when animation hits. Emitted by animation player
 @warning_ignore("unused_signal")
+signal special_impact				## Time in animation when animation hits. Emitted by animation player
+@warning_ignore("unused_signal")
 signal weap_effect_start			## Time in animation when weapon effect should start. Sent to weapon in battle scene
 signal anim_finished(anim : String)
 

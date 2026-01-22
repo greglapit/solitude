@@ -1,16 +1,18 @@
 shader_type canvas_item;
-uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
 uniform float force;
 uniform float size;
 uniform float thickness;
+uniform vec2 center = vec2(.5,.5);
+
+void vertex() {
+}
 
 void fragment() {
-	vec2 center = vec2(.5,.5);
-	float mask = (1.0 - smoothstep(size -0.1,size, length(UV - center))) * smoothstep(size - thickness - 0.1,size-thickness, length(UV - center));
-	vec2 disp = normalize(UV - center) * force * mask;
-	
-	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV - disp);
-	//COLOR = vec4(mask);
+	float mask = (1.0 - smoothstep(size - .1, size, length(UV - center))) * smoothstep(size - thickness - 0.1,size-thickness, length(UV - center));;
+
+	vec2 disp = (UV - vec2(.5,.5)) * force * mask;
+	COLOR = texture(screen_texture, SCREEN_UV - disp);
 }
 
 //void light() {

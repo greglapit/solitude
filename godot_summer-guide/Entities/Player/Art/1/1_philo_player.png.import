@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bq32pmgnotoa3"
-path="res://.godot/imported/5_player.png-387485ba309f2dacac0388089b88ad81.ctex"
+uid="uid://3jlk22qu2h3l"
+path="res://.godot/imported/1_philo_player.png-c64106164e87b3865849011f2dafc9ed.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/Art/5_player.png"
-dest_files=["res://.godot/imported/5_player.png-387485ba309f2dacac0388089b88ad81.ctex"]
+source_file="res://Entities/Player/Art/1/1_philo_player.png"
+dest_files=["res://.godot/imported/1_philo_player.png-c64106164e87b3865849011f2dafc9ed.ctex"]
 
 [params]
 

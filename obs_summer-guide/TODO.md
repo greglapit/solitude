@@ -3,8 +3,7 @@
 - [x] secondary attack button + weapon passive effects ✅ 2026-01-18
 - [x] health bar connection ✅ 2026-01-17
 - [x] Visually communicate enemy will attack first or player will attack first ✅ 2026-01-17
-- [ ] Visually communicate you have space to draw so unequipping
-- [ ] Visually communicate player has run out of weapons, enemy attacks
+- [x] Visually communicate player has run out of weapons, enemy attacks ✅ 2026-01-21
 - [ ] enemy spawn pool in globals
 - [ ] boss encounter
 - [ ] Joker Reaction Corner.  Ultra kill. Mega Kill. Ludacrious kill. Holy SHIT (ALLBL4CK)
@@ -16,7 +15,7 @@
 	- [ ] Click campfire to sleep the night and enter spread again. Gain a little health back
 	- [ ] Chance encounters in dusk of shop with king, queen, jack of diamonds. Provide player weapons/upgrades
 - [ ] Drawback of memorizing too many cards is lowered health? Curse of amnesia
-
+- [ ] Visually communicate you have space to draw so unequipping. Armory with physically empty slots?
 
 
 

@@ -50,10 +50,10 @@ func attack(_weapon : Weapon, _combat_data : Dictionary) -> Dictionary:
 	var combat_data : Dictionary = _combat_data
 	
 	if rank <= 0:
-		combat_data["hp_lost"] = rank
+		combat_data["hp_delta"] = rank
 		return combat_data
 	animation_player.play("attack")
-	combat_data["hp_lost"] = rank
+	combat_data["hp_delta"] = -rank
 	return combat_data
 
 func play(anim : String = "RESET") -> void:

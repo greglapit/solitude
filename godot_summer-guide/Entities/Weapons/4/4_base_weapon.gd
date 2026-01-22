@@ -5,7 +5,7 @@ func assign_prop() -> void:
 	file_name = "4_base_weapon"
 	display_name = "SI 04: SHIELD"
 	second_name = "Diamond Standard Issue"
-	description = "-Standard Issue Shield \n-Special: Shield"
+	description = "-Standard Issue Shield"
 	display_texture = load("res://Common/UI/WeaponDisplay/Art/Weapons/4/4_base_weapon.png")
 	player_idle_anim = "4_base_idle"
 	player_attack_anim = "4_base_attack"

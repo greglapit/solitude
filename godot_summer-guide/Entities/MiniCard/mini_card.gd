@@ -77,8 +77,8 @@ func deselect() -> void:
 		animation_player.play("RESET")							# if player stops hovering
 	return
 
-func damage(amount : int = 1) -> void:
-	durability -= amount
+func damage(amount : int = -1) -> void:
+	durability += amount
 	if durability <= 0:
 		free.emit(self)
 		animation_player.play("break")
@@ -96,7 +96,7 @@ func cut(amount : int = 1) -> bool:
 	return true
 	
 ## Returns true if successful
-func polish(amount : int = 1) -> bool:
+func socket(amount : int = 1) -> bool:
 	if durability <= 1 or not Globals.available_ranks.has(rank + amount):
 		animation_player.play("shake")
 		return false

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdhb4wyx2mgys"
-path="res://.godot/imported/upward_slash.png-12aae39f49d8e0793056db9df2b63f96.ctex"
+uid="uid://dr8yvybsjpyyf"
+path="res://.godot/imported/crit_stored_button.png-77b81294427d6627816cc6fb116be496.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Weapons/8/upward_slash.png"
-dest_files=["res://.godot/imported/upward_slash.png-12aae39f49d8e0793056db9df2b63f96.ctex"]
+source_file="res://Common/UI/Attack/Art/crit_stored_button.png"
+dest_files=["res://.godot/imported/crit_stored_button.png-77b81294427d6627816cc6fb116be496.ctex"]
 
 [params]
 

@@ -8,11 +8,13 @@ var second_name : String
 var description : String
 var display_texture : Resource
 var has_special : bool = false
+var using_special : bool = false
 
 # Player/Enemy info
 var player_idle_anim : String
 var player_attack_anim : String
 var player_defend_anim : String
+var player_special_anim : String
 
 var player : Node2D
 var enemies : Array														## Enemies the player is in combat with. Position 0 is main target
@@ -21,11 +23,11 @@ var enemies : Array														## Enemies the player is in combat with. Positi
 
 var active : bool = false 			## Whether weapon is active (equipped)
 var reciprocal_attack : bool = false
-var critting : bool = false
+var critting : bool = false			## Critting in current attack
 
 var combat_data : Dictionary = {
-	"hp_lost" = 0,
-	"durability_lost" = 1,
+	"hp_delta" = 0,
+	"durability_delta" = 0,
 	"attacks" = 0
 	}
 
@@ -50,8 +52,8 @@ func resolve_combat(_player : Node2D, _hp : float, _attacks : int, _enemy_array 
 	critting = false
 	reciprocal_attack = false
 	combat_data = {
-	"hp_lost" = 0,
-	"durability_lost" = 0,
+	"hp_delta" = 0,
+	"durability_delta" = 0,
 	"attacks" = _attacks
 	}
 	
@@ -64,18 +66,22 @@ func resolve_combat(_player : Node2D, _hp : float, _attacks : int, _enemy_array 
 	# Player has no attacks left, enemy attacks
 	if _attacks <= 0:
 		combat_data= enemies[0].attack(self, combat_data)
+		combat_data["durability_delta"] = -1
 		return combat_data
 	
-	combat_data["durability_lost"] = 1
+	combat_data["durability_delta"] = -1
 	# Player has attacks left
 	if rank <= enemies[0].rank:
 		player.play(player_attack_anim)
 		return combat_data
 	else:
 		reciprocal_attack = true
-		combat_data= enemies[0].attack(self, combat_data)
+		combat_data = enemies[0].attack(self, combat_data)
 		return combat_data
 
+func special_attack(_player : Node2D, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
+	return {}
+	
 # === Built In =================================================================
 
 func _ready() -> void:
@@ -101,7 +107,7 @@ func _on_player_anim_finished(anim : String) -> void:
 		# Player lower with higher rank card
 		else:
 			weapon_used.emit(self)
-		#equip()
+		return
 	if anim.contains("defend"):
 		if !reciprocal_attack:
 			player.play(player_idle_anim)
@@ -109,6 +115,7 @@ func _on_player_anim_finished(anim : String) -> void:
 		else:
 			player.play(player_attack_anim)
 			reciprocal_attack = false
+		return
 
 func _on_player_attack_impact() -> void:
 	if !active:
@@ -125,7 +132,7 @@ func _on_enemy_attack_impact() -> void:
 	if !active:
 		return
 	player.play(player_defend_anim)
-	hp_update.emit(combat_data["hp_lost"])
+	hp_update.emit(combat_data["hp_delta"])
 	
 
 func _on_enemy_freed(_enemy : Enemy) -> void:

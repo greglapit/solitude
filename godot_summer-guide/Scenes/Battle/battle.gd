@@ -47,6 +47,10 @@ func load_armory() -> void:
 		player.weap_effect_start.connect(weapon._on_player_weap_effect_start)
 		add_child(weapon)
 		
+		# After because property gets assigned after added to tree
+		if weapon.has_special:
+			player.special_impact.connect(weapon._on_player_special_impact)
+		
 		player_weapons[i] = weapon
 
 ## Marks weapon as active for purposes of weapon signals. Avoids all weapons activating signals
@@ -66,7 +70,7 @@ func load_weapons_display() -> void:
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
 		var enemies : Array = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,2 * (2 + randi() % 4)) # randi() % 10 + 1)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,randi() % 8 + 1) # 2 * (2 + randi() % 2)
 		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
@@ -227,8 +231,10 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 		# Crit Button enable/disable
 		if curr_weapon and curr_weapon.has_special:
 			crit_button.disabled = false
+			crit_button.update_crit_stored(crit_stored)
 		else:
 			crit_button.disabled = true
+			crit_button.update_crit_stored(0)
 			
 		update_turn_clock()
 	
@@ -349,10 +355,18 @@ func _on_weapon_display_update() -> void:
 #endregion
 
 func _on_crit_button_pressed() -> void:
-	if !crit_stored:
+	if crit_stored <= 0:
 		return
-	crit_button.spawn(false)
+		
+	crit_stored = clamp(crit_stored - 1, 0, Globals.max_crits)
+	crit_button.update_crit_stored(crit_stored)
 	weapons_display.play("joker_crit_expend")
+	
+	var enemies : Array = get_tree().get_nodes_in_group("enemies")
+	curr_weapon.special_attack(player, hp, attacks, enemies)
+	
+	if crit_stored <= 0:
+		crit_button.spawn(false)
 
 # Mini Cards
 #-------------------------------------------------------------------------------
@@ -365,7 +379,7 @@ var dragged_card : Card = null
 const DRAG_THRESHOLD : float = 2.0
 
 func _on_mini_card_input_event(_viewport: Node, event: InputEvent, _shape_idx: int, mini_card : Card) -> void:
-	if !spam_timer.is_stopped() or click_prevention:
+	if !spam_timer.is_stopped() or click_prevention or mini_card.used:
 		return
 	
 	if dragged_card and mini_card != dragged_card:
@@ -426,7 +440,6 @@ func _on_spam_timer_timeout() -> void:
 func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 	if !_weapon.active:
 		return
-	mini_equipped.used = true
 	var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
 	var enemies : Array = get_tree().get_nodes_in_group("enemies")
 	
@@ -434,11 +447,12 @@ func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 	if mini_cards.all(func(n : Card) -> bool: return n.used):
 		attacks = 0
 		initiate_combat() # Resolves combat with defend
-		mini_equipped.damage(combat_data["durability_lost"])
+		mini_equipped.damage(combat_data["durability_delta"])
 		return
-	
+		
+	mini_equipped.used = true
 	mini_equipped.play("used")
-	mini_equipped.damage(combat_data["durability_lost"])
+	mini_equipped.damage(combat_data["durability_delta"])
 	if chaining and enemies[0].rank > 0:
 		# Sort minis by order in player armory
 		mini_cards.sort_custom(func(a: Card, b: Card) -> bool: \
@@ -475,12 +489,13 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 
 func _on_weapon_crit() -> void:
 	weapons_display.play("joker_crit")
-	crit_stored += 1
+	crit_stored = clamp(crit_stored + 1, 0, Globals.max_crits)
 	crit_button.spawn(true)
+	crit_button.update_crit_stored(crit_stored)
 
-func _on_weapon_hp_update(_hp_lost : int = combat_data["hp_lost"]) -> void:
+func _on_weapon_hp_update(_hp_delta : int = combat_data["hp_delta"]) -> void:
 	# HP
-	hp = max(hp - _hp_lost, 0)
+	hp = clamp(hp + _hp_delta, 0, Globals.max_hp)
 	health_bar.display_hp(hp, Globals.max_hp)
 
 #endregion

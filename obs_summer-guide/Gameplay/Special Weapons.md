@@ -1,9 +1,9 @@
 Unsure if naming should be unique names or references to real objects
 
 # Ace
+* Would be cool if they were named after the different types of cuts for gems. Princess, rose, oval, etc
 * Philosopher's stone. Uses crit to heal certain amount
 * Seedstone. Plant within enemy. Explodes next turn based on how much durability left
-* 
 # Two
 * Twin Shards. Special: Second Bite. Mark target, triggers on next hit. More if hit with daggers
 * Glass's Edge: Special: Bleed opponent

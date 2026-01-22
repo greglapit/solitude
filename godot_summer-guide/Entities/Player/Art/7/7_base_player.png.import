@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://demuai08mooy4"
-path="res://.godot/imported/joker_ui.png-7e1acf6e2aaa24cc128bfedc15bf0809.ctex"
+uid="uid://cwoxwt20a2wni"
+path="res://.godot/imported/7_base_player.png-a40ebe9d6e62b650125f61832d08757c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Weapons/1/joker_ui.png"
-dest_files=["res://.godot/imported/joker_ui.png-7e1acf6e2aaa24cc128bfedc15bf0809.ctex"]
+source_file="res://Entities/Player/Art/7/7_base_player.png"
+dest_files=["res://.godot/imported/7_base_player.png-a40ebe9d6e62b650125f61832d08757c.ctex"]
 
 [params]
 
