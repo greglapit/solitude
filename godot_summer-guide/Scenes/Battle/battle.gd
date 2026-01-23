@@ -70,7 +70,7 @@ func load_weapons_display() -> void:
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
 		var enemies : Array = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,randi() % 8 + 1) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,3) # 2 * (2 + randi() % 2)
 		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
@@ -102,9 +102,19 @@ func initiate_combat() -> void:
 	
 #endregion
 
+func update_crit_button() -> void:
+	crit_button.spawn(crit_stored > 0)
+	crit_button.update_crit_stored(crit_stored)
+	
+	# Crit Button enable/disable
+	crit_button.enable(false)
+	if curr_weapon and curr_weapon.has_special:
+		if crit_stored >= curr_weapon.special_cost:
+			crit_button.enable()
+
 func update_turn_clock() -> void:
 	var enemies : Array = get_tree().get_nodes_in_group("enemies")
-	if !enemies[0] or enemies[0].rank <=0 or !mini_equipped:
+	if enemies.is_empty() or enemies[0].rank <=0 or !mini_equipped:
 		turn_clock.show_turn(turn_clock.turn.HALF)
 		return
 	
@@ -228,14 +238,8 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 		if !space_in_armory:
 			weapons_display.draw_button.disabled = true
 		
-		# Crit Button enable/disable
-		if curr_weapon and curr_weapon.has_special:
-			crit_button.disabled = false
-			crit_button.update_crit_stored(crit_stored)
-		else:
-			crit_button.disabled = true
-			crit_button.update_crit_stored(0)
-			
+		
+		update_crit_button()
 		update_turn_clock()
 	
 	# Only update when equipping different weapon
@@ -266,6 +270,8 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("quit_game"):
 		get_tree().quit()
 	elif event.is_action_pressed("draw_button"):
+		if actions <= 0:
+			return
 		weapons_display.button_enabled(false)
 		_on_draw_button_pressed()
 	elif event.is_action_pressed("attack_button"):
@@ -335,6 +341,21 @@ func _on_chain_button_pressed() -> void:
 	click_prevention = true
 	chaining = true
 	initiate_combat()
+	
+
+func _on_crit_button_pressed() -> void:
+	if crit_stored <= 0:
+		return
+	
+	crit_stored = clamp(crit_stored - curr_weapon.special_cost, 0, Globals.max_crits)
+	
+	var enemies : Array = get_tree().get_nodes_in_group("enemies")
+	curr_weapon.special_attack(player, hp, attacks, enemies)
+	
+	#Visuals
+	await player.special_impact
+	weapons_display.play("joker_crit_expend")
+	update_crit_button()
 
 ## Emitted by weapon display once ready for update
 func _on_weapon_display_update() -> void:
@@ -354,19 +375,7 @@ func _on_weapon_display_update() -> void:
 		
 #endregion
 
-func _on_crit_button_pressed() -> void:
-	if crit_stored <= 0:
-		return
-		
-	crit_stored = clamp(crit_stored - 1, 0, Globals.max_crits)
-	crit_button.update_crit_stored(crit_stored)
-	weapons_display.play("joker_crit_expend")
-	
-	var enemies : Array = get_tree().get_nodes_in_group("enemies")
-	curr_weapon.special_attack(player, hp, attacks, enemies)
-	
-	if crit_stored <= 0:
-		crit_button.spawn(false)
+
 
 # Mini Cards
 #-------------------------------------------------------------------------------
@@ -437,11 +446,14 @@ func _on_spam_timer_timeout() -> void:
 #region
 
 ## Only called when player card < enemy card. After weapon is used and must be uneqipped
+## Do not call if enemy died from attack
 func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 	if !_weapon.active:
 		return
 	var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
 	var enemies : Array = get_tree().get_nodes_in_group("enemies")
+	
+	# Await Enemy Spawning
 	
 	# If all weapons have been used
 	if mini_cards.all(func(n : Card) -> bool: return n.used):
@@ -490,8 +502,8 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 func _on_weapon_crit() -> void:
 	weapons_display.play("joker_crit")
 	crit_stored = clamp(crit_stored + 1, 0, Globals.max_crits)
-	crit_button.spawn(true)
-	crit_button.update_crit_stored(crit_stored)
+	update_crit_button()
+	
 
 func _on_weapon_hp_update(_hp_delta : int = combat_data["hp_delta"]) -> void:
 	# HP
@@ -502,6 +514,7 @@ func _on_weapon_hp_update(_hp_delta : int = combat_data["hp_delta"]) -> void:
 
 func _on_enemy_freed(_enemy : Enemy) -> void:
 	await _enemy.tree_exited
+	await player.anim_finished
 	var enemies : Array = get_tree().get_nodes_in_group("enemies")
 	if enemies.is_empty():
 		spawn_enemy(3)

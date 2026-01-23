@@ -8,6 +8,7 @@ var second_name : String
 var description : String
 var display_texture : Resource
 var has_special : bool = false
+var special_cost : int = 1
 var using_special : bool = false
 
 # Player/Enemy info
@@ -36,7 +37,7 @@ var combat_data : Dictionary = {
 signal crit
 signal hp_update
 @warning_ignore("unused_signal")
-signal weapon_used							## Signals when weapon is put marked as used after attack
+signal weapon_used(weapon : Weapon)			## Signals when weapon is put marked as used after attack
 @warning_ignore("unused_signal")
 signal combat_fin							## Signals when attack cycle is over
 
@@ -116,6 +117,7 @@ func _on_player_anim_finished(anim : String) -> void:
 			player.play(player_attack_anim)
 			reciprocal_attack = false
 		return
+		
 
 func _on_player_attack_impact() -> void:
 	if !active:
@@ -136,4 +138,5 @@ func _on_enemy_attack_impact() -> void:
 	
 
 func _on_enemy_freed(_enemy : Enemy) -> void:
-	combat_fin.emit()
+	pass
+	#combat_fin.emit()

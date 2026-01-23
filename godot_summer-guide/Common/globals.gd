@@ -6,9 +6,9 @@ var draw_amt : int = 1
 var actions : int = 1
 var attacks : int = 1
 var max_draw : int = 3			# How many items player can have drawn at a time
-var max_crits : int = 1
+var max_crits : int = 3
 var available_ranks : Array = [3]
-var armory : Dictionary = {3: '3_base_weapon'}
+var armory : Dictionary = {3: '3_trident_weapon'}
 
 #var available_ranks : Array = [1, 2, 3, 4] #, 5, 6, 7, 8, 9, 10]
 #var armory : Dictionary = {1: '1_philo_weapon', 2: '2_base_weapon', 3: '3_base_weapon', \
