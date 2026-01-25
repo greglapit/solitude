@@ -75,7 +75,6 @@ func spawn_enemy(num : int = 1) -> void:
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
 		add_child(enemy)
-		enemy.add_to_group("enemies")
 		enemy.freed.connect(_on_enemy_freed)
 	
 		for weapon : Weapon in player_weapons.values():
@@ -97,8 +96,16 @@ func align_enemies() -> void:
 
 func initiate_combat() -> void:
 	var enemies : Array = get_tree().get_nodes_in_group("enemies")
-	combat_data = curr_weapon.resolve_combat(player, hp, attacks, enemies)
-	return
+	if curr_weapon:
+		combat_data = curr_weapon.resolve_combat(player, mini_equipped, hp, attacks, enemies)
+		return
+	else:
+		combat_data = enemies[0].attack(null, combat_data)
+		await enemies[0].attack_impact
+		player.play("base_defend")
+		_on_weapon_hp_update(combat_data["hp_delta"])
+		await player.anim_finished
+		_on_weapon_combat_fin(null)
 	
 #endregion
 
@@ -145,7 +152,6 @@ func draw_card(amount : int = 1) -> void:
 		mini_card.position = armory_position
 		mini_card.visible = false
 		add_child(mini_card)
-		mini_card.add_to_group("mini_cards")
 		
 		# Equips only first one
 		if i == 0:
@@ -175,7 +181,8 @@ func align_mini_cards(tweening : bool = true) -> void:
 		positions.append(armory_position + Vector2(offset_x, 0))
 	
 	for i : int in range(mini_cards.size()):
-		mini_cards[i].visible = true
+		if mini_cards[i] != mini_equipped:
+			mini_cards[i].visible = true
 		mini_cards[i].z_index =  11
 		if tweening:
 			var tween : Tween = create_tween()
@@ -198,7 +205,6 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 			mini_cards.sort_custom(func(a: Card, b: Card) -> bool: \
 			return a.global_position.x < b.global_position.x)
 			mini_equipped.position = mini_cards.back().position + Vector2(30,0)
-			
 			mini_equipped.visible = true
 			mini_equipped.add_to_group("mini_cards")
 		mini_card.play("equip")
@@ -350,7 +356,7 @@ func _on_crit_button_pressed() -> void:
 	crit_stored = clamp(crit_stored - curr_weapon.special_cost, 0, Globals.max_crits)
 	
 	var enemies : Array = get_tree().get_nodes_in_group("enemies")
-	curr_weapon.special_attack(player, hp, attacks, enemies)
+	curr_weapon.special_attack(player, mini_equipped, hp, attacks, enemies)
 	
 	#Visuals
 	await player.special_impact
@@ -366,6 +372,7 @@ func _on_weapon_display_update() -> void:
 			chain_button.disabled = false
 			curr_weapon.equip()
 			update_turn_clock()
+			update_crit_button()
 		else:
 			player.play("base_idle")
 			attack_button.disabled = true
@@ -434,7 +441,7 @@ func _on_mini_card_mouse_exited(mini_card : Card) -> void:
 
 func _on_mini_card_free(mini_card : Card) -> void:
 	if mini_card == mini_equipped:
-		pass
+		equip_mini_card(null)
 
 func _on_spam_timer_timeout() -> void:
 	pass
@@ -448,23 +455,18 @@ func _on_spam_timer_timeout() -> void:
 ## Only called when player card < enemy card. After weapon is used and must be uneqipped
 ## Do not call if enemy died from attack
 func _on_weapon_weapon_used(_weapon : Weapon) -> void:
-	if !_weapon.active:
-		return
+	#if !_weapon.active:
+		#return
 	var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
 	var enemies : Array = get_tree().get_nodes_in_group("enemies")
 	
-	# Await Enemy Spawning
-	
 	# If all weapons have been used
-	if mini_cards.all(func(n : Card) -> bool: return n.used):
+	if mini_cards.all(func(n : Card) -> bool: return n.used) or mini_cards.size() == 0:
 		attacks = 0
 		initiate_combat() # Resolves combat with defend
-		mini_equipped.damage(combat_data["durability_delta"])
 		return
 		
-	mini_equipped.used = true
-	mini_equipped.play("used")
-	mini_equipped.damage(combat_data["durability_delta"])
+	# Chaining
 	if chaining and enemies[0].rank > 0:
 		# Sort minis by order in player armory
 		mini_cards.sort_custom(func(a: Card, b: Card) -> bool: \
@@ -482,6 +484,9 @@ func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 	
 ## After weapon is used and combat cycle restarts
 func _on_weapon_combat_fin(_weapon : Weapon) -> void:
+	for weapon : Weapon in player_weapons.values():
+		await weapon.post_combat()
+		
 	click_prevention = false
 	chaining = false
 	attacks = Globals.attacks
@@ -489,14 +494,19 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 	var mini_cards : Array= get_tree().get_nodes_in_group("mini_cards")
 	var space_in_armory : bool = Globals.max_draw > mini_cards.size() + int(mini_equipped != null)
 	
-	if space_in_armory:
-		print("Space in armory. Draw some more!")
-		equip_mini_card(null)
-		
 	for mini_card : Card in mini_cards:
 		mini_card.play("RESET")
 		mini_card.used = false
+	if mini_equipped:
+		mini_equipped.play("RESET")
+		mini_equipped.used = false
+		
+	if space_in_armory:
+		print("Space in armory. Draw some more!")
+		equip_mini_card(null)
+
 	equip_mini_card(mini_equipped)
+	
 	
 
 func _on_weapon_crit() -> void:

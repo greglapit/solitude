@@ -285,7 +285,7 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80ril"]
 size = Vector2(27, 43.5)
 
-[node name="MiniCard" type="Area2D"]
+[node name="MiniCard" type="Area2D" groups=["mini_cards"]]
 z_index = 11
 script = ExtResource("1_lgfv0")
 
@@ -301,7 +301,7 @@ shape = SubResource("RectangleShape2D_80ril")
 position = Vector2(-0.5, -0.25)
 texture = ExtResource("1_80ril")
 hframes = 32
-frame = 28
+frame = 27
 
 [node name="Labels" type="Control" parent="CollisionShape2D"]
 layout_mode = 3

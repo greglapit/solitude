@@ -152,4 +152,4 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		card_label2.text = str(card.ranks[card.rank])
 		animation_player.play("joker_end_spin")
 	if anim_name == "joker_crit":
-		animation_player.play("joker_crit_idle")
+		animation_player.play("joker_idle")

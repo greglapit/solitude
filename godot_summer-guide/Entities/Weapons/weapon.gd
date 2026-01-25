@@ -19,6 +19,7 @@ var player_special_anim : String
 
 var player : Node2D
 var enemies : Array														## Enemies the player is in combat with. Position 0 is main target
+var mini_equipped : Card
 @onready var animation_player : AnimationPlayer = $AnimationPlayer		## Weapon Effects animation player
 @onready var weapon_effects : Sprite2D = $WeaponEffects
 
@@ -47,9 +48,10 @@ signal combat_fin							## Signals when attack cycle is over
 func equip() -> void:
 	player.play(player_idle_anim)
 
-func resolve_combat(_player : Node2D, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
+func resolve_combat(_player : Node2D, _mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
 	player = _player
 	enemies = _enemy_array
+	mini_equipped = _mini_card
 	critting = false
 	reciprocal_attack = false
 	combat_data = {
@@ -67,10 +69,10 @@ func resolve_combat(_player : Node2D, _hp : float, _attacks : int, _enemy_array 
 	# Player has no attacks left, enemy attacks
 	if _attacks <= 0:
 		combat_data= enemies[0].attack(self, combat_data)
-		combat_data["durability_delta"] = -1
+		combat_data["durability_delta"] = 1
 		return combat_data
 	
-	combat_data["durability_delta"] = -1
+	combat_data["durability_delta"] = 1
 	# Player has attacks left
 	if rank <= enemies[0].rank:
 		player.play(player_attack_anim)
@@ -80,8 +82,11 @@ func resolve_combat(_player : Node2D, _hp : float, _attacks : int, _enemy_array 
 		combat_data = enemies[0].attack(self, combat_data)
 		return combat_data
 
-func special_attack(_player : Node2D, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
+func special_attack(_player : Node2D, _mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
 	return {}
+	
+func post_combat() -> Signal:
+	return get_tree().create_timer(.1).timeout
 	
 # === Built In =================================================================
 
@@ -100,22 +105,24 @@ func _on_player_anim_finished(anim : String) -> void:
 	if !active or !anim.contains(str(rank)):
 		return
 	if anim.contains("attack"):
-		
+		if !critting:
+			mini_equipped.used = true
+			mini_equipped.play("used")
+			mini_equipped.damage(combat_data["durability_delta"])
 		# Attacked after enemy due to higher card rank
 		if critting or reciprocal_attack:
 			combat_fin.emit()
 			reciprocal_attack = false
+			critting = false
 		# Player lower with higher rank card
 		else:
 			weapon_used.emit(self)
 		return
 	if anim.contains("defend"):
 		if !reciprocal_attack:
-			player.play(player_idle_anim)
 			combat_fin.emit()
 		else:
 			player.play(player_attack_anim)
-			reciprocal_attack = false
 		return
 		
 
@@ -128,7 +135,11 @@ func _on_player_attack_impact() -> void:
 		crit.emit()
 	enemies[0].damage(rank)
 
-@abstract func _on_player_weap_effect_start() -> void
+func _on_player_special_impact() -> void:
+	pass
+
+func _on_player_weap_effect_start() -> void:
+	pass
 	
 func _on_enemy_attack_impact() -> void:
 	if !active:
@@ -139,4 +150,3 @@ func _on_enemy_attack_impact() -> void:
 
 func _on_enemy_freed(_enemy : Enemy) -> void:
 	pass
-	#combat_fin.emit()

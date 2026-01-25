@@ -648,14 +648,19 @@ layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_ti0hy")
 
 [node name="WeapDesc" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(145.235, 0)
 layout_mode = 2
+theme_override_constants/line_spacing = -3
 text = "-FILLER FILLER FILLER
 -FILLER FILLER FILLER
 -FILLER FILLER FILLER"
+autowrap_mode = 2
 
 [node name="ClickTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="JokerArea2D" type="Area2D" parent="."]
 material = SubResource("ShaderMaterial_2atbk")

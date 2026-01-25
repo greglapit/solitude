@@ -77,11 +77,12 @@ func deselect() -> void:
 		animation_player.play("RESET")							# if player stops hovering
 	return
 
-func damage(amount : int = -1) -> void:
-	durability += amount
+func damage(amount : int = 1) -> void:
+	durability -= amount
 	if durability <= 0:
 		free.emit(self)
 		animation_player.play("break")
+		await animation_player.animation_finished
 		queue_free()
 
 ## Returns true if successful

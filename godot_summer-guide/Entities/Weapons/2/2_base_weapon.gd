@@ -11,8 +11,8 @@ func assign_prop() -> void:
 	player_attack_anim = "2_base_attack"
 	player_defend_anim = "2_base_defend"
 
-func resolve_combat(_player : Node2D, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
-	combat_data = super(_player, _hp, _attacks, _enemy_array)
+func resolve_combat(_player : Node2D, _mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
+	combat_data = super(_player, _mini_card, _hp, _attacks, _enemy_array)
 	if _enemy_array[0].rank == rank:
 		critting = true
 	return combat_data
