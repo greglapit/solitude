@@ -18,24 +18,19 @@ func assign_prop() -> void:
 func special_attack(_player : Node2D, _mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
 	player = _player
 	enemies = _enemy_array
+	using_special = true
+	super(_player, _mini_card, _hp, _attacks, _enemy_array)
 	weapon_effects.position = player.position + Vector2(0,20)
 	weapon_effects.z_index = player.z_index - 1
-	using_special = true
-	player.play(player_special_anim)
 	return {}
 	
 func _on_player_anim_finished(anim : String) -> void:
 	super(anim)
-	if anim.contains("special"):
-		animation_player.play("RESET")
-		if critting or reciprocal_attack:
-			combat_fin.emit()
-			reciprocal_attack = false
-		else:
-			weapon_used.emit(self)
-		using_special = false
+	animation_player.play("RESET")
 	
 func _on_player_weap_effect_start() -> void:
+	if !active:
+		return
 	if using_special:
 		animation_player.play("shockwave")
 	else:
@@ -46,3 +41,8 @@ func _on_player_special_impact() -> void:
 		return
 	for enemy : Enemy in enemies:
 		enemy.damage(3)
+	if enemies[0].is_dead:
+		combat_fin.emit()
+	mini_equipped.used = true
+	mini_equipped.damage(combat_data["durability_delta"])
+	

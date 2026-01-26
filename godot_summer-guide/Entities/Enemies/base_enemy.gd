@@ -1,23 +1,27 @@
 class_name Enemy
 extends Area2D
 
+@onready var collision_shape : CollisionShape2D = $CollisionShape2D
 @onready var card_sprite : Sprite2D = $CollisionShape2D/CardSprite
 @onready var suit_sprite : Sprite2D = $CollisionShape2D/SuitSprite
 @onready var label1 : Label = $CollisionShape2D/Label
 @onready var label2 : Label = $CollisionShape2D/Label2
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
+@onready var status_label : Label = $CollisionShape2D/Status/Label
+@onready var animation_player2 : AnimationPlayer = $CollisionShape2D/Status/AnimationPlayer2
 
 const enemy_scn : PackedScene = preload("res://Entities/Enemies/base_enemy.tscn")
 
 var rank : int = -1
-var ranks : Array = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 var suit : Card.Suits = Card.Suits.HEART
 var suit_art_path : String = "res://Entities/Enemies/Base/Art/"
+var is_dead : bool = false
 
 var player : Node2D
 
 @warning_ignore("unused_signal")
 signal attack_impact
+signal damaged(amt : int)
 signal freed(enemy : Enemy)
 
 # === Custom Methods ===========================================================
@@ -31,13 +35,15 @@ static func new_enemy(_suit : Card.Suits, _rank : int) -> Enemy:
 	return enemy
 
 func update_labels() -> void:
-	label1.text = ranks[rank]
-	label2.text = ranks[rank]
+	label1.text = Globals.ranks[rank]
+	label2.text = Globals.ranks[rank]
 
 ## Damage the enemy
 func damage(amt : int) -> Callable:
 	rank  = max(rank-amt, 0)
+	damaged.emit(amt)
 	if rank <= 0:
+		is_dead = true
 		play("death")
 	else:
 		play("shake")
@@ -58,6 +64,13 @@ func attack(_weapon : Weapon, _combat_data : Dictionary) -> Dictionary:
 
 func play(anim : String = "RESET") -> void:
 	animation_player.play(anim)
+
+func display_bleed(duration : int) -> void:
+	status_label.text = str(duration)
+	if duration > 0:
+		animation_player2.play("bleeding")
+	else:
+		animation_player2.play("RESET")
 
 @warning_ignore("unused_parameter")
 func emit_freed(card : Enemy = self) -> void:

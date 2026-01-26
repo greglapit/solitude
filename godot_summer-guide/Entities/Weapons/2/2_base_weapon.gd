@@ -20,7 +20,4 @@ func resolve_combat(_player : Node2D, _mini_card : Card, _hp : float, _attacks :
 func _on_player_weap_effect_start() -> void:
 	if !active:
 		return
-	if critting:
-		animation_player.play("double_slash")
-	else:
-		animation_player.play("slash")
+	animation_player.play("double_slash")

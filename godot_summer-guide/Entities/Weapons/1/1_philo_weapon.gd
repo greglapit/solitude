@@ -26,6 +26,9 @@ func _on_player_special_impact() -> void:
 	if using_special:
 		combat_data["hp_delta"] = 5
 		hp_update.emit(combat_data["hp_delta"])
+		mini_equipped.used = true
+		mini_equipped.play("used")
+		mini_equipped.damage(combat_data["durability_delta"])
 		weapon_used.emit(self)
 	using_special = false
 

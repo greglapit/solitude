@@ -23,6 +23,7 @@ var drawing : bool = false							# Turned on when drawing started, off when it e
 var chaining : bool = false							# Turned on when chain attack is occuring
 var crit_stored : int = false						# Number of crits stored
 var click_prevention : bool = false					# Stops minicard/attack inputs when drawing or attacking
+var pausing_weapon : Weapon						# Weapon pausing chaining for effects to take place
 
 var combat_data : Dictionary
 
@@ -42,6 +43,8 @@ func load_armory() -> void:
 		weapon.combat_fin.connect(_on_weapon_combat_fin.bind(weapon))
 		weapon.crit.connect(_on_weapon_crit)
 		weapon.hp_update.connect(_on_weapon_hp_update)
+		weapon.pause.connect(_on_weapon_pause)
+		weapon.resume.connect(_on_weapon_resume)
 		player.anim_finished.connect(weapon._on_player_anim_finished)
 		player.attack_impact.connect(weapon._on_player_attack_impact)
 		player.weap_effect_start.connect(weapon._on_player_weap_effect_start)
@@ -70,11 +73,12 @@ func load_weapons_display() -> void:
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
 		var enemies : Array = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,3) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,10) # 2 * (2 + randi() % 2)
 		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
 		add_child(enemy)
+		enemy.animation_player.animation_finished.connect(_on_enemy_animation_finished.bind(enemy))
 		enemy.freed.connect(_on_enemy_freed)
 	
 		for weapon : Weapon in player_weapons.values():
@@ -113,19 +117,31 @@ func update_crit_button() -> void:
 	crit_button.spawn(crit_stored > 0)
 	crit_button.update_crit_stored(crit_stored)
 	
+	
+	var enemies : Array = get_tree().get_nodes_in_group("enemies")
+	
 	# Crit Button enable/disable
 	crit_button.enable(false)
-	if curr_weapon and curr_weapon.has_special:
+	if curr_weapon and curr_weapon.has_special and curr_weapon.has_valid_target(enemies):
 		if crit_stored >= curr_weapon.special_cost:
 			crit_button.enable()
 
+func weapon_pause() -> Signal:
+	if !pausing_weapon:
+		return get_tree().create_timer(.1).timeout
+	
+	var temp_weapon : Weapon = pausing_weapon
+	pausing_weapon = null
+	return temp_weapon.resume
+
+var enemy_just_attacked : bool = false
 func update_turn_clock() -> void:
 	var enemies : Array = get_tree().get_nodes_in_group("enemies")
 	if enemies.is_empty() or enemies[0].rank <=0 or !mini_equipped:
 		turn_clock.show_turn(turn_clock.turn.HALF)
 		return
 	
-	if enemies[0].rank >= mini_equipped.rank and !mini_equipped.used:
+	if (enemies[0].rank >= mini_equipped.rank and !mini_equipped.used) or enemy_just_attacked:
 		turn_clock.show_turn(turn_clock.turn.DOWN)
 	else:
 		turn_clock.show_turn(turn_clock.turn.UP)
@@ -284,6 +300,10 @@ func _input(event: InputEvent) -> void:
 		_on_attack_button_pressed()
 	elif event.is_action_pressed("chain_button"):
 		_on_chain_button_pressed()
+	elif event.is_action_pressed("pass_button"):
+		equip_mini_card(null)
+		initiate_combat()
+		
 
 func _process(_delta: float) -> void:
 	if dragging and dragged_card:
@@ -350,9 +370,10 @@ func _on_chain_button_pressed() -> void:
 	
 
 func _on_crit_button_pressed() -> void:
-	if crit_stored <= 0:
+	if crit_stored <= 0 or click_prevention:
 		return
-	
+	click_prevention = true
+	crit_button.enable(false)
 	crit_stored = clamp(crit_stored - curr_weapon.special_cost, 0, Globals.max_crits)
 	
 	var enemies : Array = get_tree().get_nodes_in_group("enemies")
@@ -361,7 +382,7 @@ func _on_crit_button_pressed() -> void:
 	#Visuals
 	await player.special_impact
 	weapons_display.play("joker_crit_expend")
-	update_crit_button()
+	#update_crit_button()
 
 ## Emitted by weapon display once ready for update
 func _on_weapon_display_update() -> void:
@@ -455,8 +476,10 @@ func _on_spam_timer_timeout() -> void:
 ## Only called when player card < enemy card. After weapon is used and must be uneqipped
 ## Do not call if enemy died from attack
 func _on_weapon_weapon_used(_weapon : Weapon) -> void:
-	#if !_weapon.active:
-		#return
+	
+	await weapon_pause()
+	
+	
 	var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
 	var enemies : Array = get_tree().get_nodes_in_group("enemies")
 	
@@ -482,11 +505,13 @@ func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 		click_prevention = false
 		equip_mini_card(null)
 	
+	
 ## After weapon is used and combat cycle restarts
 func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 	for weapon : Weapon in player_weapons.values():
-		await weapon.post_combat()
-		
+		weapon.post_combat()
+		await weapon_pause()
+	
 	click_prevention = false
 	chaining = false
 	attacks = Globals.attacks
@@ -502,7 +527,7 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 		mini_equipped.used = false
 		
 	if space_in_armory:
-		print("Space in armory. Draw some more!")
+		weapons_display.play("draw_highlight")
 		equip_mini_card(null)
 
 	equip_mini_card(mini_equipped)
@@ -520,7 +545,22 @@ func _on_weapon_hp_update(_hp_delta : int = combat_data["hp_delta"]) -> void:
 	hp = clamp(hp + _hp_delta, 0, Globals.max_hp)
 	health_bar.display_hp(hp, Globals.max_hp)
 
+func _on_weapon_pause(_weapon : Weapon) -> void:
+	pausing_weapon = _weapon
+
+func _on_weapon_resume(_weapon : Weapon) -> void:
+	pausing_weapon = null
+
 #endregion
+
+func _on_enemy_animation_finished(anim : String, enemy : Enemy) -> void:
+	var enemies : Array = get_tree().get_nodes_in_group("enemies")
+	if enemy != enemies[0]:
+		return
+	if anim.contains("attack"):
+		enemy_just_attacked = true
+		update_turn_clock()
+		enemy_just_attacked = true
 
 func _on_enemy_freed(_enemy : Enemy) -> void:
 	await _enemy.tree_exited

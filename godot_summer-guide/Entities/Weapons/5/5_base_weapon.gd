@@ -14,7 +14,7 @@ func assign_prop() -> void:
 func _on_player_weap_effect_start() -> void:
 	animation_player.play("earth_crack")
 	
-func resolve_combat(_player : Node2D, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
-	combat_data = super(_player, _hp, _attacks, _enemy_array)
+func resolve_combat(_player : Node2D,_mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
+	combat_data = super(_player,_mini_card, _hp, _attacks, _enemy_array)
 	weapon_effects.z_index = enemies[0].z_index - 1
 	return combat_data

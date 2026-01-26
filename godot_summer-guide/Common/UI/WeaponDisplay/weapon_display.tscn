@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dhcp5xhhbvfsa"]
+[gd_scene load_steps=33 format=3 uid="uid://dhcp5xhhbvfsa"]
 
 [ext_resource type="Texture2D" uid="uid://dq3lmmcwyqks6" path="res://Common/UI/WeaponDisplay/Art/Main/border.png" id="1_lakbu"]
 [ext_resource type="Script" uid="uid://cusppjlshxdy4" path="res://Common/UI/WeaponDisplay/weapon_display.gd" id="1_mm5xb"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cjohnsu88xgsf" path="res://Common/UI/WeaponDisplay/Art/Main/ticks.png" id="9_2jaol"]
 [ext_resource type="Texture2D" uid="uid://jh2mwiywgras" path="res://Common/UI/WeaponDisplay/Art/Main/button2_grayed.png" id="10_2jaol"]
 [ext_resource type="Texture2D" uid="uid://xrs777rhr3" path="res://Common/UI/WeaponDisplay/Art/Main/joker_ui.png" id="12_2atbk"]
+[ext_resource type="Texture2D" uid="uid://c3l5j7bpvy688" path="res://Common/UI/WeaponDisplay/Art/Main/button_highlight.png" id="12_cjusc"]
 [ext_resource type="Shader" uid="uid://ligdqt5hrmri" path="res://Common/Shaders/pixel_melt.gdshader" id="12_ti0hy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2jaol"]
@@ -20,6 +21,68 @@ bg_color = Color(0.043137256, 0.36862746, 0.39607844, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2atbk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ti0hy"]
+
+[sub_resource type="Animation" id="Animation_wicap"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_d31kx"]
+resource_name = "highlight"
+length = 4.000025
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3dntu"]
+_data = {
+&"RESET": SubResource("Animation_wicap"),
+&"draw_highlight": SubResource("Animation_d31kx")
+}
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2atbk"]
 
@@ -491,7 +554,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_2jaol")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer"]
 layout_mode = 2
-theme_override_constants/separation = 3
+theme_override_constants/separation = 2
 
 [node name="JokerBg" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -660,7 +723,16 @@ autowrap_mode = 2
 wait_time = 0.5
 one_shot = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="DrawHighlight" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-81, 68)
+texture = ExtResource("12_cjusc")
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DrawHighlight"]
+libraries = {
+&"": SubResource("AnimationLibrary_3dntu")
+}
 
 [node name="JokerArea2D" type="Area2D" parent="."]
 material = SubResource("ShaderMaterial_2atbk")

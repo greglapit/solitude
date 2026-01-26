@@ -47,7 +47,9 @@ func display_weapon(weapon : Weapon = displayed_weapon, mini_card : Card = card,
 	socket_button.disabled = true
 	
 	if weapon and mini_card:
-		weapon_name_label.text = weapon.display_name
+		weapon.mini_equipped = mini_card
+		weapon.assign_prop()
+		weapon_name_label.text = str(Globals.ranks[weapon.rank]) + ": " + weapon.display_name
 		second_name.text = weapon.second_name
 		weapon_art.texture = weapon.display_texture
 		weapon_desc.text = weapon.description
@@ -94,6 +96,9 @@ func show_ticks(num : int = 0) -> void:
 			ticks[tick].visible = false
 
 func play(anim : String = "RESET") -> void:
+	if anim == "draw_highlight":
+		$DrawHighlight/AnimationPlayer.play("draw_highlight")
+		return
 	animation_player.play(anim)
 
 # === Built In =================================================================
@@ -147,9 +152,9 @@ func _on_click_timer_timeout() -> void:
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "joker_spinning":
-		mouth_label.text = str(card.ranks[card.rank])
-		card_label1.text = str(card.ranks[card.rank])
-		card_label2.text = str(card.ranks[card.rank])
+		mouth_label.text = str(Globals.ranks[card.rank])
+		card_label1.text = str(Globals.ranks[card.rank])
+		card_label2.text = str(Globals.ranks[card.rank])
 		animation_player.play("joker_end_spin")
 	if anim_name == "joker_crit":
 		animation_player.play("joker_idle")

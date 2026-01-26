@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://0q8xdlrw02b2"]
+[gd_scene load_steps=13 format=3 uid="uid://b5olu7hl2ch0f"]
 
-[ext_resource type="Script" uid="uid://fg3p1d7ib2b8" path="res://Entities/Weapons/2/2_base_weapon.gd" id="1_aqjyw"]
-[ext_resource type="Texture2D" uid="uid://chhqgp2gcybex" path="res://Entities/Weapons/ArtWeaponEffects/single_slash.png" id="2_tulhm"]
-[ext_resource type="Texture2D" uid="uid://b3iuxtxm832e4" path="res://Entities/Weapons/ArtWeaponEffects/double_slash.png" id="3_vgywq"]
+[ext_resource type="Script" uid="uid://b2p5clx2uvv0i" path="res://Entities/Weapons/2/2_twin_weapon.gd" id="1_nx4ca"]
+[ext_resource type="Texture2D" uid="uid://chhqgp2gcybex" path="res://Entities/Weapons/ArtWeaponEffects/single_slash.png" id="2_hele6"]
+[ext_resource type="Texture2D" uid="uid://b3iuxtxm832e4" path="res://Entities/Weapons/ArtWeaponEffects/double_slash.png" id="3_r8ff1"]
+[ext_resource type="Texture2D" uid="uid://vqcyy8485fax" path="res://Entities/Weapons/ArtWeaponEffects/marked.png" id="4_hele6"]
 
 [sub_resource type="Animation" id="Animation_tulhm"]
 length = 0.001
@@ -40,7 +41,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_tulhm")]
+"values": [ExtResource("2_hele6")]
 }
 
 [sub_resource type="Animation" id="Animation_tpwap"]
@@ -57,7 +58,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_vgywq")]
+"values": [ExtResource("3_r8ff1")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -121,7 +122,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_tulhm")]
+"values": [ExtResource("2_hele6")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tulhm"]
@@ -131,16 +132,117 @@ _data = {
 &"slash": SubResource("Animation_tpaan")
 }
 
-[node name="2BaseWeapon" type="Node2D"]
-script = ExtResource("1_aqjyw")
+[sub_resource type="Animation" id="Animation_hele6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_nx4ca"]
+resource_name = "mark"
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_r8ff1"]
+resource_name = "mark_expend"
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.375, 0.5, 0.625, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 3, 4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hele6"]
+_data = {
+&"RESET": SubResource("Animation_hele6"),
+&"mark": SubResource("Animation_nx4ca"),
+&"mark_expend": SubResource("Animation_r8ff1")
+}
+
+[node name="2TwinWeapon" type="Node2D"]
+script = ExtResource("1_nx4ca")
 
 [node name="WeaponEffects" type="Sprite2D" parent="."]
 visible = false
-texture = ExtResource("2_tulhm")
+texture = ExtResource("2_hele6")
 hframes = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects"]
 root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_tulhm")
+}
+
+[node name="WeaponEffects2" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_hele6")
+hframes = 7
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects2"]
+libraries = {
+&"": SubResource("AnimationLibrary_hele6")
 }

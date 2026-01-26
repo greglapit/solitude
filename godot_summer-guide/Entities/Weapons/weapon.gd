@@ -19,8 +19,10 @@ var player_special_anim : String
 
 var player : Node2D
 var enemies : Array														## Enemies the player is in combat with. Position 0 is main target
+var hp : float
+var attacks : int
 var mini_equipped : Card
-@onready var animation_player : AnimationPlayer = $AnimationPlayer		## Weapon Effects animation player
+@onready var animation_player : AnimationPlayer = $WeaponEffects/AnimationPlayer		## Weapon Effects animation player
 @onready var weapon_effects : Sprite2D = $WeaponEffects
 
 var active : bool = false 			## Whether weapon is active (equipped)
@@ -41,6 +43,10 @@ signal hp_update
 signal weapon_used(weapon : Weapon)			## Signals when weapon is put marked as used after attack
 @warning_ignore("unused_signal")
 signal combat_fin							## Signals when attack cycle is over
+@warning_ignore("unused_signal")
+signal pause(weapon : Weapon)				## Pause combat for combat effects to take place
+@warning_ignore("unused_signal")
+signal resume(weapon : Weapon)
 
 # === Custom Methods ===========================================================
 @abstract func assign_prop() -> void
@@ -50,14 +56,15 @@ func equip() -> void:
 
 func resolve_combat(_player : Node2D, _mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
 	player = _player
-	enemies = _enemy_array
 	mini_equipped = _mini_card
+	hp = _hp
+	attacks = _attacks
+	enemies = _enemy_array
 	critting = false
 	reciprocal_attack = false
 	combat_data = {
 	"hp_delta" = 0,
 	"durability_delta" = 0,
-	"attacks" = _attacks
 	}
 	
 	# Visuals
@@ -75,7 +82,10 @@ func resolve_combat(_player : Node2D, _mini_card : Card, _hp : float, _attacks :
 	combat_data["durability_delta"] = 1
 	# Player has attacks left
 	if rank <= enemies[0].rank:
-		player.play(player_attack_anim)
+		if using_special:
+			player.play(player_special_anim)
+		else:
+			player.play(player_attack_anim)
 		return combat_data
 	else:
 		reciprocal_attack = true
@@ -83,10 +93,16 @@ func resolve_combat(_player : Node2D, _mini_card : Card, _hp : float, _attacks :
 		return combat_data
 
 func special_attack(_player : Node2D, _mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
-	return {}
+	if !has_special:
+		return {}
+	using_special = true
+	return resolve_combat(_player, _mini_card, _hp, _attacks, _enemy_array)
 	
-func post_combat() -> Signal:
-	return get_tree().create_timer(.1).timeout
+func post_combat() -> void:
+	pass
+	
+func has_valid_target(_enemies : Array) -> bool:
+	return true
 	
 # === Built In =================================================================
 
@@ -104,11 +120,13 @@ func _process(_delta: float) -> void:
 func _on_player_anim_finished(anim : String) -> void:
 	if !active or !anim.contains(str(rank)):
 		return
-	if anim.contains("attack"):
+	if anim.contains("attack") or anim.contains("special"):
+		# Damage Weapon
 		if !critting:
 			mini_equipped.used = true
 			mini_equipped.play("used")
 			mini_equipped.damage(combat_data["durability_delta"])
+			
 		# Attacked after enemy due to higher card rank
 		if critting or reciprocal_attack:
 			combat_fin.emit()
@@ -117,12 +135,18 @@ func _on_player_anim_finished(anim : String) -> void:
 		# Player lower with higher rank card
 		else:
 			weapon_used.emit(self)
+			
+		using_special = false
 		return
+		
 	if anim.contains("defend"):
 		if !reciprocal_attack:
 			combat_fin.emit()
 		else:
-			player.play(player_attack_anim)
+			if using_special:
+				player.play(player_special_anim)
+			else:
+				player.play(player_attack_anim)
 		return
 		
 

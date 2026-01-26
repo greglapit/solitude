@@ -10,7 +10,6 @@ enum Suits {
 }
 var rank : int = -1
 var suit : Suits = Suits.DIAMOND
-var ranks : Array = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 var selected : bool = false
 var durability : int = 5
 var used : bool = false
@@ -109,8 +108,8 @@ func socket(amount : int = 1) -> bool:
 func update_visuals() -> void:
 	# Frames for card variant are stored every 4. Math to account for this animation
 	sprite2d.frame = sprite_variant + (4 * (5 - durability))
-	label1.text = ranks[rank]
-	label2.text = ranks[rank]
+	label1.text = Globals.ranks[rank]
+	label2.text = Globals.ranks[rank]
 
 func play(anim : String, reverse : bool = false) -> void:
 	if reverse:

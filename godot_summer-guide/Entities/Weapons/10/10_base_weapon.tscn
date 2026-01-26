@@ -4,6 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://doqvwypsairv4" path="res://z_August Work/Common/icon.svg" id="2_3wobf"]
 [ext_resource type="Shader" uid="uid://bwyqkydys3a6y" path="res://Common/Shaders/shockwave.gdshader" id="2_ntioq"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cx8fs"]
+shader = ExtResource("2_ntioq")
+shader_parameter/force = 0.0
+shader_parameter/size = 0.0
+shader_parameter/thickness = 0.05
+shader_parameter/center = Vector2(0.5, 0.5)
+
 [sub_resource type="Animation" id="Animation_657tq"]
 length = 0.001
 tracks/0/type = "value"
@@ -113,21 +120,16 @@ _data = {
 &"shockwave": SubResource("Animation_w4wxk")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cx8fs"]
-shader = ExtResource("2_ntioq")
-shader_parameter/force = 0.0
-shader_parameter/size = 0.0
-shader_parameter/thickness = 0.05
-
 [node name="10BaseWeapon" type="Node2D"]
 script = ExtResource("1_f1rei")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_c5el5")
-}
 
 [node name="WeaponEffects" type="Sprite2D" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_cx8fs")
 texture = ExtResource("2_3wobf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_c5el5")
+}

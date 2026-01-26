@@ -2,7 +2,8 @@ extends Weapon
 
 var seeded_enemy : Enemy
 var damage_amt : int
-@onready var weapons_effects2 : Sprite2D = $WeaponEffects2
+@onready var weapon_effects2 : Sprite2D = $WeaponEffects2
+@onready var animation_player2 : AnimationPlayer = $WeaponEffects2/AnimationPlayer
 
 # === Custom Methods ===========================================================
 
@@ -11,7 +12,10 @@ func assign_prop() -> void:
 	file_name = "1_seed_weapon"
 	display_name = "SeedStone"
 	second_name = "Filler filler filler"
-	description = "-Special: Plant seed in enemy\n-Drains amt at end of turn, based on durability\n -Cost:1"
+	if mini_equipped:
+		description = "-Special: Seed %d\n-Convert remaining durability into a seed. Plant in enemy. Drain at end of turn\n-Cost:1" % [mini_equipped.durability]
+	else:
+		description = "-Special: Seed (5)\n-Convert remaining durability into a seed. Plant in enemy. Drain at end of turn\n-Cost:1"
 	display_texture = load("res://Common/UI/WeaponDisplay/Art/Weapons/1/1_seed_weapon.png")
 	player_idle_anim = "1_seed_idle"
 	player_attack_anim = "1_seed_attack"
@@ -23,30 +27,45 @@ func assign_prop() -> void:
 func special_attack(_player : Node2D, _mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
 	enemies = _enemy_array
 	mini_equipped = _mini_card
-	weapons_effects2.position = enemies[0].position
-	weapons_effects2.z_index = enemies[0].z_index + 1
 	using_special = true
 	player.play(player_special_anim)
 	return {}
 
-func drain() -> Signal:
+func drain() -> void:
 	if !seeded_enemy:
-		return get_tree().create_timer(.1).timeout
+		return
+	pause.emit(self)
 	damage_amt = min(seeded_enemy.rank, damage_amt)
-	animation_player.play("seeded_activate")
-	await animation_player.animation_finished
-	animation_player.play("RESET")
+	animation_player2.play("seeded_activate")
+	await animation_player2.animation_finished
+	animation_player2.play("RESET")
 	seeded_enemy.damage(damage_amt)
 	combat_data["hp_delta"] = damage_amt
 	hp_update.emit(combat_data["hp_delta"])
-	return animation_player.animation_finished
-	
-	
-func post_combat() -> Signal:
-	await drain()
-	return get_tree().create_timer(.1).timeout
+	resume.emit(self)
+	return
 	
 
+func post_combat() -> void:
+	drain()
+	
+	
+func has_valid_target(_enemies : Array) -> bool:
+	if enemies[0] == seeded_enemy:
+		return false
+	return true
+
+func _process(_delta: float) -> void:
+	if seeded_enemy:
+		weapon_effects2.position = seeded_enemy.collision_shape.global_position
+		weapon_effects2.z_index = seeded_enemy.z_index + 1
+		weapon_effects2.scale = seeded_enemy.collision_shape.scale
+
+func _on_player_weap_effect_start() -> void:
+	if !active:
+		return
+	animation_player.play("siphon")
+	
 func _on_player_special_impact() -> void:
 	if !active:
 		return
@@ -54,7 +73,7 @@ func _on_player_special_impact() -> void:
 		seeded_enemy = enemies[0]
 		seeded_enemy.play("shake")
 		await seeded_enemy.animation_player.animation_finished
-		animation_player.play("seeded")
+		animation_player2.play("seeded")
 		damage_amt = mini_equipped.durability
 		mini_equipped.damage(damage_amt)
 		mini_equipped.used = true
