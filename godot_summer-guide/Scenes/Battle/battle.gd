@@ -6,7 +6,7 @@ extends Node2D
 @onready var chain_button : TextureButton = $UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton
 @onready var attack_button : TextureButton = $UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer/AttackButton
 @onready var crit_button : TextureButton = $UI/CritButton
-@onready var turn_clock : Sprite2D = $UI/TurnClock
+@onready var turn_clock : Node2D = $UI/TurnClock
 @onready var spam_timer : Timer = $SpamTimer
 
 var mini_pos : Array								# Mini Card Positions
@@ -73,7 +73,7 @@ func load_weapons_display() -> void:
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
 		var enemies : Array = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,10) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,3) # 2 * (2 + randi() % 2)
 		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
@@ -128,7 +128,7 @@ func update_crit_button() -> void:
 
 func weapon_pause() -> Signal:
 	if !pausing_weapon:
-		return get_tree().create_timer(.1).timeout
+		return get_tree().create_timer(0).timeout
 	
 	var temp_weapon : Weapon = pausing_weapon
 	pausing_weapon = null
@@ -137,7 +137,7 @@ func weapon_pause() -> Signal:
 var enemy_just_attacked : bool = false
 func update_turn_clock() -> void:
 	var enemies : Array = get_tree().get_nodes_in_group("enemies")
-	if enemies.is_empty() or enemies[0].rank <=0 or !mini_equipped:
+	if enemies.is_empty() or enemies[0].rank <= 0 or !mini_equipped:
 		turn_clock.show_turn(turn_clock.turn.HALF)
 		return
 	
@@ -209,7 +209,11 @@ func align_mini_cards(tweening : bool = true) -> void:
 			mini_cards[i].global_position = positions[i]
 
 func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> void:
+	
 	if mini_card:
+		if curr_weapon:
+			curr_weapon.unequip()
+			
 		curr_weapon =  player_weapons[mini_card.rank]
 		curr_weapon.player = player
 		curr_weapon.enemies = get_tree().get_nodes_in_group("enemies")
@@ -228,6 +232,8 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 		mini_equipped.remove_from_group("mini_cards")
 		
 	else:
+		if curr_weapon:
+			curr_weapon.unequip()
 		curr_weapon =  null
 		active_weapon(null)
 		player.queue("base_idle")
@@ -239,6 +245,7 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 			mini_equipped.add_to_group("mini_cards")
 		mini_equipped = null
 	
+	# DISPLAY
 	# Update Child's variables
 	weapons_display.displayed_weapon = curr_weapon
 	weapons_display.card = mini_equipped
@@ -264,6 +271,7 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 		update_crit_button()
 		update_turn_clock()
 	
+	# PLAYER
 	# Only update when equipping different weapon
 	if player_update:
 		if curr_weapon:
@@ -331,6 +339,8 @@ func _on_draw_button_pressed() -> void:
 	weapons_display.play("joker_open_mouth")
 
 func _on_cut_button_pressed() -> void:
+	if click_prevention:
+		return
 	var cut : bool = mini_equipped.cut()
 	if !cut:
 		return
@@ -338,6 +348,8 @@ func _on_cut_button_pressed() -> void:
 	actions -= 1
 
 func _on_socket_button_pressed() -> void:
+	if click_prevention:
+		return
 	var socketed : bool = mini_equipped.socket()
 	if !socketed:
 		return

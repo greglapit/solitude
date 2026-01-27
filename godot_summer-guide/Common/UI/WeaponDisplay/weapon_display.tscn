@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dhcp5xhhbvfsa"]
+[gd_scene format=3 uid="uid://dhcp5xhhbvfsa"]
 
 [ext_resource type="Texture2D" uid="uid://dq3lmmcwyqks6" path="res://Common/UI/WeaponDisplay/Art/Main/border.png" id="1_lakbu"]
 [ext_resource type="Script" uid="uid://cusppjlshxdy4" path="res://Common/UI/WeaponDisplay/weapon_display.gd" id="1_mm5xb"]
@@ -514,19 +514,20 @@ _data = {
 &"joker_spinning": SubResource("Animation_w10c2")
 }
 
-[node name="WeaponDisplay" type="Control"]
+[node name="WeaponDisplay" type="Control" unique_id=403137470]
 layout_mode = 3
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
+offset_left = -122.0
 grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_mm5xb")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=753604523]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -541,34 +542,34 @@ grow_vertical = 2
 theme_override_constants/separation = -2
 alignment = 2
 
-[node name="Border" type="TextureRect" parent="HBoxContainer"]
+[node name="Border" type="TextureRect" parent="HBoxContainer" unique_id=1028123741]
 layout_mode = 2
 texture = ExtResource("1_lakbu")
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer" unique_id=825887449]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="HBoxContainer/PanelContainer"]
+[node name="Panel" type="Panel" parent="HBoxContainer/PanelContainer" unique_id=668618127]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2jaol")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer" unique_id=1097104587]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="JokerBg" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="JokerBg" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1859684409]
 layout_mode = 2
 texture = ExtResource("1_qtw0e")
 
-[node name="Equipped" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Equipped" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=439364419]
 layout_mode = 2
 text = " Equipped:"
 
-[node name="NameBanner" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="NameBanner" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1095482522]
 layout_mode = 2
 texture = ExtResource("3_yvjsa")
 
-[node name="WeaponName" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/NameBanner"]
+[node name="WeaponName" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/NameBanner" unique_id=420161992]
 layout_mode = 0
 offset_top = 2.0
 offset_right = 160.0
@@ -577,37 +578,37 @@ theme_override_font_sizes/font_size = 32
 text = "WEAPON NAME :D"
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=966689232]
 layout_mode = 2
 theme_override_constants/margin_top = -6
 theme_override_constants/margin_bottom = -3
 
-[node name="SecondName" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer"]
+[node name="SecondName" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer" unique_id=1783464426]
 layout_mode = 2
 text = "desc"
 horizontal_alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1842413838]
 layout_mode = 2
 
-[node name="WeaponBanner" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer"]
+[node name="WeaponBanner" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer" unique_id=1713666773]
 layout_mode = 2
 texture = ExtResource("4_mm5xb")
 
-[node name="WeaponArt" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer"]
+[node name="WeaponArt" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer" unique_id=1468666183]
 layout_mode = 2
 texture = ExtResource("5_yvjsa")
 
-[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer" unique_id=820594437]
 layout_mode = 2
 
-[node name="DrawButton" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer"]
+[node name="DrawButton" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer" unique_id=318016024]
 layout_mode = 2
 texture_normal = ExtResource("5_lfrrw")
 texture_pressed = ExtResource("8_q6tnq")
 texture_disabled = ExtResource("8_q6tnq")
 
-[node name="Draw" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton"]
+[node name="Draw" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton" unique_id=1026087139]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 2.0
@@ -617,64 +618,64 @@ theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
 text = "DRAW [D]"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer" unique_id=609246379]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = -8
 
-[node name="Tick1" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="Tick1" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=725945155]
 visible = false
 layout_mode = 2
 texture = ExtResource("9_2jaol")
 stretch_mode = 2
 
-[node name="Tick2" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="Tick2" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=241655814]
 visible = false
 layout_mode = 2
 texture = ExtResource("9_2jaol")
 stretch_mode = 2
 
-[node name="Tick3" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="Tick3" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1140437990]
 visible = false
 layout_mode = 2
 texture = ExtResource("9_2jaol")
 stretch_mode = 2
 
-[node name="Tick4" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="Tick4" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1002267605]
 visible = false
 layout_mode = 2
 texture = ExtResource("9_2jaol")
 stretch_mode = 2
 
-[node name="Tick5" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="Tick5" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=74937646]
 visible = false
 layout_mode = 2
 texture = ExtResource("9_2jaol")
 stretch_mode = 2
 
-[node name="Tick6" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="Tick6" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1693935715]
 visible = false
 layout_mode = 2
 texture = ExtResource("9_2jaol")
 stretch_mode = 2
 
-[node name="Tick7" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="Tick7" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1659205110]
 visible = false
 layout_mode = 2
 texture = ExtResource("9_2jaol")
 stretch_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1372375109]
 layout_mode = 2
 alignment = 1
 
-[node name="CutButton" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="CutButton" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=955155325]
 layout_mode = 2
 texture_normal = ExtResource("5_lfrrw")
 texture_pressed = ExtResource("8_q6tnq")
 texture_disabled = ExtResource("8_q6tnq")
 
-[node name="Cut" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/CutButton"]
+[node name="Cut" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/CutButton" unique_id=1655654818]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 2.0
@@ -683,18 +684,18 @@ offset_bottom = 16.0
 text = "CUT"
 horizontal_alignment = 1
 
-[node name="VSeparator" type="VSeparator" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=114199659]
 layout_mode = 2
 theme_override_constants/separation = 14
 theme_override_styles/separator = SubResource("StyleBoxEmpty_2atbk")
 
-[node name="SocketButton" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="SocketButton" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=359118442]
 layout_mode = 2
 texture_normal = ExtResource("6_q6tnq")
 texture_pressed = ExtResource("10_2jaol")
 texture_disabled = ExtResource("10_2jaol")
 
-[node name="Socket" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/SocketButton"]
+[node name="Socket" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/SocketButton" unique_id=789970182]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 2.0
@@ -703,14 +704,14 @@ offset_bottom = 16.0
 text = "SOCKET"
 horizontal_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1320292830]
 layout_mode = 2
 
-[node name="VSeparator" type="VSeparator" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2" unique_id=1830452945]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_ti0hy")
 
-[node name="WeapDesc" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="WeapDesc" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2" unique_id=1257355172]
 custom_minimum_size = Vector2(145.235, 0)
 layout_mode = 2
 theme_override_constants/line_spacing = -3
@@ -719,32 +720,30 @@ text = "-FILLER FILLER FILLER
 -FILLER FILLER FILLER"
 autowrap_mode = 2
 
-[node name="ClickTimer" type="Timer" parent="."]
+[node name="ClickTimer" type="Timer" parent="." unique_id=989604341]
 wait_time = 0.5
 one_shot = true
 
-[node name="DrawHighlight" type="Sprite2D" parent="."]
+[node name="DrawHighlight" type="Sprite2D" parent="." unique_id=2123830605]
 visible = false
-position = Vector2(-81, 68)
+position = Vector2(42, 68)
 texture = ExtResource("12_cjusc")
 hframes = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="DrawHighlight"]
-libraries = {
-&"": SubResource("AnimationLibrary_3dntu")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DrawHighlight" unique_id=1459690405]
+libraries/ = SubResource("AnimationLibrary_3dntu")
 
-[node name="JokerArea2D" type="Area2D" parent="."]
+[node name="JokerArea2D" type="Area2D" parent="." unique_id=427086552]
 material = SubResource("ShaderMaterial_2atbk")
-position = Vector2(-640, -180)
+position = Vector2(42, -101)
 
-[node name="Joker" type="Sprite2D" parent="JokerArea2D"]
-position = Vector2(559, 180)
+[node name="Joker" type="Sprite2D" parent="JokerArea2D" unique_id=391245985]
+position = Vector2(0, 97)
 scale = Vector2(2, 2)
 texture = ExtResource("12_2atbk")
 hframes = 49
 
-[node name="MouthLabel" type="Label" parent="JokerArea2D/Joker"]
+[node name="MouthLabel" type="Label" parent="JokerArea2D/Joker" unique_id=874708387]
 visible = false
 offset_left = -19.0
 offset_top = -43.5
@@ -754,14 +753,14 @@ theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
 text = "A"
 horizontal_alignment = 1
 
-[node name="CardLabel" type="Label" parent="JokerArea2D/Joker"]
+[node name="CardLabel" type="Label" parent="JokerArea2D/Joker" unique_id=18809335]
 visible = false
 offset_right = 40.0
 offset_bottom = 28.0
 theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
 text = "A"
 
-[node name="CardLabel2" type="Label" parent="JokerArea2D/Joker"]
+[node name="CardLabel2" type="Label" parent="JokerArea2D/Joker" unique_id=64024065]
 visible = false
 offset_right = 18.0
 offset_bottom = 28.0
@@ -770,16 +769,13 @@ text = "A"
 horizontal_alignment = 2
 text_direction = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JokerArea2D"]
-position = Vector2(560, 80)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JokerArea2D" unique_id=197399298]
 shape = SubResource("RectangleShape2D_2atbk")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=344082157]
 root_node = NodePath("../JokerArea2D/Joker")
-libraries = {
-&"": SubResource("AnimationLibrary_w10c2")
-}
-autoplay = "joker_idle"
+libraries/ = SubResource("AnimationLibrary_w10c2")
+autoplay = &"joker_idle"
 
 [connection signal="gui_input" from="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer" to="." method="_on_center_container_gui_input"]
 [connection signal="pressed" from="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton" to="." method="_on_draw_button_pressed"]

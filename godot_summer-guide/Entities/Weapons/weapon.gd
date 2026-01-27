@@ -54,6 +54,9 @@ signal resume(weapon : Weapon)
 func equip() -> void:
 	player.play(player_idle_anim)
 
+func unequip() -> void:
+	return
+
 func resolve_combat(_player : Node2D, _mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
 	player = _player
 	mini_equipped = _mini_card
