@@ -4,6 +4,9 @@
 - [x] health bar connection ✅ 2026-01-17
 - [x] Visually communicate enemy will attack first or player will attack first ✅ 2026-01-17
 - [x] Visually communicate player has run out of weapons, enemy attacks ✅ 2026-01-21
+- [ ] Fix cut/socket/display buttons
+- [ ] fix _on_weapon_display_update, group into function
+- [ ] test 1,2 weapons. Fix twin mark disappearing
 - [ ] enemy spawn pool in globals
 - [ ] boss encounter
 - [ ] Joker Reaction Corner.  Ultra kill. Mega Kill. Ludacrious kill. Holy SHIT (ALLBL4CK)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bh5en2bq774jn"]
+[gd_scene format=3 uid="uid://bh5en2bq774jn"]
 
 [ext_resource type="Script" uid="uid://cun7051syim7n" path="res://Entities/Enemies/base_enemy.gd" id="1_pa3af"]
 [ext_resource type="Texture2D" uid="uid://d0dtygestrm3u" path="res://Entities/Enemies/Base/Art/enemy_card.png" id="2_u23yv"]
@@ -7,6 +7,33 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wbf3x"]
 size = Vector2(36, 46)
+
+[sub_resource type="Animation" id="Animation_4lymr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_dxg72"]
 resource_name = "bleeding"
@@ -35,33 +62,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [0, 1]
-}
-
-[sub_resource type="Animation" id="Animation_4lymr"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4lymr"]
@@ -165,7 +165,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_rjo4h"]
 resource_name = "death"
-length = 1.0000125
+length = 0.7500125
 step = 0.125
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -186,7 +186,7 @@ tracks/1/path = NodePath("CollisionShape2D:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.625, 1),
+"times": PackedFloat32Array(0, 0.625, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1, 1), Vector2(1, 1e-05)]
@@ -198,7 +198,7 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.75),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [null],
@@ -212,7 +212,7 @@ tracks/3/path = NodePath("CollisionShape2D:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.75),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
@@ -224,7 +224,7 @@ tracks/4/path = NodePath(".")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.75),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -304,23 +304,23 @@ _data = {
 &"spawn": SubResource("Animation_3pklf")
 }
 
-[node name="BaseEnemy" type="Area2D" groups=["enemies"]]
+[node name="BaseEnemy" type="Area2D" unique_id=1881361469 groups=["enemies"]]
 modulate = Color(1, 1, 1, 0)
 scale = Vector2(2, 2)
 script = ExtResource("1_pa3af")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1089638684]
 shape = SubResource("RectangleShape2D_wbf3x")
 
-[node name="CardSprite" type="Sprite2D" parent="CollisionShape2D"]
+[node name="CardSprite" type="Sprite2D" parent="CollisionShape2D" unique_id=777520770]
 texture = ExtResource("2_u23yv")
 hframes = 4
 
-[node name="SuitSprite" type="Sprite2D" parent="CollisionShape2D"]
+[node name="SuitSprite" type="Sprite2D" parent="CollisionShape2D" unique_id=639563375]
 texture = ExtResource("3_4wjja")
 hframes = 4
 
-[node name="Label" type="Label" parent="CollisionShape2D"]
+[node name="Label" type="Label" parent="CollisionShape2D" unique_id=336785703]
 offset_left = -12.0
 offset_top = -21.0
 offset_right = 28.0
@@ -329,7 +329,7 @@ pivot_offset = Vector2(23, 13)
 theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
 text = "A"
 
-[node name="Label2" type="Label" parent="CollisionShape2D"]
+[node name="Label2" type="Label" parent="CollisionShape2D" unique_id=2134125046]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -346,13 +346,13 @@ theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
 text = "A"
 horizontal_alignment = 2
 
-[node name="Status" type="Sprite2D" parent="CollisionShape2D"]
+[node name="Status" type="Sprite2D" parent="CollisionShape2D" unique_id=766196593]
 visible = false
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_u23yv")
 hframes = 2
 
-[node name="Label" type="Label" parent="CollisionShape2D/Status"]
+[node name="Label" type="Label" parent="CollisionShape2D/Status" unique_id=585747473]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -365,14 +365,10 @@ theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
 text = "2"
 horizontal_alignment = 2
 
-[node name="AnimationPlayer2" type="AnimationPlayer" parent="CollisionShape2D/Status"]
-libraries = {
-&"": SubResource("AnimationLibrary_4lymr")
-}
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="CollisionShape2D/Status" unique_id=253065094]
+libraries/ = SubResource("AnimationLibrary_4lymr")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_u23yv")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1402553082]
+libraries/ = SubResource("AnimationLibrary_u23yv")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

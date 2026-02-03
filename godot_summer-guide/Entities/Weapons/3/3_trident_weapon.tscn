@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://djdnnqhxh78yn"]
+[gd_scene format=3 uid="uid://djdnnqhxh78yn"]
 
 [ext_resource type="Script" uid="uid://dh5j7r3f7ewta" path="res://Entities/Weapons/3/3_trident_weapon.gd" id="1_7w4hi"]
 [ext_resource type="Texture2D" uid="uid://yk4odrrcvqpd" path="res://Common/icon.svg" id="3_m7fbe"]
@@ -361,17 +361,15 @@ _data = {
 &"stab": SubResource("Animation_m6n70")
 }
 
-[node name="3TridentWeapon" type="Node2D"]
+[node name="3TridentWeapon" type="Node2D" unique_id=499842194]
 script = ExtResource("1_7w4hi")
 
-[node name="WeaponEffects" type="Sprite2D" parent="."]
+[node name="WeaponEffects" type="Sprite2D" parent="." unique_id=1996708591]
 visible = false
 scale = Vector2(2.608, 0.667)
 texture = ExtResource("3_m7fbe")
 hframes = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects" unique_id=573181858]
 root_node = NodePath("../..")
-libraries = {
-&"": SubResource("AnimationLibrary_mrlch")
-}
+libraries/ = SubResource("AnimationLibrary_mrlch")

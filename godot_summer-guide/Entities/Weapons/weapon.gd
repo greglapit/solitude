@@ -28,6 +28,7 @@ var mini_equipped : Card
 var active : bool = false 			## Whether weapon is active (equipped)
 var reciprocal_attack : bool = false
 var critting : bool = false			## Critting in current attack
+var enemy_died : bool = false		## Enemy died from attack
 
 var combat_data : Dictionary = {
 	"hp_delta" = 0,
@@ -65,9 +66,10 @@ func resolve_combat(_player : Node2D, _mini_card : Card, _hp : float, _attacks :
 	enemies = _enemy_array
 	critting = false
 	reciprocal_attack = false
+	enemy_died = false
 	combat_data = {
 	"hp_delta" = 0,
-	"durability_delta" = 0,
+	"durability_delta" = -1,
 	}
 	
 	# Visuals
@@ -79,10 +81,8 @@ func resolve_combat(_player : Node2D, _mini_card : Card, _hp : float, _attacks :
 	# Player has no attacks left, enemy attacks
 	if _attacks <= 0:
 		combat_data= enemies[0].attack(self, combat_data)
-		combat_data["durability_delta"] = 1
 		return combat_data
 	
-	combat_data["durability_delta"] = 1
 	# Player has attacks left
 	if rank <= enemies[0].rank:
 		if using_special:
@@ -97,6 +97,7 @@ func resolve_combat(_player : Node2D, _mini_card : Card, _hp : float, _attacks :
 
 func special_attack(_player : Node2D, _mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
 	if !has_special:
+		push_error("No special to be called")
 		return {}
 	using_special = true
 	return resolve_combat(_player, _mini_card, _hp, _attacks, _enemy_array)
@@ -104,7 +105,7 @@ func special_attack(_player : Node2D, _mini_card : Card, _hp : float, _attacks :
 func post_combat() -> void:
 	pass
 	
-func has_valid_target(_enemies : Array) -> bool:
+func has_valid_spec_target(_enemies : Array) -> bool:
 	return true
 	
 # === Built In =================================================================
@@ -123,18 +124,21 @@ func _process(_delta: float) -> void:
 func _on_player_anim_finished(anim : String) -> void:
 	if !active or !anim.contains(str(rank)):
 		return
+	if !enemies[0] or enemies[0].is_dead:
+		enemy_died = true
 	if anim.contains("attack") or anim.contains("special"):
 		# Damage Weapon
 		if !critting:
 			mini_equipped.used = true
 			mini_equipped.play("used")
-			mini_equipped.damage(combat_data["durability_delta"])
+			mini_equipped.damage(-combat_data["durability_delta"])
 			
 		# Attacked after enemy due to higher card rank
-		if critting or reciprocal_attack:
+		if reciprocal_attack or enemy_died:
 			combat_fin.emit()
 			reciprocal_attack = false
 			critting = false
+			enemy_died = false
 		# Player lower with higher rank card
 		else:
 			weapon_used.emit(self)

@@ -70,6 +70,12 @@ func load_weapons_display() -> void:
 	weapons_display.socket.connect(_on_socket_button_pressed)
 	weapons_display.weapon_display_update.connect(_on_weapon_display_update)
 
+func reset_globals() -> void:
+	click_prevention = false
+	chaining = false
+	attacks = Globals.attacks
+	actions = Globals.actions
+
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
 		var enemies : Array = get_tree().get_nodes_in_group("enemies")
@@ -87,14 +93,20 @@ func spawn_enemy(num : int = 1) -> void:
 			
 		await get_tree().create_timer(0.2).timeout
 	
-	align_enemies()
+	align_enemies(false)
 		
 
-func align_enemies() -> void:
+func align_enemies(tweening : bool = true) -> void:
 	var enemies : Array = get_tree().get_nodes_in_group("enemies")
 	for i : int in enemies.size():
-		enemies[i].position = enemy_positions[i]
-		enemies[i].z_index = 5 - i
+		if tweening:
+			var tween : Tween = create_tween()
+			tween.tween_property(enemies[i], "position", enemy_positions[i], 0.3) \
+			 .set_trans(Tween.TRANS_SINE)\
+			 .set_ease(Tween.EASE_OUT)
+		else:
+			enemies[i].position = enemy_positions[i]
+			enemies[i].z_index = 5 - i
 	pass
 
 
@@ -122,7 +134,7 @@ func update_crit_button() -> void:
 	
 	# Crit Button enable/disable
 	crit_button.enable(false)
-	if curr_weapon and curr_weapon.has_special and curr_weapon.has_valid_target(enemies):
+	if curr_weapon and curr_weapon.has_special and curr_weapon.has_valid_spec_target(enemies):
 		if crit_stored >= curr_weapon.special_cost:
 			crit_button.enable()
 
@@ -202,7 +214,7 @@ func align_mini_cards(tweening : bool = true) -> void:
 		mini_cards[i].z_index =  11
 		if tweening:
 			var tween : Tween = create_tween()
-			tween.tween_property(mini_cards[i], "position", positions[i], 0.3)\
+			tween.tween_property(mini_cards[i], "position", positions[i], 0.3) \
 			 .set_trans(Tween.TRANS_SINE)\
 			 .set_ease(Tween.EASE_OUT)
 		else:
@@ -265,7 +277,7 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 		var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
 		var space_in_armory : bool = Globals.max_draw > mini_cards.size() + int(mini_equipped != null)
 		if !space_in_armory:
-			weapons_display.draw_button.disabled = true
+			weapons_display.buttons_enabled(true)
 		
 		
 		update_crit_button()
@@ -297,12 +309,16 @@ func _ready() -> void:
 
 	
 func _input(event: InputEvent) -> void:
+	if click_prevention:
+		return
+		
+	
 	if event.is_action_pressed("quit_game"):
 		get_tree().quit()
 	elif event.is_action_pressed("draw_button"):
 		if actions <= 0:
 			return
-		weapons_display.button_enabled(false)
+		weapons_display.buttons_enabled(false)
 		_on_draw_button_pressed()
 	elif event.is_action_pressed("attack_button"):
 		_on_attack_button_pressed()
@@ -524,10 +540,8 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 		weapon.post_combat()
 		await weapon_pause()
 	
-	click_prevention = false
-	chaining = false
-	attacks = Globals.attacks
-	actions = Globals.actions
+	reset_globals()
+	
 	var mini_cards : Array= get_tree().get_nodes_in_group("mini_cards")
 	var space_in_armory : bool = Globals.max_draw > mini_cards.size() + int(mini_equipped != null)
 	
@@ -543,7 +557,6 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 		equip_mini_card(null)
 
 	equip_mini_card(mini_equipped)
-	
 	
 
 func _on_weapon_crit() -> void:
@@ -576,7 +589,9 @@ func _on_enemy_animation_finished(anim : String, enemy : Enemy) -> void:
 
 func _on_enemy_freed(_enemy : Enemy) -> void:
 	await _enemy.tree_exited
-	await player.anim_finished
+	var player_animation : String = player.animation_player.current_animation
+	if player_animation.contains("attack") or player_animation.contains("special"):
+		await player.anim_finished
 	var enemies : Array = get_tree().get_nodes_in_group("enemies")
 	if enemies.is_empty():
 		spawn_enemy(3)

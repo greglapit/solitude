@@ -33,18 +33,15 @@ func bleed() -> void:
 func post_combat() -> void:
 	bleed()
 
-
 func _on_player_special_impact() -> void:
 	if !active:
 		return
-	if using_special:
+	bleeding_enemies[enemies[0]] = bleeding_enemies.get(enemies[0], 0) + bleed_duration
+	enemies[0].damage(rank)
+	enemies[0].display_bleed(bleeding_enemies[enemies[0]])
+	mini_equipped.used = true
+	mini_equipped.damage(combat_data["durability_delta"])
 
-		bleeding_enemies[enemies[0]] = bleeding_enemies.get(enemies[0], 0) + bleed_duration
-		enemies[0].damage(rank)
-		enemies[0].display_bleed(bleeding_enemies[enemies[0]])
-		mini_equipped.used = true
-		mini_equipped.damage(combat_data["durability_delta"])
-	
 func _on_player_weap_effect_start() -> void:
 	if !active:
 		return

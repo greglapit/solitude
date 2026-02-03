@@ -83,7 +83,7 @@ func timeout_buttons(time : float = 0.5) -> void:
 	click_timer.wait_time = time
 	click_timer.start()
 
-func button_enabled(enabled : bool = true) -> void:
+func buttons_enabled(enabled : bool = true) -> void:
 	draw_button.disabled = !enabled
 	cut_button.disabled = !enabled
 	socket_button.disabled = !enabled
@@ -125,19 +125,19 @@ func _on_center_container_gui_input(event: InputEvent) -> void:
 func _on_draw_button_pressed() -> void:
 	if click_timer.is_stopped():
 		drawn.emit()
-		button_enabled(false)
+		buttons_enabled(false)
 
 func _on_cut_button_pressed() -> void:
 	if click_timer.is_stopped():
 		cut.emit()
-		click_timer.start()
-		button_enabled(false)
+		#click_timer.start()
+		buttons_enabled(false)
 
 func _on_socket_button_pressed() -> void:
 	if click_timer.is_stopped():
 		socket.emit()
-		click_timer.start()
-		button_enabled(false)
+		#click_timer.start()
+		buttons_enabled(false)
 
 func _on_click_timer_timeout() -> void:
 	if displayed_weapon and actions > 1:

@@ -50,7 +50,7 @@ func post_combat() -> void:
 	drain()
 	
 	
-func has_valid_target(_enemies : Array) -> bool:
+func has_valid_spec_target(_enemies : Array) -> bool:
 	if enemies[0] == seeded_enemy:
 		return false
 	return true

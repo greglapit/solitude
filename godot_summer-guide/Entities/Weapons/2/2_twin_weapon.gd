@@ -19,7 +19,7 @@ func assign_prop() -> void:
 	player_special_anim = "2_twin_special"
 	has_special = true
 
-func has_valid_target(_enemies : Array) -> bool:
+func has_valid_spec_target(_enemies : Array) -> bool:
 	if _enemies[0] == marked_enemy:
 		return false
 	return true
@@ -35,15 +35,13 @@ func _process(_delta: float) -> void:
 func _on_player_special_impact() -> void:
 	if !active:
 		return
-	if using_special:
-		
-		marked_enemy = enemies[0]
-		marked_enemy.damage(rank)
-		marked_enemy.damaged.connect(_on_enemy_damaged.bind(marked_enemy))
-		animation_player2.play("mark")
-		
-		mini_equipped.used = true
-		mini_equipped.damage(combat_data["durability_delta"])
+	marked_enemy = enemies[0]
+	marked_enemy.damage(rank)
+	marked_enemy.damaged.connect(_on_enemy_damaged.bind(marked_enemy))
+	animation_player2.play("mark")
+	
+	mini_equipped.used = true
+	mini_equipped.damage(combat_data["durability_delta"])
 	
 func _on_player_weap_effect_start() -> void:
 	if !active:
@@ -51,13 +49,16 @@ func _on_player_weap_effect_start() -> void:
 	animation_player.play("double_slash")
 
 func _on_enemy_damaged(_amt : int, enemy : Enemy) -> void:
-	if !marked_enemy or enemy != marked_enemy:
+	await enemy.animation_player.animation_finished
+	if !marked_enemy or enemy != marked_enemy or marked_enemy.is_dead:
+		#animation_player2.play("mark_expend")
 		return
 	var target : Enemy = marked_enemy
 	marked_enemy = null
 	pause.emit(self)
 	animation_player2.play("mark_expend")
 	await animation_player2.animation_finished
+	
 	target.damage(damage_amt)
 	if target.is_dead:
 		combat_fin.emit()

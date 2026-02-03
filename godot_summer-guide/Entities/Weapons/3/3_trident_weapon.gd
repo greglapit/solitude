@@ -16,13 +16,10 @@ func assign_prop() -> void:
 	special_cost = 2
 
 func special_attack(_player : Node2D, _mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
-	player = _player
-	enemies = _enemy_array
-	using_special = true
-	super(_player, _mini_card, _hp, _attacks, _enemy_array)
+	var dict : Dictionary = super(_player, _mini_card, _hp, _attacks, _enemy_array)
 	weapon_effects.position = player.position + Vector2(0,20)
 	weapon_effects.z_index = player.z_index - 1
-	return {}
+	return dict
 	
 func _on_player_anim_finished(anim : String) -> void:
 	super(anim)
@@ -41,8 +38,3 @@ func _on_player_special_impact() -> void:
 		return
 	for enemy : Enemy in enemies:
 		enemy.damage(3)
-	if enemies[0].is_dead:
-		combat_fin.emit()
-	mini_equipped.used = true
-	mini_equipped.damage(combat_data["durability_delta"])
-	
