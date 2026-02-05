@@ -79,7 +79,7 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
 		var enemies : Array = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,3) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,8) # 2 * (2 + randi() % 2)
 		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
@@ -277,7 +277,7 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 		var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
 		var space_in_armory : bool = Globals.max_draw > mini_cards.size() + int(mini_equipped != null)
 		if !space_in_armory:
-			weapons_display.buttons_enabled(true)
+			weapons_display.buttons_enabled(space_in_armory, true)
 		
 		
 		update_crit_button()
@@ -360,8 +360,8 @@ func _on_cut_button_pressed() -> void:
 	var cut : bool = mini_equipped.cut()
 	if !cut:
 		return
-	equip_mini_card(mini_equipped)
 	actions -= 1
+	equip_mini_card(mini_equipped)
 
 func _on_socket_button_pressed() -> void:
 	if click_prevention:
@@ -369,8 +369,8 @@ func _on_socket_button_pressed() -> void:
 	var socketed : bool = mini_equipped.socket()
 	if !socketed:
 		return
-	equip_mini_card(mini_equipped)
 	actions -= 1
+	equip_mini_card(mini_equipped)
 
 func _on_attack_button_pressed() -> void:
 	if click_prevention:
@@ -504,10 +504,10 @@ func _on_spam_timer_timeout() -> void:
 ## Only called when player card < enemy card. After weapon is used and must be uneqipped
 ## Do not call if enemy died from attack
 func _on_weapon_weapon_used(_weapon : Weapon) -> void:
-	
+	if !_weapon.active:
+		return
 	await weapon_pause()
-	
-	
+
 	var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
 	var enemies : Array = get_tree().get_nodes_in_group("enemies")
 	
@@ -518,7 +518,7 @@ func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 		return
 		
 	# Chaining
-	if chaining and enemies[0].rank > 0:
+	if chaining and !enemies[0].is_dead:
 		# Sort minis by order in player armory
 		mini_cards.sort_custom(func(a: Card, b: Card) -> bool: \
 			return a.global_position.x < b.global_position.x)

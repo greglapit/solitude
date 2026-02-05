@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b5olu7hl2ch0f"]
+[gd_scene format=3 uid="uid://b5olu7hl2ch0f"]
 
 [ext_resource type="Script" uid="uid://b2p5clx2uvv0i" path="res://Entities/Weapons/2/2_twin_weapon.gd" id="1_nx4ca"]
 [ext_resource type="Texture2D" uid="uid://chhqgp2gcybex" path="res://Entities/Weapons/ArtWeaponEffects/single_slash.png" id="2_hele6"]
@@ -223,26 +223,22 @@ _data = {
 &"mark_expend": SubResource("Animation_r8ff1")
 }
 
-[node name="2TwinWeapon" type="Node2D"]
+[node name="2TwinWeapon" type="Node2D" unique_id=872009388]
 script = ExtResource("1_nx4ca")
 
-[node name="WeaponEffects" type="Sprite2D" parent="."]
+[node name="WeaponEffects" type="Sprite2D" parent="." unique_id=344204978]
 visible = false
 texture = ExtResource("2_hele6")
 hframes = 5
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects" unique_id=490737338]
 root_node = NodePath("../..")
-libraries = {
-&"": SubResource("AnimationLibrary_tulhm")
-}
+libraries/ = SubResource("AnimationLibrary_tulhm")
 
-[node name="WeaponEffects2" type="Sprite2D" parent="."]
+[node name="WeaponEffects2" type="Sprite2D" parent="." unique_id=1742166188]
 visible = false
 texture = ExtResource("4_hele6")
 hframes = 7
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects2"]
-libraries = {
-&"": SubResource("AnimationLibrary_hele6")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects2" unique_id=1281931335]
+libraries/ = SubResource("AnimationLibrary_hele6")

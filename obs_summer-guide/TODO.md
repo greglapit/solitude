@@ -4,9 +4,10 @@
 - [x] health bar connection ✅ 2026-01-17
 - [x] Visually communicate enemy will attack first or player will attack first ✅ 2026-01-17
 - [x] Visually communicate player has run out of weapons, enemy attacks ✅ 2026-01-21
-- [ ] Fix cut/socket/display buttons
-- [ ] fix _on_weapon_display_update, group into function
-- [ ] test 1,2 weapons. Fix twin mark disappearing
+- [x] Fix cut/socket/display buttons ✅ 2026-02-05
+- [x] fix _on_weapon_display_update, group into function ✅ 2026-02-05
+- [x] test 1,2 weapons. Fix twin mark disappearing ✅ 2026-02-05
+- [x] twin mark breaks chaining ✅ 2026-02-05
 - [ ] enemy spawn pool in globals
 - [ ] boss encounter
 - [ ] Joker Reaction Corner.  Ultra kill. Mega Kill. Ludacrious kill. Holy SHIT (ALLBL4CK)
@@ -19,6 +20,13 @@
 	- [ ] Chance encounters in dusk of shop with king, queen, jack of diamonds. Provide player weapons/upgrades
 - [ ] Drawback of memorizing too many cards is lowered health? Curse of amnesia
 - [ ] Visually communicate you have space to draw so unequipping. Armory with physically empty slots?
+
+
+
+Enemy ideas
+- one that eats your weapon, returns after it dies
+- spades that hide its rank
+- 
 
 
 

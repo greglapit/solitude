@@ -49,13 +49,15 @@ func _on_player_weap_effect_start() -> void:
 	animation_player.play("double_slash")
 
 func _on_enemy_damaged(_amt : int, enemy : Enemy) -> void:
+	pause.emit(self)
 	await enemy.animation_player.animation_finished
-	if !marked_enemy or enemy != marked_enemy or marked_enemy.is_dead:
-		#animation_player2.play("mark_expend")
+	if marked_enemy and (enemy != marked_enemy or marked_enemy.is_dead):
+		animation_player2.play("RESET")
+		resume.emit(self)
 		return
 	var target : Enemy = marked_enemy
+	marked_enemy.damaged.disconnect(_on_enemy_damaged)
 	marked_enemy = null
-	pause.emit(self)
 	animation_player2.play("mark_expend")
 	await animation_player2.animation_finished
 	

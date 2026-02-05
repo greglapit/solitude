@@ -76,17 +76,23 @@ func display_weapon(weapon : Weapon = displayed_weapon, mini_card : Card = card,
 		show_ticks()
 	weapon_display_update.emit()
 	
-func timeout_buttons(time : float = 0.5) -> void:
-	draw_button.disabled = true
-	cut_button.disabled = true
-	socket_button.disabled = true
-	click_timer.wait_time = time
-	click_timer.start()
 
-func buttons_enabled(enabled : bool = true) -> void:
+func buttons_enabled(space_in_armory : bool = true, enabled : bool = true) -> void:
+	
 	draw_button.disabled = !enabled
-	cut_button.disabled = !enabled
-	socket_button.disabled = !enabled
+	if !space_in_armory:
+		draw_button.disabled = true
+	
+	# Disable buttons based on if available in armory
+	if enabled and actions > 0 and displayed_weapon:
+		var curr_rank : int = displayed_weapon.rank
+		var cut_available : bool = curr_rank - 1 in Globals.available_ranks
+		cut_button.disabled = !cut_available
+		var socket_available : bool = curr_rank + 1 in Globals.available_ranks
+		socket_button.disabled = !socket_available
+	else:
+		cut_button.disabled = true
+		socket_button.disabled = true
 
 func show_ticks(num : int = 0) -> void:
 	for tick : int in range(ticks.size()):
@@ -123,32 +129,16 @@ func _on_center_container_gui_input(event: InputEvent) -> void:
 		weapon_box_click.emit()
 
 func _on_draw_button_pressed() -> void:
-	if click_timer.is_stopped():
-		drawn.emit()
-		buttons_enabled(false)
+	drawn.emit()
 
 func _on_cut_button_pressed() -> void:
-	if click_timer.is_stopped():
-		cut.emit()
-		#click_timer.start()
-		buttons_enabled(false)
+	cut.emit()
 
 func _on_socket_button_pressed() -> void:
-	if click_timer.is_stopped():
-		socket.emit()
-		#click_timer.start()
-		buttons_enabled(false)
+	socket.emit()
 
 func _on_click_timer_timeout() -> void:
-	if displayed_weapon and actions > 1:
-		draw_button.disabled = false
-		cut_button.disabled = false
-		socket_button.disabled = false
-	else:
-		draw_button.disabled = true
-		cut_button.disabled = true
-		socket_button.disabled = true
-		
+	pass
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "joker_spinning":
