@@ -27,6 +27,9 @@ var pausing_weapon : Weapon						# Weapon pausing chaining for effects to take p
 
 var combat_data : Dictionary
 
+# DEV TOOLS
+var crit_infinite : bool = true
+
 # === Custom Methods ===========================================================
 # General
 #-------------------------------------------------------------------------------
@@ -79,7 +82,7 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
 		var enemies : Array = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,10) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,2) # 2 * (2 + randi() % 2)
 		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
@@ -333,6 +336,9 @@ func _process(_delta: float) -> void:
 	if dragging and dragged_card:
 		dragged_card.z_index = 12
 		dragged_card.position = get_global_mouse_position()
+		
+	if crit_infinite:
+		crit_stored = 3
 #endregion
 
 # === Signals ==================================================================
@@ -412,7 +418,6 @@ func _on_crit_button_pressed() -> void:
 	#Visuals
 	await player.special_impact
 	weapons_display.play("joker_crit_expend")
-	#update_crit_button()
 
 ## Emitted by weapon display once ready for update
 func _on_weapon_display_update() -> void:

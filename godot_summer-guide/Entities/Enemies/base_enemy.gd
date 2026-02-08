@@ -46,6 +46,7 @@ func damage(amt : int) -> Callable:
 		is_dead = true
 		play("death")
 	else:
+		animation_player.stop()
 		play("shake")
 	update_labels()
 	
