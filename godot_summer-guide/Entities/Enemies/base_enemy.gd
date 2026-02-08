@@ -8,7 +8,7 @@ extends Area2D
 @onready var label2 : Label = $CollisionShape2D/Label2
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var status_label : Label = $CollisionShape2D/Status/Label
-@onready var animation_player2 : AnimationPlayer = $CollisionShape2D/Status/AnimationPlayer2
+@onready var status_animation_player : AnimationPlayer = $CollisionShape2D/Status/AnimationPlayer2
 
 const enemy_scn : PackedScene = preload("res://Entities/Enemies/base_enemy.tscn")
 
@@ -68,9 +68,9 @@ func play(anim : String = "RESET") -> void:
 func display_bleed(duration : int) -> void:
 	status_label.text = str(duration)
 	if duration > 0:
-		animation_player2.play("bleeding")
+		status_animation_player.play("bleeding")
 	else:
-		animation_player2.play("RESET")
+		status_animation_player.play("RESET")
 
 @warning_ignore("unused_parameter")
 func emit_freed(card : Enemy = self) -> void:

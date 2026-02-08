@@ -52,13 +52,11 @@ func resolve_combat(_player : Node2D, _mini_card : Card, _hp : float, _attacks :
 	# Player has no attacks left, enemy attacks
 	if _attacks <= 0:
 		combat_data= enemies[0].attack(self, combat_data)
-		combat_data["durability_delta"] = 1
 		return combat_data
 	
-	combat_data["durability_delta"] = 1
+	combat_data["durability_delta"] = -1
 	
 	# Player has attacks left
-	reciprocal_attack = true
 	if using_special:
 		player.play(player_special_anim)
 	else:

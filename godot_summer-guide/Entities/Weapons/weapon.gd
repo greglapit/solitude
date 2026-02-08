@@ -126,6 +126,8 @@ func _on_player_anim_finished(anim : String) -> void:
 		return
 	if !enemies[0] or enemies[0].is_dead:
 		enemy_died = true
+	else:
+		enemy_died = false
 	if anim.contains("attack") or anim.contains("special"):
 		# Damage Weapon
 		if !critting:

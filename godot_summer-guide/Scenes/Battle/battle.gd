@@ -79,7 +79,7 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
 		var enemies : Array = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,8) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,10) # 2 * (2 + randi() % 2)
 		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
@@ -171,7 +171,7 @@ func draw_card(amount : int = 1) -> void:
 	amount = min(amount, available_slots)
 	
 	if amount <= 0:
-		print("No space to draw")
+		push_error("No space to draw")
 		click_prevention = false
 		
 	for i : int in range(amount):
@@ -346,6 +346,8 @@ func _on_weapon_box_click() -> void:
 	equip_mini_card(null)
 	
 func _on_draw_button_pressed() -> void:
+	if click_prevention:
+		return
 	click_prevention = true
 	if get_tree().get_node_count_in_group("mini_cards") + int(mini_equipped != null) >= Globals.max_draw:
 		click_prevention = false

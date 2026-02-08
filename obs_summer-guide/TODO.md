@@ -8,7 +8,9 @@
 - [x] fix _on_weapon_display_update, group into function ✅ 2026-02-05
 - [x] test 1,2 weapons. Fix twin mark disappearing ✅ 2026-02-05
 - [x] twin mark breaks chaining ✅ 2026-02-05
+- [ ] save file
 - [ ] enemy spawn pool in globals
+- [ ] Show somewhere the enemies max health. Should be apparent so player remembers their power evennif their health lowers. 
 - [ ] boss encounter
 - [ ] Joker Reaction Corner.  Ultra kill. Mega Kill. Ludacrious kill. Holy SHIT (ALLBL4CK)
 - [ ] new weapons
@@ -18,6 +20,7 @@
 - [ ] In between player sitting at campfire. Will be where they edit their memory and recallable weapons. Player daydreaming at the sky, availible weapons circling their head
 	- [ ] Click campfire to sleep the night and enter spread again. Gain a little health back
 	- [ ] Chance encounters in dusk of shop with king, queen, jack of diamonds. Provide player weapons/upgrades
+	- [ ] consult notebook with weapon recipes written in it. That is how the player swaps out their "learned" weapons with what is in their limited memory
 - [ ] Drawback of memorizing too many cards is lowered health? Curse of amnesia
 - [ ] Visually communicate you have space to draw so unequipping. Armory with physically empty slots?
 

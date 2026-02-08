@@ -2,7 +2,7 @@ shader_type canvas_item;
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
 uniform float force;
 uniform float size;
-uniform float thickness;
+uniform float thickness = 0.5;
 uniform vec2 center = vec2(.5,.5);
 
 void vertex() {

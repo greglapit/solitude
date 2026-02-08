@@ -15,6 +15,7 @@ Unsure if naming should be unique names or references to real objects
 # Four
 
 * Cleft Bastion. Special: Bulwark. Reduce next instances to 1
+* 
 
 # Five
 
@@ -35,3 +36,13 @@ Unsure if naming should be unique names or references to real objects
 
 * Slots: effect based on how good you roll
 * Clock: reverse turn order
+
+4 - mirror. Reflects portion of enemy attac
+
+5- claws. Savage. Heal for portion
+
+5-fingerless.
+
+6- chain, bind enemy
+
+9-pole. Command obedience

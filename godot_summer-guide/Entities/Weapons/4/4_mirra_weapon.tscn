@@ -1,14 +1,14 @@
-[gd_scene format=3 uid="uid://c6sg4ux65847u"]
+[gd_scene format=3 uid="uid://dyde3ecxvwx6y"]
 
-[ext_resource type="Script" uid="uid://bxo61dbmcgej4" path="res://Entities/Weapons/4/4_base_weapon.gd" id="1_ordne"]
-[ext_resource type="Shader" uid="uid://bwyqkydys3a6y" path="res://Common/Shaders/shockwave.gdshader" id="2_657tq"]
-[ext_resource type="Texture2D" uid="uid://yk4odrrcvqpd" path="res://Common/icon.svg" id="2_digcf"]
+[ext_resource type="Script" uid="uid://dep8ltr240bi3" path="res://Entities/Weapons/4/4_mirra_weapon.gd" id="1_kiffn"]
+[ext_resource type="Shader" uid="uid://bwyqkydys3a6y" path="res://Common/Shaders/shockwave.gdshader" id="2_gnc1v"]
+[ext_resource type="Texture2D" uid="uid://yk4odrrcvqpd" path="res://Common/icon.svg" id="3_j4bjx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dik4a"]
-shader = ExtResource("2_657tq")
+shader = ExtResource("2_gnc1v")
 shader_parameter/force = 0.0
 shader_parameter/size = 0.0
-shader_parameter/thickness = 0.035
+shader_parameter/thickness = 0.5
 shader_parameter/center = Vector2(0.5, 0.5)
 
 [sub_resource type="Animation" id="Animation_657tq"]
@@ -72,14 +72,14 @@ _data = {
 &"shockwave": SubResource("Animation_w4wxk")
 }
 
-[node name="4BaseWeapon" type="Node2D" unique_id=1950845926]
-script = ExtResource("1_ordne")
+[node name="4MirraWeapon" type="Node2D" unique_id=760176619]
+script = ExtResource("1_kiffn")
 
-[node name="WeaponEffects" type="Sprite2D" parent="." unique_id=1475976272]
+[node name="WeaponEffects" type="Sprite2D" parent="." unique_id=833448853]
 material = SubResource("ShaderMaterial_dik4a")
 scale = Vector2(4, 4)
-texture = ExtResource("2_digcf")
+texture = ExtResource("3_j4bjx")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects" unique_id=16637179]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects" unique_id=65829104]
 root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_c5el5")
