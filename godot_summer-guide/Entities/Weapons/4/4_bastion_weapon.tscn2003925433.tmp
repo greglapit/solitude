@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://va1rv80n1w4b"]
+
+[ext_resource type="Script" uid="uid://boj5j6lyv2db4" path="res://Entities/Weapons/4/4_bastion_weapon.gd" id="1_2p43m"]
+[ext_resource type="Shader" uid="uid://bwyqkydys3a6y" path="res://Common/Shaders/shockwave.gdshader" id="2_nuf3j"]
+[ext_resource type="Texture2D" uid="uid://yk4odrrcvqpd" path="res://Common/icon.svg" id="3_3q85s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dik4a"]
+shader = ExtResource("2_nuf3j")
+shader_parameter/force = 0.0
+shader_parameter/size = 0.0
+shader_parameter/thickness = 0.5
+shader_parameter/center = Vector2(0.5, 0.5)
+
+[sub_resource type="Animation" id="Animation_657tq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponEffects:material:shader_parameter/size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponEffects:material:shader_parameter/force")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_w4wxk"]
+resource_name = "shockwave"
+length = 0.26667002
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponEffects:material:shader_parameter/size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.26666668),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.325]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponEffects:material:shader_parameter/force")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.19999999, 0.26666668),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.02, 0.02, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c5el5"]
+_data = {
+&"RESET": SubResource("Animation_657tq"),
+&"shockwave": SubResource("Animation_w4wxk")
+}
+
+[node name="4BastionWeapon" type="Node2D" unique_id=760176619]
+script = ExtResource("1_2p43m")
+
+[node name="WeaponEffects" type="Sprite2D" parent="." unique_id=833448853]
+material = SubResource("ShaderMaterial_dik4a")
+scale = Vector2(4, 4)
+texture = ExtResource("3_3q85s")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects" unique_id=65829104]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_c5el5")

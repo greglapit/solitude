@@ -1,6 +1,7 @@
 extends Node2D
 
-@onready var animation_player : AnimationPlayer = $AnimationPlayer
+@onready var animation_player : AnimationPlayer = $Sprite2D/AnimationPlayer
+@onready var effects_animation_player : AnimationPlayer = $Effects/AnimationPlayer
 
 @warning_ignore("unused_signal")
 signal attack_impact				## Time in animation when animation hits. Emitted by animation player
@@ -15,7 +16,10 @@ signal anim_finished(anim : String)
 func play(anim : StringName) -> void:
 	animation_player.stop()
 	animation_player.play(anim)
-	#animation_player.seek(0.0, true)
+	return
+	
+func effect(anim : StringName) -> void:
+	effects_animation_player.play(anim)
 	return
 	
 func queue(anim : StringName) -> void:

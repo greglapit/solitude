@@ -5,7 +5,7 @@ func assign_prop() -> void:
 	file_name = "4_mirra_weapon"
 	display_name = "04: Mirra"
 	second_name = "Filler Filler Filler"
-	description = "-Special: Attack. Then defend and mirror enemy damage, up to 4."
+	description = "-Special: Attack. Then defend and mirror enemy damage, up to 4.\n-"
 	display_texture = load("res://Common/UI/WeaponDisplay/Art/Weapons/4/4_mirra_weapon.png")
 	player_idle_anim = "4_mirra_idle"
 	player_attack_anim = "4_mirra_attack"
@@ -28,10 +28,14 @@ func has_valid_spec_target(_enemies : Array) -> bool:
 	return false
 
 func _on_player_weap_effect_start() -> void:
+	if !active:
+		return
 	if !using_special:
 		animation_player.play("shockwave")
 	
 func _on_player_attack_impact() -> void:
+	if !active:
+		return
 	super()
 	if using_special:
 		player.play(player_special_anim)

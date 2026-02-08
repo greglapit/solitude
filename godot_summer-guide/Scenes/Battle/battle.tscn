@@ -132,7 +132,7 @@ position = Vector2(40, 180)
 
 [node name="Player" parent="." unique_id=832279553 instance=ExtResource("2_3qw02")]
 z_index = 10
-position = Vector2(240, 248)
+position = Vector2(240, 227)
 scale = Vector2(1, 1)
 
 [connection signal="timeout" from="SpamTimer" to="." method="_on_spam_timer_timeout"]
