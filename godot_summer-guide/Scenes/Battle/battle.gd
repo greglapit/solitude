@@ -82,7 +82,7 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
 		var enemies : Array = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,2) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,9) # 2 * (2 + randi() % 2)
 		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
@@ -133,7 +133,7 @@ func update_crit_button() -> void:
 	crit_button.update_crit_stored(crit_stored)
 	
 	
-	var enemies : Array = get_tree().get_nodes_in_group("enemies")
+	var enemies : Array = get_tree().get_nodes_in_group("enemies").filter(func(e : Enemy) -> bool: return e != null and not e.is_dead)
 	
 	# Crit Button enable/disable
 	crit_button.enable(false)
@@ -312,16 +312,15 @@ func _ready() -> void:
 
 	
 func _input(event: InputEvent) -> void:
-	if click_prevention:
-		return
-		
-	
 	if event.is_action_pressed("quit_game"):
 		get_tree().quit()
+		
+	if click_prevention:
+		return
+	
 	elif event.is_action_pressed("draw_button"):
 		if actions <= 0:
 			return
-		weapons_display.buttons_enabled(false)
 		_on_draw_button_pressed()
 	elif event.is_action_pressed("attack_button"):
 		_on_attack_button_pressed()
@@ -354,6 +353,8 @@ func _on_weapon_box_click() -> void:
 func _on_draw_button_pressed() -> void:
 	if click_prevention:
 		return
+		
+	weapons_display.buttons_enabled(false)
 	click_prevention = true
 	if get_tree().get_node_count_in_group("mini_cards") + int(mini_equipped != null) >= Globals.max_draw:
 		click_prevention = false
@@ -592,7 +593,7 @@ func _on_enemy_animation_finished(anim : String, enemy : Enemy) -> void:
 	if anim.contains("attack"):
 		enemy_just_attacked = true
 		update_turn_clock()
-		enemy_just_attacked = true
+		enemy_just_attacked = false
 
 func _on_enemy_freed(_enemy : Enemy) -> void:
 	await _enemy.tree_exited

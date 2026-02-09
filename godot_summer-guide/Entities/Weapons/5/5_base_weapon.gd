@@ -12,6 +12,8 @@ func assign_prop() -> void:
 	player_defend_anim = "5_base_defend"
 
 func _on_player_weap_effect_start() -> void:
+	if !active:
+		return
 	animation_player.play("earth_crack")
 	
 func resolve_combat(_player : Node2D,_mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
