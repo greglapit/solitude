@@ -1,0 +1,144 @@
+[gd_scene format=3 uid="uid://7rmt1wksk35u"]
+
+[ext_resource type="Texture2D" uid="uid://v06oxqp51udm" path="res://Entities/Weapons/ArtWeaponEffects/chained.png" id="1_vq72c"]
+[ext_resource type="Script" uid="uid://0f2h3njpy0o5" path="res://Entities/Weapons/ArtWeaponEffects/chained.gd" id="2_e21tn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0kqxi"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(3312, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2b7c"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(3680, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d54im"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(4048, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u6ona"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(4416, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nb21u"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(4784, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twlfv"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(5152, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojesb"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(5520, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wsk42"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(5888, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gy8mt"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(0, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56eec"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(368, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72f3r"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(736, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvt5o"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(1104, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ga7q"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(1472, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_md82p"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(1840, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2d4xx"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(2208, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yyrij"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(2576, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbt8o"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(2944, 0, 368, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8m34p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0kqxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t2b7c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d54im")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u6ona")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nb21u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_twlfv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojesb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wsk42")
+}],
+"loop": false,
+"name": &"constant",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gy8mt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56eec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72f3r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvt5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ga7q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_md82p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2d4xx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yyrij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbt8o")
+}],
+"loop": true,
+"name": &"spawn",
+"speed": 15.0
+}]
+
+[node name="Chained" type="AnimatedSprite2D" unique_id=282982941]
+sprite_frames = SubResource("SpriteFrames_8m34p")
+animation = &"constant"
+autoplay = "constant"
+script = ExtResource("2_e21tn")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

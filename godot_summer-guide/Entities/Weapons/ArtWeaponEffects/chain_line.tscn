@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://coae0cm24qmo1"]
+
+[ext_resource type="Texture2D" uid="uid://dgoomliqk8r2s" path="res://Entities/Weapons/ArtWeaponEffects/chain_line.png" id="1_w5q8o"]
+
+[node name="ChainLine" type="Line2D" unique_id=904571733]
+texture_repeat = 3
+width = 96.0
+texture = ExtResource("1_w5q8o")
+texture_mode = 1

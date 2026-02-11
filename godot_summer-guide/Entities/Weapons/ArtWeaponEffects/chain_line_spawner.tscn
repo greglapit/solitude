@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bsuwyo4sxb3xd"]
+
+[ext_resource type="Script" uid="uid://ca6wlvgx7bm33" path="res://Entities/Weapons/ArtWeaponEffects/chain_line_spawner.gd" id="1_rwmrs"]
+
+[node name="ChainLineSpawner" type="Node2D" unique_id=195993385]
+script = ExtResource("1_rwmrs")
