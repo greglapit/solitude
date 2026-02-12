@@ -50,7 +50,7 @@
 * Fiddlesticks tether to all cards
 
 ![[Pasted image 20251031213553.png]]
-* Variants: Spiderweb (pulling thin piece of plastic off surface of water). Tentacle. The Yoyo. Chain. String. Urumi.
+* Variants: Spiderweb (pulling thin piece of plastic off surface of water). Tentacle. The Yoyo. Chain. String. Urumi. **String Instruments**
 ## 7 - Scythe
 * Reaping, life-stealing, death, fates
 * 7 is shaped like scythe

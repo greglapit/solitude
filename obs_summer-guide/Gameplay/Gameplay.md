@@ -35,3 +35,9 @@
 * Queen of Diamonds as blacksmith + reforger
 * King of Diamonds as Ability giver
 
+# Progression
+
+* Procuring new weapons
+* Becoming proficient with a class of weapons. Gives increased durability. Increased currency when you shatter it
+* Larger Armory
+* Health upgrade
