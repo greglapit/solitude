@@ -77,7 +77,7 @@ func resolve_combat(_player : Node2D, _mini_card : Card, _hp : float, _attacks :
 		weapon_effects.position = enemies[0].position
 		weapon_effects.z_index = enemies[0].z_index + 5
 	
-	# Combat order calculations
+	#===== Combat order calculations
 	# Player has no attacks left, enemy attacks
 	if _attacks <= 0:
 		combat_data= enemies[0].attack(self, combat_data)
@@ -124,7 +124,7 @@ func _process(_delta: float) -> void:
 # === Signals ==================================================================
 
 func _on_player_anim_finished(anim : String) -> void:
-	if !active or !anim.contains(str(rank)):
+	if !active: # or !anim.contains(str(rank)):
 		return
 	if !enemies[0] or enemies[0].is_dead:
 		enemy_died = true
@@ -140,7 +140,7 @@ func _on_player_anim_finished(anim : String) -> void:
 		# Attacked after enemy due to higher card rank
 		if reciprocal_attack or enemy_died:
 			combat_fin.emit()
-			reciprocal_attack = false
+			#reciprocal_attack = false
 			critting = false
 			enemy_died = false
 		# Player lower with higher rank card

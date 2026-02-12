@@ -596,11 +596,14 @@ func _on_enemy_animation_finished(anim : String, enemy : Enemy) -> void:
 		enemy_just_attacked = false
 
 func _on_enemy_freed(_enemy : Enemy) -> void:
+	var enemies : Array = get_tree().get_nodes_in_group("enemies")
+	if _enemy == enemies[0]:
+		_on_weapon_combat_fin(curr_weapon)
 	await _enemy.tree_exited
 	var player_animation : String = player.animation_player.current_animation
 	if player_animation.contains("attack") or player_animation.contains("special"):
 		await player.anim_finished
-	var enemies : Array = get_tree().get_nodes_in_group("enemies")
+	enemies = get_tree().get_nodes_in_group("enemies")
 	if enemies.is_empty():
 		spawn_enemy(3)
 	else:

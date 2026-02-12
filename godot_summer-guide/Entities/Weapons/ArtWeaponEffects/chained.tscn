@@ -3,6 +3,34 @@
 [ext_resource type="Texture2D" uid="uid://v06oxqp51udm" path="res://Entities/Weapons/ArtWeaponEffects/chained.png" id="1_vq72c"]
 [ext_resource type="Script" uid="uid://0f2h3njpy0o5" path="res://Entities/Weapons/ArtWeaponEffects/chained.gd" id="2_e21tn"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_oj11a"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(7360, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v7phf"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(7728, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dldo1"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(8096, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e21tn"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(5888, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uev13"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(6256, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbf6m"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(6624, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whkvt"]
+atlas = ExtResource("1_vq72c")
+region = Rect2(6992, 0, 368, 192)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_0kqxi"]
 atlas = ExtResource("1_vq72c")
 region = Rect2(3312, 0, 368, 192)
@@ -75,6 +103,37 @@ region = Rect2(2944, 0, 368, 192)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_oj11a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v7phf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dldo1")
+}],
+"loop": false,
+"name": &"activate",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e21tn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uev13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbf6m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whkvt")
+}],
+"loop": false,
+"name": &"break",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_0kqxi")
 }, {
 "duration": 1.0,
@@ -98,7 +157,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wsk42")
 }],
-"loop": false,
+"loop": true,
 "name": &"constant",
 "speed": 5.0
 }, {
@@ -130,15 +189,17 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kbt8o")
 }],
-"loop": true,
+"loop": false,
 "name": &"spawn",
 "speed": 15.0
 }]
 
 [node name="Chained" type="AnimatedSprite2D" unique_id=282982941]
 sprite_frames = SubResource("SpriteFrames_8m34p")
-animation = &"constant"
-autoplay = "constant"
+animation = &"activate"
+autoplay = "spawn"
+frame = 2
+frame_progress = 1.0
 script = ExtResource("2_e21tn")
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

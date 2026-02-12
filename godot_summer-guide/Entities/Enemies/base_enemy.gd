@@ -16,11 +16,14 @@ var rank : int = -1
 var suit : Card.Suits = Card.Suits.HEART
 var suit_art_path : String = "res://Entities/Enemies/Base/Art/"
 var is_dead : bool = false
+var chained : bool = false
+var attack_disabled : bool = false
 
 var player : Node2D
 
 @warning_ignore("unused_signal")
 signal attack_impact
+signal attack_prevented(enemy : Enemy)
 signal damaged(amt : int)
 signal freed(enemy : Enemy)
 
@@ -56,6 +59,10 @@ func damage(amt : int) -> Callable:
 func attack(_weapon : Weapon, _combat_data : Dictionary) -> Dictionary:
 	var combat_data : Dictionary = _combat_data
 	
+	if chained:
+		attack_prevented.emit(self)
+		return combat_data
+	
 	if rank <= 0:
 		combat_data["hp_delta"] = rank
 		return combat_data
@@ -90,6 +97,12 @@ func _ready() -> void:
 	
 func _input(_event: InputEvent) -> void:
 	pass
+
+func _process(_delta: float) -> void:
+	if chained: # add other attack disabling HERE
+		attack_disabled = true
+	else:
+		attack_disabled = false
 
 # === Signals ==================================================================
 
