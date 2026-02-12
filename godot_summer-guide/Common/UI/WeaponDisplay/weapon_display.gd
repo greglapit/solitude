@@ -24,7 +24,6 @@ extends Control
 
 var displayed_weapon : Weapon
 var card : Card
-var art_path : String = "res://Common/UI/WeaponDisplay/Art/Weapons/"
 var ticks : Array[TextureRect] 
 var actions : int
 

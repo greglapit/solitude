@@ -294,6 +294,34 @@ tracks/1/keys = {
 "values": [Vector2(0, -15), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_lwc77"]
+resource_name = "struggle_chain"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-4, 0), Vector2(4, 0), Vector2(-6, 0), Vector2(-4, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u23yv"]
 _data = {
 &"RESET": SubResource("Animation_u23yv"),
@@ -301,7 +329,8 @@ _data = {
 &"death": SubResource("Animation_rjo4h"),
 &"idle": SubResource("Animation_pa3af"),
 &"shake": SubResource("Animation_4wjja"),
-&"spawn": SubResource("Animation_3pklf")
+&"spawn": SubResource("Animation_3pklf"),
+&"struggle_chain": SubResource("Animation_lwc77")
 }
 
 [node name="BaseEnemy" type="Area2D" unique_id=1881361469 groups=["enemies"]]

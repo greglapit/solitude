@@ -39,7 +39,7 @@ func load_armory() -> void:
 	for i : int in Globals.armory.keys():
 		var weapon_name : String = Globals.armory[i]
 		
-		var scene : PackedScene = load("res://Entities/Weapons/%d/%s.tscn" % [i,weapon_name])
+		var scene : PackedScene = load("res://Entities/Weapons/%d/%s/%s.tscn" % [i,weapon_name,weapon_name])
 		var weapon : Weapon = scene.instantiate()
 		weapon.name = weapon_name
 		weapon.weapon_used.connect(_on_weapon_weapon_used)

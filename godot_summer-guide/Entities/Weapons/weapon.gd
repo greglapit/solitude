@@ -106,6 +106,8 @@ func post_combat() -> void:
 	pass
 	
 func has_valid_spec_target(_enemies : Array) -> bool:
+	if _enemies.is_empty():
+		return false
 	if _enemies[0] and !_enemies[0].is_dead:
 		return true
 	return false
