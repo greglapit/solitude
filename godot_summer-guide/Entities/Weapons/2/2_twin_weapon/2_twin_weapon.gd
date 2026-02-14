@@ -27,6 +27,7 @@ func has_valid_spec_target(_enemies : Array) -> bool:
 	
 	
 func _process(_delta: float) -> void:
+	super(_delta)
 	if marked_enemy:
 		weapon_effects2.global_position = marked_enemy.collision_shape.global_position
 		weapon_effects2.z_index = marked_enemy.z_index + 1

@@ -16,6 +16,9 @@ var enemy_positions : Array[Vector2] = [Vector2(250,80), Vector2(215,70), Vector
 var mini_equipped : Card							# Current card player has equipped
 var curr_weapon : Weapon							# String name of player weapon
 var player_weapons : Dictionary
+var enemies : Array:
+	get:
+		return enemies.filter(func(e : Enemy) -> bool: return e != null and not e.is_dead)
 var hp : int
 var attacks : int = Globals.attacks					# Attacks player has left
 var actions : int = Globals.actions					# Actions player has left (draw, cut, socket)
@@ -38,7 +41,6 @@ var crit_infinite : bool = true
 func load_armory() -> void:
 	for i : int in Globals.armory.keys():
 		var weapon_name : String = Globals.armory[i]
-		
 		var scene : PackedScene = load("res://Entities/Weapons/%d/%s/%s.tscn" % [i,weapon_name,weapon_name])
 		var weapon : Weapon = scene.instantiate()
 		weapon.name = weapon_name
@@ -81,8 +83,8 @@ func reset_globals() -> void:
 
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
-		var enemies : Array = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,9) # 2 * (2 + randi() % 2)
+		enemies = get_tree().get_nodes_in_group("enemies")
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,4) # 2 * (2 + randi() % 2)
 		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
@@ -91,7 +93,7 @@ func spawn_enemy(num : int = 1) -> void:
 		enemy.freed.connect(_on_enemy_freed)
 	
 		for weapon : Weapon in player_weapons.values():
-			enemy.attack_impact.connect(weapon._on_enemy_attack_impact)
+			enemy.attack_impact.connect(weapon._on_enemy_attack_impact.bind(enemy))
 			enemy.freed.connect(weapon._on_enemy_freed)
 			
 		await get_tree().create_timer(0.2).timeout
@@ -100,7 +102,7 @@ func spawn_enemy(num : int = 1) -> void:
 		
 
 func align_enemies(tweening : bool = true) -> void:
-	var enemies : Array = get_tree().get_nodes_in_group("enemies")
+	enemies = get_tree().get_nodes_in_group("enemies")
 	for i : int in enemies.size():
 		if tweening:
 			var tween : Tween = create_tween()
@@ -114,9 +116,9 @@ func align_enemies(tweening : bool = true) -> void:
 
 
 func initiate_combat() -> void:
-	var enemies : Array = get_tree().get_nodes_in_group("enemies")
+	enemies = get_tree().get_nodes_in_group("enemies")
 	if curr_weapon:
-		combat_data = curr_weapon.resolve_combat(player, mini_equipped, hp, attacks, enemies)
+		combat_data = curr_weapon.resolve_combat()
 		return
 	else:
 		combat_data = enemies[0].attack(null, combat_data)
@@ -133,7 +135,7 @@ func update_crit_button() -> void:
 	crit_button.update_crit_stored(crit_stored)
 	
 	
-	var enemies : Array = get_tree().get_nodes_in_group("enemies").filter(func(e : Enemy) -> bool: return e != null and not e.is_dead)
+	enemies = get_tree().get_nodes_in_group("enemies").filter(func(e : Enemy) -> bool: return e != null and not e.is_dead)
 	
 	# Crit Button enable/disable
 	crit_button.enable(false)
@@ -151,7 +153,7 @@ func weapon_pause() -> Signal:
 
 var enemy_just_attacked : bool = false
 func update_turn_clock() -> void:
-	var enemies : Array = get_tree().get_nodes_in_group("enemies")
+	enemies = get_tree().get_nodes_in_group("enemies")
 	if enemies.is_empty() or enemies[0].rank <= 0 or !mini_equipped:
 		turn_clock.show_turn(turn_clock.turn.HALF)
 		return
@@ -413,8 +415,8 @@ func _on_crit_button_pressed() -> void:
 	crit_button.enable(false)
 	crit_stored = clamp(crit_stored - curr_weapon.special_cost, 0, Globals.max_crits)
 	
-	var enemies : Array = get_tree().get_nodes_in_group("enemies")
-	curr_weapon.special_attack(player, mini_equipped, hp, attacks, enemies)
+	enemies = get_tree().get_nodes_in_group("enemies")
+	curr_weapon.special_attack()
 	
 	#Visuals
 	await player.special_impact
@@ -498,6 +500,7 @@ func _on_mini_card_mouse_exited(mini_card : Card) -> void:
 
 func _on_mini_card_free(mini_card : Card) -> void:
 	if mini_card == mini_equipped:
+		await player.anim_finished
 		equip_mini_card(null)
 
 func _on_spam_timer_timeout() -> void:
@@ -517,7 +520,7 @@ func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 	await weapon_pause()
 
 	var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
-	var enemies : Array = get_tree().get_nodes_in_group("enemies")
+	enemies = get_tree().get_nodes_in_group("enemies")
 	
 	# If all weapons have been used
 	if mini_cards.all(func(n : Card) -> bool: return n.used) or mini_cards.size() == 0:
@@ -587,8 +590,8 @@ func _on_weapon_resume(_weapon : Weapon) -> void:
 #endregion
 
 func _on_enemy_animation_finished(anim : String, enemy : Enemy) -> void:
-	var enemies : Array = get_tree().get_nodes_in_group("enemies")
-	if enemy != enemies[0]:
+	enemies = get_tree().get_nodes_in_group("enemies")
+	if enemies.is_empty() or enemy != enemies[0]:
 		return
 	if anim.contains("attack"):
 		enemy_just_attacked = true
@@ -596,8 +599,7 @@ func _on_enemy_animation_finished(anim : String, enemy : Enemy) -> void:
 		enemy_just_attacked = false
 
 func _on_enemy_freed(_enemy : Enemy) -> void:
-	var enemies : Array = get_tree().get_nodes_in_group("enemies")
-	if _enemy == enemies[0]:
+	if _enemy ==  get_tree().get_nodes_in_group("enemies")[0]:
 		_on_weapon_combat_fin(curr_weapon)
 	await _enemy.tree_exited
 	var player_animation : String = player.animation_player.current_animation

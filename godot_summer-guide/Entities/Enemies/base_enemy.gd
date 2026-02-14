@@ -10,16 +10,25 @@ extends Area2D
 @onready var status_label : Label = $CollisionShape2D/Status/Label
 @onready var status_animation_player : AnimationPlayer = $CollisionShape2D/Status/AnimationPlayer2
 
+# Node References
+var player : Node2D
 const enemy_scn : PackedScene = preload("res://Entities/Enemies/base_enemy.tscn")
 
+# Stats
 var rank : int = -1
 var suit : Card.Suits = Card.Suits.HEART
 var suit_art_path : String = "res://Entities/Enemies/Base/Art/"
 var is_dead : bool = false
-var chained : bool = false
-var attack_disabled : bool = false
 
-var player : Node2D
+# Status Effects
+var chained : bool = false		# Locklash
+var webbed : bool = false		# Weaver
+var prowled : bool = false		# Prowler
+
+# Status Effect Logic. Updated in _process
+var attack_disabled : bool = false
+var slowed : bool = false
+
 
 @warning_ignore("unused_signal")
 signal attack_impact
@@ -49,7 +58,6 @@ func damage(amt : int) -> Callable:
 		is_dead = true
 		play("death")
 	else:
-		animation_player.stop()
 		play("shake")
 	update_labels()
 	
@@ -59,18 +67,19 @@ func damage(amt : int) -> Callable:
 func attack(_weapon : Weapon, _combat_data : Dictionary) -> Dictionary:
 	var combat_data : Dictionary = _combat_data
 	
-	if chained:
+	if attack_disabled:
 		attack_prevented.emit(self)
 		return combat_data
 	
 	if rank <= 0:
 		combat_data["hp_delta"] = rank
 		return combat_data
-	animation_player.play("attack")
+	play("attack")
 	combat_data["hp_delta"] = -rank
 	return combat_data
 
 func play(anim : String = "RESET") -> void:
+	animation_player.stop()
 	animation_player.play(anim)
 
 func display_bleed(duration : int) -> void:
@@ -103,9 +112,14 @@ func _process(_delta: float) -> void:
 		attack_disabled = true
 	else:
 		attack_disabled = false
+		
+	if webbed or prowled: # add other slows HERE
+		slowed = true
+	else:
+		slowed = false
 
 # === Signals ==================================================================
 
 
 func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
-	play("idle")
+	animation_player.play("idle")

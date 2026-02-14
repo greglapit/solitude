@@ -15,8 +15,8 @@ func assign_prop() -> void:
 	has_special = true
 	special_cost = 2
 
-func special_attack(_player : Node2D, _mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
-	var dict : Dictionary = super(_player, _mini_card, _hp, _attacks, _enemy_array)
+func special_attack() -> Dictionary:
+	var dict : Dictionary = super()
 	weapon_effects.position = player.position + Vector2(0,20)
 	weapon_effects.z_index = player.z_index - 1
 	return dict

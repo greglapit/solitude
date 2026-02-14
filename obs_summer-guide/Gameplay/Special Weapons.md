@@ -23,26 +23,21 @@ Unsure if naming should be unique names or references to real objects
 # Six
 
 * Shardcoil: Bind enemy
+* horse reigns. Control enemy to attack another
 # Seven
 
 * Severance. Special: Harvest all enemies on screen under x rank
+* vamp. Heal for damage dealt
 # Eight
 
-* Skysplitter.
+* Skysplitter. Passive damages adjacent enemies. Hurts self
 # Nine
 
 * Worldpost: damage carries over to next enemy
+* Counter. Bait enemy attack then strike from above
+* Command kneel. Force enemy to obey, kneel into ground damaging. Skips their turn
 # Ten
 
-* Slots: effect based on how good you roll
-* Clock: reverse turn order
-
-4 - mirror. Reflects portion of enemy attac
-
-5- claws. Savage. Heal for portion
-
-5-fingerless.
-
-6- chain, bind enemy
-
-9-pole. Command obedience
+* casino Slots. Jackpot does big damage.
+* Clock. Reverse turn order until used again
+* pirate wheel. Big aoe, tilt screen like driving ship, splash water

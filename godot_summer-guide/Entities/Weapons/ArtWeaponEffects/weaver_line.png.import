@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://yxihag1v0vk2"
-path="res://.godot/imported/spider_web_line.png-dd5a9275540668e291798bebb12444a3.ctex"
+path="res://.godot/imported/weaver_line.png-40ad91037916c5a4311f19244c046d85.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Weapons/ArtWeaponEffects/spider_web_line.png"
-dest_files=["res://.godot/imported/spider_web_line.png-dd5a9275540668e291798bebb12444a3.ctex"]
+source_file="res://Entities/Weapons/ArtWeaponEffects/weaver_line.png"
+dest_files=["res://.godot/imported/weaver_line.png-40ad91037916c5a4311f19244c046d85.ctex"]
 
 [params]
 

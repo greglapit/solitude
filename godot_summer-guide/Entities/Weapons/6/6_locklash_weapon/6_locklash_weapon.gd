@@ -2,8 +2,10 @@ extends Weapon
 
 var init_dmg : int = 1
 var break_dmg : int = 2
+var chain_duration : int = 2
 var chain_enemy_dict : Dictionary
 var chain_chain_effect_dict : Dictionary
+var enemy_chain_turn_counter : Dictionary
 var chain_effect_scn : PackedScene
 @onready var chain_line_spawner : Node2D = $ChainLineSpawner
 
@@ -12,7 +14,7 @@ func assign_prop() -> void:
 	file_name = "6_locklash_weapon"
 	display_name = "Locklash"
 	second_name = "Filler Filler Filler"
-	description = "-Special: Restrain\n-Cost: 2\n-Bind enemies with %s for one turn, dealing %d. If enemies attack, take %d to get rid of chains." % [display_name, init_dmg, break_dmg]
+	description = "-Special: Restrain\n-Cost: 2\n-Bind enemies with %s for two turns, dealing %d. If enemies attack, take %d to get rid of chains." % [display_name, init_dmg, break_dmg]
 	display_texture = load("res://Entities/Weapons/%d/%s/%s.png" % [rank,file_name,file_name])
 	player_idle_anim = "6_locklash_idle"
 	player_attack_anim = "6_locklash_attack"
@@ -48,10 +50,9 @@ func break_chain(chain : Line2D, damaging : bool = true) -> void:
 	if damaging:
 		temp_chain_effect.play("break")
 		enemy.damage(break_dmg)
-		await temp_chain_effect.tree_exited
 		await enemy.animation_player.animation_finished
 	else:
-		enemy.damage(0)
+		enemy.play("shake")
 		temp_chain_effect.play("break")
 		await temp_chain_effect.tree_exited
 	enemy.chained = false
@@ -66,10 +67,15 @@ func post_combat() -> void:
 	pause.emit(self)
 	var temp_dict : Dictionary = chain_enemy_dict  # Editing dict in loop
 	for chain : Line2D in temp_dict.keys():
-		if chain != temp_dict.keys().back():
-			break_chain(chain, false)
+		var enemy : Enemy = temp_dict[chain]
+		if enemy_chain_turn_counter[enemy] >= 2:
+			enemy_chain_turn_counter.erase(enemy)
+			if chain != temp_dict.keys().back():
+				break_chain(chain, false)
+			else:
+				await break_chain(chain, false)
 		else:
-			await break_chain(chain, false)
+			enemy_chain_turn_counter[enemy] += 1
 	resume.emit(self)
 	
 func _ready() -> void:
@@ -87,6 +93,7 @@ func _on_player_special_impact() -> void:
 		# Spawn chains and damage
 		var chain : Line2D= chain_line_spawner.add_chain(player.global_position, enemy.global_position)
 		chain_enemy_dict[chain] = enemy
+		enemy_chain_turn_counter[enemy] = 1
 		chain.z_index = enemy.z_index + 1
 		var chain_effect : AnimatedSprite2D = chain_effect_scn.instantiate()
 		chain_effect.scale = Vector2(0.4, 0.4)
@@ -118,7 +125,8 @@ func _on_enemy_attack_prevented(enemy : Enemy) -> void:
 		resume.emit(self)
 		
 		# Continues combat
-		_on_player_anim_finished("defend")
+		if !enemy.is_dead:
+			_on_player_anim_finished("defend")
 
 func _on_enemy_freed(_enemy : Enemy) -> void:
 	super(_enemy)

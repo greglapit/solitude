@@ -48,7 +48,7 @@ func display_weapon(weapon : Weapon = displayed_weapon, mini_card : Card = card,
 	if weapon and mini_card:
 		weapon.mini_equipped = mini_card
 		weapon.assign_prop()
-		weapon_name_label.text = str(Globals.ranks[weapon.rank]) + ": " + weapon.display_name
+		weapon_name_label.text = weapon.display_name
 		second_name.text = weapon.second_name
 		weapon_art.texture = weapon.display_texture
 		weapon_desc.text = weapon.description

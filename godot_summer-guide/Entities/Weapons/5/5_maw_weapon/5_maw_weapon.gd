@@ -22,6 +22,12 @@ func has_valid_spec_target(_enemies : Array) -> bool:
 		return true
 	return false
 
+func special_attack() -> Dictionary:
+	update_node_refs()
+	using_special = true
+	player.play(player_special_anim)
+	return combat_data
+
 func _on_player_weap_effect_start() -> void:
 	if !active:
 		return

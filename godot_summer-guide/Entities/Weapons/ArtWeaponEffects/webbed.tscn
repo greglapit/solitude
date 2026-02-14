@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dm1nn6c0ciie3"]
+
+[ext_resource type="Texture2D" uid="uid://cjnvlorbevmfs" path="res://Entities/Weapons/ArtWeaponEffects/webbed.png" id="1_ofhyy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_38scn"]
+atlas = ExtResource("1_ofhyy")
+region = Rect2(0, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugn03"]
+atlas = ExtResource("1_ofhyy")
+region = Rect2(368, 0, 368, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k2sbl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38scn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugn03")
+}],
+"loop": true,
+"name": &"constant",
+"speed": 3.0
+}]
+
+[node name="Webbed" type="AnimatedSprite2D" unique_id=1520167859]
+sprite_frames = SubResource("SpriteFrames_k2sbl")
+animation = &"constant"
+autoplay = "constant"
+frame_progress = 0.9893352

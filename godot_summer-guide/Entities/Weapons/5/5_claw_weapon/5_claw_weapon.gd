@@ -8,14 +8,14 @@ func assign_prop() -> void:
 	file_name = "5_claw_weapon"
 	display_name = "Fanghand"
 	second_name = "Filler Filler Filler"
-	description = "-Special: Ravage\n-Cost: 2\n-Go on rampage, 4 striking enemies for %d and ending with %d" % [swipe_dmg, final_swipe_dmg]
+	description = "-Special: Ravage\n-Cost: 3\n-Go on rampage, 4 striking enemies for %d and ending with %d" % [swipe_dmg, final_swipe_dmg]
 	display_texture = load("res://Entities/Weapons/%d/%s/%s.png" % [rank,file_name,file_name])
 	player_idle_anim = "5_claw_idle"
 	player_attack_anim = "5_claw_attack"
 	player_defend_anim = "5_claw_defend"
 	player_special_anim = "5_claw_special"
 	has_special = true
-	special_cost = 2
+	special_cost = 3
 
 
 var slash_counter : int = 0

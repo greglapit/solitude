@@ -1,12 +1,12 @@
-[gd_scene format=3 uid="uid://cqso022idly0j"]
+[gd_scene format=3 uid="uid://ckex1xeffbvrq"]
 
-[ext_resource type="Script" uid="uid://cd6w58hhpth0q" path="res://Entities/Weapons/6/6_locklash_weapon/6_locklash_weapon.gd" id="1_v15en"]
-[ext_resource type="Shader" uid="uid://bwyqkydys3a6y" path="res://Common/Shaders/shockwave.gdshader" id="2_8m34p"]
-[ext_resource type="Texture2D" uid="uid://yk4odrrcvqpd" path="res://Common/icon.svg" id="3_0kqxi"]
-[ext_resource type="PackedScene" uid="uid://bsuwyo4sxb3xd" path="res://Entities/Weapons/ArtWeaponEffects/chain_line_spawner.tscn" id="4_8m34p"]
+[ext_resource type="Script" uid="uid://chcbqkpfbha3g" path="res://Entities/Weapons/6/6_weaver_weapon/6_weaver_weapon.gd" id="1_v0ju4"]
+[ext_resource type="Shader" uid="uid://bwyqkydys3a6y" path="res://Common/Shaders/shockwave.gdshader" id="2_86kl7"]
+[ext_resource type="Texture2D" uid="uid://yk4odrrcvqpd" path="res://Common/icon.svg" id="3_1h1wh"]
+[ext_resource type="PackedScene" uid="uid://bsuwyo4sxb3xd" path="res://Entities/Weapons/ArtWeaponEffects/chain_line_spawner.tscn" id="4_cqv5i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m3yqc"]
-shader = ExtResource("2_8m34p")
+shader = ExtResource("2_86kl7")
 shader_parameter/force = 0.0
 shader_parameter/size = 0.0
 shader_parameter/thickness = 0.0
@@ -97,18 +97,18 @@ _data = {
 &"shockwave": SubResource("Animation_syj7m")
 }
 
-[node name="6LocklashWeapon" type="Node2D" unique_id=757250603]
-script = ExtResource("1_v15en")
+[node name="6WeaverWeapon" type="Node2D" unique_id=757250603]
+script = ExtResource("1_v0ju4")
 
 [node name="WeaponEffects" type="Sprite2D" parent="." unique_id=1272741174]
 visible = false
 material = SubResource("ShaderMaterial_m3yqc")
 scale = Vector2(4, 4)
-texture = ExtResource("3_0kqxi")
+texture = ExtResource("3_1h1wh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects" unique_id=1585617]
 root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_rased")
 
-[node name="ChainLineSpawner" parent="." unique_id=195993385 instance=ExtResource("4_8m34p")]
-chain_line_texture = "chain_line.png"
+[node name="ChainLineSpawner" parent="." unique_id=195993385 instance=ExtResource("4_cqv5i")]
+chain_line_texture = "weaver_line.png"

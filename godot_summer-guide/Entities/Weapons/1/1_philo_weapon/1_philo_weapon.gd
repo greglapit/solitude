@@ -16,10 +16,10 @@ func assign_prop() -> void:
 	has_special = true
 	special_cost = 1
 
-func special_attack(_player : Node2D, _mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
+func special_attack() -> Dictionary:
 	using_special = true
 	player.play(player_special_anim)
-	return {}
+	return combat_data
 	
 func _on_player_special_impact() -> void:
 	if !active:

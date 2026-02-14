@@ -24,9 +24,8 @@ func assign_prop() -> void:
 	has_special = true
 	special_cost = 1
 
-func special_attack(_player : Node2D, _mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
-	enemies = _enemy_array
-	mini_equipped = _mini_card
+func special_attack() -> Dictionary:
+	update_node_refs()
 	using_special = true
 	player.play(player_special_anim)
 	return {}
@@ -72,10 +71,7 @@ func _on_player_special_impact() -> void:
 	if using_special:
 		seeded_enemy = enemies[0]
 		seeded_enemy.play("shake")
-		await seeded_enemy.animation_player.animation_finished
 		animation_player2.play("seeded")
 		damage_amt = mini_equipped.durability
-		mini_equipped.damage(damage_amt)
 		mini_equipped.used = true
-		weapon_used.emit(self)
-	using_special = false
+		mini_equipped.damage(damage_amt)

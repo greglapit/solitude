@@ -726,7 +726,7 @@ one_shot = true
 
 [node name="DrawHighlight" type="Sprite2D" parent="." unique_id=2123830605]
 visible = false
-position = Vector2(42, 68)
+position = Vector2(41, 60)
 texture = ExtResource("12_cjusc")
 hframes = 2
 

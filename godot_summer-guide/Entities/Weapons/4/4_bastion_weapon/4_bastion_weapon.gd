@@ -16,7 +16,8 @@ func assign_prop() -> void:
 	has_special = true
 	special_cost = 1
 	
-func special_attack(_player : Node2D, _mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
+func special_attack() -> Dictionary:
+	update_node_refs()
 	# Always put up barrier before attack
 	using_special = true
 	player.play(player_special_anim)
@@ -41,14 +42,13 @@ func _on_player_special_impact() -> void:
 	player.effect("barrier")
 	barrier = true
 	
-func _on_enemy_attack_impact() -> void:
+func _on_enemy_attack_impact(_enemy : Enemy) -> void:
 	if !active and !barrier:
 		return
-		
 	if barrier:
 		barrier = false
 		player.effect("RESET")
 		combat_data["hp_delta"] = max(combat_data["hp_delta"], -1)
-	super()
 		
+	super(_enemy)
 	

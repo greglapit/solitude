@@ -18,7 +18,7 @@ var player_defend_anim : String
 var player_special_anim : String
 
 var player : Node2D
-var enemies : Array														## Enemies the player is in combat with. Position 0 is main target
+var enemies : Array					## Enemies the player is in combat with. Position 0 is main target
 var hp : float
 var attacks : int
 var mini_equipped : Card
@@ -53,17 +53,27 @@ signal resume(weapon : Weapon)
 @abstract func assign_prop() -> void
 
 func equip() -> void:
+	update_node_refs()
 	player.play(player_idle_anim)
 
 func unequip() -> void:
+	#update_node_refs()
 	return
 
-func resolve_combat(_player : Node2D, _mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
-	player = _player
-	mini_equipped = _mini_card
-	hp = _hp
-	attacks = _attacks
-	enemies = _enemy_array
+func update_node_refs() -> void:
+	player = get_parent().player
+	mini_equipped = get_parent().mini_equipped
+	hp = get_parent().hp
+	attacks = get_parent().attacks
+	enemies = get_parent().enemies
+	
+	# Visuals
+	if active and !enemies.is_empty() and enemies[0]:
+		weapon_effects.global_position = enemies[0].global_position
+		weapon_effects.z_index = enemies[0].z_index + 5
+
+func resolve_combat() -> Dictionary:
+	update_node_refs()
 	critting = false
 	reciprocal_attack = false
 	enemy_died = false
@@ -72,19 +82,14 @@ func resolve_combat(_player : Node2D, _mini_card : Card, _hp : float, _attacks :
 	"durability_delta" = -1,
 	}
 	
-	# Visuals
-	if active and enemies[0]:
-		weapon_effects.position = enemies[0].position
-		weapon_effects.z_index = enemies[0].z_index + 5
-	
 	#===== Combat order calculations
 	# Player has no attacks left, enemy attacks
-	if _attacks <= 0:
+	if attacks <= 0:
 		combat_data= enemies[0].attack(self, combat_data)
 		return combat_data
 	
 	# Player has attacks left
-	if rank <= enemies[0].rank:
+	if rank <= enemies[0].rank or enemies[0].slowed:
 		if using_special:
 			player.play(player_special_anim)
 		else:
@@ -95,12 +100,13 @@ func resolve_combat(_player : Node2D, _mini_card : Card, _hp : float, _attacks :
 		combat_data = enemies[0].attack(self, combat_data)
 		return combat_data
 
-func special_attack(_player : Node2D, _mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
+func special_attack() -> Dictionary:
+	update_node_refs()
 	if !has_special:
 		push_error("No special to be called")
 		return {}
 	using_special = true
-	return resolve_combat(_player, _mini_card, _hp, _attacks, _enemy_array)
+	return resolve_combat()
 	
 func post_combat() -> void:
 	pass
@@ -115,6 +121,7 @@ func has_valid_spec_target(_enemies : Array) -> bool:
 # === Built In =================================================================
 
 func _ready() -> void:
+	combat_data["durability_delta"] = -1
 	assign_prop()
 	
 func _input(_event: InputEvent) -> void:
@@ -178,7 +185,7 @@ func _on_player_special_impact() -> void:
 func _on_player_weap_effect_start() -> void:
 	pass
 	
-func _on_enemy_attack_impact() -> void:
+func _on_enemy_attack_impact(_enemy : Enemy) -> void:
 	if !active:
 		return
 	player.play(player_defend_anim)
