@@ -31,7 +31,6 @@ func _process(_delta: float) -> void:
 	if marked_enemy:
 		weapon_effects2.global_position = marked_enemy.collision_shape.global_position
 		weapon_effects2.z_index = marked_enemy.z_index + 1
-		weapon_effects2.scale = marked_enemy.collision_shape.scale
 
 
 func _on_player_special_impact() -> void:

@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://dv6hbim2bq5dg"]
+
+[ext_resource type="Texture2D" uid="uid://mtd2y2rw4iya" path="res://Entities/Weapons/ArtWeaponEffects/seeded.png" id="1_sih4g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8wsm"]
+atlas = ExtResource("1_sih4g")
+region = Rect2(736, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qoinl"]
+atlas = ExtResource("1_sih4g")
+region = Rect2(1104, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8iwl"]
+atlas = ExtResource("1_sih4g")
+region = Rect2(0, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06eh1"]
+atlas = ExtResource("1_sih4g")
+region = Rect2(368, 0, 368, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3do5w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8wsm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qoinl")
+}],
+"loop": false,
+"name": &"expend",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8iwl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06eh1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[node name="Seeded" type="AnimatedSprite2D" unique_id=1745427161]
+sprite_frames = SubResource("SpriteFrames_3do5w")
+animation = &"expend"
+autoplay = "idle"
+frame = 1
+frame_progress = 1.0

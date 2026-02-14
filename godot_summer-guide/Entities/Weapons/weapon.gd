@@ -20,6 +20,7 @@ var player_special_anim : String
 var player : Node2D
 var enemies : Array					## Enemies the player is in combat with. Position 0 is main target
 var hp : float
+var crit_stored : int 
 var attacks : int
 var mini_equipped : Card
 @onready var animation_player : AnimationPlayer = $WeaponEffects/AnimationPlayer		## Weapon Effects animation player
@@ -57,13 +58,14 @@ func equip() -> void:
 	player.play(player_idle_anim)
 
 func unequip() -> void:
-	#update_node_refs()
 	return
 
 func update_node_refs() -> void:
 	player = get_parent().player
-	mini_equipped = get_parent().mini_equipped
+	if is_instance_valid(get_parent().mini_equipped):
+		mini_equipped = get_parent().mini_equipped
 	hp = get_parent().hp
+	crit_stored = get_parent().crit_stored
 	attacks = get_parent().attacks
 	enemies = get_parent().enemies
 	
@@ -135,7 +137,8 @@ func _process(_delta: float) -> void:
 func _on_player_anim_finished(anim : String) -> void:
 	if !active: # or !anim.contains(str(rank)):
 		return
-	if !enemies[0] or enemies[0].is_dead:
+	update_node_refs()
+	if enemies.is_empty() or enemies[0].is_dead:
 		enemy_died = true
 	else:
 		enemy_died = false
@@ -168,7 +171,7 @@ func _on_player_anim_finished(anim : String) -> void:
 			else:
 				player.play(player_attack_anim)
 		return
-		
+	
 
 func _on_player_attack_impact() -> void:
 	if !active:
@@ -185,12 +188,17 @@ func _on_player_special_impact() -> void:
 func _on_player_weap_effect_start() -> void:
 	pass
 	
+func _on_enemy_spawned(_enemy : Enemy) -> void:
+	pass
+	
 func _on_enemy_attack_impact(_enemy : Enemy) -> void:
 	if !active:
 		return
 	player.play(player_defend_anim)
 	hp_update.emit(combat_data["hp_delta"])
 	
+func _on_enemy_rank_update(_new : int, _enemy : Enemy) -> void:
+	pass
 
 func _on_enemy_freed(_enemy : Enemy) -> void:
 	pass

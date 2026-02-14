@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://f7pja1tc70y0"]
+
+[ext_resource type="Texture2D" uid="uid://coaaq73yx5061" path="res://Entities/Weapons/ArtWeaponEffects/death_mark.png" id="1_4wft2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwuyy"]
+atlas = ExtResource("1_4wft2")
+region = Rect2(0, 0, 368, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3tng"]
+atlas = ExtResource("1_4wft2")
+region = Rect2(368, 0, 368, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tm70c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bwuyy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3tng")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[node name="DeathMark" type="AnimatedSprite2D" unique_id=24624940]
+sprite_frames = SubResource("SpriteFrames_tm70c")
+autoplay = "default"
+frame_progress = 0.33605903

@@ -40,7 +40,6 @@ func _on_player_special_impact() -> void:
 		var chain : Line2D= chain_line_spawner.add_chain(player.global_position, enemy.global_position)
 		chain.z_index = enemy.z_index + 1
 		var chain_effect : AnimatedSprite2D = webbed_effect_scn.instantiate()
-		chain_effect.scale = Vector2(0.4, 0.4)
 		enemy.collision_shape.add_child(chain_effect)
 		enemy.webbed = true
 		enemy.play("shake")

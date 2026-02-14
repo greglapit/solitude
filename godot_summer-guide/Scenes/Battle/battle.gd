@@ -11,27 +11,26 @@ extends Node2D
 
 var mini_pos : Array								# Mini Card Positions
 var armory_position : Vector2 = Vector2(250,335)
-var enemy_positions : Array[Vector2] = [Vector2(250,80), Vector2(215,70), Vector2(280, 60), \
+var enemy_target_pos : Vector2 = Vector2(250,100)
+var enemy_positions : Array[Vector2] = [enemy_target_pos, enemy_target_pos - Vector2(35,10), enemy_target_pos - Vector2(-30, 20), \
 										Vector2.ZERO, Vector2.ZERO, Vector2.ZERO, Vector2.ZERO]
 var mini_equipped : Card							# Current card player has equipped
 var curr_weapon : Weapon							# String name of player weapon
 var player_weapons : Dictionary
-var enemies : Array:
-	get:
-		return enemies.filter(func(e : Enemy) -> bool: return e != null and not e.is_dead)
+var enemies : Array
 var hp : int
 var attacks : int = Globals.attacks					# Attacks player has left
 var actions : int = Globals.actions					# Actions player has left (draw, cut, socket)
 var drawing : bool = false							# Turned on when drawing started, off when it ends
 var chaining : bool = false							# Turned on when chain attack is occuring
-var crit_stored : int = false						# Number of crits stored
+var crit_stored : int = 3							# Number of crits stored
 var click_prevention : bool = false					# Stops minicard/attack inputs when drawing or attacking
-var pausing_weapon : Weapon						# Weapon pausing chaining for effects to take place
+var pausing_weapons : Array[Weapon]						# Weapon pausing chaining for effects to take place
 
 var combat_data : Dictionary
 
 # DEV TOOLS
-var crit_infinite : bool = true
+var crit_infinite : bool = false
 
 # === Custom Methods ===========================================================
 # General
@@ -84,7 +83,7 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
 		enemies = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,4) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,[6,9]) # 2 * (2 + randi() % 2)
 		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
@@ -94,12 +93,14 @@ func spawn_enemy(num : int = 1) -> void:
 	
 		for weapon : Weapon in player_weapons.values():
 			enemy.attack_impact.connect(weapon._on_enemy_attack_impact.bind(enemy))
+			enemy.rank_update.connect(weapon._on_enemy_rank_update.bind(enemy))
 			enemy.freed.connect(weapon._on_enemy_freed)
+			weapon._on_enemy_spawned(enemy)
 			
 		await get_tree().create_timer(0.2).timeout
 	
 	align_enemies(false)
-		
+	
 
 func align_enemies(tweening : bool = true) -> void:
 	enemies = get_tree().get_nodes_in_group("enemies")
@@ -144,12 +145,12 @@ func update_crit_button() -> void:
 			crit_button.enable()
 
 func weapon_pause() -> Signal:
-	if !pausing_weapon:
-		return get_tree().create_timer(0).timeout
-	
-	var temp_weapon : Weapon = pausing_weapon
-	pausing_weapon = null
-	return temp_weapon.resume
+	if pausing_weapons.is_empty():
+		return get_tree().process_frame
+	else:
+		while !pausing_weapons.is_empty():
+			await get_tree().process_frame
+		return get_tree().process_frame
 
 var enemy_just_attacked : bool = false
 func update_turn_clock() -> void:
@@ -582,10 +583,10 @@ func _on_weapon_hp_update(_hp_delta : int = combat_data["hp_delta"]) -> void:
 	health_bar.display_hp(hp, Globals.max_hp)
 
 func _on_weapon_pause(_weapon : Weapon) -> void:
-	pausing_weapon = _weapon
+	pausing_weapons.append(_weapon)
 
 func _on_weapon_resume(_weapon : Weapon) -> void:
-	pausing_weapon = null
+	pausing_weapons.erase(_weapon)
 
 #endregion
 
@@ -599,9 +600,9 @@ func _on_enemy_animation_finished(anim : String, enemy : Enemy) -> void:
 		enemy_just_attacked = false
 
 func _on_enemy_freed(_enemy : Enemy) -> void:
-	if _enemy ==  get_tree().get_nodes_in_group("enemies")[0]:
-		_on_weapon_combat_fin(curr_weapon)
+	enemies.erase(_enemy)
 	await _enemy.tree_exited
+	await weapon_pause()
 	var player_animation : String = player.animation_player.current_animation
 	if player_animation.contains("attack") or player_animation.contains("special"):
 		await player.anim_finished

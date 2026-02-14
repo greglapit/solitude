@@ -50,18 +50,16 @@ func break_chain(chain : Line2D, damaging : bool = true) -> void:
 	if damaging:
 		temp_chain_effect.play("break")
 		enemy.damage(break_dmg)
-		await enemy.animation_player.animation_finished
+		await temp_chain_effect.animation_finished
+		#await enemy.animation_player.animation_finished
 	else:
-		enemy.play("shake")
+		if !enemy.is_dead:
+			enemy.play("shake")
 		temp_chain_effect.play("break")
 		await temp_chain_effect.tree_exited
 	enemy.chained = false
 	
 func post_combat() -> void:
-	
-	# Prevent chain from breaking when special is a reciprocal attack
-	if reciprocal_attack:
-		return
 		
 	
 	pause.emit(self)
@@ -93,11 +91,16 @@ func _on_player_special_impact() -> void:
 		# Spawn chains and damage
 		var chain : Line2D= chain_line_spawner.add_chain(player.global_position, enemy.global_position)
 		chain_enemy_dict[chain] = enemy
-		enemy_chain_turn_counter[enemy] = 1
+		
+		if reciprocal_attack:
+			enemy_chain_turn_counter[enemy] = 0
+		else:
+			enemy_chain_turn_counter[enemy] = 1
+			
 		chain.z_index = enemy.z_index + 1
 		var chain_effect : AnimatedSprite2D = chain_effect_scn.instantiate()
-		chain_effect.scale = Vector2(0.4, 0.4)
 		chain_chain_effect_dict[chain] = chain_effect
+		chain_effect.scale = Vector2(.9,.9)
 		enemy.collision_shape.add_child(chain_effect)
 		enemy.damage(init_dmg)
 		
@@ -117,6 +120,7 @@ func _process(_delta: float) -> void:
 
 func _on_enemy_attack_prevented(enemy : Enemy) -> void:
 	if enemy.chained and !player.animation_player.current_animation.contains("attack"):
+		# ADD PLAYER ANIMATION PAUSE
 		pause.emit(self)
 		enemy.play("struggle_chain")
 		await enemy.animation_player.animation_finished
@@ -130,6 +134,6 @@ func _on_enemy_attack_prevented(enemy : Enemy) -> void:
 
 func _on_enemy_freed(_enemy : Enemy) -> void:
 	super(_enemy)
-	if _enemy == enemies[0]:
+	if !enemies.is_empty() and _enemy == enemies[0]:
 		reciprocal_attack = false
 		post_combat()

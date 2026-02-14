@@ -15,7 +15,10 @@ var player : Node2D
 const enemy_scn : PackedScene = preload("res://Entities/Enemies/base_enemy.tscn")
 
 # Stats
-var rank : int = -1
+var rank : int = -1:
+	set(value):
+		rank_update.emit(value)
+		rank = value
 var suit : Card.Suits = Card.Suits.HEART
 var suit_art_path : String = "res://Entities/Enemies/Base/Art/"
 var is_dead : bool = false
@@ -29,7 +32,7 @@ var prowled : bool = false		# Prowler
 var attack_disabled : bool = false
 var slowed : bool = false
 
-
+signal rank_update(new : int)
 @warning_ignore("unused_signal")
 signal attack_impact
 signal attack_prevented(enemy : Enemy)
@@ -37,7 +40,8 @@ signal damaged(amt : int)
 signal freed(enemy : Enemy)
 
 # === Custom Methods ===========================================================
-static func new_enemy(_suit : Card.Suits, _rank : int) -> Enemy:
+static func new_enemy(_suit : Card.Suits, _ranks : Array[int]) -> Enemy:
+	var _rank : int = _ranks.pick_random()
 	if _suit not in Card.Suits.values() or _rank not in range(1,14):
 		print("Invalid enemy declaration")
 		return
@@ -51,7 +55,7 @@ func update_labels() -> void:
 	label2.text = Globals.ranks[rank]
 
 ## Damage the enemy
-func damage(amt : int) -> Callable:
+func damage(amt : int) -> int:
 	rank  = max(rank-amt, 0)
 	damaged.emit(amt)
 	if rank <= 0:
@@ -61,7 +65,7 @@ func damage(amt : int) -> Callable:
 		play("shake")
 	update_labels()
 	
-	return func() -> void: return
+	return amt
 
 ## Damage the player
 func attack(_weapon : Weapon, _combat_data : Dictionary) -> Dictionary:
