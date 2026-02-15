@@ -1,0 +1,158 @@
+[gd_scene format=3 uid="uid://5uuqtior8kbw"]
+
+[ext_resource type="Script" uid="uid://x82nlrjk3bcw" path="res://Entities/Weapons/9/9_base_weapon/9_base_weapon.gd" id="1_g3q5s"]
+[ext_resource type="Texture2D" uid="uid://dcfm0crs6t2mv" path="res://Entities/Weapons/ArtWeaponEffects/ground_break.png" id="2_5u2j8"]
+[ext_resource type="Texture2D" uid="uid://cgpsux7xuovka" path="res://Common/checkered.jpg" id="2_rto6r"]
+[ext_resource type="Shader" uid="uid://bwyqkydys3a6y" path="res://Common/Shaders/shockwave.gdshader" id="3_wfae3"]
+[ext_resource type="Texture2D" uid="uid://yk4odrrcvqpd" path="res://Common/icon.svg" id="4_bix6d"]
+
+[sub_resource type="Animation" id="Animation_4yq7v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponEffects:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponEffects:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WeaponEffects:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_yiex6"]
+resource_name = "upward_slash"
+length = 0.30001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponEffects:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponEffects:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 5, 5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WeaponEffects:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WeaponEffects2:material:shader_parameter/size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.26666668),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.385]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("WeaponEffects2:material:shader_parameter/force")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.19999999, 0.26666668),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.2, 0.2, 0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("WeaponEffects2:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3mm6d"]
+_data = {
+&"RESET": SubResource("Animation_4yq7v"),
+&"ground_crack": SubResource("Animation_yiex6")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6pmjr"]
+shader = ExtResource("3_wfae3")
+shader_parameter/force = 0.0
+shader_parameter/size = 0.385
+shader_parameter/thickness = 0.5
+shader_parameter/center = Vector2(0.5, 0.5)
+
+[node name="9BaseWeapon" type="Node2D" unique_id=1912385017]
+script = ExtResource("1_g3q5s")
+
+[node name="Checkered" type="Sprite2D" parent="." unique_id=731530034]
+position = Vector2(34, 28)
+texture = ExtResource("2_rto6r")
+
+[node name="WeaponEffects" type="Sprite2D" parent="." unique_id=1909376228]
+visible = false
+texture = ExtResource("2_5u2j8")
+hframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects" unique_id=396978901]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_3mm6d")
+
+[node name="WeaponEffects2" type="Sprite2D" parent="." unique_id=2038311202]
+visible = false
+material = SubResource("ShaderMaterial_6pmjr")
+scale = Vector2(4, 4)
+texture = ExtResource("4_bix6d")

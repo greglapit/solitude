@@ -119,7 +119,13 @@ func has_valid_spec_target(_enemies : Array) -> bool:
 	if _enemies[0] and !_enemies[0].is_dead:
 		return true
 	return false
-	
+
+func enemy_attack() -> void:
+	if enemies.is_empty():
+		return
+	var target : Enemy = enemies[0]
+	target.attack(self,combat_data)
+
 # === Built In =================================================================
 
 func _ready() -> void:

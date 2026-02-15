@@ -11,7 +11,7 @@ extends Node2D
 
 var mini_pos : Array								# Mini Card Positions
 var armory_position : Vector2 = Vector2(250,335)
-var enemy_target_pos : Vector2 = Vector2(250,100)
+var enemy_target_pos : Vector2 = Vector2(250,80)
 var enemy_positions : Array[Vector2] = [enemy_target_pos, enemy_target_pos - Vector2(35,10), enemy_target_pos - Vector2(-30, 20), \
 										Vector2.ZERO, Vector2.ZERO, Vector2.ZERO, Vector2.ZERO]
 var mini_equipped : Card							# Current card player has equipped
@@ -83,7 +83,7 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
 		enemies = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,[8]) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,[10]) # 2 * (2 + randi() % 2)
 		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1

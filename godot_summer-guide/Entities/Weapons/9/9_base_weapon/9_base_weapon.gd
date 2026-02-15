@@ -1,6 +1,6 @@
 extends Weapon
 
-@onready var weapons_effects2 : Sprite2D = $WeaponEffects2
+@onready var weapon_effects2 : Sprite2D = $WeaponEffects2
 
 func assign_prop() -> void:
 	rank = 9
@@ -13,12 +13,8 @@ func assign_prop() -> void:
 	player_attack_anim = "9_base_attack"
 	player_defend_anim = "9_base_defend"
 
-func resolve_combat(_player : Node2D,_mini_card : Card, _hp : float, _attacks : int, _enemy_array : Array) -> Dictionary:
-	combat_data = super(_player,_mini_card, _hp, _attacks, _enemy_array)
-	weapon_effects.z_index = _enemy_array[0].z_index - 1
-	weapons_effects2.position = weapon_effects.position
-	weapons_effects2.z_index = _enemy_array[0].z_index + 1
-	return combat_data
-
 func _on_player_weap_effect_start() -> void:
+	var target : Enemy = enemies[0]
+	weapon_effects2.global_position = target.global_position
+	weapon_effects.z_index = target.z_index - 1
 	animation_player.play("ground_crack")

@@ -47,7 +47,7 @@ func _on_player_special_impact() -> void:
 	var target : Enemy = enemies[0]
 	await target.animation_player.animation_finished	# Wait for spawn
 	await get_tree().create_timer(.5).timeout
-	target.attack(self, combat_data)
+	enemy_attack()
 	
 func _on_enemy_attack_impact(_enemy : Enemy) -> void:
 	super(_enemy)
