@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://7uxuwpgieisr"]
+[gd_scene format=3 uid="uid://7uxuwpgieisr"]
 
-[ext_resource type="Script" uid="uid://v322rug03uro" path="res://Entities/Weapons/8/8_base_weapon.gd" id="1_yiex6"]
+[ext_resource type="Script" uid="uid://v322rug03uro" path="res://Entities/Weapons/8/8_base_weapon/8_base_weapon.gd" id="1_yiex6"]
 [ext_resource type="Texture2D" uid="uid://sbofh2neapac" path="res://Entities/Weapons/ArtWeaponEffects/upward_slash.png" id="2_3mm6d"]
 [ext_resource type="Texture2D" uid="uid://yk4odrrcvqpd" path="res://Common/icon.svg" id="3_4yq7v"]
 [ext_resource type="Shader" uid="uid://bwyqkydys3a6y" path="res://Common/Shaders/shockwave.gdshader" id="3_jn67y"]

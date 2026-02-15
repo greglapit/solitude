@@ -1,5 +1,15 @@
 extends Node2D
 
+# Status Effects
+var dazed : bool = false:
+	set(value):
+		dazed = value
+		status_logic_update()
+
+var attack_disabled : bool = false
+
+# Effect Logic
+
 @onready var animation_player : AnimationPlayer = $Sprite2D/AnimationPlayer
 @onready var effects_animation_player : AnimationPlayer = $Effects/AnimationPlayer
 
@@ -25,6 +35,12 @@ func effect(anim : StringName) -> void:
 func queue(anim : StringName) -> void:
 	animation_player.queue(anim)
 	return
+
+func status_logic_update() -> void:
+	if dazed:
+		attack_disabled = true
+	else:
+		attack_disabled = false
 
 # === Built In =================================================================
 

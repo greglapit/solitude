@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://c3a5iclf1e8ev"]
+
+[ext_resource type="Script" uid="uid://ds35g5jwop07l" path="res://Entities/Weapons/8/8_splitter_weapon/8_splitter_weapon.gd" id="1_rs4ox"]
+[ext_resource type="Texture2D" uid="uid://sbofh2neapac" path="res://Entities/Weapons/ArtWeaponEffects/upward_slash.png" id="2_g7y5r"]
+
+[sub_resource type="Animation" id="Animation_4yq7v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponEffects:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponEffects:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_yiex6"]
+resource_name = "upward_slash"
+length = 0.30001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponEffects:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponEffects:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3mm6d"]
+_data = {
+&"RESET": SubResource("Animation_4yq7v"),
+&"upward_slash": SubResource("Animation_yiex6")
+}
+
+[node name="8SplitterWeapon" type="Node2D" unique_id=1586096753]
+script = ExtResource("1_rs4ox")
+
+[node name="WeaponEffects" type="Sprite2D" parent="." unique_id=1473698696]
+visible = false
+texture = ExtResource("2_g7y5r")
+hframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects" unique_id=804421891]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_3mm6d")

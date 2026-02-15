@@ -24,9 +24,18 @@ var suit_art_path : String = "res://Entities/Enemies/Base/Art/"
 var is_dead : bool = false
 
 # Status Effects
-var chained : bool = false		# Locklash
-var webbed : bool = false		# Weaver
-var prowled : bool = false		# Prowler
+var chained : bool = false:		# Locklash
+	set(value):
+		chained = value
+		status_logic_update()
+var webbed : bool = false:		# Weaver
+	set(value):
+		webbed = value
+		status_logic_update()
+var prowled : bool = false:		# Prowler
+	set(value):
+		prowled = value
+		status_logic_update()
 
 # Status Effect Logic. Updated in _process
 var attack_disabled : bool = false
@@ -96,7 +105,18 @@ func display_bleed(duration : int) -> void:
 @warning_ignore("unused_parameter")
 func emit_freed(card : Enemy = self) -> void:
 	freed.emit(self)
-	
+
+func status_logic_update() -> void:
+	if chained: # add other attack disabling HERE
+		attack_disabled = true
+	else:
+		attack_disabled = false
+		
+	if webbed or prowled: # add other slows HERE
+		slowed = true
+	else:
+		slowed = false
+
 # === Built In =================================================================
 
 func _ready() -> void:
@@ -112,15 +132,7 @@ func _input(_event: InputEvent) -> void:
 	pass
 
 func _process(_delta: float) -> void:
-	if chained: # add other attack disabling HERE
-		attack_disabled = true
-	else:
-		attack_disabled = false
-		
-	if webbed or prowled: # add other slows HERE
-		slowed = true
-	else:
-		slowed = false
+	pass
 
 # === Signals ==================================================================
 

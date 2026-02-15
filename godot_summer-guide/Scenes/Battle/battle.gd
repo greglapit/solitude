@@ -23,14 +23,14 @@ var attacks : int = Globals.attacks					# Attacks player has left
 var actions : int = Globals.actions					# Actions player has left (draw, cut, socket)
 var drawing : bool = false							# Turned on when drawing started, off when it ends
 var chaining : bool = false							# Turned on when chain attack is occuring
-var crit_stored : int = 3							# Number of crits stored
+var crit_stored : int = 0							# Number of crits stored
 var click_prevention : bool = false					# Stops minicard/attack inputs when drawing or attacking
-var pausing_weapons : Array[Weapon]						# Weapon pausing chaining for effects to take place
+var pausing_weapons : Array[Weapon]					# Weapon pausing chaining for effects to take place
 
 var combat_data : Dictionary
 
 # DEV TOOLS
-var crit_infinite : bool = false
+var crit_infinite : bool = true
 
 # === Custom Methods ===========================================================
 # General
@@ -83,7 +83,7 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
 		enemies = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,[6,9]) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,[8]) # 2 * (2 + randi() % 2)
 		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
@@ -103,6 +103,7 @@ func spawn_enemy(num : int = 1) -> void:
 	
 
 func align_enemies(tweening : bool = true) -> void:
+	await weapon_pause()
 	enemies = get_tree().get_nodes_in_group("enemies")
 	for i : int in enemies.size():
 		if tweening:
@@ -545,7 +546,7 @@ func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 		click_prevention = false
 		equip_mini_card(null)
 	
-	
+
 ## After weapon is used and combat cycle restarts
 func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 	for weapon : Weapon in player_weapons.values():
@@ -557,17 +558,19 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 	var mini_cards : Array= get_tree().get_nodes_in_group("mini_cards")
 	var space_in_armory : bool = Globals.max_draw > mini_cards.size() + int(mini_equipped != null)
 	
+	# Reset Used Cards
 	for mini_card : Card in mini_cards:
 		mini_card.play("RESET")
 		mini_card.used = false
 	if mini_equipped:
 		mini_equipped.play("RESET")
 		mini_equipped.used = false
-		
+	
+	# Unequip if space in armory
 	if space_in_armory:
 		weapons_display.play("draw_highlight")
 		equip_mini_card(null)
-
+	
 	equip_mini_card(mini_equipped)
 	
 
@@ -602,7 +605,6 @@ func _on_enemy_animation_finished(anim : String, enemy : Enemy) -> void:
 func _on_enemy_freed(_enemy : Enemy) -> void:
 	enemies.erase(_enemy)
 	await _enemy.tree_exited
-	await weapon_pause()
 	var player_animation : String = player.animation_player.current_animation
 	if player_animation.contains("attack") or player_animation.contains("special"):
 		await player.anim_finished

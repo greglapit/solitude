@@ -64,6 +64,7 @@ func _on_player_special_impact() -> void:
 	
 	player.animation_player.play()
 	await player.anim_finished
+	equip()
 	resume.emit(self)
 	
 func _on_enemy_spawned(enemy : Enemy) -> void:
@@ -86,3 +87,6 @@ func _on_enemy_rank_update(_new_rank : int, enemy : Enemy) -> void:
 			death_mark.queue_free()
 			enemy_mark_dict.erase(enemy)
 			exe_enemies.erase(enemy)
+
+func _on_enemy_freed(_enemy : Enemy) -> void:
+	exe_enemies.erase(_enemy)

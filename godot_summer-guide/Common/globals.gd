@@ -7,7 +7,7 @@ var actions : int = 1
 var attacks : int = 1
 var max_draw : int = 3			# How many items player can have drawn at a time
 var max_crits : int = 3
-var armory : Dictionary = {7: '7_severance_weapon'}
+var armory : Dictionary = {8: '8_cata_weapon'}
 var available_ranks : Array = armory.keys()
 var ranks : Array = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 var armory_durs : Array = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
@@ -20,7 +20,7 @@ var all_weapons : Dictionary = {
 	'5_base_weapon' : 5, '5_claw_weapon' : 5, '5_maw_weapon' : 5,\
 	'6_base_weapon' : 6, '6_locklash_weapon' : 6, '6_weaver_weapon' : 6,\
 	'7_base_weapon' : 7, '7_vamp_weapon' : 7, '7_severance_weapon' : 7,\
-	'8_base_weapon' : 8, \
+	'8_base_weapon' : 8, '8_splitter_weapon' : 8,\
 	'9_base_weapon' : 9, \
 	'10_base_weapon' : 10, \
 }

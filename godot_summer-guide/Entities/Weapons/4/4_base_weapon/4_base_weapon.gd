@@ -14,4 +14,5 @@ func assign_prop() -> void:
 func _on_player_weap_effect_start() -> void:
 	if !active:
 		return
-	animation_player.play("shockwave")
+	if !using_special:
+		animation_player.play("shockwave")
