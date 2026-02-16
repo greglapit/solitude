@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxhnt4eegon5g"
-path="res://.godot/imported/10_base_player.png-084268e5e8da240d961b3690009e99ce.ctex"
+uid="uid://bjvwhnnqlxcnj"
+path="res://.godot/imported/10_clock_player.png-4e2023fb01ca54b093f2cfc85a38661e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Weapons/10/10_base_player.png"
-dest_files=["res://.godot/imported/10_base_player.png-084268e5e8da240d961b3690009e99ce.ctex"]
+source_file="res://Entities/Weapons/10/10_clock_weapon/10_clock_player.png"
+dest_files=["res://.godot/imported/10_clock_player.png-4e2023fb01ca54b093f2cfc85a38661e.ctex"]
 
 [params]
 

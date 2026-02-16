@@ -1,11 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://8i3v01dr33le"]
+[gd_scene format=3 uid="uid://dn10ky1vx1c4e"]
 
-[ext_resource type="Script" uid="uid://d2ymvmplksian" path="res://Entities/Weapons/10/10_base_weapon.gd" id="1_f1rei"]
-[ext_resource type="Texture2D" uid="uid://doqvwypsairv4" path="res://z_August Work/Common/icon.svg" id="2_3wobf"]
-[ext_resource type="Shader" uid="uid://bwyqkydys3a6y" path="res://Common/Shaders/shockwave.gdshader" id="2_ntioq"]
+[ext_resource type="Script" uid="uid://yknxo23powuu" path="res://Entities/Weapons/10/10_clock_weapon/10_clock_weapon.gd" id="1_x78bh"]
+[ext_resource type="Shader" uid="uid://bwyqkydys3a6y" path="res://Common/Shaders/shockwave.gdshader" id="2_isee5"]
+[ext_resource type="Texture2D" uid="uid://doqvwypsairv4" path="res://z_August Work/Common/icon.svg" id="3_ikorl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cx8fs"]
-shader = ExtResource("2_ntioq")
+shader = ExtResource("2_isee5")
 shader_parameter/force = 0.0
 shader_parameter/size = 0.0
 shader_parameter/thickness = 0.05
@@ -120,16 +120,14 @@ _data = {
 &"shockwave": SubResource("Animation_w4wxk")
 }
 
-[node name="10BaseWeapon" type="Node2D"]
-script = ExtResource("1_f1rei")
+[node name="10ClockWeapon" type="Node2D" unique_id=127262734]
+script = ExtResource("1_x78bh")
 
-[node name="WeaponEffects" type="Sprite2D" parent="."]
+[node name="WeaponEffects" type="Sprite2D" parent="." unique_id=147622293]
 visible = false
 material = SubResource("ShaderMaterial_cx8fs")
-texture = ExtResource("2_3wobf")
+texture = ExtResource("3_ikorl")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects" unique_id=2106792370]
 root_node = NodePath("../..")
-libraries = {
-&"": SubResource("AnimationLibrary_c5el5")
-}
+libraries/ = SubResource("AnimationLibrary_c5el5")

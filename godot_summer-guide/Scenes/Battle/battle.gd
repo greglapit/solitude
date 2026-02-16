@@ -157,11 +157,12 @@ func weapon_pause() -> Signal:
 var enemy_just_attacked : bool = false
 func update_turn_clock() -> void:
 	enemies = get_tree().get_nodes_in_group("enemies")
-	if enemies.is_empty() or enemies[0].rank <= 0 or !mini_equipped:
+	var target : Enemy = enemies[0]
+	if enemies.is_empty() or target.rank <= 0 or !mini_equipped:
 		turn_clock.show_turn(turn_clock.turn.HALF)
 		return
 	
-	if (enemies[0].rank >= mini_equipped.rank and !mini_equipped.used) or enemy_just_attacked:
+	if (target.rank >= mini_equipped.rank and !mini_equipped.used) or enemy_just_attacked or target.attack_disabled or target.slowed:
 		turn_clock.show_turn(turn_clock.turn.DOWN)
 	else:
 		turn_clock.show_turn(turn_clock.turn.UP)

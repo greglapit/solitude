@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://bewmpgn4nhlxk"]
 
-[ext_resource type="Texture2D" uid="uid://bxhnt4eegon5g" path="res://Entities/Weapons/10/10_base_player.png" id="1_iplt1"]
+[ext_resource type="Texture2D" uid="uid://bxhnt4eegon5g" path="res://Entities/Weapons/10/10_base_weapon/10_base_player.png" id="1_iplt1"]
 [ext_resource type="Texture2D" uid="uid://d076n8t2b80sq" path="res://Entities/Weapons/1/1_base_weapon/1_base_player.png" id="1_lu8i8"]
 [ext_resource type="Texture2D" uid="uid://u3tg064fu5o3" path="res://Entities/Player/Art/base_player.png" id="2_tekja"]
 [ext_resource type="Texture2D" uid="uid://b71qv3l65vuji" path="res://Entities/Weapons/2/2_base_weapon/2_base_player.png" id="3_owvpp"]
+[ext_resource type="Texture2D" uid="uid://bjvwhnnqlxcnj" path="res://Entities/Weapons/10/10_clock_weapon/10_clock_player.png" id="4_80ryp"]
 [ext_resource type="Texture2D" uid="uid://k36x4infpbwv" path="res://Entities/Weapons/3/3_base_weapon/3_base_player.png" id="4_xr8lj"]
 [ext_resource type="Texture2D" uid="uid://bj1sok6np2m2i" path="res://Entities/Weapons/4/4_base_weapon/4_base_player.png" id="5_r8fok"]
 [ext_resource type="Texture2D" uid="uid://bq32pmgnotoa3" path="res://Entities/Weapons/5/5_base_weapon/5_base_player.png" id="6_nhbkt"]
@@ -188,6 +189,236 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_oa7s5"]
+resource_name = "10_clock_attack"
+length = 1.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_80ryp")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [3, 4]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"attack_impact"],
+"method": &"emit_signal"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"weap_effect_start"],
+"method": &"emit_signal"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_f7ek5"]
+resource_name = "10_clock_defend"
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_80ryp")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.14285715, 0.2857143, 0.42857143, 0.5714286, 0.71428573),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(8, -8), Vector2(-8, 8), Vector2(4, -4), Vector2(-4, 4), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3b2eu"]
+resource_name = "10_clock_idle"
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_80ryp")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_l4nho"]
+resource_name = "10_clock_special"
+length = 1.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_80ryp")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [3, 4]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"special_impact"],
+"method": &"emit_signal"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"weap_effect_start"],
+"method": &"emit_signal"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_tekja"]
@@ -5610,7 +5841,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [3]
+"values": [5]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -5762,6 +5993,10 @@ _data = {
 &"10_base_attack": SubResource("Animation_kx1i7"),
 &"10_base_defend": SubResource("Animation_w51ui"),
 &"10_base_idle": SubResource("Animation_slvv8"),
+&"10_clock_attack": SubResource("Animation_oa7s5"),
+&"10_clock_defend": SubResource("Animation_f7ek5"),
+&"10_clock_idle": SubResource("Animation_3b2eu"),
+&"10_clock_special": SubResource("Animation_l4nho"),
 &"1_base_attack": SubResource("Animation_tekja"),
 &"1_base_defend": SubResource("Animation_5c2io"),
 &"1_base_idle": SubResource("Animation_4wf4l"),
@@ -5932,7 +6167,7 @@ script = ExtResource("12_iplt1")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=793608536]
 texture = ExtResource("2_tekja")
-hframes = 3
+hframes = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D" unique_id=1859624017]
 root_node = NodePath("../..")

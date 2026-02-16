@@ -104,6 +104,7 @@ func _on_player_special_impact() -> void:
 		enemy.damage(init_dmg)
 		
 		enemy.chained = true
+		await get_tree().create_timer(.05).timeout
 
 func _process(_delta: float) -> void:
 	
@@ -126,7 +127,7 @@ func _on_enemy_attack_prevented(enemy : Enemy) -> void:
 		resume.emit(self)
 		
 		# Continues combat
-		if enemy and enemy.is_dead and enemy == enemies[0]:
+		if enemy and enemy.is_dead and !enemies.is_empty() and enemy == enemies[0]:
 			reciprocal_attack = false					# Stops player from sending next hitting enemy2 if enemy died
 		_on_player_anim_finished("defend")
 
