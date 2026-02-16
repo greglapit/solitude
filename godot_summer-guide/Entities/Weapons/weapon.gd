@@ -202,7 +202,10 @@ func _on_enemy_attack_impact(_enemy : Enemy) -> void:
 		return
 	player.play(player_defend_anim)
 	hp_update.emit(combat_data["hp_delta"])
-	
+
+func _on_enemy_attack_prevented(_enemy : Enemy) -> void:
+	pass
+
 func _on_enemy_rank_update(_new : int, _enemy : Enemy) -> void:
 	pass
 

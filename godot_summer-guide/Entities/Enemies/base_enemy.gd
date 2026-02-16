@@ -36,6 +36,10 @@ var prowled : bool = false:		# Prowler
 	set(value):
 		prowled = value
 		status_logic_update()
+var kneeling : bool = false:	# Cmd
+	set(value):
+		kneeling = value
+		status_logic_update()
 
 # Status Effect Logic. Updated in _process
 var attack_disabled : bool = false
@@ -44,7 +48,7 @@ var slowed : bool = false
 signal rank_update(new : int)
 @warning_ignore("unused_signal")
 signal attack_impact
-signal attack_prevented(enemy : Enemy)
+signal attack_prevented()
 signal damaged(amt : int)
 signal freed(enemy : Enemy)
 
@@ -81,7 +85,7 @@ func attack(_weapon : Weapon, _combat_data : Dictionary) -> Dictionary:
 	var combat_data : Dictionary = _combat_data
 	
 	if attack_disabled:
-		attack_prevented.emit(self)
+		attack_prevented.emit()
 		return combat_data
 	
 	if rank <= 0:
@@ -107,7 +111,7 @@ func emit_freed(card : Enemy = self) -> void:
 	freed.emit(self)
 
 func status_logic_update() -> void:
-	if chained: # add other attack disabling HERE
+	if chained or kneeling: # add other attack disabling HERE
 		attack_disabled = true
 	else:
 		attack_disabled = false
@@ -138,4 +142,7 @@ func _process(_delta: float) -> void:
 
 
 func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
-	animation_player.play("idle")
+	if attack_disabled or slowed:
+		animation_player.play("hindered_idle")
+	else:
+		animation_player.play("idle")

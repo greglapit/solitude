@@ -94,6 +94,7 @@ func spawn_enemy(num : int = 1) -> void:
 		for weapon : Weapon in player_weapons.values():
 			enemy.attack_impact.connect(weapon._on_enemy_attack_impact.bind(enemy))
 			enemy.rank_update.connect(weapon._on_enemy_rank_update.bind(enemy))
+			enemy.attack_prevented.connect(weapon._on_enemy_attack_prevented.bind(enemy))
 			enemy.freed.connect(weapon._on_enemy_freed)
 			weapon._on_enemy_spawned(enemy)
 			

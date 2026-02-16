@@ -1,6 +1,6 @@
 extends Weapon
 
-var damage : int = 5
+var damage : int = 8
 
 @onready var weapon_effects2 : Sprite2D = $WeaponEffects2
 @onready var animation_player2 : AnimationPlayer = $WeaponEffects2/AnimationPlayer

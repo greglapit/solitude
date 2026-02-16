@@ -38,7 +38,6 @@ func break_chain(chain : Line2D, damaging : bool = true) -> void:
 	var temp_chain : Line2D = chain
 	chain_chain_effect_dict.erase(chain)
 	chain_enemy_dict.erase(chain)
-	enemy.attack_prevented.disconnect(_on_enemy_attack_prevented)
 	if !is_instance_valid(temp_chain_effect):
 		chain_enemy_dict.erase(temp_chain)
 		chain.queue_free()
@@ -50,7 +49,7 @@ func break_chain(chain : Line2D, damaging : bool = true) -> void:
 	if damaging:
 		temp_chain_effect.play("break")
 		enemy.damage(break_dmg)
-		await temp_chain_effect.animation_finished
+		await temp_chain_effect.tree_exited
 		#await enemy.animation_player.animation_finished
 	else:
 		if !enemy.is_dead:
@@ -104,9 +103,7 @@ func _on_player_special_impact() -> void:
 		enemy.collision_shape.add_child(chain_effect)
 		enemy.damage(init_dmg)
 		
-		# Disable enemy attack and connect signal
 		enemy.chained = true
-		enemy.attack_prevented.connect(_on_enemy_attack_prevented)
 
 func _process(_delta: float) -> void:
 	
@@ -122,15 +119,16 @@ func _on_enemy_attack_prevented(enemy : Enemy) -> void:
 	if enemy.chained and !player.animation_player.current_animation.contains("attack"):
 		# ADD PLAYER ANIMATION PAUSE
 		pause.emit(self)
-		enemy.play("struggle_chain")
+		enemy.play("struggle")
 		await enemy.animation_player.animation_finished
 		var chain : Line2D = chain_enemy_dict.find_key(enemy)
 		await break_chain(chain)
 		resume.emit(self)
 		
 		# Continues combat
-		if !enemy.is_dead:
-			_on_player_anim_finished("defend")
+		if enemy and enemy.is_dead and enemy == enemies[0]:
+			reciprocal_attack = false					# Stops player from sending next hitting enemy2 if enemy died
+		_on_player_anim_finished("defend")
 
 func _on_enemy_freed(_enemy : Enemy) -> void:
 	super(_enemy)

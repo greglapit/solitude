@@ -120,6 +120,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionShape2D/AnimationPlaceholder:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_4j68w"]
 resource_name = "attack"
@@ -232,6 +244,46 @@ tracks/4/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_2f73w"]
+resource_name = "hindered_idle"
+length = 2.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/AnimationPlaceholder:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 1.3, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D/AnimationPlaceholder:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["HINDERED"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(0, -2)]
+}
+
 [sub_resource type="Animation" id="Animation_pa3af"]
 resource_name = "idle"
 length = 2.0000067
@@ -247,6 +299,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Vector2(0, 0), Vector2(0, -2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D/AnimationPlaceholder:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_4wjja"]
@@ -295,7 +359,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_lwc77"]
-resource_name = "struggle_chain"
+resource_name = "struggle"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -327,10 +391,11 @@ _data = {
 &"RESET": SubResource("Animation_u23yv"),
 &"attack": SubResource("Animation_4j68w"),
 &"death": SubResource("Animation_rjo4h"),
+&"hindered_idle": SubResource("Animation_2f73w"),
 &"idle": SubResource("Animation_pa3af"),
 &"shake": SubResource("Animation_4wjja"),
 &"spawn": SubResource("Animation_3pklf"),
-&"struggle_chain": SubResource("Animation_lwc77")
+&"struggle": SubResource("Animation_lwc77")
 }
 
 [node name="BaseEnemy" type="Area2D" unique_id=1881361469 groups=["enemies"]]
@@ -378,7 +443,6 @@ horizontal_alignment = 2
 
 [node name="Status" type="Sprite2D" parent="CollisionShape2D" unique_id=766196593]
 visible = false
-scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_u23yv")
 hframes = 2
 
@@ -397,6 +461,17 @@ horizontal_alignment = 2
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="CollisionShape2D/Status" unique_id=253065094]
 libraries/ = SubResource("AnimationLibrary_4lymr")
+
+[node name="AnimationPlaceholder" type="Label" parent="CollisionShape2D" unique_id=1668934443]
+visible = false
+offset_left = -35.0
+offset_top = 1.0000029
+offset_right = 39.0
+offset_bottom = 29.000004
+rotation = -0.87615526
+pivot_offset = Vector2(18.959831, 7.1636386)
+theme_override_font_sizes/font_size = 32
+text = "HINDERED"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1402553082]
 libraries/ = SubResource("AnimationLibrary_u23yv")
