@@ -8,6 +8,7 @@ extends Node2D
 @onready var crit_button : TextureButton = $UI/CritButton
 @onready var turn_clock : Node2D = $UI/TurnClock
 @onready var spam_timer : Timer = $SpamTimer
+@onready var camera : Camera2D = $BattleCamera2D
 
 var mini_pos : Array								# Mini Card Positions
 var armory_position : Vector2 = Vector2(250,335)

@@ -19,7 +19,7 @@ func assign_prop() -> void:
 
 func special_attack() -> Dictionary:
 	var dict : Dictionary = super()
-	warp_effect.global_position = player.global_position
+	warp_effect.global_position = player.global_position + Vector2(0,-30)
 	return dict
 
 func post_combat() -> void:

@@ -1,7 +1,8 @@
 @abstract class_name Weapon
 extends Node2D
 
-var battle_node : Node = get_parent()
+@onready var animation_player : AnimationPlayer = $WeaponEffects/AnimationPlayer		## Weapon Effects animation player
+@onready var weapon_effects : Sprite2D = $WeaponEffects
 
 var rank : int = -1
 var file_name : String
@@ -19,6 +20,7 @@ var player_attack_anim : String
 var player_defend_anim : String
 var player_special_anim : String
 
+# Variables from battle_scn
 var player : Node2D
 var enemies : Array					## Enemies the player is in combat with. Position 0 is main target
 var hp : float
@@ -34,8 +36,8 @@ var turn_order_flipped : bool:
 			order = 1
 		turn_order_flipped = value
 var order : int = 1
-@onready var animation_player : AnimationPlayer = $WeaponEffects/AnimationPlayer		## Weapon Effects animation player
-@onready var weapon_effects : Sprite2D = $WeaponEffects
+var battle_node : Node = get_parent()
+
 
 var active : bool = false 			## Whether weapon is active (equipped)
 var reciprocal_attack : bool = false
@@ -48,7 +50,7 @@ var combat_data : Dictionary = {
 	"attacks" = 0
 	}
 
-
+# Signals
 @warning_ignore("unused_signal")
 signal crit
 signal hp_update

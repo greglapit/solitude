@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://qv3uiu0pk3pt"]
+
+[ext_resource type="Script" uid="uid://dtuk2lgyjtif3" path="res://Scenes/Battle/battle_camera_2d.gd" id="1_m0jio"]
+
+[sub_resource type="Animation" id="Animation_m0jio"]
+resource_name = "screenshake"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_veh8q"]
+_data = {
+&"screenshake": SubResource("Animation_m0jio")
+}
+
+[node name="BattleCamera2D" type="Camera2D" unique_id=1195768831]
+scale = Vector2(0.99999994, 0.99999994)
+offset = Vector2(320, 180)
+ignore_rotation = false
+script = ExtResource("1_m0jio")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=165710531]
+libraries/ = SubResource("AnimationLibrary_veh8q")
