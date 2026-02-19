@@ -14,5 +14,12 @@ func assign_prop() -> void:
 	has_special = true
 	special_cost = 1
 
+func post_combat() -> void:
+	pass
+
 func _on_player_weap_effect_start() -> void:
-	animation_player.play("shockwave")
+	if !using_special:
+		animation_player.play("shockwave")
+
+func _on_player_special_impact() -> void:
+	pass

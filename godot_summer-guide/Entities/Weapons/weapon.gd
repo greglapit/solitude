@@ -1,6 +1,8 @@
 @abstract class_name Weapon
 extends Node2D
 
+var battle_node : Node = get_parent()
+
 var rank : int = -1
 var file_name : String
 var display_name : String
@@ -23,6 +25,15 @@ var hp : float
 var crit_stored : int 
 var attacks : int
 var mini_equipped : Card
+var mini_cards : Array
+var turn_order_flipped : bool:
+	set(value):
+		if value:
+			order = -1
+		else:
+			order = 1
+		turn_order_flipped = value
+var order : int = 1
 @onready var animation_player : AnimationPlayer = $WeaponEffects/AnimationPlayer		## Weapon Effects animation player
 @onready var weapon_effects : Sprite2D = $WeaponEffects
 
@@ -61,13 +72,16 @@ func unequip() -> void:
 	return
 
 func update_node_refs() -> void:
-	player = get_parent().player
-	if is_instance_valid(get_parent().mini_equipped):
-		mini_equipped = get_parent().mini_equipped
-	hp = get_parent().hp
-	crit_stored = get_parent().crit_stored
-	attacks = get_parent().attacks
-	enemies = get_parent().enemies
+	battle_node = get_parent()
+	player = battle_node.player
+	if is_instance_valid(battle_node.mini_equipped):
+		mini_equipped = battle_node.mini_equipped
+	mini_cards = get_tree().get_nodes_in_group("mini_cards")
+	hp = battle_node.hp
+	crit_stored = battle_node.crit_stored
+	attacks = battle_node.attacks
+	enemies = get_tree().get_nodes_in_group("enemies")
+	turn_order_flipped = battle_node.turn_order_flipped
 	
 	# Visuals
 	if active and !enemies.is_empty() and enemies[0]:
@@ -91,7 +105,7 @@ func resolve_combat() -> Dictionary:
 		return combat_data
 	
 	# Player has attacks left
-	if rank <= enemies[0].rank or enemies[0].slowed:
+	if rank * order <= enemies[0].rank * order or enemies[0].slowed:
 		if using_special:
 			player.play(player_special_anim)
 		else:

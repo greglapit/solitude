@@ -28,6 +28,7 @@ var click_prevention : bool = false					# Stops minicard/attack inputs when draw
 var pausing_weapons : Array[Weapon]					# Weapon pausing chaining for effects to take place
 
 var combat_data : Dictionary
+var turn_order_flipped : bool = true
 
 # DEV TOOLS
 var crit_infinite : bool = true
@@ -83,7 +84,7 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
 		enemies = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,[10]) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,[6]) # 2 * (2 + randi() % 2)
 		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
