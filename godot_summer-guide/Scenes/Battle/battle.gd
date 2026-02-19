@@ -28,7 +28,10 @@ var click_prevention : bool = false					# Stops minicard/attack inputs when draw
 var pausing_weapons : Array[Weapon]					# Weapon pausing chaining for effects to take place
 
 var combat_data : Dictionary
-var turn_order_flipped : bool = true
+var turn_order_flipped : bool = false:
+	set(value):
+		turn_order_flipped = value
+		update_turn_clock()
 
 # DEV TOOLS
 var crit_infinite : bool = true
@@ -157,6 +160,14 @@ func weapon_pause() -> Signal:
 
 var enemy_just_attacked : bool = false
 func update_turn_clock() -> void:
+	
+	# Flip clock if turn order is flipped 
+	var tween : Tween = create_tween()
+	tween.tween_property(turn_clock, "scale", Vector2(1, 1 - 2 * int(turn_order_flipped)), 0.3) \
+	 .set_trans(Tween.TRANS_SINE)\
+	 .set_ease(Tween.EASE_OUT)
+	
+	# Adjust clock hand
 	enemies = get_tree().get_nodes_in_group("enemies")
 	var target : Enemy = enemies[0]
 	if enemies.is_empty() or target.rank <= 0 or !mini_equipped:

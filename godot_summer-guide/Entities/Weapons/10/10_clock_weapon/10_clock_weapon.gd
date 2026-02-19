@@ -1,5 +1,8 @@
 extends Weapon
 
+@onready var warp_effect : Sprite2D = $WarpEffect
+@onready var animation_player_2 : AnimationPlayer = $WarpEffect/AnimationPlayer
+
 func assign_prop() -> void:
 	rank = 10
 	file_name = "10_clock_weapon"
@@ -14,12 +17,30 @@ func assign_prop() -> void:
 	has_special = true
 	special_cost = 1
 
+func special_attack() -> Dictionary:
+	var dict : Dictionary = super()
+	warp_effect.global_position = player.global_position
+	return dict
+
 func post_combat() -> void:
-	pass
+	update_node_refs()
+	var holding_weapon : bool = false
+	for mini_card : Card in mini_cards:
+		if mini_card.rank == 10:
+			holding_weapon = true
+	
+	if !holding_weapon and turn_order_flipped:
+		battle_node.turn_order_flipped = false
 
 func _on_player_weap_effect_start() -> void:
+	if !active:
+		return
 	if !using_special:
 		animation_player.play("shockwave")
 
 func _on_player_special_impact() -> void:
-	pass
+	if !active:
+		return
+	animation_player_2.play("shockwave")
+	reciprocal_attack = false
+	battle_node.turn_order_flipped = !battle_node.turn_order_flipped
