@@ -1,5 +1,6 @@
 extends Node2D
 
+signal play_button_pressed
 
 # === Custom Methods ===========================================================
 
@@ -15,7 +16,7 @@ func _input(_event: InputEvent) -> void:
 # === Signals ==================================================================
 
 func _on_play_button_pressed() -> void:
-	pass # Replace with function body.
+	play_button_pressed.emit()
 
 
 func _on_quit_button_pressed() -> void:
