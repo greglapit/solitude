@@ -7,7 +7,7 @@ var actions : int = 1
 var attacks : int = 1
 var max_draw : int = 3			# How many items player can have drawn at a time
 var max_crits : int = 3
-var armory : Dictionary = {10: '10_pirate_weapon'}
+var armory : Dictionary = {5: '5_base_weapon'}
 var available_ranks : Array = armory.keys()
 var ranks : Array = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 var armory_durs : Array = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
@@ -24,3 +24,6 @@ var all_weapons : Dictionary = {
 	'9_base_weapon' : 9, '9_cloud_weapon' : 9, '9_cmd_weapon' : 9,\
 	'10_base_weapon' : 10, \
 }
+
+func save_game() -> Signal:
+	return get_tree().process_frame

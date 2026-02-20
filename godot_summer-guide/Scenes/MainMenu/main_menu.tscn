@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://cdddq6j0rujn6"]
+
+[ext_resource type="Texture2D" uid="uid://cuym4470g5ywn" path="res://Scenes/MainMenu/Art/main_menu.png" id="1_uqdog"]
+[ext_resource type="Script" uid="uid://bvfjdiyqpodhf" path="res://Scenes/MainMenu/main_menu.gd" id="1_v763k"]
+[ext_resource type="Texture2D" uid="uid://cpg6ewn6ftdmw" path="res://Scenes/MainMenu/Art/menu_button.png" id="2_0qgbs"]
+[ext_resource type="Texture2D" uid="uid://b2y2hk72rw4bg" path="res://Scenes/MainMenu/Art/menu_button_pressed.png" id="3_adu2g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v763k"]
+atlas = ExtResource("1_uqdog")
+region = Rect2(0, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqdog"]
+atlas = ExtResource("1_uqdog")
+region = Rect2(0, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qgbs"]
+atlas = ExtResource("1_uqdog")
+region = Rect2(0, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qgdf6"]
+atlas = ExtResource("1_uqdog")
+region = Rect2(640, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_adu2g"]
+atlas = ExtResource("1_uqdog")
+region = Rect2(640, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0l8wx"]
+atlas = ExtResource("1_uqdog")
+region = Rect2(640, 0, 640, 360)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0qgbs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v763k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uqdog")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0qgbs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qgdf6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_adu2g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0l8wx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[node name="MainMenu" type="Node2D" unique_id=882186314]
+script = ExtResource("1_v763k")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=181176730]
+
+[node name="PlayButton" type="TextureButton" parent="CanvasLayer" unique_id=1686378513]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_top = -111.0
+offset_right = 160.0
+offset_bottom = -71.0
+grow_vertical = 0
+pivot_offset = Vector2(87, 3)
+texture_normal = ExtResource("2_0qgbs")
+texture_pressed = ExtResource("3_adu2g")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PlayButton" unique_id=739297581]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 14
+
+[node name="Label" type="Label" parent="CanvasLayer/PlayButton/MarginContainer" unique_id=1115788027]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Play"
+
+[node name="QuitButton" type="TextureButton" parent="CanvasLayer" unique_id=674087997]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_top = -65.0
+offset_right = 160.0
+offset_bottom = -25.0
+grow_vertical = 0
+texture_normal = ExtResource("2_0qgbs")
+texture_pressed = ExtResource("3_adu2g")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/QuitButton" unique_id=1499800421]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 14
+
+[node name="Label" type="Label" parent="CanvasLayer/QuitButton/MarginContainer" unique_id=1549608373]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1293617770]
+sprite_frames = SubResource("SpriteFrames_0qgbs")
+autoplay = "default"
+frame_progress = 0.3244585
+offset = Vector2(320, 180)
+
+[connection signal="pressed" from="CanvasLayer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/QuitButton" to="." method="_on_quit_button_pressed"]
