@@ -2,12 +2,74 @@
 
 [ext_resource type="Script" uid="uid://dtuk2lgyjtif3" path="res://Scenes/Battle/battle_camera_2d.gd" id="1_m0jio"]
 
+[sub_resource type="Animation" id="Animation_veh8q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(320, 180)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
 [sub_resource type="Animation" id="Animation_m0jio"]
-resource_name = "screenshake"
+resource_name = "pirate_weapon"
+length = 4.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5, 2.5, 3.7, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.17453292519943295, 0.17453292519943295, -0.17453292519943295, -0.17453292519943295, 0.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 2.5, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [10.0, 10.0],
+"method": &"shake"
+}, {
+"args": [10.0, 10.0],
+"method": &"shake"
+}, {
+"args": [10.0, 10.0],
+"method": &"shake"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_veh8q"]
 _data = {
-&"screenshake": SubResource("Animation_m0jio")
+&"RESET": SubResource("Animation_veh8q"),
+&"pirate_weapon": SubResource("Animation_m0jio")
 }
 
 [node name="BattleCamera2D" type="Camera2D" unique_id=1195768831]

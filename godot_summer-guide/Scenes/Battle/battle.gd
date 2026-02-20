@@ -88,12 +88,13 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
 		enemies = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,[6]) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,[10]) # 2 * (2 + randi() % 2)
 		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
 		add_child(enemy)
 		enemy.animation_player.animation_finished.connect(_on_enemy_animation_finished.bind(enemy))
+		enemy.damaged.connect(_on_enemy_damaged.bind(enemy))
 		enemy.freed.connect(_on_enemy_freed)
 	
 		for weapon : Weapon in player_weapons.values():
@@ -607,6 +608,9 @@ func _on_weapon_resume(_weapon : Weapon) -> void:
 	pausing_weapons.erase(_weapon)
 
 #endregion
+
+func _on_enemy_damaged(_amt : int, _enemy : Enemy) -> void:
+	camera.shake(curr_weapon.rank / 2.0)
 
 func _on_enemy_animation_finished(anim : String, enemy : Enemy) -> void:
 	enemies = get_tree().get_nodes_in_group("enemies")

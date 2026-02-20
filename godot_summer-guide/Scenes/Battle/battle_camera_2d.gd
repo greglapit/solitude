@@ -11,7 +11,7 @@ var shake_fade: float = 10.0
 func reset_camera() -> Signal:
 	var tween : Tween = create_tween()
 	tween.set_parallel()
-	tween.tween_property(self, "rotation", 0, 0.1) \
+	tween.tween_property(self, "rotation", 0, 0.2) \
 	 .set_trans(Tween.TRANS_SINE)\
 	 .set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "offset", Vector2(320,180), 0.1) \
@@ -20,13 +20,19 @@ func reset_camera() -> Signal:
 	return tween.finished
 
 func play(anim : String) -> void:
+	animation_player.pause()
 	await reset_camera()
+	animation_player.stop()
 	animation_player.play(anim)
+
+func shake(amt : float, fade : float = 10.0) -> void:
+	shake_strength = amt
+	shake_fade = fade
 
 # === Built In =================================================================
 
 func _ready() -> void:
-	pass
+	offset = center_pos
 	
 func _process(delta: float) -> void:
 	if shake_strength > 0:
@@ -36,6 +42,6 @@ func _process(delta: float) -> void:
 			randf_range(-shake_strength, shake_strength), 
 			randf_range(-shake_strength, shake_strength))
 	else:
-		offset = Vector2.ZERO
+		offset = center_pos
 
 # === Signals ==================================================================

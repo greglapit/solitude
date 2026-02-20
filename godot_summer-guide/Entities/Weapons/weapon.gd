@@ -23,6 +23,7 @@ var player_special_anim : String
 # Variables from battle_scn
 var player : Node2D
 var enemies : Array					## Enemies the player is in combat with. Position 0 is main target
+var camera : Camera2D
 var hp : float
 var crit_stored : int 
 var attacks : int
@@ -75,14 +76,19 @@ func unequip() -> void:
 
 func update_node_refs() -> void:
 	battle_node = get_parent()
+	
+	# Nodes
 	player = battle_node.player
+	camera = battle_node.camera
 	if is_instance_valid(battle_node.mini_equipped):
 		mini_equipped = battle_node.mini_equipped
 	mini_cards = get_tree().get_nodes_in_group("mini_cards")
+	enemies = get_tree().get_nodes_in_group("enemies")
+	
+	# Other
 	hp = battle_node.hp
 	crit_stored = battle_node.crit_stored
 	attacks = battle_node.attacks
-	enemies = get_tree().get_nodes_in_group("enemies")
 	turn_order_flipped = battle_node.turn_order_flipped
 	
 	# Visuals
@@ -193,7 +199,6 @@ func _on_player_anim_finished(anim : String) -> void:
 			else:
 				player.play(player_attack_anim)
 		return
-	
 
 func _on_player_attack_impact() -> void:
 	if !active:
