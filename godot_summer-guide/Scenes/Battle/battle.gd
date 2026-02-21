@@ -19,13 +19,13 @@ var mini_equipped : Card							# Current card player has equipped
 var curr_weapon : Weapon							# String name of player weapon
 var player_weapons : Dictionary
 var enemies : Array
-var hp : int
+var hp : int = Globals.hp
 var attacks : int = Globals.attacks					# Attacks player has left
 var actions : int = Globals.actions					# Actions player has left (draw, cut, socket)
 var drawing : bool = false							# Turned on when drawing started, off when it ends
 var chaining : bool = false							# Turned on when chain attack is occuring
 var crit_stored : int = 0							# Number of crits stored
-var click_prevention : bool = false					# Stops minicard/attack inputs when drawing or attacking
+var click_prevention : bool = true					# Stops minicard/attack inputs when drawing or attacking
 var pausing_weapons : Array[Weapon]					# Weapon pausing chaining for effects to take place
 
 var combat_data : Dictionary
@@ -41,6 +41,11 @@ var crit_infinite : bool = true
 # General
 #-------------------------------------------------------------------------------
 #region
+func initialize() -> void:
+	# player preparing anim add here maybe
+	await spawn_enemy(3)
+	click_prevention = false
+
 ## Loads all player weapons into scene
 func load_armory() -> void:
 	for i : int in Globals.armory.keys():
@@ -171,6 +176,10 @@ func update_turn_clock() -> void:
 	
 	# Adjust clock hand
 	enemies = get_tree().get_nodes_in_group("enemies")
+	if enemies.is_empty():
+		turn_clock.show_turn(turn_clock.turn.HALF)
+		return
+		
 	var target : Enemy = enemies[0]
 	if enemies.is_empty() or target.rank <= 0 or !mini_equipped:
 		turn_clock.show_turn(turn_clock.turn.HALF)
@@ -324,15 +333,13 @@ func _ready() -> void:
 	
 	load_armory()
 	load_weapons_display()
-	spawn_enemy(3)
 	equip_mini_card(null)
 	
-	# Runs after first frame
-	#await get_tree().process_frame
+	
 
 	
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("quit_game"):
+	if event.is_action_pressed("escape_menu"):
 		get_tree().quit()
 		
 	if click_prevention:

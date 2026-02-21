@@ -60,49 +60,64 @@ script = ExtResource("1_v763k")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=181176730]
 
-[node name="PlayButton" type="TextureButton" parent="CanvasLayer" unique_id=1686378513]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=40215121]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 23.0
-offset_top = -111.0
-offset_right = 160.0
-offset_bottom = -71.0
+offset_top = -128.0
+offset_right = 137.0
 grow_vertical = 0
-pivot_offset = Vector2(87, 3)
+theme_override_constants/margin_left = 13
+theme_override_constants/margin_bottom = 14
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer" unique_id=704492916]
+layout_mode = 2
+
+[node name="ContinueButton" type="TextureButton" parent="CanvasLayer/MarginContainer/VBoxContainer" unique_id=1686378513]
+visible = false
+layout_mode = 2
 texture_normal = ExtResource("2_0qgbs")
 texture_pressed = ExtResource("3_adu2g")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PlayButton" unique_id=739297581]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/VBoxContainer/ContinueButton" unique_id=739297581]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/margin_left = 14
 
-[node name="Label" type="Label" parent="CanvasLayer/PlayButton/MarginContainer" unique_id=1115788027]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/ContinueButton/MarginContainer" unique_id=1115788027]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Play"
+text = "Continue"
 
-[node name="QuitButton" type="TextureButton" parent="CanvasLayer" unique_id=674087997]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 23.0
-offset_top = -65.0
-offset_right = 160.0
-offset_bottom = -25.0
-grow_vertical = 0
+[node name="NewGame" type="TextureButton" parent="CanvasLayer/MarginContainer/VBoxContainer" unique_id=1002785707]
+layout_mode = 2
 texture_normal = ExtResource("2_0qgbs")
 texture_pressed = ExtResource("3_adu2g")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/QuitButton" unique_id=1499800421]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/VBoxContainer/NewGame" unique_id=1993693211]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/margin_left = 14
 
-[node name="Label" type="Label" parent="CanvasLayer/QuitButton/MarginContainer" unique_id=1549608373]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/NewGame/MarginContainer" unique_id=1505427326]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "New Game"
+
+[node name="QuitButton" type="TextureButton" parent="CanvasLayer/MarginContainer/VBoxContainer" unique_id=674087997]
+layout_mode = 2
+texture_normal = ExtResource("2_0qgbs")
+texture_pressed = ExtResource("3_adu2g")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/VBoxContainer/QuitButton" unique_id=1499800421]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 14
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/QuitButton/MarginContainer" unique_id=1549608373]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Quit"
@@ -113,5 +128,6 @@ autoplay = "default"
 frame_progress = 0.3244585
 offset = Vector2(320, 180)
 
-[connection signal="pressed" from="CanvasLayer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/NewGame" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
