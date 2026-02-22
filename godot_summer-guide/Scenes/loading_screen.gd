@@ -1,6 +1,7 @@
 extends Node2D
 class_name LoadingScreen
 
+@onready var progress_label : HBoxContainer = $CanvasLayer/Control/MarginContainer/HBoxContainer
 @onready var number_label : Label = $CanvasLayer/Control/MarginContainer/HBoxContainer/Number
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 
@@ -10,14 +11,16 @@ signal scene_ready(scn : Resource)
 signal loading_screen_free
 
 
-func load(path_to_load : String) -> void:
-	path = path_to_load
+func load(path_to_load : String, progress_visible : bool = false) -> void:
 	
+	if progress_visible:
+		progress_label.visible = true
+	
+	path = path_to_load
 	animation_player.play("fade_to_black")
 	await animation_player.animation_finished
 	
 	ResourceLoader.load_threaded_request(path)
-	
 	get_tree().paused = true
 	
 func _ready() -> void:
@@ -33,8 +36,11 @@ func _process(_delta: float) -> void:
 	var current_value : float = float(number_label.text)
 	
 	progress_value = progress[0] * 100
-	#number_label.text = "%.0f" % progress_value
-	number_label.text = "%.0f" % move_toward(current_value, progress_value, _delta * 150)
+	if progress_label.visible == true:
+		# Slows down progress bar
+		number_label.text = "%.0f" % move_toward(current_value, progress_value, _delta * 150)
+	else:
+		number_label.text = "%.0f" % progress_value
 	
 	if status == ResourceLoader.ThreadLoadStatus.THREAD_LOAD_LOADED:
 		if current_value >= 99:

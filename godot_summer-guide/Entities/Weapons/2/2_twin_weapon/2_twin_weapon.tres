@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://dxelm1mj635o6"]
+
+[ext_resource type="Texture2D" uid="uid://3ml5heth8100" path="res://Entities/Weapons/2/2_twin_weapon/2_twin_weapon.png" id="1_6lv7s"]
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_lys3g"]
+
+[resource]
+script = ExtResource("1_lys3g")
+rank = 2
+file_name = "2_twin_weapon"
+display_name = "Twin Shards"
+second_name = "FILLER FILLER FILLER"
+description = "-Special: Mark
+-Cost: 1
+-Attack and mark enemy. Attacking mark with %s deals %d. Otherwise, deal %d."
+display_texture = ExtResource("1_6lv7s")
+has_special = true
+player_idle_anim = "2_twin_idle"
+player_attack_anim = "2_twin_attack"
+player_defend_anim = "2_twin_defend"
+player_special_anim = "2_twin_special"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

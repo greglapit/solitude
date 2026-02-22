@@ -37,6 +37,8 @@ var turn_order_flipped : bool = false:
 # DEV TOOLS
 var crit_infinite : bool = true
 
+signal exit_main_menu
+
 # === Custom Methods ===========================================================
 # General
 #-------------------------------------------------------------------------------
@@ -45,6 +47,9 @@ func initialize() -> void:
 	# player preparing anim add here maybe
 	await spawn_enemy(3)
 	click_prevention = false
+	
+	if get_parent().has_method("_on_battle_exit_main_menu"):
+		exit_main_menu.connect(get_parent()._on_battle_exit_main_menu)
 
 ## Loads all player weapons into scene
 func load_armory() -> void:
@@ -93,7 +98,7 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
 		enemies = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,[10]) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,[2]) # 2 * (2 + randi() % 2)
 		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
@@ -295,6 +300,14 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 	weapons_display.card = mini_equipped
 	
 	
+	# PLAYER
+	# Only update when equipping different weapon
+	if player_update:
+		if curr_weapon:
+			curr_weapon.equip()
+		else:
+			player.play("base_idle")
+	
 	# Doesn't update weapon display until after drawing
 	if !drawing:
 		if mini_equipped and !chaining:
@@ -315,13 +328,6 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 		update_crit_button()
 		update_turn_clock()
 	
-	# PLAYER
-	# Only update when equipping different weapon
-	if player_update:
-		if curr_weapon:
-			curr_weapon.equip()
-		else:
-			player.play("base_idle")
 	
 	align_mini_cards()
 #endregion
@@ -335,12 +341,17 @@ func _ready() -> void:
 	load_weapons_display()
 	equip_mini_card(null)
 	
+	initialize()
 	
-
 	
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("escape_menu"):
-		get_tree().quit()
+	if event.is_action_pressed("escape_menu") and !get_parent().find_child("ConfirmationWindow"):
+		var result : String = await ConfirmationWindow.prompt_user(self, "Exit to main menu?\n(Saving not implemented yet)")
+		if result == "yes":
+			exit_main_menu.emit()
+			return
+		else:
+			return
 		
 	if click_prevention:
 		return

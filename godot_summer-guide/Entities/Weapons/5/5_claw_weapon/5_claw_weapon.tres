@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cdpgf71ep7jsb"]
+
+[ext_resource type="Texture2D" uid="uid://ck1h5eg6ra8fo" path="res://Entities/Weapons/5/5_claw_weapon/5_claw_weapon.png" id="1_rcufq"]
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_uuwr7"]
+
+[resource]
+script = ExtResource("1_uuwr7")
+rank = 5
+file_name = "5_claw_weapon"
+display_name = "Fanghand"
+second_name = "Filler Filler Filler"
+description = "-Special: Ravage\\n-Cost: 3
+-Go on rampage, 4 striking enemies for %d and ending with %d"
+display_texture = ExtResource("1_rcufq")
+has_special = true
+special_cost = 2
+player_idle_anim = "5_claw_idle"
+player_attack_anim = "5_claw_attack"
+player_defend_anim = "5_claw_defend"
+player_special_anim = "5_claw_special"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

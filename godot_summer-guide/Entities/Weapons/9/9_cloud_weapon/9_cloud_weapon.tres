@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://dnc5i3lvvn5s0"]
+
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_aou1g"]
+[ext_resource type="Texture2D" uid="uid://u3kno4um4fql" path="res://Entities/Weapons/9/9_cloud_weapon/9_cloud_weapon.png" id="1_hle8b"]
+
+[resource]
+script = ExtResource("1_aou1g")
+rank = 9
+file_name = "9_cloud_weapon"
+display_name = "Cloudreign"
+second_name = "FILLER FILLER FILLER"
+description = "-Special: Counter
+-Cost: %d
+-Dodge enemy attack, then strike back. (Enemy attacking restarts combat, giving you a free turn.)"
+display_texture = ExtResource("1_hle8b")
+has_special = true
+special_cost = 2
+player_idle_anim = "9_cloud_idle"
+player_attack_anim = "9_cloud_attack"
+player_defend_anim = "9_cloud_defend"
+player_special_anim = "9_cloud_special"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

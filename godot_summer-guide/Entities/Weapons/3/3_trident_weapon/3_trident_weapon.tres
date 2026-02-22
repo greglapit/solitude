@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cmqtonnh7f7tu"]
+
+[ext_resource type="Texture2D" uid="uid://d03wi4tbkxqqs" path="res://Entities/Weapons/3/3_trident_weapon/3_trident_weapon.png" id="1_0l2mf"]
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_qerer"]
+
+[resource]
+script = ExtResource("1_qerer")
+rank = 3
+file_name = "3_trident_weapon"
+display_name = "Stormprong"
+second_name = "Filler Filler Filler"
+description = "-Special: Hurricane
+-Cost: 2
+-Aoe 2 Damage"
+display_texture = ExtResource("1_0l2mf")
+has_special = true
+special_cost = 2
+player_idle_anim = "3_trident_idle"
+player_attack_anim = "3_trident_attack"
+player_defend_anim = "3_trident_defend"
+player_special_anim = "3_trident_special"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

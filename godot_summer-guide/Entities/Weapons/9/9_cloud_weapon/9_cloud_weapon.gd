@@ -2,19 +2,11 @@ extends Weapon
 
 @onready var weapon_effects2 : Sprite2D = $WeaponEffects2
 
-func assign_prop() -> void:
-	rank = 9
-	file_name = "9_cloud_weapon"
-	display_name = "Cloudreign"
-	second_name = "FILLER FILLER FILLER"
-	description = "-Special: Counter\n-Cost: 1\n-Dodge enemy attack, then strike back. (Enemy attacking restarts combat, giving you a free turn.)"
-	display_texture = load("res://Entities/Weapons/%d/%s/%s.png" % [rank,file_name,file_name])
-	player_idle_anim = "9_cloud_idle"
-	player_attack_anim = "9_cloud_attack"
-	player_defend_anim = "9_cloud_defend"
-	player_special_anim = "9_cloud_special"
-	has_special = true
-	special_cost = 1
+func equip() -> void:
+	super()
+	description = "-Special: Counter\n-Cost: %d\n-Dodge enemy attack, then strike back. \
+					(Enemy attacking restarts combat, giving you a free turn.)" \
+					% [special_cost]
 
 func special_attack() -> Dictionary:
 	update_node_refs()

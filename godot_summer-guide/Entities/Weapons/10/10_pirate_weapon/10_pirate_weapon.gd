@@ -1,18 +1,10 @@
 extends Weapon
 
-func assign_prop() -> void:
-	rank = 10
-	file_name = "10_pirate_weapon"
-	display_name = "Pirate Wheel"
-	second_name = "Filler Filler Filler"
-	description = "-Special: Seaquake\n-Cost: 2\n-Slam enemies side to side, dealing 8 total damage."
-	display_texture = load("res://Entities/Weapons/%d/%s/%s.png" % [rank,file_name,file_name])
-	player_idle_anim = "10_pirate_idle"
-	player_attack_anim = "10_pirate_attack"
-	player_defend_anim = "10_pirate_defend"
-	player_special_anim = "10_pirate_special"
-	has_special = true
-	special_cost = 2
+func equip() -> void:
+	super()
+	description = "-Special: Seaquake\n-Cost: %d\n-Slam enemies side to side, \
+					dealing 8 total damage." \
+					% [special_cost]
 
 func _on_player_weap_effect_start() -> void:
 	if !active:

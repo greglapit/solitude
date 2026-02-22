@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://dg100q3jqswuw"]
+
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_nt2no"]
+[ext_resource type="Texture2D" uid="uid://cyqqnnbqqxoox" path="res://Entities/Weapons/10/10_base_weapon/10_base_weapon.png" id="1_wiihm"]
+
+[resource]
+script = ExtResource("1_nt2no")
+rank = 10
+file_name = "10_base_weapon"
+display_name = "SI CHARM"
+second_name = "Diamond Standard Issue"
+description = "-Standard Issue Charm"
+display_texture = ExtResource("1_wiihm")
+player_idle_anim = "10_base_idle"
+player_attack_anim = "10_base_attack"
+player_defend_anim = "10_base_defend"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

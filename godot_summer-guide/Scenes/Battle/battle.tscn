@@ -4,15 +4,15 @@
 [ext_resource type="Script" uid="uid://bvnir8m4dq0uv" path="res://Scenes/Battle/battle.gd" id="1_o8bsx"]
 [ext_resource type="Texture2D" uid="uid://cmbcyj88a71q5" path="res://Scenes/Battle/Art/game_background.png" id="1_wqxgi"]
 [ext_resource type="PackedScene" uid="uid://bewmpgn4nhlxk" path="res://Entities/Player/player.tscn" id="2_3qw02"]
-[ext_resource type="PackedScene" uid="uid://dhcp5xhhbvfsa" path="res://Common/UI/Battle/WeaponDisplay/weapon_display.tscn" id="2_en5gs"]
-[ext_resource type="PackedScene" uid="uid://dpn0wn5vhd8du" path="res://Common/UI/Battle/HealthBar/health_bar.tscn" id="3_en5gs"]
-[ext_resource type="PackedScene" uid="uid://dqstcqwmyk61d" path="res://Common/UI/Battle/AttackButtons/crit_button.tscn" id="4_11mmy"]
-[ext_resource type="Texture2D" uid="uid://fni0n8450q3x" path="res://Common/UI/Battle/AttackButtons/Art/button_background.png" id="4_17ekq"]
-[ext_resource type="Texture2D" uid="uid://dab06hwckatf2" path="res://Common/UI/Battle/AttackButtons/Art/attack_button_up.png" id="5_rgg0r"]
-[ext_resource type="Texture2D" uid="uid://b2o2xbjprmy24" path="res://Common/UI/Battle/AttackButtons/Art/attack_button_down.png" id="6_bch6i"]
-[ext_resource type="Texture2D" uid="uid://nsnsa5s7wqcy" path="res://Common/UI/Battle/AttackButtons/Art/chain_button_up.png" id="7_bch6i"]
-[ext_resource type="Texture2D" uid="uid://eb7xsouy7gep" path="res://Common/UI/Battle/AttackButtons/Art/chain_button_down.png" id="8_q43bu"]
-[ext_resource type="PackedScene" uid="uid://c2e24843ekof6" path="res://Common/UI/Battle/TurnClock/turn_clock.tscn" id="11_q43bu"]
+[ext_resource type="PackedScene" uid="uid://dhcp5xhhbvfsa" path="res://Scenes/Battle/Art/WeaponDisplay/weapon_display.tscn" id="2_en5gs"]
+[ext_resource type="PackedScene" uid="uid://dpn0wn5vhd8du" path="res://Scenes/Battle/Art/HealthBar/health_bar.tscn" id="3_en5gs"]
+[ext_resource type="PackedScene" uid="uid://dqstcqwmyk61d" path="res://Scenes/Battle/Art/AttackButtons/crit_button.tscn" id="4_11mmy"]
+[ext_resource type="Texture2D" uid="uid://fni0n8450q3x" path="res://Scenes/Battle/Art/AttackButtons/Art/button_background.png" id="4_17ekq"]
+[ext_resource type="Texture2D" uid="uid://dab06hwckatf2" path="res://Scenes/Battle/Art/AttackButtons/Art/attack_button_up.png" id="5_rgg0r"]
+[ext_resource type="Texture2D" uid="uid://b2o2xbjprmy24" path="res://Scenes/Battle/Art/AttackButtons/Art/attack_button_down.png" id="6_bch6i"]
+[ext_resource type="Texture2D" uid="uid://nsnsa5s7wqcy" path="res://Scenes/Battle/Art/AttackButtons/Art/chain_button_up.png" id="7_bch6i"]
+[ext_resource type="Texture2D" uid="uid://eb7xsouy7gep" path="res://Scenes/Battle/Art/AttackButtons/Art/chain_button_down.png" id="8_q43bu"]
+[ext_resource type="PackedScene" uid="uid://c2e24843ekof6" path="res://Scenes/Battle/Art/TurnClock/turn_clock.tscn" id="11_q43bu"]
 [ext_resource type="PackedScene" uid="uid://qv3uiu0pk3pt" path="res://Scenes/Battle/battle_camera_2d.tscn" id="13_ev1ic"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7e3i2"]
@@ -137,7 +137,6 @@ mouse_filter = 2
 [node name="Player" parent="." unique_id=832279553 instance=ExtResource("2_3qw02")]
 z_index = 10
 position = Vector2(240, 227)
-scale = Vector2(1, 1)
 
 [connection signal="timeout" from="SpamTimer" to="." method="_on_spam_timer_timeout"]
 [connection signal="pressed" from="UI/CritButton" to="." method="_on_crit_button_pressed"]

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://mhb66d6no10w"]
+
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_i30hp"]
+[ext_resource type="Texture2D" uid="uid://b0ppv367i4brb" path="res://Entities/Weapons/1/1_base_weapon/1_base_weapon.png" id="1_jd4ct"]
+
+[resource]
+script = ExtResource("1_i30hp")
+rank = 1
+file_name = "1_base_weapon"
+display_name = "SI FACET"
+second_name = "Diamond Standard Issue"
+description = "-Standard Issue Gem"
+display_texture = ExtResource("1_jd4ct")
+player_idle_anim = "1_base_idle"
+player_attack_anim = "1_base_attack"
+player_defend_anim = "1_base_defend"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

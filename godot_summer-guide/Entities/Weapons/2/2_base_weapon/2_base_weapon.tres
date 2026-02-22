@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://d0kxjk7t2f625"]
+
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_ixhya"]
+[ext_resource type="Texture2D" uid="uid://c7aprpf045yvi" path="res://Entities/Weapons/2/2_base_weapon/2_base_weapon.png" id="1_vb0hm"]
+
+[resource]
+script = ExtResource("1_ixhya")
+rank = 2
+file_name = "2_base_weapon"
+display_name = "SI DAGGERS"
+second_name = "Diamond Standard Issue"
+description = "-Standard Issue Daggers"
+display_texture = ExtResource("1_vb0hm")
+player_idle_anim = "2_base_idle"
+player_attack_anim = "2_base_attack"
+player_defend_anim = "2_base_defend"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

@@ -3,19 +3,10 @@ extends Weapon
 @onready var weapon_effects2 : Sprite2D = $WeaponEffects2
 @onready var animation_player2 : AnimationPlayer = $WeaponEffects2/AnimationPlayer
 
-func assign_prop() -> void:
-	rank = 7
-	file_name = "7_vamp_weapon"
-	display_name = "Vamp"
-	second_name = "FILLER FILLER FILLER"
-	description = "-Special: Lifesteal\n-Cost: 3\n-Attack and heal for damage dealt"
-	display_texture = load("res://Entities/Weapons/%d/%s/%s.png" % [rank,file_name,file_name])
-	player_idle_anim = "7_vamp_idle"
-	player_attack_anim = "7_vamp_attack"
-	player_defend_anim = "7_vamp_defend"
-	player_special_anim = "7_vamp_special"
-	has_special = true
-	special_cost = 3
+func equip() -> void:
+	super()
+	description = "-Special: Lifesteal\n-Cost: %d\n-Attack and heal for damage dealt" \
+				% [special_cost]
 
 func _on_player_weap_effect_start() -> void:
 	if !active:

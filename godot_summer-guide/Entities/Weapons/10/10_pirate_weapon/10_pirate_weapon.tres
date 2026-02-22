@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://chmnmq6kt581o"]
+
+[ext_resource type="Texture2D" uid="uid://lppclcuiufwd" path="res://Entities/Weapons/10/10_pirate_weapon/10_pirate_weapon.png" id="1_lbnpn"]
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_qbatd"]
+
+[resource]
+script = ExtResource("1_qbatd")
+rank = 10
+file_name = "10_pirate_weapon"
+display_name = "Pirate Wheel"
+second_name = "Filler Filler Filler"
+description = "-Special: Seaquake
+-Cost: %d
+-Slam enemies side to side, dealing 8 total damage"
+display_texture = ExtResource("1_lbnpn")
+has_special = true
+special_cost = 2
+player_idle_anim = "10_pirate_idle"
+player_attack_anim = "10_pirate_attack"
+player_defend_anim = "10_pirate_defend"
+player_special_anim = "10_pirate_special"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

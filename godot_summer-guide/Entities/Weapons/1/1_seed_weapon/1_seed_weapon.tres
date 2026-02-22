@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://dgtlv3mms4y3p"]
+
+[ext_resource type="Texture2D" uid="uid://62f3l1u6kegy" path="res://Entities/Weapons/1/1_seed_weapon/1_seed_weapon.png" id="1_k4xs8"]
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="2_65m13"]
+
+[resource]
+script = ExtResource("2_65m13")
+rank = 1
+file_name = "1_seed_weapon"
+display_name = "SeedStone"
+second_name = "Filler filler filler"
+description = "-Special: Seed (5)
+-Cost:1
+-Convert remaining durability into a seed. Plant in enemy. Drain at end of turn"
+display_texture = ExtResource("1_k4xs8")
+has_special = true
+player_idle_anim = "1_seed_idle"
+player_attack_anim = "1_seed_attack"
+player_defend_anim = "1_seed_defend"
+player_special_anim = "1_seed_special"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

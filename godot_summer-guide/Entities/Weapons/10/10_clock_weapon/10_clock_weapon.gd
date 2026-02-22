@@ -3,19 +3,11 @@ extends Weapon
 @onready var warp_effect : Sprite2D = $WarpEffect
 @onready var animation_player_2 : AnimationPlayer = $WarpEffect/AnimationPlayer
 
-func assign_prop() -> void:
-	rank = 10
-	file_name = "10_clock_weapon"
-	display_name = "Clock"
-	second_name = "Filler Filler Filler"
-	description = "-Special: Trick Room\n-Cost: 1\n-Reverse turn order while holding the %s. Larger numbers attack first. Can use to reverse back." % [display_name]
-	display_texture = load("res://Entities/Weapons/%d/%s/%s.png" % [rank,file_name,file_name])
-	player_idle_anim = "10_clock_idle"
-	player_attack_anim = "10_clock_attack"
-	player_defend_anim = "10_clock_defend"
-	player_special_anim = "10_clock_special"
-	has_special = true
-	special_cost = 1
+func equip() -> void:
+	super()
+	description = "-Special: Trick Room\n-Cost: %d\n-Reverse turn order while holding \
+					the %s. Larger numbers attack first. Use to reverse back." \
+					% [special_cost, display_name]
 
 func special_attack() -> Dictionary:
 	var dict : Dictionary = super()

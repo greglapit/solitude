@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://vvixib8vxdo2"]
+
+[ext_resource type="Texture2D" uid="uid://bacbxycs3mqi0" path="res://Entities/Weapons/5/5_maw_weapon/5_maw_weapon.png" id="1_7uycp"]
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_xjmm3"]
+
+[resource]
+script = ExtResource("1_xjmm3")
+rank = 5
+file_name = "5_maw_weapon"
+display_name = "Grasping Maw"
+second_name = "Filler Filler Filler"
+description = "-Special: Consume
+-Cost: %d
+-Feed a weaker enemy to the gloves. Heal for %d"
+display_texture = ExtResource("1_7uycp")
+has_special = true
+player_idle_anim = "5_maw_idle"
+player_attack_anim = "5_maw_attack"
+player_defend_anim = "5_maw_defend"
+player_special_anim = "5_maw_special"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

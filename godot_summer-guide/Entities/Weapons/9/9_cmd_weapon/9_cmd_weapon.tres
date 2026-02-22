@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://b7ort262tiuen"]
+
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_m3a72"]
+[ext_resource type="Texture2D" uid="uid://dop8ye6ta7xfo" path="res://Entities/Weapons/9/9_cmd_weapon/9_cmd_weapon.png" id="1_x20n8"]
+
+[resource]
+script = ExtResource("1_m3a72")
+rank = 9
+file_name = "9_cmd_weapon"
+display_name = "Worldpost"
+second_name = "FILLER FILLER FILLER"
+description = "-Special: Command Kneel
+-Cost: %d
+-Command enemies to kneel and submit, disabling their next attack."
+display_texture = ExtResource("1_x20n8")
+has_special = true
+special_cost = 3
+player_idle_anim = "9_cmd_idle"
+player_attack_anim = "9_cmd_attack"
+player_defend_anim = "9_cmd_defend"
+player_special_anim = "9_cmd_special"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

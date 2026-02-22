@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://b5aa8wjjt2uwx"]
+
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_68h3a"]
+[ext_resource type="Texture2D" uid="uid://xrjo2rofda5y" path="res://Entities/Weapons/6/6_base_weapon/6_base_weapon.png" id="1_u6lta"]
+
+[resource]
+script = ExtResource("1_68h3a")
+rank = 6
+file_name = "6_base_weapon"
+display_name = "SI CHAIN"
+second_name = "Diamond Standard Issue"
+description = "-Standard Issue Chain"
+display_texture = ExtResource("1_u6lta")
+player_idle_anim = "6_base_idle"
+player_attack_anim = "6_base_attack"
+player_defend_anim = "6_base_defend"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

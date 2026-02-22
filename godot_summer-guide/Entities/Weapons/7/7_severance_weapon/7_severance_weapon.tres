@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cr0q2wry67tpl"]
+
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_datvg"]
+[ext_resource type="Texture2D" uid="uid://kukcii7twj3c" path="res://Entities/Weapons/7/7_severance_weapon/7_severance_weapon.png" id="1_x3vab"]
+
+[resource]
+script = ExtResource("1_datvg")
+file_name = "7_severance_weapon"
+display_name = "Severance"
+second_name = "FILLER FILLER FILLER"
+description = "-Special: Execute
+-Cost: %d
+-Execute all enemies below %d"
+display_texture = ExtResource("1_x3vab")
+has_special = true
+special_cost = 2
+player_idle_anim = "7_severance_idle"
+player_attack_anim = "7_severance_attack"
+player_defend_anim = "7_severance_defend"
+player_special_anim = "7_severance_special"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cwoxwt20a2wni" path="res://Entities/Weapons/7/7_base_weapon/7_base_player.png" id="8_pjcup"]
 [ext_resource type="Texture2D" uid="uid://cimbbfmphaki3" path="res://Entities/Weapons/8/8_base_weapon/8_base_player.png" id="9_0poeq"]
 [ext_resource type="Texture2D" uid="uid://c1dyj1yy3lddp" path="res://Entities/Weapons/3/3_prowler_weapon/3_prowler_player.png" id="9_nhbkt"]
+[ext_resource type="Texture2D" uid="uid://bh8h5iffl870x" path="res://Entities/Weapons/2/2_glass_weapon/2_glass_player.png" id="10_kx1i7"]
 [ext_resource type="Texture2D" uid="uid://d0tsqqtcfcsjb" path="res://Entities/Weapons/9/9_base_weapon/9_base_player.png" id="10_ppdlg"]
 [ext_resource type="Script" uid="uid://bgxhtpyiwf1wx" path="res://Entities/Player/player.gd" id="12_iplt1"]
 [ext_resource type="Texture2D" uid="uid://dtqbptps14evm" path="res://Entities/Weapons/4/4_mirra_weapon/4_mirra_player.png" id="12_vskfa"]
@@ -21,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://hxhh7fgb5a6t" path="res://Entities/Weapons/3/3_trident_weapon/3_trident_player.png" id="14_xr8lj"]
 [ext_resource type="Texture2D" uid="uid://dawqpidhpyswm" path="res://Entities/Weapons/5/5_maw_weapon/5_maw_player.png" id="15_ppdlg"]
 [ext_resource type="Texture2D" uid="uid://38uvmviqb42l" path="res://Entities/Weapons/1/1_seed_weapon/1_seed_player.png" id="15_r8fok"]
+[ext_resource type="Texture2D" uid="uid://dd7ofk6wsqfvl" path="res://Entities/Weapons/4/4_bastion_weapon/4_bastion_player.png" id="15_w51ui"]
 [ext_resource type="Texture2D" uid="uid://bhbhk68t3mtq3" path="res://Entities/Weapons/6/6_locklash_weapon/6_locklash_player.png" id="17_v7p16"]
 [ext_resource type="Texture2D" uid="uid://dxamgc8imfgrb" path="res://Entities/Weapons/6/6_weaver_weapon/6_weaver_player.png" id="18_a8wow"]
 [ext_resource type="Texture2D" uid="uid://irnw3egasrgt" path="res://Entities/Player/Art/Effects/barrier.png" id="18_pjcup"]
@@ -1386,7 +1388,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_owvpp")]
+"values": [ExtResource("10_kx1i7")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -1454,7 +1456,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_owvpp")]
+"values": [ExtResource("10_kx1i7")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -1506,7 +1508,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_owvpp")]
+"values": [ExtResource("10_kx1i7")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -1546,7 +1548,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_owvpp")]
+"values": [ExtResource("10_kx1i7")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -2551,7 +2553,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_r8fok")]
+"values": [ExtResource("15_w51ui")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -2619,7 +2621,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_r8fok")]
+"values": [ExtResource("15_w51ui")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -2671,7 +2673,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_r8fok")]
+"values": [ExtResource("15_w51ui")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -2711,7 +2713,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_r8fok")]
+"values": [ExtResource("15_w51ui")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -6403,7 +6405,6 @@ _data = {
 }
 
 [node name="Player" type="Node2D" unique_id=716627622]
-scale = Vector2(1.25, 1.25)
 script = ExtResource("12_iplt1")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=793608536]

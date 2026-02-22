@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://dl17kd7u5wqlt"]
+
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_3ksn8"]
+[ext_resource type="Texture2D" uid="uid://blyulsnn1mb8l" path="res://Entities/Weapons/4/4_mirra_weapon/4_mirra_weapon.png" id="1_21gno"]
+
+[resource]
+script = ExtResource("1_3ksn8")
+rank = 4
+file_name = "4_mirra_weapon"
+display_name = "Mirra"
+second_name = "Filler Filler Filler"
+description = "-Special: Reflect
+-Cost: 1
+-Attack. Then defend and mirror enemy damage, up to 4."
+display_texture = ExtResource("1_21gno")
+has_special = true
+player_idle_anim = "4_mirra_idle"
+player_attack_anim = "4_mirra_attack"
+player_defend_anim = "4_mirra_defend"
+player_special_anim = "4_mirra_special"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

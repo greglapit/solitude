@@ -6,22 +6,12 @@ var seeded_scn : PackedScene
 
 # === Custom Methods ===========================================================
 
-func assign_prop() -> void:
-	rank = 1
-	file_name = "1_seed_weapon"
-	display_name = "SeedStone"
-	second_name = "Filler filler filler"
+func unequip() -> void:
+	super()
 	if mini_equipped:
 		description = "-Special: Seed\n-Cost: 1\n-Convert remaining durability (%d) into a seed and plant in enemy. Drains at end of combat." % [mini_equipped.durability]
 	else:
 		description = "-Special: Seed (5)\n-Convert remaining durability into a seed. Plant in enemy. Drain at end of turn\n-Cost:1"
-	display_texture = load("res://Entities/Weapons/%d/%s/%s.png" % [rank,file_name,file_name])
-	player_idle_anim = "1_seed_idle"
-	player_attack_anim = "1_seed_attack"
-	player_defend_anim = "1_seed_defend"
-	player_special_anim = "1_seed_special"
-	has_special = true
-	special_cost = 1
 
 func drain() -> void:
 	if enemies_seeded_dict.is_empty():

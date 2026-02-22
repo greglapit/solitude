@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://l2tl0cc4ax8y"]
+
+[ext_resource type="Texture2D" uid="uid://d0yyk77th21yb" path="res://Entities/Weapons/8/8_splitter_weapon/8_splitter_weapon.png" id="1_2y8lq"]
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_5xhfl"]
+
+[resource]
+script = ExtResource("1_5xhfl")
+rank = 8
+file_name = "8_splitter_weapon"
+display_name = "Skysplitter"
+second_name = "FILLER FILLER FILLER"
+description = "-Passive: Reckless Strikes
+-Cost: %d
+-Attacks do %d aoe, but damage player %d in process. Cannot die from attacking."
+display_texture = ExtResource("1_2y8lq")
+player_idle_anim = "8_splitter_idle"
+player_attack_anim = "8_splitter_attack"
+player_defend_anim = "8_splitter_defend"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

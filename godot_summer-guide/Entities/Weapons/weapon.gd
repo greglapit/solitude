@@ -65,8 +65,24 @@ signal pause(weapon : Weapon)				## Pause combat for combat effects to take plac
 signal resume(weapon : Weapon)
 
 # === Custom Methods ===========================================================
-@abstract func assign_prop() -> void
-
+func assign_prop() -> void:
+	var base_name : String = get_script().get_path().get_file().get_basename()
+	var resource_path : String = get_script().get_path().get_base_dir()
+	var weap_data : WeaponData = load(resource_path + "/" + base_name + ".tres")
+	
+	rank = weap_data.rank
+	file_name = weap_data.file_name
+	display_name = weap_data.display_name
+	second_name = weap_data.second_name
+	description = weap_data.description
+	display_texture = weap_data.display_texture
+	player_idle_anim = weap_data.player_idle_anim
+	player_attack_anim = weap_data.player_attack_anim
+	player_defend_anim = weap_data.player_defend_anim
+	player_special_anim = weap_data.player_special_anim
+	has_special = weap_data.has_special
+	special_cost = weap_data.special_cost
+	
 func equip() -> void:
 	update_node_refs()
 	player.play(player_idle_anim)

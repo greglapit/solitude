@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cf0xoxuiifgkm"]
+
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_kdo4u"]
+[ext_resource type="Texture2D" uid="uid://cw38bxwwfngao" path="res://Entities/Weapons/6/6_locklash_weapon/6_locklash_weapon.png" id="1_ndahx"]
+
+[resource]
+script = ExtResource("1_kdo4u")
+rank = 6
+file_name = "6_locklash_weapon"
+display_name = "Locklash"
+second_name = "Filler Filler Filler"
+description = "-Special: Restrain
+-Cost: 2
+-Bind enemies with %s for two turns, dealing %d. If enemies attack, take %d to get rid of chains."
+display_texture = ExtResource("1_ndahx")
+has_special = true
+special_cost = 2
+player_idle_anim = "6_locklash_idle"
+player_attack_anim = "6_locklash_attack"
+player_defend_anim = "6_locklash_defend"
+player_special_anim = "6_locklash_special"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

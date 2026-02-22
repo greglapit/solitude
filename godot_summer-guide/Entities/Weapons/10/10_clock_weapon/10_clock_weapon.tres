@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://baetcdlu7fcxh"]
+
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_1wwc1"]
+[ext_resource type="Texture2D" uid="uid://cn8eigjcjynpm" path="res://Entities/Weapons/10/10_clock_weapon/10_clock_weapon.png" id="1_rnbla"]
+
+[resource]
+script = ExtResource("1_1wwc1")
+rank = 10
+file_name = "10_clock_weapon"
+display_name = "Clock"
+second_name = "Filler Filler Filler"
+description = "-Special: Trick Room
+-Cost: %d
+-Reverse turn order while holding the %s. Larger numbers attack first. Use to reverse back."
+display_texture = ExtResource("1_rnbla")
+has_special = true
+player_idle_anim = "10_clock_idle"
+player_attack_anim = "10_clock_attack"
+player_defend_anim = "10_clock_defend"
+player_special_anim = "10_clock_special"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

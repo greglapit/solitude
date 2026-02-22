@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cjmirxs4s3xfe"]
+
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_abtlu"]
+[ext_resource type="Texture2D" uid="uid://cm2op1j7fy2pg" path="res://Entities/Weapons/6/6_weaver_weapon/6_weaver_weapon.png" id="1_hh73h"]
+
+[resource]
+script = ExtResource("1_abtlu")
+rank = 6
+file_name = "6_weaver_weapon"
+display_name = "Weaver's Thread"
+second_name = "Filler Filler Filler"
+description = "-Special: Web\\n-Cost: 1
+-Web enemies, slowing them. Slowed enemies attack last."
+display_texture = ExtResource("1_hh73h")
+has_special = true
+player_idle_anim = "6_weaver_idle"
+player_attack_anim = "6_weaver_attack"
+player_defend_anim = "6_weaver_defend"
+player_special_anim = "6_weaver_special"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

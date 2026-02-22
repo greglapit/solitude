@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://brhe05xvrskam"]
+
+[ext_resource type="Texture2D" uid="uid://cfbr3t8c0gni5" path="res://Common/UI/Study Journal/Journal/Art/weapon_journal.png" id="1_ggnoj"]
+[ext_resource type="Script" uid="uid://d3fxx6txylpbc" path="res://Common/UI/Study Journal/Journal/journal.gd" id="1_jh7k7"]
+[ext_resource type="PackedScene" uid="uid://dxgevskjhalc4" path="res://Common/UI/Study Journal/Journal/page_content.tscn" id="3_ta4i8"]
+
+[node name="Journal" type="Node2D" unique_id=862665318]
+script = ExtResource("1_jh7k7")
+
+[node name="WeaponJournal" type="Sprite2D" parent="." unique_id=247872824]
+texture = ExtResource("1_ggnoj")
+
+[node name="Control" type="Control" parent="." unique_id=1514650828]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -114.0
+offset_top = -84.0
+offset_right = 114.0
+offset_bottom = 76.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=1069230601]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 14
+
+[node name="PageContent" parent="Control/HBoxContainer" unique_id=734920880 instance=ExtResource("3_ta4i8")]
+layout_mode = 2
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=790327465]

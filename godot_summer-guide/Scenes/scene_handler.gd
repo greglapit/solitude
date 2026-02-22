@@ -8,7 +8,14 @@ const main_menu_scn : PackedScene = preload("res://Scenes/MainMenu/main_menu.tsc
 
 # === Custom Methods ===========================================================
 
-
+func change_scene(path : String, progress_visible : bool = true) -> void:
+	loading_screen = loading_screen_scn.instantiate()
+	loading_screen.scene_ready.connect(_on_loading_screen_scene_ready)
+	loading_screen.loading_screen_free.connect(_on_loading_screen_free)
+	add_child(loading_screen)
+	loading_screen.load(path, progress_visible)
+	
+	
 # === Built In =================================================================
 
 func _ready() -> void:
@@ -30,12 +37,11 @@ func _on_loading_screen_scene_ready(scn : Resource) -> void:
 	curr_scene = node_scn
 
 func _on_loading_screen_free() -> void:
-	curr_scene.initialize()
+	if curr_scene.has_method("initialize"):
+		curr_scene.initialize()
 
 func _on_main_menu_new_game_button_pressed() -> void:
-	curr_scene.process_mode = Node.PROCESS_MODE_DISABLED
-	loading_screen = loading_screen_scn.instantiate()
-	loading_screen.scene_ready.connect(_on_loading_screen_scene_ready)
-	loading_screen.loading_screen_free.connect(_on_loading_screen_free)
-	add_child(loading_screen)
-	loading_screen.load("res://Scenes/Battle/battle.tscn")
+	change_scene("res://Scenes/Battle/battle.tscn")
+
+func _on_battle_exit_main_menu() -> void:
+	change_scene("res://Scenes/MainMenu/main_menu.tscn", false)

@@ -5,19 +5,11 @@ var damage : int = 8
 @onready var weapon_effects2 : Sprite2D = $WeaponEffects2
 @onready var animation_player2 : AnimationPlayer = $WeaponEffects2/AnimationPlayer
 
-func assign_prop() -> void:
-	rank = 8
-	file_name = "8_cata_weapon"
-	display_name = "Catacylsm"
-	second_name = "FILLER FILLER FILLER"
-	description = "- Special: Ruinfall\n-Slam %s into the ground, dealing %d to all, and dazing yourself in the process." % [display_name, damage]
-	display_texture = load("res://Entities/Weapons/%d/%s/%s.png" % [rank,file_name,file_name])
-	player_idle_anim = "8_cata_idle"
-	player_attack_anim = "8_cata_attack"
-	player_defend_anim = "8_cata_defend"
-	player_special_anim = "8_cata_special"
-	has_special = true
-	special_cost = 1
+func equip() -> void:
+	super()
+	description = "- Special: Ruinfall\n-Cost: %d \n-Slam %s into the ground, \
+					dealing %d to all, and dazing yourself in the process." \
+					% [special_cost, display_name, damage]
 
 func _on_player_weap_effect_start() -> void:
 	if !active:

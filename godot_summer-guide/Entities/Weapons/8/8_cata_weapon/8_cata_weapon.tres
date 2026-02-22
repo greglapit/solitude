@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://d053bs0khabyo"]
+
+[ext_resource type="Texture2D" uid="uid://cuffr42emv1t2" path="res://Entities/Weapons/8/8_cata_weapon/8_cata_weapon.png" id="1_kwbpt"]
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_s782p"]
+
+[resource]
+script = ExtResource("1_s782p")
+rank = 8
+file_name = "8_cata_weapon"
+display_name = "Catacylsm"
+second_name = "FILLER FILLER FILLER"
+display_texture = ExtResource("1_kwbpt")
+has_special = true
+player_idle_anim = "8_cata_idle"
+player_attack_anim = "8_cata_attack"
+player_defend_anim = "8_cata_defend"
+player_special_anim = "8_cata_special"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

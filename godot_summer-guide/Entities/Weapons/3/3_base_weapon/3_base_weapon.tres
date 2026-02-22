@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cf5243tjwm2f8"]
+
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_2qsij"]
+[ext_resource type="Texture2D" uid="uid://bdj4c851x3n4q" path="res://Entities/Weapons/3/3_base_weapon/3_base_weapon.png" id="1_wvf5d"]
+
+[resource]
+script = ExtResource("1_2qsij")
+rank = 3
+file_name = "3_base_weapon"
+display_name = "SI SPEAR"
+second_name = "Diamond Standard Issue"
+description = "-Standard Issue Spear"
+display_texture = ExtResource("1_wvf5d")
+player_idle_anim = "3_base_idle"
+player_attack_anim = "3_base_attack"
+player_defend_anim = "3_base_defend"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

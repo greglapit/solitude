@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cyy4wuwofeqkf"]
+
+[ext_resource type="Texture2D" uid="uid://bdstnjib2v5c7" path="res://Entities/Weapons/9/9_base_weapon/9_base_weapon.png" id="1_12naf"]
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_t76v7"]
+
+[resource]
+script = ExtResource("1_t76v7")
+rank = 9
+file_name = "9_base_weapon"
+display_name = "SI STAFF"
+second_name = "Diamond Standard Issue"
+description = "-Standard Issue Staff"
+display_texture = ExtResource("1_12naf")
+player_idle_anim = "9_base_idle"
+player_attack_anim = "9_base_attack"
+player_defend_anim = "9_base_defend"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

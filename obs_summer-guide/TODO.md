@@ -8,12 +8,12 @@
 - [x] fix _on_weapon_display_update, group into function ✅ 2026-02-05
 - [x] test 1,2 weapons. Fix twin mark disappearing ✅ 2026-02-05
 - [x] twin mark breaks chaining ✅ 2026-02-05
+- [x] new weapons ✅ 2026-02-21
 - [ ] save file
 - [ ] enemy spawn pool in globals
-- [ ] Show somewhere the enemies max health. Should be apparent so player remembers their power evennif their health lowers. 
+- [ ] Show somewhere the enemies max health. Should be apparent so player remembers their power even if their health lowers. 
 - [ ] boss encounter
 - [ ] Joker Reaction Corner.  Ultra kill. Mega Kill. Ludacrious kill. Holy SHIT (ALLBL4CK)
-- [ ] new weapons
 - [ ] 3 boss encounters
 - [ ] save file? -> 3 game states (early 1-4, mid 1-10, late 1-10 with legendaries)
 - [ ] Find difficult but satisfying execution of player weapon order. Make more satsifying by adding joker reaction + possible enemy damage/effect (joker blasts screen as reward)
@@ -23,14 +23,6 @@
 	- [ ] consult notebook with weapon recipes written in it. That is how the player swaps out their "learned" weapons with what is in their limited memory
 - [ ] Drawback of memorizing too many cards is lowered health? Curse of amnesia
 - [ ] Visually communicate you have space to draw so unequipping. Armory with physically empty slots?
-
-
-
-Enemy ideas
-- one that eats your weapon, returns after it dies
-- spades that hide its rank
-- 
-
 
 
 

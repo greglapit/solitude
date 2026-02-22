@@ -4,6 +4,8 @@ signal new_game_button_pressed
 
 # === Custom Methods ===========================================================
 
+func initialize() -> void:
+	new_game_button_pressed.connect(get_parent()._on_main_menu_new_game_button_pressed)
 
 # === Built In =================================================================
 
@@ -20,5 +22,10 @@ func _on_play_button_pressed() -> void:
 
 
 func _on_quit_button_pressed() -> void:
-	await Globals.save_game()
-	get_tree().quit()
+	var result : String = await ConfirmationWindow.prompt_user(self, "Are you sure?")
+	if result == "yes":
+		get_tree().quit()
+		return
+	else:
+		return
+			

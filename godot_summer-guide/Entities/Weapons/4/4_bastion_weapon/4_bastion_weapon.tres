@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://dk27kklehsadi"]
+
+[ext_resource type="Texture2D" uid="uid://cs61e3cv671iy" path="res://Entities/Weapons/4/4_bastion_weapon/4_bastion_weapon.png" id="1_bar8p"]
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_om2re"]
+
+[resource]
+script = ExtResource("1_om2re")
+rank = 4
+file_name = "4_bastion_weapon"
+display_name = "Bastion"
+second_name = "Filler Filler Filler"
+description = "-Special: Barrier
+-Cost: 1
+-Conjure barrier on oneself. Acts before enemy. Reduces attack to 1."
+display_texture = ExtResource("1_bar8p")
+has_special = true
+player_idle_anim = "4_bastion_idle"
+player_attack_anim = "4_bastion_attack"
+player_defend_anim = "4_bastion_defend"
+player_special_anim = "4_bastion_special"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

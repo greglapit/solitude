@@ -5,22 +5,9 @@ var exe_enemies : Array
 var death_mark_scn : PackedScene
 var enemy_mark_dict : Dictionary
 
-func assign_prop() -> void:
-	rank = 7
-	file_name = "7_severance_weapon"
-	display_name = "Severance"
-	second_name = "FILLER FILLER FILLER"
-	description = "-Special: Execute\n-Cost: %d\n-Execute all enemies below %d" % [special_cost, threshold]
-	display_texture = load("res://Entities/Weapons/%d/%s/%s.png" % [rank,file_name,file_name])
-	player_idle_anim = "7_severance_idle"
-	player_attack_anim = "7_severance_attack"
-	player_defend_anim = "7_severance_defend"
-	player_special_anim = "7_severance_special"
-	has_special = true
-	special_cost = 2
-
 func equip() -> void:
 	super()
+	description = "-Special: Execute\n-Cost: %d\n-Execute all enemies below %d" % [special_cost, threshold]
 	for enemy : Enemy in enemies:
 		_on_enemy_rank_update(enemy.rank, enemy)
 

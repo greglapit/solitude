@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://dxgevskjhalc4"]
+
+[ext_resource type="Texture2D" uid="uid://b0ppv367i4brb" path="res://Entities/Weapons/1/1_base_weapon/1_base_weapon.png" id="1_02hv8"]
+[ext_resource type="Script" uid="uid://bqe15qx2cvry3" path="res://Common/UI/Study Journal/Journal/page_content.gd" id="1_4lglo"]
+[ext_resource type="Texture2D" uid="uid://dcqixavooiiev" path="res://Scenes/Battle/Art/WeaponDisplay/Art/button1.png" id="2_4lglo"]
+[ext_resource type="Texture2D" uid="uid://cnve53w12ina" path="res://Scenes/Battle/Art/WeaponDisplay/Art/button1_grayed.png" id="3_n0tid"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4jnph"]
+
+[node name="PageContent" type="MarginContainer" unique_id=734920880]
+custom_minimum_size = Vector2(107, 160.825)
+script = ExtResource("1_4lglo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=945644955]
+layout_mode = 2
+theme_override_constants/separation = -2
+
+[node name="WeaponName" type="Label" parent="VBoxContainer" unique_id=1814982450]
+layout_mode = 2
+text = "- EXAMPLE WEAPON -"
+horizontal_alignment = 1
+
+[node name="SecondName" type="Label" parent="VBoxContainer" unique_id=333346877]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Second name"
+horizontal_alignment = 1
+
+[node name="WeaponArt" type="TextureRect" parent="VBoxContainer" unique_id=716046977]
+layout_mode = 2
+texture = ExtResource("1_02hv8")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=250298240]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="WeaponDesc" type="Label" parent="VBoxContainer" unique_id=1289166295]
+layout_mode = 2
+theme_override_constants/line_spacing = -2
+theme_override_font_sizes/font_size = 8
+text = "-Special: Regenerate
+-Cost: 1
+-Heal for 5 hp."
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer" unique_id=899802351]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="WeapLore" type="Label" parent="VBoxContainer" unique_id=854199125]
+custom_minimum_size = Vector2(107, 0)
+layout_mode = 2
+theme_override_constants/line_spacing = -3
+theme_override_font_sizes/font_size = 8
+text = "Example made up lore. filler filler. This weapon was used by made up figure back when madeup event happend. Etc. Etc."
+autowrap_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer" unique_id=1193937348]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+theme_override_styles/separator = SubResource("StyleBoxEmpty_4jnph")
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer" unique_id=783716912]
+layout_mode = 2
+
+[node name="EquipButton" type="TextureButton" parent="VBoxContainer/CenterContainer" unique_id=1672798706]
+layout_mode = 2
+texture_normal = ExtResource("2_4lglo")
+texture_pressed = ExtResource("3_n0tid")
+texture_disabled = ExtResource("3_n0tid")
+
+[node name="Label" type="Label" parent="VBoxContainer/CenterContainer" unique_id=203501682]
+layout_mode = 2
+text = "Equip"

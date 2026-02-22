@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://ddj45drscytre"]
+
+[ext_resource type="Texture2D" uid="uid://bxc44q4hhuey0" path="res://Entities/Weapons/1/1_philo_weapon/1_philo_weapon.png" id="1_iorxb"]
+[ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="2_4yj0b"]
+
+[resource]
+script = ExtResource("2_4yj0b")
+rank = 1
+file_name = "1_philo_weapon"
+display_name = "Philo"
+second_name = "Filler filler filler"
+description = "-Special: Regenerate
+-Cost: 1
+-Heal for 5 hp."
+display_texture = ExtResource("1_iorxb")
+has_special = true
+player_idle_anim = "1_philo_idle"
+player_attack_anim = "1_philo_attack"
+player_defend_anim = "1_philo_defend"
+player_special_anim = "1_philo_special"
+metadata/_custom_type_script = "uid://d068vh76x4l07"

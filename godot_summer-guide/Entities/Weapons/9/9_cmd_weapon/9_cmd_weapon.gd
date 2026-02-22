@@ -6,19 +6,11 @@ extends Weapon
 
 var damage : int = 1
 
-func assign_prop() -> void:
-	rank = 9
-	file_name = "9_cmd_weapon"
-	display_name = "Worldpost"
-	second_name = "FILLER FILLER FILLER"
-	description = "-Special: Command Kneel\n-Cost: 1\n-Command enemies to kneel and submit, disabling their next attack."
-	display_texture = load("res://Entities/Weapons/%d/%s/%s.png" % [rank,file_name,file_name])
-	player_idle_anim = "9_cmd_idle"
-	player_attack_anim = "9_cmd_attack"
-	player_defend_anim = "9_cmd_defend"
-	player_special_anim = "9_cmd_special"
-	has_special = true
-	special_cost = 3
+func equip() -> void:
+	super()
+	description = "-Special: Command Kneel\n-Cost: %d\n-Command enemies to \
+					kneel and submit, disabling their next attack."\
+					% [special_cost]
 
 func special_attack() -> Dictionary:
 	update_node_refs()

@@ -9,19 +9,11 @@ var enemy_chain_turn_counter : Dictionary
 var chain_effect_scn : PackedScene
 @onready var chain_line_spawner : Node2D = $ChainLineSpawner
 
-func assign_prop() -> void:
-	rank = 6
-	file_name = "6_locklash_weapon"
-	display_name = "Locklash"
-	second_name = "Filler Filler Filler"
-	description = "-Special: Restrain\n-Cost: 2\n-Bind enemies with %s for two turns, dealing %d. If enemies attack, take %d to get rid of chains." % [display_name, init_dmg, break_dmg]
-	display_texture = load("res://Entities/Weapons/%d/%s/%s.png" % [rank,file_name,file_name])
-	player_idle_anim = "6_locklash_idle"
-	player_attack_anim = "6_locklash_attack"
-	player_defend_anim = "6_locklash_defend"
-	player_special_anim = "6_locklash_special"
-	has_special = true
-	special_cost = 2
+func equip() -> void:
+	super()
+	description = "-Special: Restrain\n-Cost: 2\n-Bind enemies with %s for two turns, \
+				dealing %d. If enemies attack, take %d to get rid of chains." \
+				% [display_name, init_dmg, break_dmg]
 
 func has_valid_spec_target(_enemies : Array) -> bool:
 	for enemy : Enemy in _enemies:

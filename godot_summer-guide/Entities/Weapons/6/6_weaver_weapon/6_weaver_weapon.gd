@@ -4,19 +4,10 @@ var webbed_enemies_effect_dict : Dictionary # Dictionary. Enemy keys, web effect
 var webbed_effect_scn  : PackedScene
 @onready var chain_line_spawner : Node2D = $ChainLineSpawner
 
-func assign_prop() -> void:
-	rank = 6
-	file_name = "6_weaver_weapon"
-	display_name = "Weaver's Thread"
-	second_name = "Filler Filler Filler"
-	description = "-Special: Web\n-Cost: 1\n-Web enemies, slowing them. Slowed enemies attack last."
-	display_texture = load("res://Entities/Weapons/%d/%s/%s.png" % [rank,file_name,file_name])
-	player_idle_anim = "6_weaver_idle"
-	player_attack_anim = "6_weaver_attack"
-	player_defend_anim = "6_weaver_defend"
-	player_special_anim = "6_weaver_special"
-	has_special = true
-	special_cost = 1
+func equip() -> void:
+	super()
+	description = "-Special: Web\n-Cost: %d\n-Web enemies, slowing them. Slowed enemies attack last." \
+				% [special_cost]
 
 func has_valid_spec_target(_enemies : Array) -> bool:
 	for enemy : Enemy in _enemies:
