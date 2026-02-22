@@ -1,12 +1,7 @@
 extends Weapon
 
-var swipe_dmg : int = 1
-var final_swipe_dmg : int = 5
-
-func equip() -> void:
-	super()
-	description = "-Special: Ravage\n-Cost: %d\n-Go on rampage, 4 striking enemies for %d and ending with %d" % [special_cost, swipe_dmg, final_swipe_dmg]
-
+@onready var swipe_dmg : int = weap_data.int1
+@onready var final_swipe_dmg : int = weap_data.int1
 
 var slash_counter : int = 0
 func _on_player_special_impact() -> void:

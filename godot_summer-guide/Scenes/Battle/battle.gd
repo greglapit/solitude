@@ -17,7 +17,7 @@ var enemy_positions : Array[Vector2] = [enemy_target_pos, enemy_target_pos - Vec
 										Vector2.ZERO, Vector2.ZERO, Vector2.ZERO, Vector2.ZERO]
 var mini_equipped : Card							# Current card player has equipped
 var curr_weapon : Weapon							# String name of player weapon
-var player_weapons : Dictionary
+var player_weapons : Dictionary						# Rank : Weapon
 var enemies : Array
 var hp : int = Globals.hp
 var attacks : int = Globals.attacks					# Attacks player has left
@@ -28,7 +28,11 @@ var crit_stored : int = 0							# Number of crits stored
 var click_prevention : bool = true					# Stops minicard/attack inputs when drawing or attacking
 var pausing_weapons : Array[Weapon]					# Weapon pausing chaining for effects to take place
 
-var combat_data : Dictionary
+var combat_data : Dictionary = {
+	"hp_delta" = 0,
+	"durability_delta" = 0,
+	"attacks" = 0
+	}
 var turn_order_flipped : bool = false:
 	set(value):
 		turn_order_flipped = value
@@ -98,7 +102,7 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1) -> void:
 	for i : int in range(num):
 		enemies = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,[2]) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,[4]) # 2 * (2 + randi() % 2)
 		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
@@ -140,9 +144,15 @@ func initiate_combat() -> void:
 		combat_data = curr_weapon.resolve_combat()
 		return
 	else:
-		combat_data = enemies[0].attack(null, combat_data)
-		await enemies[0].attack_impact
-		player.play("base_defend")
+		var target : Enemy = enemies[0]
+		combat_data = target.attack(null, combat_data)
+		for weapon : Weapon in player_weapons.values():
+			weapon.combat_data = combat_data
+		if target.animation_player.current_animation.contains("attack"):
+			await target.attack_impact
+			player.play("base_defend")
+		else:
+			await target.animation_player.animation_finished
 		_on_weapon_hp_update(combat_data["hp_delta"])
 		await player.anim_finished
 		_on_weapon_combat_fin(null)
@@ -628,7 +638,8 @@ func _on_weapon_resume(_weapon : Weapon) -> void:
 #endregion
 
 func _on_enemy_damaged(_amt : int, _enemy : Enemy) -> void:
-	camera.shake(curr_weapon.rank / 2.0)
+	if curr_weapon:
+		camera.shake(curr_weapon.rank / 2.0)
 
 func _on_enemy_animation_finished(anim : String, enemy : Enemy) -> void:
 	enemies = get_tree().get_nodes_in_group("enemies")

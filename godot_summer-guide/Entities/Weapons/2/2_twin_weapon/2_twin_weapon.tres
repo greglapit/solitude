@@ -10,10 +10,12 @@ file_name = "2_twin_weapon"
 display_name = "Twin Shards"
 second_name = "FILLER FILLER FILLER"
 description = "-Special: Mark
--Cost: 1
--Attack and mark enemy. Attacking mark with %s deals %d. Otherwise, deal %d."
+-Cost: {special_cost}
+-Attack and mark enemy. Next attack deals bonus {int1}. Attacking mark with Twin Shards deals {int2}. "
 display_texture = ExtResource("1_6lv7s")
 has_special = true
+int1 = 2
+int2 = 3
 player_idle_anim = "2_twin_idle"
 player_attack_anim = "2_twin_attack"
 player_defend_anim = "2_twin_defend"

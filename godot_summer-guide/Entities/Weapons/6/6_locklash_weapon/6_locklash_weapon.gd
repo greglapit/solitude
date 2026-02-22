@@ -1,19 +1,14 @@
 extends Weapon
 
-var init_dmg : int = 1
-var break_dmg : int = 2
-var chain_duration : int = 2
+@onready var chain_duration : int = weap_data.int1
+@onready var init_dmg : int = weap_data.int2
+@onready var break_dmg : int = weap_data.int3
+@onready var chain_line_spawner : Node2D = $ChainLineSpawner
+
 var chain_enemy_dict : Dictionary
 var chain_chain_effect_dict : Dictionary
 var enemy_chain_turn_counter : Dictionary
 var chain_effect_scn : PackedScene
-@onready var chain_line_spawner : Node2D = $ChainLineSpawner
-
-func equip() -> void:
-	super()
-	description = "-Special: Restrain\n-Cost: 2\n-Bind enemies with %s for two turns, \
-				dealing %d. If enemies attack, take %d to get rid of chains." \
-				% [display_name, init_dmg, break_dmg]
 
 func has_valid_spec_target(_enemies : Array) -> bool:
 	for enemy : Enemy in _enemies:
@@ -57,7 +52,7 @@ func post_combat() -> void:
 	var temp_dict : Dictionary = chain_enemy_dict  # Editing dict in loop
 	for chain : Line2D in temp_dict.keys():
 		var enemy : Enemy = temp_dict[chain]
-		if enemy_chain_turn_counter[enemy] >= 2:
+		if enemy_chain_turn_counter[enemy] >= chain_duration:
 			enemy_chain_turn_counter.erase(enemy)
 			if chain != temp_dict.keys().back():
 				break_chain(chain, false)
@@ -123,8 +118,8 @@ func _on_enemy_attack_prevented(enemy : Enemy) -> void:
 			reciprocal_attack = false					# Stops player from sending next hitting enemy2 if enemy died
 		_on_player_anim_finished("defend")
 
-func _on_enemy_freed(_enemy : Enemy) -> void:
-	super(_enemy)
-	if !enemies.is_empty() and _enemy == enemies[0]:
-		reciprocal_attack = false
-		post_combat()
+#func _on_enemy_freed(_enemy : Enemy) -> void:
+	#super(_enemy)
+	#if !enemies.is_empty() and _enemy == enemies[0]:
+		#reciprocal_attack = false
+		#post_combat()

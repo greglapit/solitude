@@ -1,15 +1,15 @@
 extends Weapon
 
 var enemies_seeded_dict : Dictionary
-var damage_amt : int
+var dmg : int
 var seeded_scn : PackedScene
 
 # === Custom Methods ===========================================================
 
-func unequip() -> void:
+func equip() -> void:
 	super()
 	if mini_equipped:
-		description = "-Special: Seed\n-Cost: 1\n-Convert remaining durability (%d) into a seed and plant in enemy. Drains at end of combat." % [mini_equipped.durability]
+		description = "-Special: Seed (%d)\n-Cost: 1\n-Convert remaining durability (%d) into a seed and plant in enemy. Drains at end of combat." % [mini_equipped.durability, mini_equipped.durability]
 	else:
 		description = "-Special: Seed (5)\n-Convert remaining durability into a seed. Plant in enemy. Drain at end of turn\n-Cost:1"
 
@@ -25,9 +25,9 @@ func drain() -> void:
 		enemies_seeded_dict.erase(enemy)
 		
 		# Damage + Heal
-		damage_amt = min(enemy.rank, damage_amt)
-		enemy.damage(damage_amt)
-		combat_data["hp_delta"] = damage_amt
+		dmg = min(enemy.rank, dmg)
+		enemy.damage(dmg)
+		combat_data["hp_delta"] = dmg
 		hp_update.emit(combat_data["hp_delta"])
 		
 	resume.emit(self)
@@ -61,6 +61,6 @@ func _on_player_special_impact() -> void:
 	enemy.collision_shape.add_child(seeded_effect)
 	enemies_seeded_dict[enemy] = seeded_effect
 	enemy.play("shake")
-	damage_amt = mini_equipped.durability
+	dmg = mini_equipped.durability
 	mini_equipped.used = true
-	mini_equipped.damage(damage_amt)
+	mini_equipped.damage(dmg)

@@ -9,8 +9,8 @@ rank = 1
 file_name = "1_seed_weapon"
 display_name = "SeedStone"
 second_name = "Filler filler filler"
-description = "-Special: Seed (5)
--Cost:1
+description = "-Special: Seed
+-Cost: {special_cost}
 -Convert remaining durability into a seed. Plant in enemy. Drain at end of turn"
 display_texture = ExtResource("1_k4xs8")
 has_special = true

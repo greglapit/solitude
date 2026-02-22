@@ -3,6 +3,9 @@ extends Node2D
 
 @onready var animation_player : AnimationPlayer = $WeaponEffects/AnimationPlayer		## Weapon Effects animation player
 @onready var weapon_effects : Sprite2D = $WeaponEffects
+var base_name : String = get_script().get_path().get_file().get_basename()
+@onready var weap_data : WeaponData = Globals.all_weap_data[base_name]
+
 
 var rank : int = -1
 var file_name : String
@@ -66,9 +69,9 @@ signal resume(weapon : Weapon)
 
 # === Custom Methods ===========================================================
 func assign_prop() -> void:
-	var base_name : String = get_script().get_path().get_file().get_basename()
-	var resource_path : String = get_script().get_path().get_base_dir()
-	var weap_data : WeaponData = load(resource_path + "/" + base_name + ".tres")
+	
+	#var base_name : String = get_script().get_path().get_file().get_basename()
+	#weap_data = Globals.all_weap_data[base_name]
 	
 	rank = weap_data.rank
 	file_name = weap_data.file_name
@@ -120,6 +123,7 @@ func resolve_combat() -> Dictionary:
 	combat_data = {
 	"hp_delta" = 0,
 	"durability_delta" = -1,
+	"attacls" = attacks
 	}
 	
 	#===== Combat order calculations

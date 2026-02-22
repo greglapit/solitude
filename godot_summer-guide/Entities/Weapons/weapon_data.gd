@@ -10,6 +10,10 @@ extends Resource
 @export var display_texture : Resource
 @export var has_special : bool = false
 @export var special_cost : int = 1
+@export var int1 : int
+@export var int2 : int
+@export var int3 : int
+
 
 
 # Player/Enemy info

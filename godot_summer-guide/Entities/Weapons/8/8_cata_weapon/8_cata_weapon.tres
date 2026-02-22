@@ -9,8 +9,12 @@ rank = 8
 file_name = "8_cata_weapon"
 display_name = "Catacylsm"
 second_name = "FILLER FILLER FILLER"
+description = "-Special: Ruinfall
+-Cost: {special_cost}
+-Slam {name} into the ground, dealing {int1} to all, and dazing yourself in the process."
 display_texture = ExtResource("1_kwbpt")
 has_special = true
+int1 = 8
 player_idle_anim = "8_cata_idle"
 player_attack_anim = "8_cata_attack"
 player_defend_anim = "8_cata_defend"

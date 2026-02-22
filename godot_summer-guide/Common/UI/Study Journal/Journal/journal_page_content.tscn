@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://dxgevskjhalc4"]
 
 [ext_resource type="Texture2D" uid="uid://b0ppv367i4brb" path="res://Entities/Weapons/1/1_base_weapon/1_base_weapon.png" id="1_02hv8"]
-[ext_resource type="Script" uid="uid://bqe15qx2cvry3" path="res://Common/UI/Study Journal/Journal/page_content.gd" id="1_4lglo"]
+[ext_resource type="Script" uid="uid://bqe15qx2cvry3" path="res://Common/UI/Study Journal/Journal/journal_page_content.gd" id="1_4lglo"]
 [ext_resource type="Texture2D" uid="uid://dcqixavooiiev" path="res://Scenes/Battle/Art/WeaponDisplay/Art/button1.png" id="2_4lglo"]
 [ext_resource type="Texture2D" uid="uid://cnve53w12ina" path="res://Scenes/Battle/Art/WeaponDisplay/Art/button1_grayed.png" id="3_n0tid"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4jnph"]
 
-[node name="PageContent" type="MarginContainer" unique_id=734920880]
+[node name="JournalPageContent" type="MarginContainer" unique_id=734920880]
 custom_minimum_size = Vector2(107, 160.825)
 script = ExtResource("1_4lglo")
 
@@ -37,12 +37,14 @@ layout_mode = 2
 theme_override_constants/separation = 6
 
 [node name="WeaponDesc" type="Label" parent="VBoxContainer" unique_id=1289166295]
+custom_minimum_size = Vector2(107, 0)
 layout_mode = 2
 theme_override_constants/line_spacing = -2
 theme_override_font_sizes/font_size = 8
 text = "-Special: Regenerate
 -Cost: 1
 -Heal for 5 hp."
+autowrap_mode = 2
 
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer" unique_id=899802351]
 layout_mode = 2

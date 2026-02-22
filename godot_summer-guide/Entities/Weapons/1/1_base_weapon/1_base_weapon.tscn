@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://1csrobucf7li"]
 
 [ext_resource type="Script" uid="uid://bxhlinkagf4tr" path="res://Entities/Weapons/1/1_base_weapon/1_base_weapon.gd" id="1_5ab3x"]
+[ext_resource type="Resource" uid="uid://mhb66d6no10w" path="res://Entities/Weapons/1/1_base_weapon/1_base_weapon.tres" id="2_dtb7q"]
 [ext_resource type="Texture2D" uid="uid://bfmsuq5n4c44t" path="res://Entities/Weapons/ArtWeaponEffects/siphon.png" id="2_h0oq4"]
 
 [sub_resource type="Animation" id="Animation_qg8n0"]
@@ -64,16 +65,15 @@ _data = {
 &"siphon": SubResource("Animation_h0oq4")
 }
 
-[node name="1BaseWeapon" type="Node2D"]
+[node name="1BaseWeapon" type="Node2D" unique_id=546691459]
 script = ExtResource("1_5ab3x")
+weap_data = ExtResource("2_dtb7q")
 
-[node name="WeaponEffects" type="Sprite2D" parent="."]
+[node name="WeaponEffects" type="Sprite2D" parent="." unique_id=49851906]
 visible = false
 texture = ExtResource("2_h0oq4")
 hframes = 6
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects" unique_id=617605004]
 root_node = NodePath("../..")
-libraries = {
-&"": SubResource("AnimationLibrary_vgrw6")
-}
+libraries/ = SubResource("AnimationLibrary_vgrw6")

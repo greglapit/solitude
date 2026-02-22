@@ -1,15 +1,9 @@
 extends Weapon
 
-var damage : int = 8
-
+@onready var damage : int = weap_data.int1
 @onready var weapon_effects2 : Sprite2D = $WeaponEffects2
 @onready var animation_player2 : AnimationPlayer = $WeaponEffects2/AnimationPlayer
 
-func equip() -> void:
-	super()
-	description = "- Special: Ruinfall\n-Cost: %d \n-Slam %s into the ground, \
-					dealing %d to all, and dazing yourself in the process." \
-					% [special_cost, display_name, damage]
 
 func _on_player_weap_effect_start() -> void:
 	if !active:

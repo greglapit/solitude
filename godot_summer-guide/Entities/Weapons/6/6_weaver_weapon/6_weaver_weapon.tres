@@ -9,10 +9,12 @@ rank = 6
 file_name = "6_weaver_weapon"
 display_name = "Weaver's Thread"
 second_name = "Filler Filler Filler"
-description = "-Special: Web\\n-Cost: 1
+description = "-Special: Web
+-Cost: {special_cost}
 -Web enemies, slowing them. Slowed enemies attack last."
 display_texture = ExtResource("1_hh73h")
 has_special = true
+special_cost = 2
 player_idle_anim = "6_weaver_idle"
 player_attack_anim = "6_weaver_attack"
 player_defend_anim = "6_weaver_defend"

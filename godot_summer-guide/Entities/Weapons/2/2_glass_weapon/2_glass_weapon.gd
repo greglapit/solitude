@@ -1,15 +1,12 @@
 extends Weapon
 
 var damage_amt : int = 1
-var bleed_duration : int = 2
 var bleeding_enemies : Dictionary
 
+@onready var bleed_duration : int = weap_data.int1
 @onready var weapon_effects2 : Sprite2D = $WeaponEffects2
 @onready var animation_player2 : AnimationPlayer = $WeaponEffects2/AnimationPlayer
 
-func equip() -> void:
-	super()
-	description = "-Special: Lacerate\n-Bleed enemy for %d turns\n-Cost: 1" % [bleed_duration]
 
 func bleed() -> void:
 	pause.emit(self)
@@ -27,11 +24,15 @@ func post_combat() -> void:
 func _on_player_special_impact() -> void:
 	if !active:
 		return
-	bleeding_enemies[enemies[0]] = bleeding_enemies.get(enemies[0], 0) + bleed_duration
-	enemies[0].damage(rank)
-	enemies[0].display_bleed(bleeding_enemies[enemies[0]])
+	var target : Enemy = enemies[0]
+	bleeding_enemies[target] = bleeding_enemies.get(target, 0) + bleed_duration
+	target.damage(rank)
+	target.display_bleed(bleeding_enemies[enemies[0]])
 
 func _on_player_weap_effect_start() -> void:
 	if !active:
 		return
 	animation_player.play("double_slash")
+
+func _on_enemy_freed(_enemy : Enemy) -> void:
+	bleeding_enemies.erase(_enemy)

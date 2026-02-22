@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://bt51nlc5m63r7"]
 
 [ext_resource type="Script" uid="uid://d068vh76x4l07" path="res://Entities/Weapons/weapon_data.gd" id="1_8qx3l"]
+[ext_resource type="Texture2D" uid="uid://cqae5fg5meifm" path="res://Entities/Weapons/2/2_glass_weapon/2_glass_weapon.png" id="1_ht26g"]
 
 [resource]
 script = ExtResource("1_8qx3l")
@@ -9,8 +10,11 @@ file_name = "2_glass_weapon"
 display_name = "Glass's Edge"
 second_name = "FILLER FILLER FILLER"
 description = "-Special: Lacerate
--Bleed enemy for %d turns
--Cost: 1"
+-Cost: {special_cost}
+-Attack and bleed enemy for 2 turns"
+display_texture = ExtResource("1_ht26g")
+has_special = true
+int1 = 2
 player_idle_anim = "2_glass_idle"
 player_attack_anim = "2_glass_attack"
 player_defend_anim = "2_glass_defend"

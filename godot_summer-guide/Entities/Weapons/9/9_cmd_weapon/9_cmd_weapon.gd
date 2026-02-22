@@ -4,13 +4,7 @@ extends Weapon
 @onready var warp_effect : Sprite2D = $WarpEffect
 @onready var animation_player2 : AnimationPlayer = $WarpEffect/AnimationPlayer
 
-var damage : int = 1
-
-func equip() -> void:
-	super()
-	description = "-Special: Command Kneel\n-Cost: %d\n-Command enemies to \
-					kneel and submit, disabling their next attack."\
-					% [special_cost]
+@onready var damage : int = weap_data.int1
 
 func special_attack() -> Dictionary:
 	update_node_refs()

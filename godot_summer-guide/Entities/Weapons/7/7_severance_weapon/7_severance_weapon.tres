@@ -9,11 +9,12 @@ file_name = "7_severance_weapon"
 display_name = "Severance"
 second_name = "FILLER FILLER FILLER"
 description = "-Special: Execute
--Cost: %d
--Execute all enemies below %d"
+-Cost: {special_cost}
+-Execute all enemies below {int1}"
 display_texture = ExtResource("1_x3vab")
 has_special = true
 special_cost = 2
+int1 = 7
 player_idle_anim = "7_severance_idle"
 player_attack_anim = "7_severance_attack"
 player_defend_anim = "7_severance_defend"

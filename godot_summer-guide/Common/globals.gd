@@ -8,7 +8,7 @@ var attacks : int = 1
 var max_draw : int = 3			# How many items player can have drawn at a time
 var max_crits : int = 3
 var learned_weapons : Dictionary
-var armory : Dictionary = {10: '10_pirate_weapon'}
+var armory : Dictionary = {10 : "10_pirate_weapon"}
 var available_ranks : Array = armory.keys()
 var ranks : Array = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 var armory_durs : Array = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
@@ -26,5 +26,30 @@ var all_weapons : Dictionary = {
 	'10_base_weapon' : 10, '10_clock_weapon' : 10, '10_pirate_weapon' : 10\
 }
 
+var all_weap_data : Dictionary
+
+func fill_placeholders(template: String, vars: Dictionary) -> String:
+	for key : String in vars.keys():
+		template = template.replace(key, str(vars[key]))
+	return template
+
 func save_game() -> Signal:
 	return get_tree().process_frame
+
+func _ready() -> void:
+	for weapon : String in all_weapons.keys():
+		var weapon_data : WeaponData = load("res://Entities/Weapons/%d/%s/%s.tres" % [all_weapons[weapon], weapon, weapon])
+		var replace_dict : Dictionary = {"{name}" : weapon_data.display_name, \
+										"{special_cost}" : weapon_data.special_cost,
+										"{int1}" : weapon_data.int1, \
+										"{int2}" : weapon_data.int2, \
+										"{int3}" : weapon_data.int3}
+										
+		
+		var updated_desc : String = fill_placeholders(weapon_data.description, replace_dict)
+		weapon_data.description = updated_desc
+		
+		var updated_lore : String = fill_placeholders(weapon_data.lore, replace_dict)
+		weapon_data.lore = updated_lore
+		
+		all_weap_data[weapon] = weapon_data

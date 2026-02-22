@@ -10,7 +10,7 @@ file_name = "9_cloud_weapon"
 display_name = "Cloudreign"
 second_name = "FILLER FILLER FILLER"
 description = "-Special: Counter
--Cost: %d
+-Cost: {special_cost}
 -Dodge enemy attack, then strike back. (Enemy attacking restarts combat, giving you a free turn.)"
 display_texture = ExtResource("1_hle8b")
 has_special = true

@@ -1,17 +1,15 @@
 extends Weapon
 
-var damage_amt : int = 2
-var extra_damage_amount : int = 1
-var marked_enemy : Enemy
-
+@onready var damage_amt : int = weap_data.int1
+@onready var extra_damage_amount : int = weap_data.int2
 @onready var weapon_effects2 : Sprite2D = $WeaponEffects2
 @onready var animation_player2 : AnimationPlayer = $WeaponEffects2/AnimationPlayer
 
-func equip() -> void:
-	super()
-	description = "-Special: Mark\n-Cost: 1\n-Attack and mark enemy. Attacking mark with %s deals %d. Otherwise, deal %d." % [display_name, damage_amt + extra_damage_amount, damage_amt]
+var marked_enemy : Enemy
 
 func has_valid_spec_target(_enemies : Array) -> bool:
+	if _enemies.is_empty():
+		return false
 	if _enemies[0] == marked_enemy:
 		return false
 	return true
@@ -29,6 +27,8 @@ func _on_player_special_impact() -> void:
 		return
 	marked_enemy = enemies[0]
 	marked_enemy.damage(rank)
+	if marked_enemy.is_dead:
+		return
 	marked_enemy.damaged.connect(_on_enemy_damaged.bind(marked_enemy))
 	animation_player2.play("mark")
 	
@@ -52,7 +52,7 @@ func _on_enemy_damaged(_amt : int, enemy : Enemy) -> void:
 	marked_enemy = null
 	
 	if mini_equipped.rank == 2:
-		target.damage(damage_amt + extra_damage_amount)
+		target.damage(extra_damage_amount)
 	else:
 		target.damage(damage_amt)
 	if target.is_dead:

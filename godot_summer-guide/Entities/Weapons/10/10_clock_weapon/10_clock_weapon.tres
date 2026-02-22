@@ -10,8 +10,8 @@ file_name = "10_clock_weapon"
 display_name = "Clock"
 second_name = "Filler Filler Filler"
 description = "-Special: Trick Room
--Cost: %d
--Reverse turn order while holding the %s. Larger numbers attack first. Use to reverse back."
+-Cost: {special_cost}
+-Reverse turn order while holding the {name}. Larger numbers attack first. Use to reverse back."
 display_texture = ExtResource("1_rnbla")
 has_special = true
 player_idle_anim = "10_clock_idle"

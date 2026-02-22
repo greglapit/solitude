@@ -1,10 +1,5 @@
 extends Weapon
 
-func equip() -> void:
-	super()
-	description = "-Special: Seaquake\n-Cost: %d\n-Slam enemies side to side, \
-					dealing 8 total damage." \
-					% [special_cost]
 
 func _on_player_weap_effect_start() -> void:
 	if !active:

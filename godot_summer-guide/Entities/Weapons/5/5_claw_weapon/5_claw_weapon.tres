@@ -9,11 +9,14 @@ rank = 5
 file_name = "5_claw_weapon"
 display_name = "Fanghand"
 second_name = "Filler Filler Filler"
-description = "-Special: Ravage\\n-Cost: 3
--Go on rampage, 4 striking enemies for %d and ending with %d"
+description = "-Special: Ravage
+-Cost: {special_cost}
+-Go on rampage, 4 striking enemies for {int1} and ending with {int2}"
 display_texture = ExtResource("1_rcufq")
 has_special = true
 special_cost = 2
+int1 = 1
+int2 = 5
 player_idle_anim = "5_claw_idle"
 player_attack_anim = "5_claw_attack"
 player_defend_anim = "5_claw_defend"

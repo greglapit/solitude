@@ -64,16 +64,14 @@ _data = {
 &"siphon": SubResource("Animation_h0oq4")
 }
 
-[node name="1PhiloWeapon" type="Node2D"]
+[node name="1PhiloWeapon" type="Node2D" unique_id=1647703185]
 script = ExtResource("1_l42nk")
 
-[node name="WeaponEffects" type="Sprite2D" parent="."]
+[node name="WeaponEffects" type="Sprite2D" parent="." unique_id=790310517]
 visible = false
 texture = ExtResource("2_f1vp1")
 hframes = 6
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponEffects" unique_id=2124794057]
 root_node = NodePath("../..")
-libraries = {
-&"": SubResource("AnimationLibrary_vgrw6")
-}
+libraries/ = SubResource("AnimationLibrary_vgrw6")

@@ -1,10 +1,7 @@
 extends Weapon
 
+@onready var heal_amt : int = weap_data.int1
 var threshold : int = 4
-var heal_amt : int = 3
-
-func equip() -> void:
-	description = "-Special: Consume\n-Cost: %d\n-Feed a weaker enemy to the gloves. Heal for %d" % [special_cost, heal_amt]
 
 func has_valid_spec_target(_enemies : Array) -> bool:
 	if _enemies[0] and _enemies[0].rank <= threshold:

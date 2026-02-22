@@ -4,10 +4,6 @@ var webbed_enemies_effect_dict : Dictionary # Dictionary. Enemy keys, web effect
 var webbed_effect_scn  : PackedScene
 @onready var chain_line_spawner : Node2D = $ChainLineSpawner
 
-func equip() -> void:
-	super()
-	description = "-Special: Web\n-Cost: %d\n-Web enemies, slowing them. Slowed enemies attack last." \
-				% [special_cost]
 
 func has_valid_spec_target(_enemies : Array) -> bool:
 	for enemy : Enemy in _enemies:

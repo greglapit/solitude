@@ -11,9 +11,10 @@ display_name = "Philo"
 second_name = "Filler filler filler"
 description = "-Special: Regenerate
 -Cost: 1
--Heal for 5 hp."
+-Heal for {int1} hp."
 display_texture = ExtResource("1_iorxb")
 has_special = true
+int1 = 5
 player_idle_anim = "1_philo_idle"
 player_attack_anim = "1_philo_attack"
 player_defend_anim = "1_philo_defend"

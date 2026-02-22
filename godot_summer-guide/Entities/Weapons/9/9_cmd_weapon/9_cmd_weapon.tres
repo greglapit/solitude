@@ -10,8 +10,8 @@ file_name = "9_cmd_weapon"
 display_name = "Worldpost"
 second_name = "FILLER FILLER FILLER"
 description = "-Special: Command Kneel
--Cost: %d
--Command enemies to kneel and submit, disabling their next attack."
+-Cost: {special_cost}
+-Command enemies to kneel and submit, dealing {int1} disabling their next attack."
 display_texture = ExtResource("1_x20n8")
 has_special = true
 special_cost = 3

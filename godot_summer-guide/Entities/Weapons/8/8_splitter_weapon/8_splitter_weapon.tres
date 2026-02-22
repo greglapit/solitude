@@ -10,9 +10,11 @@ file_name = "8_splitter_weapon"
 display_name = "Skysplitter"
 second_name = "FILLER FILLER FILLER"
 description = "-Passive: Reckless Strikes
--Cost: %d
--Attacks do %d aoe, but damage player %d in process. Cannot die from attacking."
+-Cost: {special_cost}
+-Attacks do {int1} aoe, but damage player {int2} in process. Cannot die from attacking."
 display_texture = ExtResource("1_2y8lq")
+int1 = 2
+int2 = 4
 player_idle_anim = "8_splitter_idle"
 player_attack_anim = "8_splitter_attack"
 player_defend_anim = "8_splitter_defend"

@@ -3,10 +3,6 @@ extends Weapon
 @onready var weapon_effects2 : Sprite2D = $WeaponEffects2
 @onready var animation_player2 : AnimationPlayer = $WeaponEffects2/AnimationPlayer
 
-func equip() -> void:
-	super()
-	description = "-Special: Lifesteal\n-Cost: %d\n-Attack and heal for damage dealt" \
-				% [special_cost]
 
 func _on_player_weap_effect_start() -> void:
 	if !active:

@@ -10,11 +10,14 @@ file_name = "6_locklash_weapon"
 display_name = "Locklash"
 second_name = "Filler Filler Filler"
 description = "-Special: Restrain
--Cost: 2
--Bind enemies with %s for two turns, dealing %d. If enemies attack, take %d to get rid of chains."
+-Cost: {special_cost}
+-Bind enemies with {name} for {int1} turns, dealing {int2}. If enemies attack, they take {int3} to get rid of chains."
 display_texture = ExtResource("1_ndahx")
 has_special = true
 special_cost = 2
+int1 = 2
+int2 = 1
+int3 = 2
 player_idle_anim = "6_locklash_idle"
 player_attack_anim = "6_locklash_attack"
 player_defend_anim = "6_locklash_defend"

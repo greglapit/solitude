@@ -1,13 +1,8 @@
 extends Weapon
 
-var player_damage : int = 4
-var aoe_damage : int = 2
+@onready var aoe_damage : int = 2
+@onready var player_damage : int = 4
 
-func equip() -> void:
-	super()
-	description = "-Passive: Reckless Strikes\n-Cost: %d\n-Attacks do %d aoe, \
-					but damage player %d in process. Cannot die from attacking." \
-					% [special_cost, aoe_damage, player_damage]
 
 func _on_player_weap_effect_start() -> void:
 	if !active:

@@ -10,7 +10,7 @@ file_name = "4_mirra_weapon"
 display_name = "Mirra"
 second_name = "Filler Filler Filler"
 description = "-Special: Reflect
--Cost: 1
+-Cost: {special_cost}
 -Attack. Then defend and mirror enemy damage, up to 4."
 display_texture = ExtResource("1_21gno")
 has_special = true

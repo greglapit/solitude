@@ -10,10 +10,11 @@ file_name = "5_maw_weapon"
 display_name = "Grasping Maw"
 second_name = "Filler Filler Filler"
 description = "-Special: Consume
--Cost: %d
--Feed a weaker enemy to the gloves. Heal for %d"
+-Cost: {special_cost}
+-Feed a weaker enemy to the gloves. Heal for {int1}"
 display_texture = ExtResource("1_7uycp")
 has_special = true
+int1 = 3
 player_idle_anim = "5_maw_idle"
 player_attack_anim = "5_maw_attack"
 player_defend_anim = "5_maw_defend"

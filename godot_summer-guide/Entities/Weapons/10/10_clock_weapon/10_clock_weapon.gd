@@ -3,11 +3,6 @@ extends Weapon
 @onready var warp_effect : Sprite2D = $WarpEffect
 @onready var animation_player_2 : AnimationPlayer = $WarpEffect/AnimationPlayer
 
-func equip() -> void:
-	super()
-	description = "-Special: Trick Room\n-Cost: %d\n-Reverse turn order while holding \
-					the %s. Larger numbers attack first. Use to reverse back." \
-					% [special_cost, display_name]
 
 func special_attack() -> Dictionary:
 	var dict : Dictionary = super()

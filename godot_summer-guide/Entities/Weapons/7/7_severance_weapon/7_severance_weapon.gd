@@ -1,13 +1,12 @@
 extends Weapon
 
-var threshold : int = 7
+@onready var threshold : int = weap_data.int1
 var exe_enemies : Array
 var death_mark_scn : PackedScene
 var enemy_mark_dict : Dictionary
 
 func equip() -> void:
 	super()
-	description = "-Special: Execute\n-Cost: %d\n-Execute all enemies below %d" % [special_cost, threshold]
 	for enemy : Enemy in enemies:
 		_on_enemy_rank_update(enemy.rank, enemy)
 

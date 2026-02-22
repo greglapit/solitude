@@ -10,11 +10,12 @@ file_name = "3_trident_weapon"
 display_name = "Stormprong"
 second_name = "Filler Filler Filler"
 description = "-Special: Hurricane
--Cost: 2
--Aoe 2 Damage"
+-Cost: {special_cost}
+-Aoe {int1} Damage"
 display_texture = ExtResource("1_0l2mf")
 has_special = true
 special_cost = 2
+int1 = 3
 player_idle_anim = "3_trident_idle"
 player_attack_anim = "3_trident_attack"
 player_defend_anim = "3_trident_defend"

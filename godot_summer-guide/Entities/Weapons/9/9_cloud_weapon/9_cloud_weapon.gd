@@ -2,12 +2,6 @@ extends Weapon
 
 @onready var weapon_effects2 : Sprite2D = $WeaponEffects2
 
-func equip() -> void:
-	super()
-	description = "-Special: Counter\n-Cost: %d\n-Dodge enemy attack, then strike back. \
-					(Enemy attacking restarts combat, giving you a free turn.)" \
-					% [special_cost]
-
 func special_attack() -> Dictionary:
 	update_node_refs()
 	using_special = true

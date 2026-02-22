@@ -1,5 +1,7 @@
 extends Weapon
 
+@onready var reduce_to : int = weap_data.int1
+
 var barrier : bool = false
 	
 func special_attack() -> Dictionary:
@@ -34,7 +36,7 @@ func _on_enemy_attack_impact(_enemy : Enemy) -> void:
 	if barrier:
 		barrier = false
 		player.effect("RESET")
-		combat_data["hp_delta"] = max(combat_data["hp_delta"], -1)
+		combat_data["hp_delta"] = max(combat_data["hp_delta"], - reduce_to)
 		
 	super(_enemy)
 	

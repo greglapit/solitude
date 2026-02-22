@@ -10,10 +10,11 @@ file_name = "4_bastion_weapon"
 display_name = "Bastion"
 second_name = "Filler Filler Filler"
 description = "-Special: Barrier
--Cost: 1
--Conjure barrier on oneself. Acts before enemy. Reduces attack to 1."
+-Cost: {special_cost}
+-Conjure barrier on oneself. Acts before enemy. Reduces attack to {int1}."
 display_texture = ExtResource("1_bar8p")
 has_special = true
+int1 = 1
 player_idle_anim = "4_bastion_idle"
 player_attack_anim = "4_bastion_attack"
 player_defend_anim = "4_bastion_defend"
