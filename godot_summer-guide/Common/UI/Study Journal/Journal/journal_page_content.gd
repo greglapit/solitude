@@ -8,19 +8,27 @@ extends MarginContainer
 @onready var weap_lore : Label = $VBoxContainer/WeapLore
 @onready var equip_button : TextureButton = $VBoxContainer/CenterContainer/EquipButton
 
+var rank : int
+var file_name : String
 const journal_page_content_scn : PackedScene = preload("res://Common/UI/Study Journal/Journal/journal_page_content.tscn")
 
+signal equip_button_pressed(rank : int, f_name : String)
+
+
+
+# === Custom Methods ===========================================================
 static func generate_page() -> MarginContainer:
 	var node : MarginContainer = journal_page_content_scn.instantiate()
 	return node
-
-# === Custom Methods ===========================================================
-
-func insert_content(rank : int, weapon_name : String) -> void:
-	var weapon_data : WeaponData = Globals.all_weap_data[weapon_name]
+	
+func insert_content(_rank : int, _file_name : String) -> void:
+	rank = _rank
+	file_name = _file_name
+	
+	var weapon_data : WeaponData = Globals.all_weap_data[_file_name]
 	name = weapon_data.display_name + " Page"
 	
-	weap_name.text = str(rank) + ": " + weapon_data.display_name
+	weap_name.text = str(_rank) + ": " + weapon_data.display_name
 	second_name.text = weapon_data.second_name
 	weap_art.texture = weapon_data.display_texture
 	weap_desc.text = weapon_data.description
@@ -36,3 +44,7 @@ func _input(_event: InputEvent) -> void:
 	pass
 
 # === Signals ==================================================================
+
+
+func _on_equip_button_pressed() -> void:
+	equip_button_pressed.emit(rank, file_name)

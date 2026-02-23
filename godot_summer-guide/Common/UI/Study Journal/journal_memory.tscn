@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://b4m78oab8b3da"]
+
+[ext_resource type="PackedScene" uid="uid://byq5458onbw1f" path="res://Common/UI/Study Journal/Memory/memory.tscn" id="1_bg22u"]
+[ext_resource type="Script" uid="uid://cphkstgn5vw14" path="res://Common/UI/Study Journal/journal_memory.gd" id="1_lu2ty"]
+[ext_resource type="PackedScene" uid="uid://brhe05xvrskam" path="res://Common/UI/Study Journal/Journal/journal.tscn" id="2_lu2ty"]
+
+[node name="JournalMemory" type="Node2D" unique_id=2094023816]
+script = ExtResource("1_lu2ty")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=852293926]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=567870078]
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0, 0, 0, 0.6)
+
+[node name="Memory" parent="CanvasLayer" unique_id=691997238 instance=ExtResource("1_bg22u")]
+position = Vector2(468, 174)
+
+[node name="Journal" parent="CanvasLayer" unique_id=862665318 instance=ExtResource("2_lu2ty")]
+position = Vector2(178, 174)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=295565490]

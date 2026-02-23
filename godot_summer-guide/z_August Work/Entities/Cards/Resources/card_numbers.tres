@@ -1,6 +1,6 @@
-[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://bv4ikr3pa37qo"]
+[gd_resource type="LabelSettings" format=3 uid="uid://bv4ikr3pa37qo"]
 
-[ext_resource type="FontFile" uid="uid://2j1mnjkq0kkf" path="res://z_August Work/Common/BitPotionExt.ttf" id="1_hoocc"]
+[ext_resource type="FontFile" uid="uid://2j1mnjkq0kkf" path="res://Common/BitPotionExt.ttf" id="1_hoocc"]
 
 [resource]
 font = ExtResource("1_hoocc")

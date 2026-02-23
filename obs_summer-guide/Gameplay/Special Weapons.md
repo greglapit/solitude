@@ -41,3 +41,4 @@ Unsure if naming should be unique names or references to real objects
 * casino Slots. Jackpot does big damage.
 * Clock. Reverse turn order until used again
 * pirate wheel. Big aoe, tilt screen like driving ship, splash water
+* A ring

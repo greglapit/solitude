@@ -76,3 +76,5 @@ texture_disabled = ExtResource("3_n0tid")
 [node name="Label" type="Label" parent="VBoxContainer/CenterContainer" unique_id=203501682]
 layout_mode = 2
 text = "Equip"
+
+[connection signal="pressed" from="VBoxContainer/CenterContainer/EquipButton" to="." method="_on_equip_button_pressed"]

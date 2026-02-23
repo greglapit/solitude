@@ -1,6 +1,6 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://hbxajdk8p4nr"]
+[gd_resource type="Theme" format=3 uid="uid://hbxajdk8p4nr"]
 
-[ext_resource type="FontFile" uid="uid://2j1mnjkq0kkf" path="res://z_August Work/Common/BitPotionExt.ttf" id="1_tkv2l"]
+[ext_resource type="FontFile" uid="uid://2j1mnjkq0kkf" path="res://Common/BitPotionExt.ttf" id="1_tkv2l"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6qegq"]
 
