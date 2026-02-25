@@ -3,12 +3,156 @@
 [ext_resource type="Script" uid="uid://chwxrnm328xpp" path="res://Common/UI/Study Journal/Memory/memory.gd" id="1_2t4i6"]
 [ext_resource type="Texture2D" uid="uid://cciery3x6n6p6" path="res://Common/UI/Study Journal/Memory/Art/weapon_memory.png" id="1_c3aey"]
 
+[sub_resource type="Animation" id="Animation_2t4i6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Control:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-20, -20)]
+}
+
+[sub_resource type="Animation" id="Animation_uuxy6"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_4pyh0"]
+resource_name = "happy"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.033333335, 0.20000002, 0.36666667, 0.53333336, 0.73333335),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(0, -10), Vector2(0, 0), Vector2(0, -10), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Control:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.033333335, 0.20000002, 0.36666667, 0.53333336, 0.73333335),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-20, -20), Vector2(-20, -30), Vector2(-20, -20), Vector2(-20, -30), Vector2(-20, -20)]
+}
+
+[sub_resource type="Animation" id="Animation_hacjw"]
+resource_name = "strained"
+length = 0.46666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.20000002, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(-4, -4), Vector2(4, 4), Vector2(-6, 0), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Control:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.20000002, 0.3, 0.40000004),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-20, -20), Vector2(-24, -24), Vector2(-16, -16), Vector2(-26, -20), Vector2(-20, -20)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4pyh0"]
+_data = {
+&"RESET": SubResource("Animation_2t4i6"),
+&"default": SubResource("Animation_uuxy6"),
+&"happy": SubResource("Animation_4pyh0"),
+&"strained": SubResource("Animation_hacjw")
+}
+
 [node name="Memory" type="Node2D" unique_id=691997238]
 script = ExtResource("1_2t4i6")
 
-[node name="WeaponMemory" type="Sprite2D" parent="." unique_id=1998419142]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1998419142]
 texture = ExtResource("1_c3aey")
 hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D" unique_id=1398960578]
+libraries/ = SubResource("AnimationLibrary_4pyh0")
 
 [node name="Control" type="Control" parent="." unique_id=1738995411]
 layout_mode = 3
@@ -132,9 +276,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 24.0
+offset_left = 22.0
 offset_top = 43.0
-offset_right = 57.0
+offset_right = 55.0
 offset_bottom = 76.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -172,9 +316,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 82.0
+offset_left = 80.0
 offset_top = -56.0
-offset_right = 115.0
+offset_right = 113.0
 offset_bottom = -23.0
 grow_horizontal = 2
 grow_vertical = 2

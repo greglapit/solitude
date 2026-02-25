@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var animation_player : AnimationPlayer = $Sprite2D/AnimationPlayer
+
 var texture_rects : Array
 
 var icons : Array
@@ -26,7 +28,7 @@ func update_learned_weapons() -> void:
 		weap_textures[weap_name] = weap_data.display_texture
 	update_icons()
 	
-func update_icons() -> void:
+func update_icons(weapon_added : bool = false) -> void:
 	for rect : TextureRect in texture_rects:
 		var rank : int = int(rect.name.replace("TextureRect", ""))
 		if rank in Globals.armory.keys():
@@ -40,7 +42,12 @@ func update_icons() -> void:
 			rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 			rect.texture = icons[rank - 1]
 			rect.modulate = icon_opacity
-
+	
+	var curr_armory_size : int = Globals.armory.size()
+	if curr_armory_size <= Globals.memory_capacity:
+		animation_player.queue("default")
+	elif weapon_added:
+		animation_player.play("strained")
 
 # === Built In =================================================================
 
@@ -59,6 +66,11 @@ func _on_rect_gui_input(event : InputEvent, rect : TextureRect) -> void:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			var rank : int = int(rect.name.replace("TextureRect", ""))
 			if rank in Globals.armory.keys():
+				
+				var was_above_memory_capacity : bool = Globals.armory.size() > Globals.memory_capacity
 				Globals.armory.erase(rank)
+				if was_above_memory_capacity and Globals.armory.size() <= Globals.memory_capacity:
+					animation_player.play("happy")
+					
 				update_icons()
 				armory_updated.emit()
