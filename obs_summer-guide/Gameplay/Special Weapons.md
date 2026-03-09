@@ -20,6 +20,7 @@ Unsure if naming should be unique names or references to real objects
 # Five
 
 * Claws. Special: 
+* Marionette Hand controlling player
 # Six
 
 * Shardcoil: Bind enemy

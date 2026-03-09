@@ -7,7 +7,9 @@ extends Node2D
 # === Custom Methods ===========================================================
 
 func update_capacity_label() -> void:
-	capacity_label.text = "Memory Capacity: %d/%d" % [Globals.armory.size(), Globals.memory_capacity]
+	var non_base_weapons : Array = Globals.armory.values().filter(func(e : String) -> bool: return !e.contains("base"))
+	
+	capacity_label.text = "Memory Capacity: %d/%d" % [non_base_weapons.size(), Globals.memory_capacity]
 
 # === Built In =================================================================
 

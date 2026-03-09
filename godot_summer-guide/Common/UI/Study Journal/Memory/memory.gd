@@ -31,7 +31,7 @@ func update_learned_weapons() -> void:
 func update_icons(weapon_added : bool = false) -> void:
 	for rect : TextureRect in texture_rects:
 		var rank : int = int(rect.name.replace("TextureRect", ""))
-		if rank in Globals.armory.keys():
+		if rank in Globals.armory.keys() and !Globals.armory[rank].contains("base"):
 			var weap_name : String = Globals.armory[rank]
 			rect.texture = weap_textures[weap_name]
 			rect.modulate = Color(1.0, 1.0, 1.0)
@@ -43,8 +43,8 @@ func update_icons(weapon_added : bool = false) -> void:
 			rect.texture = icons[rank - 1]
 			rect.modulate = icon_opacity
 	
-	var curr_armory_size : int = Globals.armory.size()
-	if curr_armory_size <= Globals.memory_capacity:
+	var non_base_weapons : Array = Globals.armory.values().filter(func(e : String) -> bool: return !e.contains("base"))
+	if non_base_weapons.size() <= Globals.memory_capacity:
 		animation_player.queue("default")
 	elif weapon_added:
 		animation_player.play("strained")
@@ -61,15 +61,22 @@ func _input(_event: InputEvent) -> void:
 
 # === Signals ==================================================================
 
+# Unequips weapon and places base weapon into armory
 func _on_rect_gui_input(event : InputEvent, rect : TextureRect) -> void:
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			var rank : int = int(rect.name.replace("TextureRect", ""))
 			if rank in Globals.armory.keys():
 				
-				var was_above_memory_capacity : bool = Globals.armory.size() > Globals.memory_capacity
-				Globals.armory.erase(rank)
-				if was_above_memory_capacity and Globals.armory.size() <= Globals.memory_capacity:
+				var non_base_weapons : Array = Globals.armory.values().filter(func(e : String) -> bool: return !e.contains("base"))
+				var was_above_memory_capacity : bool = non_base_weapons.size() > Globals.memory_capacity
+				
+				Globals.armory[rank] = str(rank) + "_base_weapon"
+				non_base_weapons = Globals.armory.values().filter(func(e : String) -> bool: return !e.contains("base"))
+				
+				var not_above_memory_capacity : bool = non_base_weapons.size() <= Globals.memory_capacity
+				
+				if was_above_memory_capacity and not_above_memory_capacity:
 					animation_player.play("happy")
 					
 				update_icons()

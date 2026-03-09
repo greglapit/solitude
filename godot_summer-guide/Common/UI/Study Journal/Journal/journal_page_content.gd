@@ -7,6 +7,7 @@ extends MarginContainer
 @onready var weap_desc : Label = $VBoxContainer/WeaponDesc
 @onready var weap_lore : Label = $VBoxContainer/WeapLore
 @onready var equip_button : TextureButton = $VBoxContainer/CenterContainer/EquipButton
+@onready var equip_button_container : CenterContainer = $VBoxContainer/CenterContainer
 
 var rank : int
 var file_name : String
@@ -33,6 +34,12 @@ func insert_content(_rank : int, _file_name : String) -> void:
 	weap_art.texture = weapon_data.display_texture
 	weap_desc.text = weapon_data.description
 	weap_lore.text = weapon_data.lore
+	
+	# Base weapons no equip button
+	if file_name.contains("base"):
+		equip_button_container.visible = false
+	else:
+		equip_button_container.visible = true
 
 
 # === Built In =================================================================
