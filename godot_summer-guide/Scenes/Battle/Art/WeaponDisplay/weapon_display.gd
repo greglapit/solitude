@@ -60,9 +60,9 @@ func display_weapon(weapon : Weapon = displayed_weapon, mini_card : Card = card,
 		# Adjust button visibility
 		if actions >= 1:
 			draw_button.disabled = false
-			if Globals.available_ranks.has(mini_card.rank - 1):
+			if Globals.armory.keys().has(mini_card.rank - 1):
 				cut_button.disabled = false
-			if Globals.available_ranks.has(mini_card.rank + 1):
+			if Globals.armory.keys().has(mini_card.rank + 1):
 				socket_button.disabled = false
 	else:
 		weapon_name_label.text = ""
@@ -85,9 +85,9 @@ func buttons_enabled(space_in_armory : bool = true, enabled : bool = true) -> vo
 	# Disable buttons based on if available in armory
 	if enabled and actions > 0 and displayed_weapon:
 		var curr_rank : int = displayed_weapon.rank
-		var cut_available : bool = curr_rank - 1 in Globals.available_ranks
+		var cut_available : bool = curr_rank - 1 in Globals.armory.keys()
 		cut_button.disabled = !cut_available
-		var socket_available : bool = curr_rank + 1 in Globals.available_ranks
+		var socket_available : bool = curr_rank + 1 in Globals.armory.keys()
 		socket_button.disabled = !socket_available
 	else:
 		cut_button.disabled = true

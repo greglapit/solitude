@@ -75,9 +75,9 @@ layout_mode = 2
 
 [node name="ContinueButton" type="TextureButton" parent="CanvasLayer/MarginContainer/VBoxContainer" unique_id=1686378513]
 layout_mode = 2
-disabled = true
-texture_normal = ExtResource("3_adu2g")
+texture_normal = ExtResource("2_0qgbs")
 texture_pressed = ExtResource("3_adu2g")
+texture_disabled = ExtResource("3_adu2g")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/VBoxContainer/ContinueButton" unique_id=739297581]
 layout_mode = 0
@@ -128,6 +128,6 @@ autoplay = "default"
 frame_progress = 0.3244585
 offset = Vector2(320, 180)
 
-[connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/NewGame" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

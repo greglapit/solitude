@@ -11,7 +11,7 @@ signal scene_ready(scn : Resource)
 signal loading_screen_free
 
 
-func load(path_to_load : String, progress_visible : bool = false) -> void:
+func load(path_to_load : String, progress_visible : bool = false, saving : bool = false) -> void:
 	
 	if progress_visible:
 		progress_label.visible = true
@@ -20,6 +20,9 @@ func load(path_to_load : String, progress_visible : bool = false) -> void:
 	animation_player.play("fade_to_black")
 	await animation_player.animation_finished
 	
+	if saving:
+		await Globals.save()
+		
 	ResourceLoader.load_threaded_request(path)
 	get_tree().paused = true
 	

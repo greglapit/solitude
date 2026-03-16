@@ -28,7 +28,7 @@ var player : Node2D
 var enemies : Array					## Enemies the player is in combat with. Position 0 is main target
 var camera : Camera2D
 var hp : float
-var crit_stored : int 
+var crits_stored : int 
 var attacks : int
 var mini_equipped : Card
 var mini_cards : Array
@@ -106,7 +106,7 @@ func update_node_refs() -> void:
 	
 	# Other
 	hp = battle_node.hp
-	crit_stored = battle_node.crit_stored
+	crits_stored = battle_node.crits_stored
 	attacks = battle_node.attacks
 	turn_order_flipped = battle_node.turn_order_flipped
 	

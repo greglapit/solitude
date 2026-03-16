@@ -398,7 +398,7 @@ _data = {
 &"struggle": SubResource("Animation_lwc77")
 }
 
-[node name="BaseEnemy" type="Area2D" unique_id=1881361469 groups=["enemies"]]
+[node name="BaseEnemy" type="Area2D" unique_id=1881361469 groups=["enemies", "persist"]]
 modulate = Color(1, 1, 1, 0)
 script = ExtResource("1_pa3af")
 

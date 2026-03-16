@@ -2,7 +2,16 @@
 
 [ext_resource type="PackedScene" uid="uid://byq5458onbw1f" path="res://Common/UI/Study Journal/Memory/memory.tscn" id="1_bg22u"]
 [ext_resource type="Script" uid="uid://cphkstgn5vw14" path="res://Common/UI/Study Journal/journal_memory.gd" id="1_lu2ty"]
+[ext_resource type="Shader" uid="uid://bvu6mr6dwkfa5" path="res://Common/Shaders/fog_shader.gdshader" id="2_7fogt"]
 [ext_resource type="PackedScene" uid="uid://brhe05xvrskam" path="res://Common/UI/Study Journal/Journal/journal.tscn" id="2_lu2ty"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_id3su"]
+shader = ExtResource("2_7fogt")
+shader_parameter/radius = 0.885
+shader_parameter/speed = 7.88400037449
+shader_parameter/effect_color = Color(0, 0, 0, 1)
+shader_parameter/pixelate_amount = 40
+shader_parameter/NumDivisions = 32
 
 [sub_resource type="Animation" id="Animation_lu2ty"]
 length = 0.001
@@ -74,7 +83,16 @@ script = ExtResource("1_lu2ty")
 modulate = Color(1, 1, 1, 0.4)
 offset_right = 640.0
 offset_bottom = 360.0
-color = Color(0, 0, 0, 1)
+mouse_filter = 2
+color = Color(0.5793735, 0, 0, 1)
+
+[node name="PixeFogShader" type="ColorRect" parent="CanvasLayer/ColorRect" unique_id=160690204]
+modulate = Color(1, 1, 1, 0.4)
+material = SubResource("ShaderMaterial_id3su")
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=516159665]
 layer = 2

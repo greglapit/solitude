@@ -10,7 +10,7 @@ func spawn(vis : bool = true) -> void:
 	elif !vis and self.visible:
 		animation_player.play("despawn")
 
-func update_crit_stored(amt : int) -> void:
+func update_crits_stored(amt : int) -> void:
 	var sprites : Array[Sprite2D] = [crit_stored1,crit_stored2]
 	for i : int in range(sprites.size()):
 		if i in range(amt - 1):

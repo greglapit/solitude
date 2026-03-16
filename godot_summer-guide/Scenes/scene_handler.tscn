@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://c72r6gm3wxb63" path="res://Scenes/scene_handler.gd" id="1_2axdk"]
 
-[node name="SceneHandler" type="Node" unique_id=1482515982]
+[node name="SceneHandler" type="Node" unique_id=1482515982 groups=["SceneHandler"]]
 script = ExtResource("1_2axdk")

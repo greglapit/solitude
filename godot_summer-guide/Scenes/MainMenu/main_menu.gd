@@ -1,16 +1,16 @@
-extends Node2D
+extends Node2DScene
 
-signal new_game_button_pressed
+@onready var cont_button : TextureButton = $CanvasLayer/MarginContainer/VBoxContainer/ContinueButton
 
 # === Custom Methods ===========================================================
 
-func initialize() -> void:
-	new_game_button_pressed.connect(get_parent()._on_main_menu_new_game_button_pressed)
 
 # === Built In =================================================================
 
 func _ready() -> void:
-	pass
+	var has_save : bool = FileAccess.file_exists("user://savegame.save")
+	cont_button.visible = has_save
+	return
 	
 func _input(_event: InputEvent) -> void:
 	pass
@@ -18,8 +18,22 @@ func _input(_event: InputEvent) -> void:
 # === Signals ==================================================================
 
 func _on_play_button_pressed() -> void:
-	new_game_button_pressed.emit()
+	var has_save : bool = FileAccess.file_exists("user://savegame.save")
+	if has_save:
+		var result : String = await ConfirmationWindow.prompt_user(self, "Erase previous save?")
+		if result == "yes":
+			var error : Error = DirAccess.remove_absolute("user://savegame.save")
+			if error != OK:
+				push_error("Failed to delete save file. Error code: ", error)
+		else:
+			return
+	change_scn.emit("res://Scenes/Battle/battle.tscn", true)
 
+func _on_continue_button_pressed() -> void:
+	Globals.load_save()
+	var scene_handler : Node = get_parent()
+	change_scn.emit(scene_handler.curr_scene_path, true)
+	
 
 func _on_quit_button_pressed() -> void:
 	var result : String = await ConfirmationWindow.prompt_user(self, "Are you sure?")
@@ -28,4 +42,3 @@ func _on_quit_button_pressed() -> void:
 		return
 	else:
 		return
-			

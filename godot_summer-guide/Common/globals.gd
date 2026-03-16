@@ -1,16 +1,29 @@
 extends Node
 
+var ranks : Array = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+
+# Save Dictionaries
+var player_data : Dictionary
+var scene_data : Dictionary
+var entities_data : Dictionary
+
 var hp : int = 20
 var max_hp : int = 20
 var draw_amt : int = 3
 var actions : int = 1
 var attacks : int = 1
 var max_draw : int = 3			# How many items player can have drawn at a time
+var crits_stored : int
 var max_crits : int = 3
-var armory : Dictionary = {1 : "1_philo_weapon", 2 : '2_twin_weapon', 10 : '10_pirate_weapon'}		## Rank : f_name
+		# Convert all keys to int automatically
+var armory : Dictionary = {1 : "1_philo_weapon", 2 : '2_twin_weapon', 10 : '10_pirate_weapon'}: 
+	set(value):
+		armory = {}
+		for key : String in value.keys():
+			var int_key : int = int(key)
+			armory[int_key] = value[key]
 var learned_ranks : Array = armory.keys()
 var memory_capacity : int = 5
-var ranks : Array = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 var armory_durs : Array = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
 
 var learned_weapons : Dictionary = {
@@ -45,7 +58,94 @@ func fill_placeholders(template: String, vars: Dictionary) -> String:
 		template = template.replace(key, str(vars[key]))
 	return template
 
-func save_game() -> Signal:
+func update_save_dicts_data() -> void:
+	
+	# Player
+	player_data = {
+		"hp" = hp,
+		"max_hp" = max_hp,
+		"draw_amt" = draw_amt,
+		"actions" = actions,
+		"attacks" = attacks,
+		"max_draw" = max_draw,
+		"crits_stored" = crits_stored,
+		"max_crits" = max_crits,
+		"armory" = armory,
+		"learned_ranks" = armory.keys(),
+		"memory_capacity" = memory_capacity,
+		"armory_durs" = armory_durs
+	}
+	
+	
+	# Scene
+	var scene_handler : Node = get_tree().get_nodes_in_group("SceneHandler")[0]
+	var curr_scene_path : String = scene_handler.get_child(0).scene_file_path
+	scene_data = {
+		"curr_scene_path" = curr_scene_path
+	}
+	
+	
+	# Entities
+	entities_data.clear()
+	var save_entities : Array[Node] = get_tree().get_nodes_in_group("persist")
+	for node : Node in save_entities:
+		# Check the node is an instanced scene so it can be instanced again during load.
+		if node.scene_file_path.is_empty():
+			push_error("persistent node '%s' is not an instanced scene, skipped" % node.name)
+			continue
+
+		# Check the node has a save function.
+		if !node.has_method("save"):
+			push_error("persistent node '%s' is missing a save() function, skipped" % node.name)
+			continue
+
+		# Call the node's save function.
+		var entity_data : Dictionary = node.save()
+		entities_data[node.name] = entity_data
+	
+
+## Player Data
+func save() -> Signal:
+	
+	# Save Player Data
+	update_save_dicts_data()
+	var save_file : FileAccess = FileAccess.open("user://savegame.save", FileAccess.WRITE)
+	var all_data : Dictionary = {"player_data":  player_data, "scene_data" : scene_data, "entities_data" : entities_data}
+	var json_string : String = JSON.stringify(all_data, "\t")
+	save_file.store_line(json_string)
+	
+	return get_tree().process_frame
+
+func load_save() -> Signal:
+	if not FileAccess.file_exists("user://savegame.save"):
+		push_error("Attempt to load nonexistent save.")
+		
+	var save_file : FileAccess = FileAccess.open("user://savegame.save", FileAccess.READ)
+	var text : String = save_file.get_as_text()
+	# Creates the helper class to interact with JSON.
+	var json : JSON = JSON.new()
+	
+	# Check if there is any error while parsing the JSON string, skip in case of failure.
+	var parse_result : Error = json.parse(text)
+	if parse_result != OK:
+		push_error("JSON Parse Error: ", json.get_error_message(), " in ", save_file, " at line ", json.get_error_line())
+	
+	var data : Variant = json.data
+	player_data = data["player_data"]
+	scene_data = data["scene_data"]
+	entities_data = data["entities_data"]
+	
+	# Set Player Data
+	for i : String in player_data.keys():
+		Globals.set(i, player_data[i])
+		
+	# Set Scene Data
+	var scene_handler : Node = get_tree().get_nodes_in_group("SceneHandler")[0]
+	scene_handler.curr_scene_path = scene_data["curr_scene_path"]
+	
+	# Spawn and Set Entities
+	# done in respective scenes during initialize()
+
 	return get_tree().process_frame
 
 func _ready() -> void:

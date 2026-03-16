@@ -9,7 +9,7 @@
 - [x] test 1,2 weapons. Fix twin mark disappearing ✅ 2026-02-05
 - [x] twin mark breaks chaining ✅ 2026-02-05
 - [x] new weapons ✅ 2026-02-21
-- [ ] filter base weapons from journal
+- [x] filter base weapons from journal ✅ 2026-03-14
 - [ ] save file
 - [ ] In between player sitting at campfire. Will be where they edit their memory and recallable weapons. Player daydreaming at the sky, availible weapons circling their head
 	- [ ] Click campfire to sleep the night and enter spread again. Gain a little health back
@@ -24,9 +24,9 @@
 - [ ] Drawback of memorizing too many cards is lowered health? Curse of amnesia
 - [ ] Visually communicate you have space to draw so unequipping. Armory with physically empty slots?
 
-
-
-
+ 
+# before releasing
+- [ ] Save file and game encryption
 
 Create satisfying player attack system first, ignore enemies, just have dummy hit system  
 * Drawing random weapon  

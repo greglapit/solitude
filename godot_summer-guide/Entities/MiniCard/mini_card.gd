@@ -86,7 +86,7 @@ func damage(amount : int = 1) -> void:
 
 ## Returns true if successful
 func cut(amount : int = 1) -> bool:
-	if durability <= 1 or not Globals.available_ranks.has(rank - amount):
+	if durability <= 1 or not Globals.armory.keys().has(rank - amount):
 		animation_player.play("shake")
 		return false
 		
@@ -97,7 +97,7 @@ func cut(amount : int = 1) -> bool:
 	
 ## Returns true if successful
 func socket(amount : int = 1) -> bool:
-	if durability <= 1 or not Globals.available_ranks.has(rank + amount):
+	if durability <= 1 or not Globals.armory.keys().has(rank + amount):
 		animation_player.play("shake")
 		return false
 	damage()

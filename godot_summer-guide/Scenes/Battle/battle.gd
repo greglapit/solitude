@@ -1,4 +1,4 @@
-extends Node2D
+extends Node2DScene
 
 @onready var player : Node2D = $Player
 @onready var weapons_display : Control = $UI/WeaponDisplay
@@ -19,13 +19,24 @@ var mini_equipped : Card							# Current card player has equipped
 var curr_weapon : Weapon							# String name of player weapon
 var player_weapons : Dictionary						# Rank : Weapon
 var enemies : Array
-var hp : int = Globals.hp
-var attacks : int = Globals.attacks					# Attacks player has left
-var actions : int = Globals.actions					# Actions player has left (draw, cut, socket)
+var hp : int = Globals.hp:
+	set(value):
+		Globals.hp = value
+		hp = value
+var attacks : int = Globals.attacks:				# Attacks player has left
+	set(value):
+		Globals.attacks = value
+		attacks = value
+var actions : int = Globals.actions:				# Actions player has left (draw, cut, socket)
+	set(value):
+		Globals.actions = value
+		actions = value
+var crits_stored : int = 0:							# Number of crits stored
+	set(value):
+		Globals.crits_stored = value
+		crits_stored = value
 var drawing : bool = false							# Turned on when drawing started, off when it ends
 var chaining : bool = false							# Turned on when chain attack is occuring
-var crit_stored : int = 0							# Number of crits stored
-var click_prevention : bool = true					# Stops minicard/attack inputs when drawing or attacking
 var pausing_weapons : Array[Weapon]					# Weapon pausing chaining for effects to take place
 
 var combat_data : Dictionary = {
@@ -33,15 +44,20 @@ var combat_data : Dictionary = {
 	"durability_delta" = 0,
 	"attacks" = 0
 	}
+	
+var click_prevention : bool = true:					# Stops minicard/attack inputs when drawing or attacking
+	set(value):
+		click_prev_update.emit(value)
+		click_prevention = value
 var turn_order_flipped : bool = false:
 	set(value):
 		turn_order_flipped = value
 		update_turn_clock()
 
+signal click_prev_update(val : bool)
+
 # DEV TOOLS
 var crit_infinite : bool = true
-
-signal exit_main_menu
 
 # === Custom Methods ===========================================================
 # General
@@ -49,11 +65,22 @@ signal exit_main_menu
 #region
 func initialize() -> void:
 	# player preparing anim add here maybe
-	await spawn_enemy(3)
-	click_prevention = false
 	
-	if get_parent().has_method("_on_battle_exit_main_menu"):
-		exit_main_menu.connect(get_parent()._on_battle_exit_main_menu)
+	# Loads entities if saved
+	if !Globals.entities_data.is_empty() and Globals.scene_data["curr_scene_path"] == scene_file_path:
+		var entites_data : Array = Globals.entities_data.values()
+		var enemy_group : Array = entites_data.filter(func(e : Dictionary) -> bool: return e["class_name"] == "Enemy")
+		enemy_group.sort_custom(func(a : Dictionary, b : Dictionary) -> bool:
+			return a["z_index"] > b["z_index"])
+		for i : int in range(enemy_group.size()):
+			await spawn_enemy(1, enemy_group[i])
+			
+		var minis_group : Array = entites_data.filter(func(e : Dictionary) -> bool: return e["class_name"] == "Card")
+		
+	else:
+		await spawn_enemy(3)
+		
+	click_prevention = false
 
 ## Loads all player weapons into scene
 func load_armory() -> void:
@@ -99,13 +126,21 @@ func reset_globals() -> void:
 	attacks = Globals.attacks
 	actions = Globals.actions
 
-func spawn_enemy(num : int = 1) -> void:
+func spawn_enemy(num : int = 1, enemy_data : Dictionary = {}) -> void:
 	for i : int in range(num):
 		enemies = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART,[4]) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART, range(1,11)) # 2 * (2 + randi() % 2)
 		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
+		
+		if enemy_data:
+			for prop : String in enemy_data.keys():
+				if prop == "filename" or prop == "parent" or prop == "pos_x" or prop == "pos_y":
+					continue
+				enemy.set(prop, enemy_data[prop])
+			enemy.position = Vector2(enemy_data["pos_x"], enemy_data["pos_y"])
+		
 		add_child(enemy)
 		enemy.animation_player.animation_finished.connect(_on_enemy_animation_finished.bind(enemy))
 		enemy.damaged.connect(_on_enemy_damaged.bind(enemy))
@@ -160,8 +195,8 @@ func initiate_combat() -> void:
 #endregion
 
 func update_crit_button() -> void:
-	crit_button.spawn(crit_stored > 0)
-	crit_button.update_crit_stored(crit_stored)
+	crit_button.spawn(crits_stored > 0)
+	crit_button.update_crits_stored(crits_stored)
 	
 	
 	enemies = get_tree().get_nodes_in_group("enemies").filter(func(e : Enemy) -> bool: return e != null and not e.is_dead)
@@ -169,7 +204,7 @@ func update_crit_button() -> void:
 	# Crit Button enable/disable
 	crit_button.enable(false)
 	if curr_weapon and curr_weapon.has_special and curr_weapon.has_valid_spec_target(enemies):
-		if crit_stored >= curr_weapon.special_cost:
+		if crits_stored >= curr_weapon.special_cost:
 			crit_button.enable()
 
 func weapon_pause() -> Signal:
@@ -355,7 +390,12 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("escape_menu") and !get_parent().find_child("ConfirmationWindow"):
 		var result : String = await ConfirmationWindow.prompt_user(self, "Exit to main menu?\n(Saving not implemented yet)")
 		if result == "yes":
-			exit_main_menu.emit()
+			
+			if click_prevention:
+				while click_prevention:
+					await click_prev_update
+					
+			change_scn.emit("res://Scenes/MainMenu/main_menu.tscn", false)
 			return
 		else:
 			return
@@ -382,7 +422,7 @@ func _process(_delta: float) -> void:
 		dragged_card.position = get_global_mouse_position()
 		
 	if crit_infinite:
-		crit_stored = 3
+		crits_stored = 3
 #endregion
 
 # === Signals ==================================================================
@@ -452,11 +492,11 @@ func _on_chain_button_pressed() -> void:
 	
 
 func _on_crit_button_pressed() -> void:
-	if crit_stored <= 0 or click_prevention:
+	if crits_stored <= 0 or click_prevention:
 		return
 	click_prevention = true
 	crit_button.enable(false)
-	crit_stored = clamp(crit_stored - curr_weapon.special_cost, 0, Globals.max_crits)
+	crits_stored = clamp(crits_stored - curr_weapon.special_cost, 0, Globals.max_crits)
 	
 	enemies = get_tree().get_nodes_in_group("enemies")
 	curr_weapon.special_attack()
@@ -617,7 +657,7 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 
 func _on_weapon_crit() -> void:
 	weapons_display.play("joker_crit")
-	crit_stored = clamp(crit_stored + 1, 0, Globals.max_crits)
+	crits_stored = clamp(crits_stored + 1, 0, Globals.max_crits)
 	update_crit_button()
 	
 
