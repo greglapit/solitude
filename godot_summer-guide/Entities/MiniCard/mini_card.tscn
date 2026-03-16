@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bbuv41jwgctxt"]
+[gd_scene format=3 uid="uid://bbuv41jwgctxt"]
 
 [ext_resource type="Texture2D" uid="uid://lm5lr2v6x8fn" path="res://Entities/MiniCard/Art/mini_cards.png" id="1_80ril"]
 [ext_resource type="Script" uid="uid://n8p0o6l1vo3d" path="res://Entities/MiniCard/mini_card.gd" id="1_lgfv0"]
@@ -285,25 +285,23 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80ril"]
 size = Vector2(27, 43.5)
 
-[node name="MiniCard" type="Area2D" groups=["mini_cards"]]
+[node name="MiniCard" type="Area2D" unique_id=2109561850 groups=["mini_cards"]]
 z_index = 11
 script = ExtResource("1_lgfv0")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_etsk7")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1508213922]
+libraries/ = SubResource("AnimationLibrary_etsk7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1848057418]
 shape = SubResource("RectangleShape2D_80ril")
 
-[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D" unique_id=1966729894]
 position = Vector2(-0.5, -0.25)
 texture = ExtResource("1_80ril")
 hframes = 32
 frame = 27
 
-[node name="Labels" type="Control" parent="CollisionShape2D"]
+[node name="Labels" type="Control" parent="CollisionShape2D" unique_id=899950472]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -10.0
@@ -312,7 +310,7 @@ offset_right = 10.0
 offset_bottom = 14.5
 mouse_behavior_recursive = 1
 
-[node name="Label" type="Label" parent="CollisionShape2D/Labels"]
+[node name="Label" type="Label" parent="CollisionShape2D/Labels" unique_id=1018197023]
 layout_mode = 0
 offset_left = 1.0
 offset_top = -4.0
@@ -321,7 +319,7 @@ offset_bottom = 10.0
 theme_override_colors/font_color = Color(0.7019608, 0.21960784, 0.19215687, 1)
 text = "A"
 
-[node name="Label2" type="Label" parent="CollisionShape2D/Labels"]
+[node name="Label2" type="Label" parent="CollisionShape2D/Labels" unique_id=1507051703]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

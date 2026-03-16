@@ -29,6 +29,34 @@ signal free
 
 
 # === Custom Methods ===========================================================
+func save() -> Dictionary:
+	var data : Dictionary = {
+		"name" : name,
+		"class_name" : get_script().get_global_name(),
+		"filename" : get_scene_file_path(),
+		"parent" : get_parent().get_path(),
+		"pos_x" : position.x,
+		"pos_y" : position.y,
+		"z_index" : z_index,
+	}
+	
+	# Loop through all script variables
+	var script : GDScript = get_script()
+	for prop : Dictionary in script.get_script_property_list():
+		# Skip functions and constants; keep only variables
+		if prop["type"] != TYPE_CALLABLE and prop["type"] != TYPE_OBJECT:
+			data[prop["name"]] = get(prop["name"])
+			
+	#for prop_dict : Dictionary in get_property_list():
+		#var prop_name : String = prop_dict.name
+		#var usage : PropertyUsageFlags = prop_dict.usage
+		#
+		#if usage and PROPERTY_USAGE_STORAGE:
+			#data[prop_dict.name] = get(prop_name)
+		
+	return data
+	
+	
 static func new_card(_suit : Suits, _rank : int) -> Card:
 	if _suit not in Suits.values() or _rank not in range(1,14):
 		print("Invalid card declaration")
@@ -122,6 +150,7 @@ func queue(anim : String) -> void:
 # === Built In =================================================================
 
 func _ready() -> void:
+	name = "MiniCard" + str(get_tree().get_node_count_in_group("mini_cards"))
 	# Assigns random edge texture
 	sprite2d.frame = randi() % 4
 	sprite_variant = sprite2d.frame

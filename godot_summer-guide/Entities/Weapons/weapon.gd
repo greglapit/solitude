@@ -68,6 +68,26 @@ signal pause(weapon : Weapon)				## Pause combat for combat effects to take plac
 signal resume(weapon : Weapon)
 
 # === Custom Methods ===========================================================
+func save() -> Dictionary:
+	var data : Dictionary = {
+		"name" : name,
+		"class_name" : "Weapon",
+		"filename" : get_scene_file_path(),
+		"parent" : get_parent().get_path(),
+		"z_index" : z_index,
+	}
+	
+	# Loop through all script variables
+	var script : GDScript = get_script()
+	for prop : Dictionary in script.get_script_property_list():
+		# Skip functions and constants; keep only variables
+		if prop["type"] != TYPE_CALLABLE and prop["type"] != TYPE_OBJECT:
+			data[prop["name"]] = get(prop["name"])
+	return data
+
+func initialize() -> void:
+	pass
+
 func assign_prop() -> void:
 	
 	#var base_name : String = get_script().get_path().get_file().get_basename()

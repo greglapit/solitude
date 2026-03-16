@@ -16,7 +16,7 @@ var max_draw : int = 3			# How many items player can have drawn at a time
 var crits_stored : int
 var max_crits : int = 3
 		# Convert all keys to int automatically
-var armory : Dictionary = {1 : "1_philo_weapon", 2 : '2_twin_weapon', 10 : '10_pirate_weapon'}: 
+var armory : Dictionary = {1 : "1_philo_weapon", 2 : '2_glass_weapon', 10 : '10_pirate_weapon'}: 
 	set(value):
 		armory = {}
 		for key : String in value.keys():

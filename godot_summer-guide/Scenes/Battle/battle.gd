@@ -17,7 +17,7 @@ var enemy_positions : Array[Vector2] = [enemy_target_pos, enemy_target_pos - Vec
 										Vector2.ZERO, Vector2.ZERO, Vector2.ZERO, Vector2.ZERO]
 var mini_equipped : Card							# Current card player has equipped
 var curr_weapon : Weapon							# String name of player weapon
-var player_weapons : Dictionary						# Rank : Weapon
+var player_weapons : Dictionary						## Rank : Weapon
 var enemies : Array
 var hp : int = Globals.hp:
 	set(value):
@@ -66,20 +66,47 @@ var crit_infinite : bool = true
 func initialize() -> void:
 	# player preparing anim add here maybe
 	
-	# Loads entities if saved
-	if !Globals.entities_data.is_empty() and Globals.scene_data["curr_scene_path"] == scene_file_path:
-		var entites_data : Array = Globals.entities_data.values()
-		var enemy_group : Array = entites_data.filter(func(e : Dictionary) -> bool: return e["class_name"] == "Enemy")
-		enemy_group.sort_custom(func(a : Dictionary, b : Dictionary) -> bool:
-			return a["z_index"] > b["z_index"])
-		for i : int in range(enemy_group.size()):
-			await spawn_enemy(1, enemy_group[i])
-			
-		var minis_group : Array = entites_data.filter(func(e : Dictionary) -> bool: return e["class_name"] == "Card")
-		
-	else:
+	# Default load if no save file
+	if Globals.entities_data.is_empty() or !Globals.scene_data["curr_scene_path"] == scene_file_path:
 		await spawn_enemy(3)
-		
+		click_prevention = false
+		return
+	
+	# Load Saved enemies, weapons, minicards
+	#region
+	# Load enemies, weapons
+	var entites_data : Array = Globals.entities_data.values()
+	
+	# Mini Card
+	var minis_group : Array = entites_data.filter(func(e : Dictionary) -> bool: return e["class_name"] == "Card")
+	for i : int in range(minis_group.size()):
+		spawn_card(minis_group[i])
+	
+	align_mini_cards()
+	
+	
+	# Enemies
+	var enemy_group : Array = entites_data.filter(func(e : Dictionary) -> bool: return e.class_name == "Enemy")
+	enemy_group.sort_custom(func(a : Dictionary, b : Dictionary) -> bool:
+		return a.z_index > b.z_index)
+	for i : int in range(enemy_group.size()):
+		await spawn_enemy(1, enemy_group[i])
+	
+	# Weapons
+	var weapons_group : Array = entites_data.filter(func(e : Dictionary) -> bool: return e["class_name"] == "Weapon")
+	# waits for load_armory()
+	while player_weapons.size() != Globals.armory.size():
+		await get_tree().process_frame
+	
+	for i : int in range(weapons_group.size()):
+		var weapon_data : Dictionary = weapons_group[i]
+		var rank : int = weapon_data.rank
+		for prop : String in weapon_data.keys():
+			player_weapons[rank].set(prop, weapon_data[prop])
+		player_weapons[rank].initialize()
+	
+	#endregion
+	
 	click_prevention = false
 
 ## Loads all player weapons into scene
@@ -98,6 +125,7 @@ func load_armory() -> void:
 		player.anim_finished.connect(weapon._on_player_anim_finished)
 		player.attack_impact.connect(weapon._on_player_attack_impact)
 		player.weap_effect_start.connect(weapon._on_player_weap_effect_start)
+		weapon.add_to_group("persist")
 		add_child(weapon)
 		
 		# After because property gets assigned after added to tree
@@ -130,7 +158,6 @@ func spawn_enemy(num : int = 1, enemy_data : Dictionary = {}) -> void:
 	for i : int in range(num):
 		enemies = get_tree().get_nodes_in_group("enemies")
 		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART, range(1,11)) # 2 * (2 + randi() % 2)
-		enemy.name = "Enemy%d" % [randi()%10000]
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
 		
@@ -142,6 +169,7 @@ func spawn_enemy(num : int = 1, enemy_data : Dictionary = {}) -> void:
 			enemy.position = Vector2(enemy_data["pos_x"], enemy_data["pos_y"])
 		
 		add_child(enemy)
+		enemy.add_to_group("persist")
 		enemy.animation_player.animation_finished.connect(_on_enemy_animation_finished.bind(enemy))
 		enemy.damaged.connect(_on_enemy_damaged.bind(enemy))
 		enemy.freed.connect(_on_enemy_freed)
@@ -245,6 +273,25 @@ func update_turn_clock() -> void:
 #-------------------------------------------------------------------------------
 #region
 
+## Spawn card. ONLY USE WHEN LOADING SAVE. NO CHECKS FOR GOING OVER LIMIT
+func spawn_card(mini_data : Dictionary) -> void:
+	var mini_card : Card = Card.new_random_card(Globals.armory.keys())
+	mini_card.position = armory_position
+	add_child(mini_card)
+	mini_card.add_to_group("persist")
+	
+	for prop : String in mini_data.keys():
+		if prop == "filename" or prop == "parent" or prop == "pos_x" or prop == "pos_y":
+			continue
+		mini_card.set(prop, mini_data[prop])
+	
+	mini_card.input_event.connect(_on_mini_card_input_event.bind(mini_card))
+	mini_card.mouse_entered.connect(_on_mini_card_mouse_entered.bind(mini_card))
+	mini_card.mouse_exited.connect(_on_mini_card_mouse_exited.bind(mini_card))
+	mini_card.free.connect(_on_mini_card_free)
+	return
+
+## Draws card through joker animation
 func draw_card(amount : int = 1) -> void:
 	var available_slots : int = \
 		Globals.max_draw - get_tree().get_node_count_in_group("mini_cards") - int(mini_equipped != null)
@@ -258,10 +305,10 @@ func draw_card(amount : int = 1) -> void:
 		
 	for i : int in range(amount):
 		var mini_card : Card = Card.new_random_card(Globals.armory.keys())
-		mini_card.name = "MiniCard%d" % [randi()%10000]
 		mini_card.position = armory_position
 		mini_card.visible = false
 		add_child(mini_card)
+		mini_card.add_to_group("persist")
 		
 		# Equips only first one
 		if i == 0:

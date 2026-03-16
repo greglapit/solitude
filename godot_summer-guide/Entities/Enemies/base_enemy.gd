@@ -77,7 +77,7 @@ func save() -> Dictionary:
 		#var prop_name : String = prop_dict.name
 		#var usage : PropertyUsageFlags = prop_dict.usage
 		#
-		#if usage and PROPERTY_USAGE_STORAGE and !PROPERTY_USAGE_STORE_IF_NULL:
+		#if usage and PROPERTY_USAGE_STORAGE:
 			#data[prop_dict.name] = get(prop_name)
 		
 	return data
@@ -160,6 +160,7 @@ func _ready() -> void:
 	suit_sprite.texture = load(suit_art_path + suit_name)
 	card_sprite.frame = randi() % 4
 	suit_sprite.frame = randi() % 4
+	name = "Enemy" + str(get_tree().get_node_count_in_group("enemies"))
 	
 	update_labels()
 	
