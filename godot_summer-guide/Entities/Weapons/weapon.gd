@@ -71,7 +71,7 @@ signal resume(weapon : Weapon)
 func save() -> Dictionary:
 	var data : Dictionary = {
 		"name" : name,
-		"class_name" : "Weapon",
+		"class_name" : get_class(),
 		"filename" : get_scene_file_path(),
 		"parent" : get_parent().get_path(),
 		"z_index" : z_index,
@@ -81,18 +81,19 @@ func save() -> Dictionary:
 	var script : GDScript = get_script()
 	for prop : Dictionary in script.get_script_property_list():
 		# Skip functions and constants; keep only variables
-		if prop["type"] != TYPE_CALLABLE and prop["type"] != TYPE_OBJECT:
-			data[prop["name"]] = get(prop["name"])
+		if prop["type"] == TYPE_DICTIONARY:
+			var dict : Dictionary = get(prop["name"])
+			if !dict.is_empty() and typeof(dict.keys()[0]) == TYPE_OBJECT:
+				GlobalsUtil.rekey_objects_to_names(dict)
+			data[prop["name"]] = dict
 	return data
 
 func initialize() -> void:
+	# TODO rekey saved dict to objects
+	
 	pass
 
 func assign_prop() -> void:
-	
-	#var base_name : String = get_script().get_path().get_file().get_basename()
-	#weap_data = Globals.all_weap_data[base_name]
-	
 	rank = weap_data.rank
 	file_name = weap_data.file_name
 	display_name = weap_data.display_name
@@ -214,7 +215,6 @@ func _on_player_anim_finished(anim : String) -> void:
 		# Damage Weapon
 		if !critting:
 			mini_equipped.used = true
-			mini_equipped.play("used")
 			mini_equipped.damage(-combat_data["durability_delta"])
 			
 		# Attacked after enemy due to higher card rank

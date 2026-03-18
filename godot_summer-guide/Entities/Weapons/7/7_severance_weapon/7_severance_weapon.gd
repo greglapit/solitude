@@ -59,7 +59,7 @@ func _on_enemy_spawned(enemy : Enemy) -> void:
 	_on_enemy_rank_update(enemy.rank,enemy)
 	
 func _on_enemy_rank_update(_new_rank : int, enemy : Enemy) -> void:
-	if crit_stored < special_cost:
+	if crits_stored < special_cost:
 		return
 	if enemy not in exe_enemies:
 		if enemy.rank < threshold:

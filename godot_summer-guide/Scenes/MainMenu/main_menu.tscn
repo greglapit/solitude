@@ -72,6 +72,7 @@ theme_override_constants/margin_bottom = 14
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer" unique_id=704492916]
 layout_mode = 2
+alignment = 2
 
 [node name="ContinueButton" type="TextureButton" parent="CanvasLayer/MarginContainer/VBoxContainer" unique_id=1686378513]
 layout_mode = 2

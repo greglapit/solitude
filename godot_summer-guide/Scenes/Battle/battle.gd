@@ -6,15 +6,15 @@ extends Node2DScene
 @onready var chain_button : TextureButton = $UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton
 @onready var attack_button : TextureButton = $UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer/AttackButton
 @onready var crit_button : TextureButton = $UI/CritButton
-@onready var turn_clock : Node2D = $UI/TurnClock
+@onready var turn_clock : Control = $UI/TurnClock
 @onready var spam_timer : Timer = $SpamTimer
 @onready var camera : Camera2D = $BattleCamera2D
-
-var mini_pos : Array								# Mini Card Positions
-var armory_position : Vector2 = Vector2(250,335)
-var enemy_target_pos : Vector2 = Vector2(250,80)
-var enemy_positions : Array[Vector2] = [enemy_target_pos, enemy_target_pos - Vector2(35,10), enemy_target_pos - Vector2(-30, 20), \
+@onready var armory_position : Vector2 = $ArmoryPosition.position
+@onready var enemy_target_pos : Vector2 = $EnemyTargetPosition.position
+@onready var enemy_positions : Array[Vector2] = [enemy_target_pos, enemy_target_pos - Vector2(35,10), enemy_target_pos - Vector2(-30, 20), \
 										Vector2.ZERO, Vector2.ZERO, Vector2.ZERO, Vector2.ZERO]
+										
+										
 var mini_equipped : Card							# Current card player has equipped
 var curr_weapon : Weapon							# String name of player weapon
 var player_weapons : Dictionary						## Rank : Weapon
@@ -23,18 +23,9 @@ var hp : int = Globals.hp:
 	set(value):
 		Globals.hp = value
 		hp = value
-var attacks : int = Globals.attacks:				# Attacks player has left
-	set(value):
-		Globals.attacks = value
-		attacks = value
-var actions : int = Globals.actions:				# Actions player has left (draw, cut, socket)
-	set(value):
-		Globals.actions = value
-		actions = value
-var crits_stored : int = 0:							# Number of crits stored
-	set(value):
-		Globals.crits_stored = value
-		crits_stored = value
+var attacks : int = Globals.attacks					# Attacks player has left
+var actions : int = Globals.actions					# Actions player has left (draw, cut, socket)
+var crits_stored : int = 0							# Number of crits stored
 var drawing : bool = false							# Turned on when drawing started, off when it ends
 var chaining : bool = false							# Turned on when chain attack is occuring
 var pausing_weapons : Array[Weapon]					# Weapon pausing chaining for effects to take place
@@ -45,16 +36,16 @@ var combat_data : Dictionary = {
 	"attacks" = 0
 	}
 	
-var click_prevention : bool = true:					# Stops minicard/attack inputs when drawing or attacking
+var pause_input : bool = true:					# Stops minicard/attack inputs when drawing or attacking
 	set(value):
-		click_prev_update.emit(value)
-		click_prevention = value
+		pause_input_update.emit(value)
+		pause_input = value
 var turn_order_flipped : bool = false:
 	set(value):
 		turn_order_flipped = value
 		update_turn_clock()
 
-signal click_prev_update(val : bool)
+signal pause_input_update(val : bool)
 
 # DEV TOOLS
 var crit_infinite : bool = true
@@ -63,18 +54,32 @@ var crit_infinite : bool = true
 # General
 #-------------------------------------------------------------------------------
 #region
+func save() -> Dictionary:
+	var data : Dictionary = {
+		"actions": actions,
+		"combat_data": combat_data,
+		"crits_stored": crits_stored,
+		"filename": get_scene_file_path(),
+		"parent": get_parent().get_path(),
+		"turn_order_flipped": turn_order_flipped,
+	}
+
+	return data
+
 func initialize() -> void:
 	# player preparing anim add here maybe
 	
 	# Default load if no save file
 	if Globals.entities_data.is_empty() or !Globals.scene_data["curr_scene_path"] == scene_file_path:
 		await spawn_enemy(3)
-		click_prevention = false
+		pause_input = false
 		return
 	
-	# Load Saved enemies, weapons, minicards
+	# Load saved battle data
+	GlobalsUtil.assign_vars_from_dict(self, Globals.scene_data)
+	
+	# Load Entites: enemies, weapons, minicards
 	#region
-	# Load enemies, weapons
 	var entites_data : Array = Globals.entities_data.values()
 	
 	# Mini Card
@@ -83,7 +88,6 @@ func initialize() -> void:
 		spawn_card(minis_group[i])
 	
 	align_mini_cards()
-	
 	
 	# Enemies
 	var enemy_group : Array = entites_data.filter(func(e : Dictionary) -> bool: return e.class_name == "Enemy")
@@ -101,13 +105,12 @@ func initialize() -> void:
 	for i : int in range(weapons_group.size()):
 		var weapon_data : Dictionary = weapons_group[i]
 		var rank : int = weapon_data.rank
-		for prop : String in weapon_data.keys():
-			player_weapons[rank].set(prop, weapon_data[prop])
+		GlobalsUtil.assign_vars_from_dict(player_weapons[rank], weapon_data)
 		player_weapons[rank].initialize()
 	
 	#endregion
 	
-	click_prevention = false
+	pause_input = false
 
 ## Loads all player weapons into scene
 func load_armory() -> void:
@@ -149,7 +152,7 @@ func load_weapons_display() -> void:
 	weapons_display.weapon_display_update.connect(_on_weapon_display_update)
 
 func reset_globals() -> void:
-	click_prevention = false
+	pause_input = false
 	chaining = false
 	attacks = Globals.attacks
 	actions = Globals.actions
@@ -243,6 +246,7 @@ func weapon_pause() -> Signal:
 			await get_tree().process_frame
 		return get_tree().process_frame
 
+
 var enemy_just_attacked : bool = false
 func update_turn_clock() -> void:
 	
@@ -280,10 +284,8 @@ func spawn_card(mini_data : Dictionary) -> void:
 	add_child(mini_card)
 	mini_card.add_to_group("persist")
 	
-	for prop : String in mini_data.keys():
-		if prop == "filename" or prop == "parent" or prop == "pos_x" or prop == "pos_y":
-			continue
-		mini_card.set(prop, mini_data[prop])
+	GlobalsUtil.assign_vars_from_dict(mini_card, mini_data)
+	mini_card.update_visuals()
 	
 	mini_card.input_event.connect(_on_mini_card_input_event.bind(mini_card))
 	mini_card.mouse_entered.connect(_on_mini_card_mouse_entered.bind(mini_card))
@@ -301,7 +303,7 @@ func draw_card(amount : int = 1) -> void:
 	
 	if amount <= 0:
 		push_error("No space to draw")
-		click_prevention = false
+		pause_input = false
 		
 	for i : int in range(amount):
 		var mini_card : Card = Card.new_random_card(Globals.armory.keys())
@@ -435,19 +437,19 @@ func _ready() -> void:
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("escape_menu") and !get_parent().find_child("ConfirmationWindow"):
-		var result : String = await ConfirmationWindow.prompt_user(self, "Exit to main menu?\n(Saving not implemented yet)")
+		var result : String = await ConfirmationWindow.prompt_user(self, "Save and exit to main menu?")
 		if result == "yes":
 			
-			if click_prevention:
-				while click_prevention:
-					await click_prev_update
+			if pause_input:
+				while pause_input:
+					await pause_input_update
 					
 			change_scn.emit("res://Scenes/MainMenu/main_menu.tscn", false)
 			return
 		else:
 			return
 		
-	if click_prevention:
+	if pause_input:
 		return
 	
 	elif event.is_action_pressed("draw_button"):
@@ -460,6 +462,7 @@ func _input(event: InputEvent) -> void:
 		_on_chain_button_pressed()
 	elif event.is_action_pressed("pass_button"):
 		equip_mini_card(null)
+		pause_input = true
 		initiate_combat()
 		
 
@@ -478,25 +481,25 @@ func _process(_delta: float) -> void:
 #region
 
 func _on_weapon_box_click() -> void:
-	if click_prevention:
+	if pause_input:
 		return
 	equip_mini_card(null)
 	
 func _on_draw_button_pressed() -> void:
-	if click_prevention:
+	if pause_input:
 		return
 		
 	weapons_display.buttons_enabled(false)
-	click_prevention = true
+	pause_input = true
 	if get_tree().get_node_count_in_group("mini_cards") + int(mini_equipped != null) >= Globals.max_draw:
-		click_prevention = false
+		pause_input = false
 		return
 	actions -= 1
 	draw_card(Globals.draw_amt)
 	weapons_display.play("joker_open_mouth")
 
 func _on_cut_button_pressed() -> void:
-	if click_prevention:
+	if pause_input:
 		return
 	var cut : bool = mini_equipped.cut()
 	if !cut:
@@ -505,7 +508,7 @@ func _on_cut_button_pressed() -> void:
 	equip_mini_card(mini_equipped)
 
 func _on_socket_button_pressed() -> void:
-	if click_prevention:
+	if pause_input:
 		return
 	var socketed : bool = mini_equipped.socket()
 	if !socketed:
@@ -514,34 +517,34 @@ func _on_socket_button_pressed() -> void:
 	equip_mini_card(mini_equipped)
 
 func _on_attack_button_pressed() -> void:
-	if click_prevention:
+	if pause_input:
 		return
 	attack_button.disabled = true
 	chain_button.disabled = true
 	if !curr_weapon or get_tree().get_nodes_in_group("enemies").is_empty():
 		return
-	click_prevention = true
+	pause_input = true
 	if !curr_weapon or get_tree().get_nodes_in_group("enemies").is_empty():
 		return
 	initiate_combat()
 
 
 func _on_chain_button_pressed() -> void:
-	if click_prevention:
+	if pause_input:
 		return
 	attack_button.disabled = true
 	chain_button.disabled = true
 	if !curr_weapon or get_tree().get_nodes_in_group("enemies").is_empty():
 		return
-	click_prevention = true
+	pause_input = true
 	chaining = true
 	initiate_combat()
 	
 
 func _on_crit_button_pressed() -> void:
-	if crits_stored <= 0 or click_prevention:
+	if crits_stored <= 0 or pause_input:
 		return
-	click_prevention = true
+	pause_input = true
 	crit_button.enable(false)
 	crits_stored = clamp(crits_stored - curr_weapon.special_cost, 0, Globals.max_crits)
 	
@@ -566,7 +569,7 @@ func _on_weapon_display_update() -> void:
 			player.play("base_idle")
 			attack_button.disabled = true
 			chain_button.disabled = true
-		click_prevention = false
+		pause_input = false
 		drawing = false
 		
 #endregion
@@ -584,7 +587,7 @@ var dragged_card : Card = null
 const DRAG_THRESHOLD : float = 2.0
 
 func _on_mini_card_input_event(_viewport: Node, event: InputEvent, _shape_idx: int, mini_card : Card) -> void:
-	if !spam_timer.is_stopped() or click_prevention or mini_card.used:
+	if !spam_timer.is_stopped() or pause_input or mini_card.used:
 		return
 	
 	if dragged_card and mini_card != dragged_card:
@@ -671,27 +674,33 @@ func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 		await get_tree().create_timer(0.2).timeout
 		initiate_combat()
 	else:
-		click_prevention = false
+		await weapon_pause()
+		pause_input = false
 		equip_mini_card(null)
 	
 
 ## After weapon is used and combat cycle restarts
 func _on_weapon_combat_fin(_weapon : Weapon) -> void:
+	pause_input = true
+	
 	for weapon : Weapon in player_weapons.values():
 		weapon.post_combat()
 		await weapon_pause()
 	
 	reset_globals()
 	
+	pause_input = false
+	
+	
 	var mini_cards : Array= get_tree().get_nodes_in_group("mini_cards")
 	var space_in_armory : bool = Globals.max_draw > mini_cards.size() + int(mini_equipped != null)
 	
 	# Reset Used Cards
 	for mini_card : Card in mini_cards:
-		mini_card.play("RESET")
 		mini_card.used = false
+	
+	
 	if mini_equipped:
-		mini_equipped.play("RESET")
 		mini_equipped.used = false
 	
 	# Unequip if space in armory

@@ -113,7 +113,10 @@ text = "ATTACK [V]"
 offset_right = 157.0
 
 [node name="TurnClock" parent="UI" unique_id=2046317109 groups=["UI"] instance=ExtResource("11_q43bu")]
-position = Vector2(40, 180)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_vertical = 2
 
 [node name="Background" type="Node2D" parent="." unique_id=1951546377]
 
@@ -137,6 +140,12 @@ mouse_filter = 2
 [node name="Player" parent="." unique_id=832279553 instance=ExtResource("2_3qw02")]
 z_index = 10
 position = Vector2(240, 227)
+
+[node name="ArmoryPosition" type="Marker2D" parent="." unique_id=825787940]
+position = Vector2(250, 335)
+
+[node name="EnemyTargetPosition" type="Marker2D" parent="." unique_id=594326017]
+position = Vector2(250, 80)
 
 [connection signal="timeout" from="SpamTimer" to="." method="_on_spam_timer_timeout"]
 [connection signal="pressed" from="UI/CritButton" to="." method="_on_crit_button_pressed"]

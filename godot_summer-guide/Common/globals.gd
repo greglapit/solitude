@@ -1,3 +1,4 @@
+class_name GlobalsUtil
 extends Node
 
 var ranks : Array = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
@@ -13,10 +14,9 @@ var draw_amt : int = 3
 var actions : int = 1
 var attacks : int = 1
 var max_draw : int = 3			# How many items player can have drawn at a time
-var crits_stored : int
 var max_crits : int = 3
 		# Convert all keys to int automatically
-var armory : Dictionary = {1 : "1_philo_weapon", 2 : '2_glass_weapon', 10 : '10_pirate_weapon'}: 
+var armory : Dictionary = {2 : "2_glass_weapon"}: 
 	set(value):
 		armory = {}
 		for key : String in value.keys():
@@ -53,12 +53,89 @@ var all_weapons : Dictionary = {
 
 var all_weap_data : Dictionary		## file_name : resources. All modified loaded weapon resources
 
-func fill_placeholders(template: String, vars: Dictionary) -> String:
+# Helper Functions
+# ==================================================================================================
+static func fill_placeholders(template: String, vars: Dictionary) -> String:
 	for key : String in vars.keys():
 		template = template.replace(key, str(vars[key]))
 	return template
 
+## Create generic code-pasteable dict of all serializable vars in script, with additional details
+static func create_default_save_dict(node : Node) -> String:
+	var data : Dictionary = {
+		"name" : "name",
+		"class_name" : "get_class()",
+		"filename" : "get_scene_file_path()",
+		"parent" : "get_parent().get_path()",
+		"pos_x" : "position.x",
+		"pos_y" : "position.y",
+		"z_index" : "z_index",
+	}
+	
+	# Loop through all script variables
+	var script : GDScript = node.get_script()
+	if !script:
+		return JSON.stringify(data, "\t")
+	for prop : Dictionary in script.get_script_property_list():
+		
+		# Skip functions and constants; keep only variables
+		if prop["type"] == TYPE_CALLABLE or prop["type"] == TYPE_OBJECT:
+			continue
+			
+		# Remove storing Objects because they can't be serialized in JSON.
+		if prop["type"] == TYPE_DICTIONARY:
+			var container : Dictionary = node.get(prop["name"])
+			if container.values().is_empty() or container.values()[0] is Object:
+				continue
+				
+		# Remove storing Objects because they can't be serialized in JSON.
+		if prop["type"] == TYPE_ARRAY:
+			var container : Array = node.get(prop["name"])
+			if container.is_empty() or container[0] is Object:
+				continue
+				
+				
+		if prop.usage & PROPERTY_USAGE_SCRIPT_VARIABLE:
+			data[prop["name"]] = prop["name"]
+	
+	var json_string : String = JSON.stringify(data, "\t")
+	var regex : RegEx = RegEx.new()
+	regex.compile(':\\s*"([^"]*)"')
+	json_string = regex.sub(json_string, ': $1', true)
+
+	
+	return json_string
+
+## Overwrite all values in dictionary "var : value" to node
+static func assign_vars_from_dict(node : Node, dict : Dictionary) -> void:
+	var props : Array = node.get_script().get_script_property_list()
+	for prop : Dictionary in props:
+		if prop.name in dict.keys():
+			node.set(prop.name, dict[prop.name])
+
+
+static func rekey_objects_to_names(dict : Dictionary) -> void:
+	for val : Node in dict.keys():
+		dict[val.name] = dict[val]
+		dict.erase(val)
+
+static func rekey_names_to_objects(dict : Dictionary, context : Node = null) -> void:
+	for val : String in dict.keys():
+		var node_match : Node = context.get_root().find_child("Enemy2131", true, false)
+		
+		if !node_match:
+			push_error("Node %s saved but not found in tree after initializing" % [val])
+		else:
+			dict[node_match] = dict[val]
+			dict.erase(val)
+
+# ==================================================================================================
+## Updates player, scene, and entity data
 func update_save_dicts_data() -> void:
+	player_data.clear()
+	scene_data.clear()
+	entities_data.clear()
+	
 	
 	# Player
 	player_data = {
@@ -68,7 +145,6 @@ func update_save_dicts_data() -> void:
 		"actions" = actions,
 		"attacks" = attacks,
 		"max_draw" = max_draw,
-		"crits_stored" = crits_stored,
 		"max_crits" = max_crits,
 		"armory" = armory,
 		"learned_ranks" = armory.keys(),
@@ -79,14 +155,17 @@ func update_save_dicts_data() -> void:
 	
 	# Scene
 	var scene_handler : Node = get_tree().get_nodes_in_group("SceneHandler")[0]
-	var curr_scene_path : String = scene_handler.get_child(0).scene_file_path
-	scene_data = {
-		"curr_scene_path" = curr_scene_path
-	}
+	var curr_scene_node : Node = scene_handler.curr_scene
+			# Check the node has a save function.
+	if !curr_scene_node.has_method("save"):
+		scene_data["log"] = "No data to be saved :O"
+	else:
+		# Call the node's save function.
+		scene_data = curr_scene_node.save()
+	scene_data["curr_scene_path"] = scene_handler.curr_scene_path
 	
 	
 	# Entities
-	entities_data.clear()
 	var save_entities : Array[Node] = get_tree().get_nodes_in_group("persist")
 	for node : Node in save_entities:
 		# Check the node is an instanced scene so it can be instanced again during load.
@@ -95,12 +174,12 @@ func update_save_dicts_data() -> void:
 			continue
 
 		# Check the node has a save function.
+		var entity_data : Dictionary
 		if !node.has_method("save"):
 			push_error("persistent node '%s' is missing a save() function, skipped" % node.name)
-			continue
-
+		else:
 		# Call the node's save function.
-		var entity_data : Dictionary = node.save()
+			entity_data = node.save()
 		entities_data[node.name] = entity_data
 	
 

@@ -12,7 +12,13 @@ var rank : int = -1
 var suit : Suits = Suits.DIAMOND
 var selected : bool = false
 var durability : int = 5
-var used : bool = false
+var used : bool = false:
+	set(value):
+		if value:
+			play("used")
+		else:
+			play("RESET")
+		used = value
 
 # Visuals
 const card_scn : PackedScene = preload("res://Entities/MiniCard/mini_card.tscn")
@@ -31,29 +37,15 @@ signal free
 # === Custom Methods ===========================================================
 func save() -> Dictionary:
 	var data : Dictionary = {
-		"name" : name,
-		"class_name" : get_script().get_global_name(),
-		"filename" : get_scene_file_path(),
-		"parent" : get_parent().get_path(),
-		"pos_x" : position.x,
-		"pos_y" : position.y,
-		"z_index" : z_index,
+		"class_name" : "Card",
+		"durability": durability,
+		"parent": get_parent().get_path(),
+		"pos_x": position.x,
+		"pos_y": position.y,
+		"sprite_variant": sprite_variant,
+		"suit": suit,
+		"used": used,
 	}
-	
-	# Loop through all script variables
-	var script : GDScript = get_script()
-	for prop : Dictionary in script.get_script_property_list():
-		# Skip functions and constants; keep only variables
-		if prop["type"] != TYPE_CALLABLE and prop["type"] != TYPE_OBJECT:
-			data[prop["name"]] = get(prop["name"])
-			
-	#for prop_dict : Dictionary in get_property_list():
-		#var prop_name : String = prop_dict.name
-		#var usage : PropertyUsageFlags = prop_dict.usage
-		#
-		#if usage and PROPERTY_USAGE_STORAGE:
-			#data[prop_dict.name] = get(prop_name)
-		
 	return data
 	
 	
@@ -156,7 +148,6 @@ func _ready() -> void:
 	sprite_variant = sprite2d.frame
 	animation_player.play("spawn")
 	update_visuals()
-	pass
 	
 func _input(_event: InputEvent) -> void:
 	pass

@@ -4,7 +4,10 @@ extends Node
 
 var loading_screen_scn : PackedScene = preload("res://Scenes/loading_screen.tscn")
 const main_menu_scn : PackedScene = preload("res://Scenes/MainMenu/main_menu.tscn")
-var curr_scene : Node2DScene
+var curr_scene : Node2DScene:
+	set(value):
+		curr_scene_path = value.get_scene_file_path()
+		curr_scene = value
 var curr_scene_path : String
 var save_queued : bool = false
 

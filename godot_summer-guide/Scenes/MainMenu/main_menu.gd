@@ -30,7 +30,7 @@ func _on_play_button_pressed() -> void:
 	change_scn.emit("res://Scenes/Battle/battle.tscn", true)
 
 func _on_continue_button_pressed() -> void:
-	Globals.load_save()
+	await Globals.load_save()
 	var scene_handler : Node = get_parent()
 	change_scn.emit(scene_handler.curr_scene_path, true)
 	

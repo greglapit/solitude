@@ -2,7 +2,7 @@ extends Weapon
 
 var enemies_seeded_dict : Dictionary
 var dmg : int
-var seeded_scn : PackedScene
+var seeded_scn : PackedScene = preload("res://Entities/Weapons/ArtWeaponEffects/seeded.tscn")
 
 # === Custom Methods ===========================================================
 
@@ -39,8 +39,7 @@ func post_combat() -> void:
 	
 
 func _ready() -> void:
-	super()
-	seeded_scn = load("res://Entities/Weapons/ArtWeaponEffects/seeded.tscn")
+	print(GlobalsUtil.create_default_save_dict(self))
 
 func has_valid_spec_target(_enemies : Array) -> bool:
 	if enemies[0] in enemies_seeded_dict.keys():
@@ -57,7 +56,8 @@ func _on_player_special_impact() -> void:
 		return
 	
 	var enemy : Enemy = enemies[0]
-	var seeded_effect : AnimatedSprite2D =seeded_scn.instantiate()
+	var seeded_effect : AnimatedSprite2D = seeded_scn.instantiate()
+	seeded_effect.add_to_group("persist")
 	enemy.collision_shape.add_child(seeded_effect)
 	enemies_seeded_dict[enemy] = seeded_effect
 	enemy.play("shake")
