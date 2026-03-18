@@ -106,22 +106,37 @@ static func create_default_save_dict(node : Node) -> String:
 	
 	return json_string
 
-## Overwrite all values in dictionary "var : value" to node
+## Overwrite all values in dictionary "var : value" to node.
+## Rekeys serialized json objects in dict.values() to their nodes if dict contains dict["rekeyed_to_name"] = true
 static func assign_vars_from_dict(node : Node, dict : Dictionary) -> void:
-	var props : Array = node.get_script().get_script_property_list()
-	for prop : Dictionary in props:
-		if prop.name in dict.keys():
-			node.set(prop.name, dict[prop.name])
+	var node_props : Array = node.get_script().get_script_property_list()
+	var node_prop_names : Array = node_props.map(func(k : Variant) -> String: return k.name)
+	for key : Variant in dict.keys():
+		if key not in node_prop_names:
+			continue
+		
+		var val_type : int = typeof(dict[key])
+		
+		match val_type:
+			TYPE_DICTIONARY:
+				if dict[key].has("rekeyed_to_name") and dict[key]["rekeyed_to_name"] == true:
+					dict[key].erase("rekeyed_to_name")
+					rekey_names_to_objects(dict[key], node)
+			_:
+				pass
+		
+		node.set(key, dict[key])
 
 
 static func rekey_objects_to_names(dict : Dictionary) -> void:
 	for val : Node in dict.keys():
 		dict[val.name] = dict[val]
 		dict.erase(val)
+	dict["rekeyed_to_name"] = true
 
-static func rekey_names_to_objects(dict : Dictionary, context : Node = null) -> void:
+static func rekey_names_to_objects(dict : Dictionary, node : Node) -> void:
 	for val : String in dict.keys():
-		var node_match : Node = context.get_root().find_child("Enemy2131", true, false)
+		var node_match : Node = node.get_tree().get_root().find_child(val, true, false)
 		
 		if !node_match:
 			push_error("Node %s saved but not found in tree after initializing" % [val])
@@ -218,7 +233,7 @@ func load_save() -> Signal:
 	for i : String in player_data.keys():
 		Globals.set(i, player_data[i])
 		
-	# Set Scene Data
+	# Set Scene Transfer
 	var scene_handler : Node = get_tree().get_nodes_in_group("SceneHandler")[0]
 	scene_handler.curr_scene_path = scene_data["curr_scene_path"]
 	

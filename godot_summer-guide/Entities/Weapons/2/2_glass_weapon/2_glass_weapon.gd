@@ -7,6 +7,12 @@ var bleeding_enemies : Dictionary
 @onready var weapon_effects2 : Sprite2D = $WeaponEffects2
 @onready var animation_player2 : AnimationPlayer = $WeaponEffects2/AnimationPlayer
 
+func save() -> Dictionary:
+	var data : Dictionary = super()
+	GlobalsUtil.rekey_objects_to_names(bleeding_enemies)
+	data["bleeding_enemies"] = bleeding_enemies
+	return data
+
 func initialize() -> void:
 	super()
 	for enemy : Enemy in bleeding_enemies.keys():

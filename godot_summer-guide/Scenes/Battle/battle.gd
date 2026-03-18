@@ -160,7 +160,7 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1, enemy_data : Dictionary = {}) -> void:
 	for i : int in range(num):
 		enemies = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART, range(1,11)) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART, range(5,11)) # 2 * (2 + randi() % 2)
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
 		
@@ -607,7 +607,7 @@ func _on_mini_card_input_event(_viewport: Node, event: InputEvent, _shape_idx: i
 				spam_timer.start()
 			else:
 				# Equips if dragged over weapons display
-				if dragged_card.global_position.x > 490:
+				if dragged_card and dragged_card.global_position.x > 490:
 					equip_mini_card(dragged_card)
 				dragging = false
 				align_mini_cards()

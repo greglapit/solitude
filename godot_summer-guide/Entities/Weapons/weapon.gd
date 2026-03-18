@@ -70,27 +70,17 @@ signal resume(weapon : Weapon)
 # === Custom Methods ===========================================================
 func save() -> Dictionary:
 	var data : Dictionary = {
-		"name" : name,
-		"class_name" : get_class(),
-		"filename" : get_scene_file_path(),
-		"parent" : get_parent().get_path(),
-		"z_index" : z_index,
+		"class_name": "Weapon",
+		"enemy_died": enemy_died,
+		"filename": get_scene_file_path(),
+		"parent": get_parent().get_path(),
+		"rank": rank,
+		"z_index": z_index
 	}
-	
-	# Loop through all script variables
-	var script : GDScript = get_script()
-	for prop : Dictionary in script.get_script_property_list():
-		# Skip functions and constants; keep only variables
-		if prop["type"] == TYPE_DICTIONARY:
-			var dict : Dictionary = get(prop["name"])
-			if !dict.is_empty() and typeof(dict.keys()[0]) == TYPE_OBJECT:
-				GlobalsUtil.rekey_objects_to_names(dict)
-			data[prop["name"]] = dict
+
 	return data
 
 func initialize() -> void:
-	# TODO rekey saved dict to objects
-	
 	pass
 
 func assign_prop() -> void:
@@ -144,7 +134,7 @@ func resolve_combat() -> Dictionary:
 	combat_data = {
 	"hp_delta" = 0,
 	"durability_delta" = -1,
-	"attacls" = attacks
+	"attacks" = attacks
 	}
 	
 	#===== Combat order calculations
