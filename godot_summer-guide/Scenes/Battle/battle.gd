@@ -435,6 +435,9 @@ func _ready() -> void:
 	load_weapons_display()
 	equip_mini_card(null)
 	
+	await spawn_enemy(3)
+	pause_input = false
+	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("escape_menu") and !get_parent().find_child("ConfirmationWindow"):
 		var result : String = await ConfirmationWindow.prompt_user(self, "Cannot save during combat.\nAbandon run and exit to main menu?", "Abandon Run", "Cancel")

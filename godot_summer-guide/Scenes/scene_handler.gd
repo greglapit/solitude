@@ -11,6 +11,10 @@ var curr_scene : Node2DScene:
 var curr_scene_path : String
 var save_queued : bool = false
 
+# DEV TOOLS
+const starting_scn : PackedScene = main_menu_scn
+#const starting_scn : PackedScene = preload("res://Scenes/EnteringBattle/entering_battle.tscn")
+
 # === Custom Methods ===========================================================
 
 func loadscreen_load(path : String, progress_visible : bool = true) -> void:
@@ -25,10 +29,11 @@ func loadscreen_load(path : String, progress_visible : bool = true) -> void:
 # === Built In =================================================================
 
 func _ready() -> void:
-	var main_menu : Node2DScene = main_menu_scn.instantiate()
-	main_menu.change_scn.connect(_on_node_2d_change_scn.bind(main_menu))
-	curr_scene = main_menu
-	add_child(main_menu)
+	var init_scn : Node2DScene = starting_scn.instantiate()
+	init_scn.change_scn.connect(_on_node_2d_change_scn.bind(init_scn))
+	init_scn.background_load.connect(_on_node_2d_background_load.bind(init_scn))
+	curr_scene = init_scn
+	add_child(init_scn)
 	
 	
 func _input(_event: InputEvent) -> void:
@@ -42,6 +47,7 @@ func _on_loading_screen_scene_ready(scn : Resource) -> void:
 	curr_scene.queue_free()
 	curr_scene = node_scn
 	curr_scene.change_scn.connect(_on_node_2d_change_scn.bind(curr_scene))
+	curr_scene.background_load.connect(_on_node_2d_background_load.bind(curr_scene))
 
 func _on_loading_screen_free() -> void:
 	if curr_scene.has_method("initialize"):
@@ -59,3 +65,9 @@ func _on_node_2d_change_scn(path : String, prog_visible : bool, scn : Node2DScen
 		loadscreen_load(path, prog_visible)
 	else:
 		push_error("Scene calling change when not the current scene.")
+
+func _on_node_2d_background_load(path : String, scn : Node2DScene) -> void:
+	#if scn == curr_scene:
+		#loadscreen_load(path, true)
+	#else:
+		#push_error("Scene calling change when not the current scene.")

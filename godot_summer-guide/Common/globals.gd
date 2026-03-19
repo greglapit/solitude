@@ -51,11 +51,10 @@ var all_weapons : Dictionary = {
 	'10_base_weapon' : 10, '10_clock_weapon' : 10, '10_pirate_weapon' : 10\
 }
 
-var all_weap_data : Dictionary		## file_name : resources. All modified loaded weapon resources
+var all_weap_data : Dictionary		## file_name : resources. All loaded modified weapon resources
 
 var valid_save_scenes : Array = [
 	"sample_scn",
-	
 ]
 
 # Helper Functions

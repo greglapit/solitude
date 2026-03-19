@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://ckqg3g6o2d1b"]
+
+[ext_resource type="Script" uid="uid://de7180d18vm1u" path="res://Scenes/EnteringBattle/entering_battle.gd" id="1_w3pbr"]
+[ext_resource type="Texture2D" uid="uid://b1j1mefbm6ab5" path="res://Scenes/EnteringBattle/Art/entering_battle.png" id="2_4i57d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12eay"]
+atlas = ExtResource("2_4i57d")
+region = Rect2(0, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4sp1q"]
+atlas = ExtResource("2_4i57d")
+region = Rect2(640, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y184v"]
+atlas = ExtResource("2_4i57d")
+region = Rect2(1280, 0, 640, 360)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k7afm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_12eay")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4sp1q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y184v")
+}],
+"loop": false,
+"name": &"default",
+"speed": 1.0
+}]
+
+[node name="EnteringBattle" type="Node2D" unique_id=1209902836]
+script = ExtResource("1_w3pbr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1636506102]
+position = Vector2(320, 180)
+sprite_frames = SubResource("SpriteFrames_k7afm")
+autoplay = "default"
+frame = 2
+frame_progress = 1.0
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

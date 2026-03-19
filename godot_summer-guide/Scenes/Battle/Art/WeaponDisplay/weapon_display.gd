@@ -64,6 +64,9 @@ func display_weapon(weapon : Weapon = displayed_weapon, mini_card : Card = card,
 				cut_button.disabled = false
 			if Globals.armory.keys().has(mini_card.rank + 1):
 				socket_button.disabled = false
+		
+		# Remove draw highlight
+		play("RESET")
 	else:
 		weapon_name_label.text = ""
 		second_name.text = ""
@@ -103,6 +106,9 @@ func show_ticks(num : int = 0) -> void:
 func play(anim : String = "RESET") -> void:
 	if anim == "draw_highlight":
 		$DrawHighlight/AnimationPlayer.play("draw_highlight")
+		return
+	if anim == "RESET":
+		$DrawHighlight/AnimationPlayer.play("RESET")
 		return
 	animation_player.play(anim)
 

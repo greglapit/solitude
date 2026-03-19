@@ -25,7 +25,7 @@ func _on_play_button_pressed() -> void:
 			Globals.delete_save()
 		else:
 			return
-	change_scn.emit("res://Scenes/Battle/battle.tscn", true)
+	change_scn.emit("res://Scenes/EnteringBattle/entering_battle.tscn", true)
 
 func _on_continue_button_pressed() -> void:
 	await Globals.load_save()

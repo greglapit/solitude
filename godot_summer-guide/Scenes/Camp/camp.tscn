@@ -1,3 +1,6 @@
 [gd_scene format=3 uid="uid://byo4of4ns45c4"]
 
+[ext_resource type="Script" uid="uid://cpal200felerd" path="res://Scenes/Camp/camp.gd" id="1_td56y"]
+
 [node name="Camp" type="Node2D" unique_id=1833936592]
+script = ExtResource("1_td56y")
