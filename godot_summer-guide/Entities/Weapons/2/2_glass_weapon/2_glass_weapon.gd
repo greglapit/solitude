@@ -7,6 +7,8 @@ var bleeding_enemies : Dictionary
 @onready var weapon_effects2 : Sprite2D = $WeaponEffects2
 @onready var animation_player2 : AnimationPlayer = $WeaponEffects2/AnimationPlayer
 
+#region
+# Obsolete. No longer allowing saving during battle
 func save() -> Dictionary:
 	var data : Dictionary = super()
 	GlobalsUtil.rekey_objects_to_names(bleeding_enemies)
@@ -17,6 +19,7 @@ func initialize() -> void:
 	super()
 	for enemy : Enemy in bleeding_enemies.keys():
 		enemy.display_bleed(bleeding_enemies[enemy])
+#endregion
 
 func bleed() -> void:
 	pause.emit(self)

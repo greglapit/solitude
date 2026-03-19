@@ -68,6 +68,9 @@ signal pause(weapon : Weapon)				## Pause combat for combat effects to take plac
 signal resume(weapon : Weapon)
 
 # === Custom Methods ===========================================================
+
+# OBSOLETE. No longer allowing saving during battle
+#region
 func save() -> Dictionary:
 	var data : Dictionary = {
 		"class_name": "Weapon",
@@ -77,11 +80,11 @@ func save() -> Dictionary:
 		"rank": rank,
 		"z_index": z_index
 	}
-
 	return data
-
+	
 func initialize() -> void:
 	pass
+#endregion
 
 func assign_prop() -> void:
 	rank = weap_data.rank
@@ -210,7 +213,6 @@ func _on_player_anim_finished(anim : String) -> void:
 		# Attacked after enemy due to higher card rank
 		if reciprocal_attack or enemy_died:
 			combat_fin.emit()
-			#reciprocal_attack = false
 			critting = false
 			enemy_died = false
 		# Player lower with higher rank card

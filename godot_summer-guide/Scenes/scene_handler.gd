@@ -44,11 +44,16 @@ func _on_loading_screen_scene_ready(scn : Resource) -> void:
 	curr_scene.change_scn.connect(_on_node_2d_change_scn.bind(curr_scene))
 
 func _on_loading_screen_free() -> void:
-	curr_scene.initialize()
+	if curr_scene.has_method("initialize"):
+		curr_scene.initialize()
 
 func _on_node_2d_change_scn(path : String, prog_visible : bool, scn : Node2DScene) -> void:
 	if path == "res://Scenes/MainMenu/main_menu.tscn":
-		save_queued = true
+		if scn.get_scene_file_path() in Globals.valid_save_scenes:
+			save_queued = true
+		else:
+			Globals.delete_save()
+			pass
 	
 	if scn == curr_scene:
 		loadscreen_load(path, prog_visible)

@@ -53,64 +53,67 @@ var crit_infinite : bool = true
 # === Custom Methods ===========================================================
 # General
 #-------------------------------------------------------------------------------
+
+# Obselete save code
 #region
-func save() -> Dictionary:
-	var data : Dictionary = {
-		"actions": actions,
-		"combat_data": combat_data,
-		"crits_stored": crits_stored,
-		"filename": get_scene_file_path(),
-		"parent": get_parent().get_path(),
-		"turn_order_flipped": turn_order_flipped,
-	}
+# OBSELETE. No longer allowing saving during battle
+#func save() -> Dictionary:
+	#var data : Dictionary = {
+		#"actions": actions,
+		#"combat_data": combat_data,
+		#"crits_stored": crits_stored,
+		#"filename": get_scene_file_path(),
+		#"parent": get_parent().get_path(),
+		#"turn_order_flipped": turn_order_flipped,
+	#}
+#
+	#return data
+#
+#func initialize() -> void:
+	## player preparing anim add here maybe
+	#
+	## Default load if no save file
+	#if Globals.entities_data.is_empty() or !Globals.scene_data["curr_scene_path"] == scene_file_path:
+		#await spawn_enemy(3)
+		#pause_input = false
+		#return
+	#
+	## Load saved battle data
+	#GlobalsUtil.assign_vars_from_dict(self, Globals.scene_data)
+	#
+	## Load Entites: enemies, weapons, minicards
+	##region
+	#var entites_data : Array = Globals.entities_data.values()
+	#
+	## Mini Card
+	#var minis_group : Array = entites_data.filter(func(e : Dictionary) -> bool: return e["class_name"] == "Card")
+	#for i : int in range(minis_group.size()):
+		#spawn_card(minis_group[i])
+	#
+	#align_mini_cards()
+	#
+	## Enemies
+	#var enemy_group : Array = entites_data.filter(func(e : Dictionary) -> bool: return e.class_name == "Enemy")
+	#enemy_group.sort_custom(func(a : Dictionary, b : Dictionary) -> bool:
+		#return a.z_index > b.z_index)
+	#for i : int in range(enemy_group.size()):
+		#await spawn_enemy(1, enemy_group[i])
+	#
+	## Weapons
+	#var weapons_group : Array = entites_data.filter(func(e : Dictionary) -> bool: return e["class_name"] == "Weapon")
+	## waits for load_armory()
+	#while player_weapons.size() != Globals.armory.size():
+		#await get_tree().process_frame
+	#
+	#for i : int in range(weapons_group.size()):
+		#var weapon_data : Dictionary = weapons_group[i]
+		#var rank : int = weapon_data.rank
+		#GlobalsUtil.assign_vars_from_dict(player_weapons[rank], weapon_data)
+		#player_weapons[rank].initialize()
+		
+	#pause_input = false
 
-	return data
-
-func initialize() -> void:
-	# player preparing anim add here maybe
-	
-	# Default load if no save file
-	if Globals.entities_data.is_empty() or !Globals.scene_data["curr_scene_path"] == scene_file_path:
-		await spawn_enemy(3)
-		pause_input = false
-		return
-	
-	# Load saved battle data
-	GlobalsUtil.assign_vars_from_dict(self, Globals.scene_data)
-	
-	# Load Entites: enemies, weapons, minicards
-	#region
-	var entites_data : Array = Globals.entities_data.values()
-	
-	# Mini Card
-	var minis_group : Array = entites_data.filter(func(e : Dictionary) -> bool: return e["class_name"] == "Card")
-	for i : int in range(minis_group.size()):
-		spawn_card(minis_group[i])
-	
-	align_mini_cards()
-	
-	# Enemies
-	var enemy_group : Array = entites_data.filter(func(e : Dictionary) -> bool: return e.class_name == "Enemy")
-	enemy_group.sort_custom(func(a : Dictionary, b : Dictionary) -> bool:
-		return a.z_index > b.z_index)
-	for i : int in range(enemy_group.size()):
-		await spawn_enemy(1, enemy_group[i])
-	
-	# Weapons
-	var weapons_group : Array = entites_data.filter(func(e : Dictionary) -> bool: return e["class_name"] == "Weapon")
-	# waits for load_armory()
-	while player_weapons.size() != Globals.armory.size():
-		await get_tree().process_frame
-	
-	for i : int in range(weapons_group.size()):
-		var weapon_data : Dictionary = weapons_group[i]
-		var rank : int = weapon_data.rank
-		GlobalsUtil.assign_vars_from_dict(player_weapons[rank], weapon_data)
-		player_weapons[rank].initialize()
-	
-	#endregion
-	
-	pause_input = false
+#endregion
 
 ## Loads all player weapons into scene
 func load_armory() -> void:
@@ -238,13 +241,10 @@ func update_crit_button() -> void:
 		if crits_stored >= curr_weapon.special_cost:
 			crit_button.enable()
 
-func weapon_pause() -> Signal:
-	if pausing_weapons.is_empty():
-		return get_tree().process_frame
-	else:
-		while !pausing_weapons.is_empty():
-			await get_tree().process_frame
-		return get_tree().process_frame
+func weapon_pause() -> void:
+	while !pausing_weapons.is_empty():
+		await get_tree().process_frame
+	return
 
 
 var enemy_just_attacked : bool = false
@@ -437,9 +437,8 @@ func _ready() -> void:
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("escape_menu") and !get_parent().find_child("ConfirmationWindow"):
-		var result : String = await ConfirmationWindow.prompt_user(self, "Save and exit to main menu?")
-		if result == "yes":
-			
+		var result : String = await ConfirmationWindow.prompt_user(self, "Cannot save during combat.\nAbandon run and exit to main menu?", "Abandon Run", "Cancel")
+		if result == "Abandon Run":
 			if pause_input:
 				while pause_input:
 					await pause_input_update

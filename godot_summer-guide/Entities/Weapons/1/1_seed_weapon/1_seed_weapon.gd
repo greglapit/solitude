@@ -1,10 +1,29 @@
 extends Weapon
 
 var enemies_seeded_dict : Dictionary
-var dmg : int
+var dmg_stored : int
 var seeded_scn : PackedScene = preload("res://Entities/Weapons/ArtWeaponEffects/seeded.tscn")
 
 # === Custom Methods ===========================================================
+#region
+# OBSOLETE. No longer allowing saving during battle
+func save() -> Dictionary:
+	var data : Dictionary = super()
+	GlobalsUtil.rekey_objects_to_names(enemies_seeded_dict)
+	data["enemies_seeded_dict"] = enemies_seeded_dict
+	data["dmg_stored"] = dmg_stored
+	return data
+
+func initialize() -> void:
+	super()
+	var seed_enemy_queue : Array = enemies_seeded_dict.keys()
+	enemies_seeded_dict.clear()
+	for enemy : Enemy in seed_enemy_queue:
+		var seeded_effect : AnimatedSprite2D = seeded_scn.instantiate()
+		enemy.collision_shape.add_child(seeded_effect)
+		enemies_seeded_dict[enemy] = seeded_effect
+		
+#endregion
 
 func equip() -> void:
 	super()
@@ -25,9 +44,9 @@ func drain() -> void:
 		enemies_seeded_dict.erase(enemy)
 		
 		# Damage + Heal
-		dmg = min(enemy.rank, dmg)
-		enemy.damage(dmg)
-		combat_data["hp_delta"] = dmg
+		dmg_stored = min(enemy.rank, dmg_stored)
+		enemy.damage(dmg_stored)
+		combat_data["hp_delta"] = dmg_stored
 		hp_update.emit(combat_data["hp_delta"])
 		
 	resume.emit(self)
@@ -37,9 +56,6 @@ func drain() -> void:
 func post_combat() -> void:
 	drain()
 	
-
-func _ready() -> void:
-	print(GlobalsUtil.create_default_save_dict(self))
 
 func has_valid_spec_target(_enemies : Array) -> bool:
 	if enemies[0] in enemies_seeded_dict.keys():
@@ -57,10 +73,12 @@ func _on_player_special_impact() -> void:
 	
 	var enemy : Enemy = enemies[0]
 	var seeded_effect : AnimatedSprite2D = seeded_scn.instantiate()
-	seeded_effect.add_to_group("persist")
 	enemy.collision_shape.add_child(seeded_effect)
 	enemies_seeded_dict[enemy] = seeded_effect
 	enemy.play("shake")
-	dmg = mini_equipped.durability
+	dmg_stored = mini_equipped.durability
 	mini_equipped.used = true
-	mini_equipped.damage(dmg)
+	pause.emit(self)
+	mini_equipped.damage(dmg_stored)
+	await mini_equipped.tree_exited
+	resume.emit(self)

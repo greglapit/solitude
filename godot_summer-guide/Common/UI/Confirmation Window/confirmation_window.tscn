@@ -185,17 +185,13 @@ layout_mode = 2
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer" unique_id=2115683325]
 layout_mode = 2
 
-[node name="YesButton" type="TextureButton" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/CenterContainer" unique_id=271149724]
+[node name="LeftButton" type="TextureButton" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/CenterContainer" unique_id=271149724]
 layout_mode = 2
 texture_normal = ExtResource("2_uc65d")
 texture_pressed = ExtResource("3_6icoq")
 
-[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/CenterContainer/YesButton" unique_id=1061897064]
-layout_mode = 0
-offset_left = 25.0
-offset_top = 9.0
-offset_right = 55.0
-offset_bottom = 23.0
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/CenterContainer" unique_id=1061897064]
+layout_mode = 2
 text = "Yes"
 horizontal_alignment = 1
 
@@ -205,17 +201,13 @@ layout_mode = 2
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2" unique_id=1486748377]
 layout_mode = 2
 
-[node name="NoButton" type="TextureButton" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/CenterContainer" unique_id=701307446]
+[node name="RightButton" type="TextureButton" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/CenterContainer" unique_id=701307446]
 layout_mode = 2
 texture_normal = ExtResource("2_uc65d")
 texture_pressed = ExtResource("3_6icoq")
 
-[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/CenterContainer/NoButton" unique_id=1733487659]
-layout_mode = 0
-offset_left = 25.0
-offset_top = 9.0
-offset_right = 55.0
-offset_bottom = 23.0
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/CenterContainer" unique_id=1733487659]
+layout_mode = 2
 text = "No"
 horizontal_alignment = 1
 
@@ -225,5 +217,5 @@ horizontal_alignment = 1
 libraries/ = SubResource("AnimationLibrary_hgga0")
 autoplay = &"spawn"
 
-[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/CenterContainer/YesButton" to="." method="_on_yes_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/CenterContainer/NoButton" to="." method="_on_no_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/CenterContainer/LeftButton" to="." method="_on_left_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/CenterContainer/RightButton" to="." method="_on_right_button_pressed"]

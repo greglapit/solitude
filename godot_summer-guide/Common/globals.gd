@@ -16,7 +16,7 @@ var attacks : int = 1
 var max_draw : int = 3			# How many items player can have drawn at a time
 var max_crits : int = 3
 		# Convert all keys to int automatically
-var armory : Dictionary = {2 : "2_glass_weapon"}: 
+var armory : Dictionary = {1 : "1_seed_weapon"}: 
 	set(value):
 		armory = {}
 		for key : String in value.keys():
@@ -52,6 +52,11 @@ var all_weapons : Dictionary = {
 }
 
 var all_weap_data : Dictionary		## file_name : resources. All modified loaded weapon resources
+
+var valid_save_scenes : Array = [
+	"sample_scn",
+	
+]
 
 # Helper Functions
 # ==================================================================================================
@@ -242,6 +247,16 @@ func load_save() -> Signal:
 
 	return get_tree().process_frame
 
+func delete_save() -> void:
+	if not FileAccess.file_exists("user://savegame.save"):
+		push_error("Attempt to delete nonexistent save.")
+		
+	var error : Error = DirAccess.remove_absolute("user://savegame.save")
+	if error != OK:
+		push_error("Failed to delete save file. Error code: ", error)
+	
+
+# ==============================================================================
 func _ready() -> void:
 	for weapon : String in all_weapons.keys():
 		var weapon_data : WeaponData = load("res://Entities/Weapons/%d/%s/%s.tres" % [all_weapons[weapon], weapon, weapon])

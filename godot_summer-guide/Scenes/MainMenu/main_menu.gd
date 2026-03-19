@@ -21,10 +21,8 @@ func _on_play_button_pressed() -> void:
 	var has_save : bool = FileAccess.file_exists("user://savegame.save")
 	if has_save:
 		var result : String = await ConfirmationWindow.prompt_user(self, "Erase previous save?")
-		if result == "yes":
-			var error : Error = DirAccess.remove_absolute("user://savegame.save")
-			if error != OK:
-				push_error("Failed to delete save file. Error code: ", error)
+		if result == "Yes":
+			Globals.delete_save()
 		else:
 			return
 	change_scn.emit("res://Scenes/Battle/battle.tscn", true)
@@ -37,7 +35,7 @@ func _on_continue_button_pressed() -> void:
 
 func _on_quit_button_pressed() -> void:
 	var result : String = await ConfirmationWindow.prompt_user(self, "Are you sure?")
-	if result == "yes":
+	if result == "Yes":
 		get_tree().quit()
 		return
 	else:

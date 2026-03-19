@@ -54,6 +54,9 @@ signal damaged(amt : int)
 signal freed(enemy : Enemy)
 
 # === Custom Methods ===========================================================
+
+# OBSOLETE. No longer allowing saving during battle
+#region
 func save() -> Dictionary:
 	var data : Dictionary = {
 	"attack_disabled": attack_disabled,
@@ -77,6 +80,7 @@ func save() -> Dictionary:
 
 	return data
 
+#endregion
 
 static func new_enemy(_suit : Card.Suits, _ranks : Array) -> Enemy:
 	var _rank : int = _ranks.pick_random()
