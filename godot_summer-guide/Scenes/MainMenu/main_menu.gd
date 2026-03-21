@@ -25,12 +25,12 @@ func _on_play_button_pressed() -> void:
 			Globals.delete_save()
 		else:
 			return
-	change_scn.emit("res://Scenes/EnteringBattle/entering_battle.tscn", true)
+	change_scn.emit("res://Scenes/EnteringBattle/entering_battle.tscn", true, false)
 
 func _on_continue_button_pressed() -> void:
 	await Globals.load_save()
 	var scene_handler : Node = get_parent()
-	change_scn.emit(scene_handler.curr_scene_path, true)
+	change_scn.emit(scene_handler.curr_scene_path, true, false)
 	
 
 func _on_quit_button_pressed() -> void:

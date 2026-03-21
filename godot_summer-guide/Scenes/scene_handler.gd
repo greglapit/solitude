@@ -1,15 +1,16 @@
 extends Node
 
-@onready var loading_screen : LoadingScreen
 
 var loading_screen_scn : PackedScene = preload("res://Scenes/loading_screen.tscn")
 const main_menu_scn : PackedScene = preload("res://Scenes/MainMenu/main_menu.tscn")
+var loading_screen : LoadingScreen
 var curr_scene : Node2DScene:
 	set(value):
 		curr_scene_path = value.get_scene_file_path()
 		curr_scene = value
 var curr_scene_path : String
 var save_queued : bool = false
+var loading_in_background : bool = false
 
 # DEV TOOLS
 const starting_scn : PackedScene = main_menu_scn
@@ -17,13 +18,16 @@ const starting_scn : PackedScene = main_menu_scn
 
 # === Custom Methods ===========================================================
 
-func loadscreen_load(path : String, progress_visible : bool = true) -> void:
+func loadscreen_load(path : String, progress_visible : bool = true, background : bool = false) -> void:
+	loading_in_background = background
+	
 	loading_screen = loading_screen_scn.instantiate()
 	loading_screen.scene_ready.connect(_on_loading_screen_scene_ready)
 	loading_screen.loading_screen_free.connect(_on_loading_screen_free)
 	add_child(loading_screen)
 	
-	loading_screen.load(path, progress_visible, save_queued)
+	loading_screen.load(path, progress_visible, background, save_queued)
+	
 	save_queued = false
 	
 # === Built In =================================================================
@@ -31,7 +35,7 @@ func loadscreen_load(path : String, progress_visible : bool = true) -> void:
 func _ready() -> void:
 	var init_scn : Node2DScene = starting_scn.instantiate()
 	init_scn.change_scn.connect(_on_node_2d_change_scn.bind(init_scn))
-	init_scn.background_load.connect(_on_node_2d_background_load.bind(init_scn))
+	init_scn.scene_ready_for_swap.connect(_on_node_2d_scene_ready_for_swap.bind(curr_scene))
 	curr_scene = init_scn
 	add_child(init_scn)
 	
@@ -47,27 +51,39 @@ func _on_loading_screen_scene_ready(scn : Resource) -> void:
 	curr_scene.queue_free()
 	curr_scene = node_scn
 	curr_scene.change_scn.connect(_on_node_2d_change_scn.bind(curr_scene))
-	curr_scene.background_load.connect(_on_node_2d_background_load.bind(curr_scene))
+	curr_scene.scene_ready_for_swap.connect(_on_node_2d_scene_ready_for_swap.bind(curr_scene))
+	
+	
 
 func _on_loading_screen_free() -> void:
 	if curr_scene.has_method("initialize"):
 		curr_scene.initialize()
 
-func _on_node_2d_change_scn(path : String, prog_visible : bool, scn : Node2DScene) -> void:
+func _on_node_2d_change_scn(path : String, prog_visible : bool, background : bool, scn : Node2DScene) -> void:
+	if scn != curr_scene:
+		push_error("Scene calling change when not the current scene.")
+	
+	if loading_in_background:
+		push_error("Scene calling change when already loading in background.")
+	
+	# Save game when returning to menu
 	if path == "res://Scenes/MainMenu/main_menu.tscn":
 		if scn.get_scene_file_path() in Globals.valid_save_scenes:
 			save_queued = true
 		else:
+			# Abandon run
 			Globals.delete_save()
 			pass
 	
-	if scn == curr_scene:
-		loadscreen_load(path, prog_visible)
-	else:
-		push_error("Scene calling change when not the current scene.")
+	loadscreen_load(path, prog_visible, background)
 
-func _on_node_2d_background_load(path : String, scn : Node2DScene) -> void:
-	#if scn == curr_scene:
-		#loadscreen_load(path, true)
-	#else:
-		#push_error("Scene calling change when not the current scene.")
+		
+func _on_node_2d_scene_ready_for_swap(scn : Node2DScene) -> void:
+	if scn != curr_scene:
+		push_error("Scene calling change when not the current scene.")
+	
+	loading_screen.fade_to_black()
+	await loading_screen.animation_player.animation_finished
+	
+	loading_screen.transfer_ready = true
+	

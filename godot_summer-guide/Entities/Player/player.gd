@@ -24,9 +24,7 @@ signal anim_finished(anim : String)
 # === Custom Methods ===========================================================
 
 func play(anim : StringName) -> void:
-	animation_player.stop()
 	animation_player.play(anim)
-	return
 	
 func effect(anim : StringName) -> void:
 	effects_animation_player.play(anim)

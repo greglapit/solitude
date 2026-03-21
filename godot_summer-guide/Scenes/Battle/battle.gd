@@ -379,7 +379,6 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 			curr_weapon.unequip()
 		curr_weapon =  null
 		active_weapon(null)
-		player.queue("base_idle")
 		
 		if mini_equipped:
 			mini_equipped.position = armory_position + (Vector2(30,0) * get_tree().get_node_count_in_group("mini_cards"))
@@ -388,11 +387,11 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 			mini_equipped.add_to_group("mini_cards")
 		mini_equipped = null
 	
+	
 	# DISPLAY
 	# Update Child's variables
 	weapons_display.displayed_weapon = curr_weapon
 	weapons_display.card = mini_equipped
-	
 	
 	# PLAYER
 	# Only update when equipping different weapon
@@ -443,10 +442,9 @@ func _input(event: InputEvent) -> void:
 		var result : String = await ConfirmationWindow.prompt_user(self, "Cannot save during combat.\nAbandon run and exit to main menu?", "Abandon Run", "Cancel")
 		if result == "Abandon Run":
 			if pause_input:
-				while pause_input:
-					await pause_input_update
+				await pause_input_update
 					
-			change_scn.emit("res://Scenes/MainMenu/main_menu.tscn", false)
+			change_scn.emit("res://Scenes/MainMenu/main_menu.tscn", false, false)
 			return
 		else:
 			return
@@ -683,6 +681,7 @@ func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 
 ## After weapon is used and combat cycle restarts
 func _on_weapon_combat_fin(_weapon : Weapon) -> void:
+	
 	pause_input = true
 	
 	for weapon : Weapon in player_weapons.values():
@@ -693,7 +692,6 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 	
 	pause_input = false
 	
-	
 	var mini_cards : Array= get_tree().get_nodes_in_group("mini_cards")
 	var space_in_armory : bool = Globals.max_draw > mini_cards.size() + int(mini_equipped != null)
 	
@@ -701,15 +699,15 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 	for mini_card : Card in mini_cards:
 		mini_card.used = false
 	
-	
 	if mini_equipped:
 		mini_equipped.used = false
+	
 	
 	# Unequip if space in armory
 	if space_in_armory:
 		weapons_display.play("draw_highlight")
 		equip_mini_card(null)
-	
+		
 	equip_mini_card(mini_equipped)
 	
 

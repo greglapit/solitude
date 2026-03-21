@@ -7,25 +7,40 @@ extends Node2D
 
 var path : String
 var progress_value : float = 0.0		# Progress of loading scene
+var transfer_ready : bool = false
 signal scene_ready(scn : Resource)
 signal loading_screen_free
-	
 
-func load(path_to_load : String, progress_visible : bool = false, saving : bool = false) -> void:
+func load(path_to_load : String, progress_visible : bool = false, background : bool = false, saving : bool = false) -> void:
 	
 	progress_label.visible = progress_visible
+	transfer_ready = !background
 	
 	path = path_to_load
-	animation_player.play("fade_to_black")
-	await animation_player.animation_finished
+	if !background:
+		transfer_ready = true					# Will immediately transfer when finished loading
+		animation_player.play("fade_to_black")
+		await animation_player.animation_finished
+		get_tree().paused = true
 	
 	ResourceLoader.load_threaded_request(path)
 	
 	if saving:
 		await Globals.save()
 		
-	get_tree().paused = true
+
+func fade_to_black() -> void:
+	animation_player.play("fade_to_black")
 	
+
+func fade_to_scn() -> void:
+	animation_player.play("fade_to_scn")
+	await animation_player.animation_finished
+	get_tree().paused = false
+	loading_screen_free.emit()
+	queue_free()
+	
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	number_label.text = str(progress_value)
@@ -46,11 +61,8 @@ func _process(_delta: float) -> void:
 		number_label.text = "%.0f" % progress_value
 	
 	if status == ResourceLoader.ThreadLoadStatus.THREAD_LOAD_LOADED:
-		if current_value >= 99:
+		if current_value >= 99 and transfer_ready:
 			scene_ready.emit(ResourceLoader.load_threaded_get(path))
 			path = ""
-			animation_player.play("fade_to_scn")
-			await animation_player.animation_finished
-			get_tree().paused = false
-			loading_screen_free.emit()
-			queue_free()
+			fade_to_scn()
+			
