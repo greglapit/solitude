@@ -38,6 +38,7 @@ var learned_weapons : Dictionary = {
 	'9_base_weapon' : 9, '9_cloud_weapon' : 9, '9_cmd_weapon' : 9,\
 	'10_base_weapon' : 10, '10_clock_weapon' : 10, '10_pirate_weapon' : 10\
 }
+
 var all_weapons : Dictionary = {
 	'1_base_weapon' : 1, '1_philo_weapon' : 1, '1_seed_weapon' : 1, \
 	'2_base_weapon' : 2, '2_twin_weapon' : 2, '2_glass_weapon' : 2, \
@@ -59,6 +60,24 @@ var valid_save_scenes : Array = [
 
 # Helper Functions
 # ==================================================================================================
+## Takes dictionary "string" : weight and returns random string based on weight
+static func weighted_pick_random(dict : Dictionary) -> String:
+	var total : int = 0
+	
+	for weight : int in dict.values():
+		total += weight
+		
+	
+	var r : float = randf() * total
+	
+	var cumulative : int = 0
+	for val : String in dict.keys():
+		cumulative += dict[val]
+		if r < cumulative:
+			return val
+			
+	return ""
+
 static func fill_placeholders(template: String, vars: Dictionary) -> String:
 	for key : String in vars.keys():
 		template = template.replace(key, str(vars[key]))
