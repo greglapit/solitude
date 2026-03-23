@@ -53,7 +53,10 @@ var crit_infinite : bool = true
 # === Custom Methods ===========================================================
 # General
 #-------------------------------------------------------------------------------
-
+func initialize() -> void:
+	spawn_enemy(3)
+	pause_input = false
+	
 # Obselete save code
 #region
 # OBSELETE. No longer allowing saving during battle
@@ -434,8 +437,6 @@ func _ready() -> void:
 	load_weapons_display()
 	equip_mini_card(null)
 	
-	await spawn_enemy(3)
-	pause_input = false
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("escape_menu") and !get_parent().find_child("ConfirmationWindow"):

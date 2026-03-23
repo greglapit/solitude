@@ -10,11 +10,18 @@
 - [x] twin mark breaks chaining ✅ 2026-02-05
 - [x] new weapons ✅ 2026-02-21
 - [x] filter base weapons from journal ✅ 2026-03-14
-- [ ] save file
-- [ ] In between player sitting at campfire. Will be where they edit their memory and recallable weapons. Player daydreaming at the sky, availible weapons circling their head
+- [x] save file ✅ 2026-03-21
+- [ ] In between player sitting at campfire. Will be where they edit their memory and recallable weapons. Player daydreaming at the sky, available weapons circling their head
 	- [ ] Click campfire to sleep the night and enter spread again. Gain a little health back
 	- [ ] Chance encounters in dusk of shop with king, queen, jack of diamonds. Provide player weapons/upgrades
 	- [x] consult notebook with weapon recipes written in it. That is how the player swaps out their "learned" weapons with what is in their limited memory ✅ 2026-02-24📅 
+- [ ] King of Diamonds
+	- [ ] She is found surveying fallen ally, gives player personal weapons of these cards to use
+- [ ] Queen of diamonds
+	- [ ] mapping battlefield, planning next move. Unlocks standard issue card weapons for the player
+- [ ] Jack of diamonds
+	- [ ] Offers player weapon upgrades. More durability, more equip slots. Takes card Tatters as currency
+	- [ ] Gamble minigame, three cups
 - [ ] enemy spawn pool in globals
 - [ ] Show somewhere the enemies max health. Should be apparent so player remembers their power even if their health lowers. 
 - [ ] boss encounter

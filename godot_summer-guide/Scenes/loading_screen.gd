@@ -21,7 +21,6 @@ func load(path_to_load : String, progress_visible : bool = false, background : b
 		transfer_ready = true					# Will immediately transfer when finished loading
 		animation_player.play("fade_to_black")
 		await animation_player.animation_finished
-		get_tree().paused = true
 	
 	ResourceLoader.load_threaded_request(path)
 	
@@ -36,7 +35,6 @@ func fade_to_black() -> void:
 func fade_to_scn() -> void:
 	animation_player.play("fade_to_scn")
 	await animation_player.animation_finished
-	get_tree().paused = false
 	loading_screen_free.emit()
 	queue_free()
 	

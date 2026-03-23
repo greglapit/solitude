@@ -46,6 +46,7 @@ func _input(_event: InputEvent) -> void:
 # === Signals ==================================================================
 
 func _on_loading_screen_scene_ready(scn : Resource) -> void:
+	get_tree().paused = true
 	var node_scn : Node2DScene = scn.instantiate()
 	add_child(node_scn)
 	curr_scene.queue_free()
@@ -56,6 +57,7 @@ func _on_loading_screen_scene_ready(scn : Resource) -> void:
 	
 
 func _on_loading_screen_free() -> void:
+	get_tree().paused = false
 	if curr_scene.has_method("initialize"):
 		curr_scene.initialize()
 

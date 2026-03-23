@@ -1,6 +1,34 @@
 [gd_scene format=3 uid="uid://byo4of4ns45c4"]
 
 [ext_resource type="Script" uid="uid://cpal200felerd" path="res://Scenes/Camp/camp.gd" id="1_td56y"]
+[ext_resource type="Texture2D" uid="uid://bcs16jvq0lg4n" path="res://Scenes/Camp/Art/camp_background.png" id="2_w1dsw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qabeb"]
+atlas = ExtResource("2_w1dsw")
+region = Rect2(0, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0j7t8"]
+atlas = ExtResource("2_w1dsw")
+region = Rect2(640, 0, 640, 360)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uxq1s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qabeb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0j7t8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
 
 [node name="Camp" type="Node2D" unique_id=1833936592]
 script = ExtResource("1_td56y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=232767809]
+position = Vector2(320, 180)
+sprite_frames = SubResource("SpriteFrames_uxq1s")
+frame_progress = 0.4115684

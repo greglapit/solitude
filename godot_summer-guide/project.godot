@@ -22,11 +22,16 @@ config/icon="res://z_August Work/Common/icon.svg"
 [autoload]
 
 Globals="*res://Common/globals.gd"
+DialogueManager="*uid://c3rodes2l3gxb"
 
 [debug]
 
 gdscript/warnings/untyped_declaration=2
 gdscript/warnings/inferred_declaration=2
+
+[dialogue_manager]
+
+runtime/balloon_path="res://Common/UI/TextBox/balloon.tscn"
 
 [display]
 
@@ -35,6 +40,10 @@ window/size/viewport_height=360
 window/size/borderless=true
 window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
 
 [gui]
 
@@ -70,6 +79,10 @@ pass_button={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":80,"key_label":0,"unicode":112,"location":0,"echo":false,"script":null)
 ]
 }
+
+[internationalization]
+
+locale/translations_pot_files=PackedStringArray("res://Scenes/KoDEncounter/kod.dialogue")
 
 [rendering]
 
