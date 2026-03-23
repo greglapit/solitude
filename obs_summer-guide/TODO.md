@@ -17,6 +17,7 @@
 	- [x] consult notebook with weapon recipes written in it. That is how the player swaps out their "learned" weapons with what is in their limited memory ✅ 2026-02-24📅 
 - [ ] King of Diamonds
 	- [ ] She is found surveying fallen ally, gives player personal weapons of these cards to use
+	- [ ] Also increases player's memory capacity
 - [ ] Queen of diamonds
 	- [ ] mapping battlefield, planning next move. Unlocks standard issue card weapons for the player
 - [ ] Jack of diamonds

@@ -54,6 +54,7 @@ func _on_loading_screen_scene_ready(scn : Resource) -> void:
 	curr_scene.change_scn.connect(_on_node_2d_change_scn.bind(curr_scene))
 	curr_scene.scene_ready_for_swap.connect(_on_node_2d_scene_ready_for_swap.bind(curr_scene))
 	
+	loading_in_background = false
 	
 
 func _on_loading_screen_free() -> void:

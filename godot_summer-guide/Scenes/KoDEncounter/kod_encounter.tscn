@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dtd6gnc80f1cj" path="res://Scenes/KoDEncounter/kod_encounter.gd" id="1_8fqdq"]
 [ext_resource type="Texture2D" uid="uid://bg4ka8j8kkd0p" path="res://Scenes/KoDEncounter/Art/king_of_diamonds_background.png" id="1_eb50b"]
 [ext_resource type="Texture2D" uid="uid://br76sf6slne03" path="res://Scenes/KoDEncounter/Art/king_of_diamonds.png" id="2_mfxm5"]
+[ext_resource type="PackedScene" uid="uid://btogkg4xf5q08" path="res://Scenes/UI/TextBox/balloon.tscn" id="3_1dgc4"]
 [ext_resource type="Texture2D" uid="uid://645dyip863eq" path="res://Scenes/KoDEncounter/Art/player.png" id="4_kip1e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mfxm5"]
@@ -405,6 +406,8 @@ layer = -1
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_eb50b")
+
+[node name="Balloon" parent="." unique_id=599062984 instance=ExtResource("3_1dgc4")]
 
 [node name="King" type="Node2D" parent="." unique_id=1283400304]
 

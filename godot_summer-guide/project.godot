@@ -23,6 +23,7 @@ config/icon="res://z_August Work/Common/icon.svg"
 
 Globals="*res://Common/globals.gd"
 DialogueManager="*uid://c3rodes2l3gxb"
+ProgressTracker="*uid://d0yy6c5m7byox"
 
 [debug]
 
@@ -31,7 +32,7 @@ gdscript/warnings/inferred_declaration=2
 
 [dialogue_manager]
 
-runtime/balloon_path="res://Common/UI/TextBox/balloon.tscn"
+runtime/balloon_path="res://Scenes/UI/TextBox/balloon.tscn"
 
 [display]
 

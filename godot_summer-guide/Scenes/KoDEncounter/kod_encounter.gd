@@ -3,7 +3,6 @@ extends Node2DScene
 @onready var player : Node2D = $Player
 @onready var player_ap : AnimationPlayer = $Player/AnimationPlayer
 @onready var king_ap : AnimationPlayer = $King/AnimationPlayer
-@onready var dialogue_area : Control = $CanvasLayer/DialogueArea
 
 # === Custom Methods ===========================================================
 
@@ -12,7 +11,7 @@ extends Node2DScene
 
 func _ready() -> void:
 	
-	player.visible = false
+	player.hide()
 	
 	king_ap.play("arrive")
 	
@@ -27,8 +26,7 @@ func _ready() -> void:
 	
 	await player_ap.animation_finished
 	
-	var text_box : Node = DialogueManager.show_dialogue_balloon(load("res://Scenes/KoDEncounter/kod.dialogue"), "start")
-	text_box.reparent(dialogue_area)
+	DialogueManager.show_dialogue_balloon(load("res://Scenes/KoDEncounter/kod.dialogue"), "start")
 
 func _input(_event: InputEvent) -> void:
 	pass
