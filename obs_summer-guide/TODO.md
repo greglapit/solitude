@@ -16,6 +16,8 @@
 	- [ ] Chance encounters in dusk of shop with king, queen, jack of diamonds. Provide player weapons/upgrades
 	- [x] consult notebook with weapon recipes written in it. That is how the player swaps out their "learned" weapons with what is in their limited memory ✅ 2026-02-24📅 
 - [ ] King of Diamonds
+	- [ ] Global script tracking if has met during run
+	- [ ] player inventory. Gives player random weapon. If has 
 	- [ ] She is found surveying fallen ally, gives player personal weapons of these cards to use
 	- [ ] Also increases player's memory capacity
 - [ ] Queen of diamonds
@@ -32,7 +34,6 @@
 - [ ] Drawback of memorizing too many cards is lowered health? Curse of amnesia
 - [ ] Visually communicate you have space to draw so unequipping. Armory with physically empty slots?
 
- 
 # before releasing
 - [ ] Save file and game encryption
 
