@@ -21,7 +21,8 @@ func _on_player_special_impact() -> void:
 			enemy.damage(2)
 		impacts += 1
 	else:
+		var remaining_dmg : int = max(weap_data.int1 - 4, 0)
 		for enemy : Enemy in enemies:
-			enemy.damage(4)
+			enemy.damage(remaining_dmg)
 		impacts = 0
 		resume.emit(self)

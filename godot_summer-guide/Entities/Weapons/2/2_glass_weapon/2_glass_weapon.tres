@@ -11,7 +11,7 @@ display_name = "Glass's Edge"
 second_name = "FILLER FILLER FILLER"
 description = "-Special: Lacerate
 -Cost: {special_cost}
--Attack and bleed enemy for 2 turns"
+-Attack and bleed enemy for {int 1} turns"
 display_texture = ExtResource("1_ht26g")
 has_special = true
 int1 = 2

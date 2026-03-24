@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://cknaban57p60l"]
+
+[ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_hs1ff"]
+[ext_resource type="Texture2D" uid="uid://dkwt60cqdl0qa" path="res://Entities/Items/item_atlas.png" id="2_wcytq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xr7ht"]
+atlas = ExtResource("2_wcytq")
+region = Rect2(0, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_hs1ff")
+name = "Tatter"
+texture = SubResource("AtlasTexture_xr7ht")
+metadata/_custom_type_script = "uid://bes85f8halx03"

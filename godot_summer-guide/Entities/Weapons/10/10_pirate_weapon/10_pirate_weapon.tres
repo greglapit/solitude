@@ -11,10 +11,11 @@ display_name = "Pirate Wheel"
 second_name = "Filler Filler Filler"
 description = "-Special: Seaquake
 -Cost: {special_cost}
--Slam enemies side to side, dealing 8 total damage"
+-Slam enemies side to side, dealing {int 1} total damage"
 display_texture = ExtResource("1_lbnpn")
 has_special = true
 special_cost = 2
+int1 = 8
 player_idle_anim = "10_pirate_idle"
 player_attack_anim = "10_pirate_attack"
 player_defend_anim = "10_pirate_defend"
