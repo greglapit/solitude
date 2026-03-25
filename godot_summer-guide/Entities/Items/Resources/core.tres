@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://bu5uct85pj7g2"]
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://bu5uct85pj7g2"]
 
 [ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_k2ioi"]
 [ext_resource type="Texture2D" uid="uid://dkwt60cqdl0qa" path="res://Entities/Items/item_atlas.png" id="2_11gb6"]
@@ -9,7 +9,8 @@ region = Rect2(32, 0, 32, 32)
 
 [resource]
 script = ExtResource("1_k2ioi")
-name = "Core"
+name = "Card Core"
+id = "core"
 texture = SubResource("AtlasTexture_7k6mn")
-description = "Rare core of a powerful card. Perhaps the King of Diamonds would be interested."
+description = "A heart of the cards. Seems like something the King of Diamonds may be interested in.	"
 metadata/_custom_type_script = "uid://bes85f8halx03"

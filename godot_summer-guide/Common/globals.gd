@@ -15,13 +15,17 @@ var actions : int = 1
 var attacks : int = 1
 var max_draw : int = 3			# How many items player can have drawn at a time
 var max_crits : int = 3
-		# Convert all keys to int automatically
+# Convert all keys to int automatically
 var armory : Dictionary = {1 : "1_seed_weapon"}: 
 	set(value):
-		armory = {}
-		for key : String in value.keys():
-			var int_key : int = int(key)
-			armory[int_key] = value[key]
+		# For JSON
+		if typeof(value.keys()[0]) == TYPE_STRING:
+			armory = {}
+			for key : String in value.keys():
+				var int_key : int = int(key)
+				armory[int_key] = value[key]
+		else:
+			armory = value
 var learned_ranks : Array = armory.keys()
 var memory_capacity : int = 5
 var armory_durs : Array = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
@@ -53,6 +57,7 @@ var all_weapons : Dictionary = {
 }
 
 var all_weap_data : Dictionary		## file_name : resources. All loaded modified weapon resources
+var all_item_data : Dictionary 		## 
 
 var valid_save_scenes : Array = [
 	"sample_scn",
@@ -274,8 +279,9 @@ func delete_save() -> void:
 		push_error("Failed to delete save file. Error code: ", error)
 	
 
-# ==============================================================================
-func _ready() -> void:
+func load_all_resources() -> void:
+	
+	# WEAPONS
 	for weapon : String in all_weapons.keys():
 		var weapon_data : WeaponData = load("res://Entities/Weapons/%d/%s/%s.tres" % [all_weapons[weapon], weapon, weapon])
 		var replace_dict : Dictionary = {"{name}" : weapon_data.display_name, \
@@ -292,3 +298,14 @@ func _ready() -> void:
 		weapon_data.lore = updated_lore
 		
 		all_weap_data[weapon] = weapon_data
+		
+	# ITEMS
+	var folder_path : String = "res://Entities/Items/Resources/"
+	var files_in_dir : PackedStringArray = DirAccess.get_files_at(folder_path)
+	for file_name : String in files_in_dir:
+		var item_data : ItemData = load(folder_path + "/" + file_name)
+		all_item_data[item_data.id] = item_data
+
+# ==============================================================================
+func _ready() -> void:
+	pass

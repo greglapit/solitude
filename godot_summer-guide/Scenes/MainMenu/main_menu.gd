@@ -26,6 +26,7 @@ func _on_play_button_pressed() -> void:
 		else:
 			return
 	change_scn.emit("res://Scenes/EnteringBattle/entering_battle.tscn", true, false)
+	Globals.load_all_resources()
 
 func _on_continue_button_pressed() -> void:
 	await Globals.load_save()

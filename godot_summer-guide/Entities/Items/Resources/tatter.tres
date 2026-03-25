@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://cknaban57p60l"]
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://cknaban57p60l"]
 
 [ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_hs1ff"]
 [ext_resource type="Texture2D" uid="uid://dkwt60cqdl0qa" path="res://Entities/Items/item_atlas.png" id="2_wcytq"]
@@ -9,6 +9,10 @@ region = Rect2(0, 0, 32, 32)
 
 [resource]
 script = ExtResource("1_hs1ff")
-name = "Tatter"
+name = "Tatters"
+id = "tatters"
 texture = SubResource("AtlasTexture_xr7ht")
+type = 1
+max_count = 9999
+description = "Salvaged remnants of fallen cards."
 metadata/_custom_type_script = "uid://bes85f8halx03"
