@@ -2,6 +2,7 @@ class_name GlobalsUtil
 extends Node
 
 var ranks : Array = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
 # Save Dictionaries
 var player_data : Dictionary
@@ -15,10 +16,11 @@ var actions : int = 1
 var attacks : int = 1
 var max_draw : int = 3			# How many items player can have drawn at a time
 var max_crits : int = 3
-# Convert all keys to int automatically
+
+# Convert all keys to int automatically for JSON
 var armory : Dictionary = {1 : "1_seed_weapon"}: 
 	set(value):
-		# For JSON
+		# If key is string (JSON)
 		if typeof(value.keys()[0]) == TYPE_STRING:
 			armory = {}
 			for key : String in value.keys():
@@ -29,6 +31,7 @@ var armory : Dictionary = {1 : "1_seed_weapon"}:
 var learned_ranks : Array = armory.keys()
 var memory_capacity : int = 5
 var armory_durs : Array = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+var inventory : Dictionary
 
 var learned_weapons : Dictionary = {
 	'1_base_weapon' : 1, '1_philo_weapon' : 1, '1_seed_weapon' : 1, \
@@ -59,11 +62,30 @@ var all_weapons : Dictionary = {
 var all_weap_data : Dictionary		## file_name : resources. All loaded modified weapon resources
 var all_item_data : Dictionary 		## 
 
-var valid_save_scenes : Array = [
-	"sample_scn",
+var invalid_save_scenes : Array = [
+	"res://Scenes/Battle/battle.tscn",
 ]
 
+# ==================================================================================================
+# Inventory
+#region
+
+func add_item(id : String, amt : int) -> void:
+	if !inventory.has(id):
+		var new_stack : ItemStack = ItemStack.new()
+		new_stack.item = all_item_data[id]
+		inventory[id] = new_stack
+	
+	inventory[id].count += amt
+	
+	if inventory[id].count <= 0:
+		inventory.erase(id)
+
+#endregion
+
+# ==================================================================================================
 # Helper Functions
+#region
 # ==================================================================================================
 ## Takes dictionary "string" : weight and returns random string based on weight
 static func weighted_pick_random(dict : Dictionary) -> String:
@@ -171,8 +193,10 @@ static func rekey_names_to_objects(dict : Dictionary, node : Node) -> void:
 		else:
 			dict[node_match] = dict[val]
 			dict.erase(val)
-
+#endregion
 # ==================================================================================================
+# Save/Loading
+#region
 ## Updates player, scene, and entity data
 func update_save_dicts_data() -> void:
 	player_data.clear()
@@ -195,6 +219,13 @@ func update_save_dicts_data() -> void:
 		"armory_durs" = armory_durs
 	}
 	
+	var JSON_inventory : Dictionary
+	for item_id : String in inventory.keys():
+		var item_stack_data : ItemStack = inventory[item_id]
+		var dict : Dictionary = item_stack_data.save()
+		JSON_inventory[item_id + "_item_stack"] = dict
+		
+	player_data["inventory"] = JSON_inventory
 	
 	# Scene
 	var scene_handler : Node = get_tree().get_nodes_in_group("SceneHandler")[0]
@@ -206,6 +237,7 @@ func update_save_dicts_data() -> void:
 		# Call the node's save function.
 		scene_data = curr_scene_node.save()
 	scene_data["curr_scene_path"] = scene_handler.curr_scene_path
+	scene_data["seed"] = rng.seed
 	
 	
 	# Entities
@@ -259,11 +291,23 @@ func load_save() -> Signal:
 	
 	# Set Player Data
 	for i : String in player_data.keys():
-		Globals.set(i, player_data[i])
+		match i:
+			"inventory":
+				for key : String in player_data["inventory"]:
+					var dict : Dictionary = player_data["inventory"][key]
+					var new_stack : ItemStack = ItemStack.new()
+					new_stack.item = all_item_data[dict.item_id]
+					new_stack.count = dict.count
+					inventory[dict.item_id] = new_stack
+			_:
+				Globals.set(i, player_data[i])
+		
+		
 		
 	# Set Scene Transfer
 	var scene_handler : Node = get_tree().get_nodes_in_group("SceneHandler")[0]
 	scene_handler.curr_scene_path = scene_data["curr_scene_path"]
+	seed(scene_data["seed"])
 	
 	# Spawn and Set Entities
 	# done in respective scenes during initialize()
@@ -306,6 +350,7 @@ func load_all_resources() -> void:
 		var item_data : ItemData = load(folder_path + "/" + file_name)
 		all_item_data[item_data.id] = item_data
 
+#endregion
 # ==============================================================================
 func _ready() -> void:
-	pass
+	rng.randomize()

@@ -166,7 +166,7 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1, enemy_data : Dictionary = {}) -> void:
 	for i : int in range(num):
 		enemies = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART, range(5,11)) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART, range(1,11)) # 2 * (2 + randi() % 2)
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
 		
@@ -439,17 +439,6 @@ func _ready() -> void:
 	
 	
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("escape_menu") and !get_parent().find_child("ConfirmationWindow"):
-		var result : String = await ConfirmationWindow.prompt_user(self, "Cannot save during combat.\nAbandon run and exit to main menu?", "Abandon Run", "Cancel")
-		if result == "Abandon Run":
-			if pause_input:
-				await pause_input_update
-					
-			change_scn.emit("res://Scenes/MainMenu/main_menu.tscn", false, false)
-			return
-		else:
-			return
-		
 	if pause_input:
 		return
 	

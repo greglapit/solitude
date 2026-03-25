@@ -15,7 +15,10 @@ var encounters : Dictionary = {
 # === Built In =================================================================
 
 func _ready() -> void:
-	
+	#Globals.load_all_resources()
+	#Globals.add_item("tatters",350)
+	#Globals.add_item("core",250)
+	#Globals.save()
 	player.hide()
 	
 	king_ap.play("arrive")

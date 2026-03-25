@@ -13,7 +13,8 @@ func _ready() -> void:
 	return
 	
 func _input(_event: InputEvent) -> void:
-	pass
+	if _event.is_action_pressed("escape_menu") and !get_parent().find_child("ConfirmationWindow"):
+		_on_quit_button_pressed()
 
 # === Signals ==================================================================
 
@@ -29,13 +30,14 @@ func _on_play_button_pressed() -> void:
 	Globals.load_all_resources()
 
 func _on_continue_button_pressed() -> void:
+	Globals.load_all_resources()
 	await Globals.load_save()
 	var scene_handler : Node = get_parent()
 	change_scn.emit(scene_handler.curr_scene_path, true, false)
 	
 
 func _on_quit_button_pressed() -> void:
-	var result : String = await ConfirmationWindow.prompt_user(self, "Are you sure?")
+	var result : String = await ConfirmationWindow.prompt_user(self, "Exit game?")
 	if result == "Yes":
 		get_tree().quit()
 		return

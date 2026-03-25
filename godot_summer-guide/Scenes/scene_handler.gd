@@ -1,6 +1,6 @@
 extends Node
 
-
+var ongoing_run : bool = false
 var loading_screen_scn : PackedScene = preload("res://Scenes/loading_screen.tscn")
 const main_menu_scn : PackedScene = preload("res://Scenes/MainMenu/main_menu.tscn")
 var loading_screen : LoadingScreen
@@ -14,7 +14,7 @@ var loading_in_background : bool = false
 
 # DEV TOOLS
 const starting_scn : PackedScene = main_menu_scn
-#const starting_scn : PackedScene = preload("res://Scenes/EnteringBattle/entering_battle.tscn")
+#const starting_scn : PackedScene = preload("res://Scenes/KoDEncounter/kod_encounter.tscn")
 
 # === Custom Methods ===========================================================
 
@@ -40,8 +40,24 @@ func _ready() -> void:
 	add_child(init_scn)
 	
 	
-func _input(_event: InputEvent) -> void:
-	pass
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("escape_menu") and !get_parent().find_child("ConfirmationWindow"):
+		if curr_scene in Globals.invalid_save_scenes:
+			var result : String = await ConfirmationWindow.prompt_user(self, "Save and quit to menu?", "Quit", "Cancel")
+			if result == "Quit":
+				Globals.save()
+				curr_scene.change_scn.emit("res://Scenes/MainMenu/main_menu.tscn", false, false)
+			else:
+				return
+		else:
+			var result : String = await ConfirmationWindow.prompt_user(self, "Cannot save during combat.\nAbandon run and exit to main menu?", "Abandon Run", "Cancel")
+			if result == "Abandon Run":
+				Globals.delete_save()
+				curr_scene.change_scn.emit("res://Scenes/MainMenu/main_menu.tscn", false, false)
+				return
+			else:
+				return
+		
 
 # === Signals ==================================================================
 
@@ -69,14 +85,12 @@ func _on_node_2d_change_scn(path : String, prog_visible : bool, background : boo
 	if loading_in_background:
 		push_error("Scene calling change when already loading in background.")
 	
-	# Save game when returning to menu
-	if path == "res://Scenes/MainMenu/main_menu.tscn":
-		if scn.get_scene_file_path() in Globals.valid_save_scenes:
-			save_queued = true
-		else:
-			# Abandon run
-			Globals.delete_save()
-			pass
+	# Save game on transitions
+	if curr_scene_path not in Globals.invalid_save_scenes:
+		save_queued = true
+		Globals.save()
+	else:
+		Globals.delete_save()
 	
 	loadscreen_load(path, prog_visible, background)
 
