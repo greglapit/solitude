@@ -287,7 +287,7 @@ func spawn_card(mini_data : Dictionary) -> void:
 	add_child(mini_card)
 	mini_card.add_to_group("persist")
 	
-	GlobalsUtil.assign_vars_from_dict(mini_card, mini_data)
+	Globals.assign_vars_from_dict(mini_card, mini_data)
 	mini_card.update_visuals()
 	
 	mini_card.input_event.connect(_on_mini_card_input_event.bind(mini_card))

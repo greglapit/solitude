@@ -78,6 +78,8 @@ var mutation_cooldown: Timer = Timer.new()
 ## Animation player for fade in/out
 @onready var animation_player : AnimationPlayer = $Balloon/MarginContainer/PanelContainer/AnimationPlayer
 
+## Emits which character just spoke
+signal char_spoke(char : String)
 
 func _ready() -> void:
 	balloon.hide()
@@ -143,7 +145,8 @@ func apply_dialogue_line() -> void:
 	balloon.grab_focus()
 
 	#character_label.visible = not dialogue_line.character.is_empty()
-	#character_label.text = tr(dialogue_line.character, "dialogue")
+	character_label.text = tr(dialogue_line.character, "dialogue")
+	char_spoke.emit(character_label.text)
 
 	dialogue_label.hide()
 	dialogue_label.dialogue_line = dialogue_line
@@ -152,7 +155,6 @@ func apply_dialogue_line() -> void:
 	responses_menu.responses = dialogue_line.responses
 
 	# Show our balloon
-	#balloon.show()
 	will_hide_balloon = false
 	
 	await animation_player.animation_finished

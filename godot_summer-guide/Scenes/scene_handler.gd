@@ -40,6 +40,10 @@ func _ready() -> void:
 	add_child(init_scn)
 	
 	
+	# Dialogue manager
+	DialogueManager.get_current_scene = func() -> Node:
+		return get_node("/root/SceneHandler").curr_scene
+	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("escape_menu") and !get_parent().find_child("ConfirmationWindow"):
 		if curr_scene in Globals.invalid_save_scenes:

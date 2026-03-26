@@ -7,22 +7,22 @@ var seeded_scn : PackedScene = preload("res://Entities/Weapons/ArtWeaponEffects/
 # === Custom Methods ===========================================================
 #region
 # OBSOLETE. No longer allowing saving during battle
-func save() -> Dictionary:
-	var data : Dictionary = super()
-	GlobalsUtil.rekey_objects_to_names(enemies_seeded_dict)
-	data["enemies_seeded_dict"] = enemies_seeded_dict
-	data["dmg_stored"] = dmg_stored
-	return data
+#func save() -> Dictionary:
+	#var data : Dictionary = super()
+	#Globals.rekey_objects_to_names(enemies_seeded_dict)
+	#data["enemies_seeded_dict"] = enemies_seeded_dict
+	#data["dmg_stored"] = dmg_stored
+	#return data
 
-func initialize() -> void:
-	super()
-	var seed_enemy_queue : Array = enemies_seeded_dict.keys()
-	enemies_seeded_dict.clear()
-	for enemy : Enemy in seed_enemy_queue:
-		var seeded_effect : AnimatedSprite2D = seeded_scn.instantiate()
-		enemy.collision_shape.add_child(seeded_effect)
-		enemies_seeded_dict[enemy] = seeded_effect
-		
+#func initialize() -> void:
+	#super()
+	#var seed_enemy_queue : Array = enemies_seeded_dict.keys()
+	#enemies_seeded_dict.clear()
+	#for enemy : Enemy in seed_enemy_queue:
+		#var seeded_effect : AnimatedSprite2D = seeded_scn.instantiate()
+		#enemy.collision_shape.add_child(seeded_effect)
+		#enemies_seeded_dict[enemy] = seeded_effect
+		#
 #endregion
 
 func equip() -> void:

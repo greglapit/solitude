@@ -9,16 +9,16 @@ var bleeding_enemies : Dictionary
 
 #region
 # Obsolete. No longer allowing saving during battle
-func save() -> Dictionary:
-	var data : Dictionary = super()
-	GlobalsUtil.rekey_objects_to_names(bleeding_enemies)
-	data["bleeding_enemies"] = bleeding_enemies
-	return data
-
-func initialize() -> void:
-	super()
-	for enemy : Enemy in bleeding_enemies.keys():
-		enemy.display_bleed(bleeding_enemies[enemy])
+#func save() -> Dictionary:
+	#var data : Dictionary = super()
+	#GlobalsUtil.rekey_objects_to_names(bleeding_enemies)
+	#data["bleeding_enemies"] = bleeding_enemies
+	#return data
+#
+#func initialize() -> void:
+	#super()
+	#for enemy : Enemy in bleeding_enemies.keys():
+		#enemy.display_bleed(bleeding_enemies[enemy])
 #endregion
 
 func bleed() -> void:

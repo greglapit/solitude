@@ -1,4 +1,3 @@
-class_name GlobalsUtil
 extends Node
 
 var ranks : Array = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
@@ -8,6 +7,7 @@ var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var player_data : Dictionary
 var scene_data : Dictionary
 var entities_data : Dictionary
+var progress_data : Dictionary
 
 var hp : int = 20
 var max_hp : int = 20
@@ -88,7 +88,7 @@ func add_item(id : String, amt : int) -> void:
 #region
 # ==================================================================================================
 ## Takes dictionary "string" : weight and returns random string based on weight
-static func weighted_pick_random(dict : Dictionary) -> String:
+func weighted_pick_random(dict : Dictionary) -> String:
 	var total : int = 0
 	
 	for weight : int in dict.values():
@@ -105,13 +105,13 @@ static func weighted_pick_random(dict : Dictionary) -> String:
 			
 	return ""
 
-static func fill_placeholders(template: String, vars: Dictionary) -> String:
+func fill_placeholders(template: String, vars: Dictionary) -> String:
 	for key : String in vars.keys():
 		template = template.replace(key, str(vars[key]))
 	return template
 
 ## Create generic code-pasteable dict of all serializable vars in script, with additional details
-static func create_default_save_dict(node : Node) -> String:
+func create_default_save_dict(node : Node) -> String:
 	var data : Dictionary = {
 		"name" : "name",
 		"class_name" : "get_class()",
@@ -158,7 +158,7 @@ static func create_default_save_dict(node : Node) -> String:
 
 ## Overwrite all values in dictionary "var : value" to node.
 ## Rekeys serialized json objects in dict.values() to their nodes if dict contains dict["rekeyed_to_name"] = true
-static func assign_vars_from_dict(node : Node, dict : Dictionary) -> void:
+func assign_vars_from_dict(node : Node, dict : Dictionary) -> void:
 	var node_props : Array = node.get_script().get_script_property_list()
 	var node_prop_names : Array = node_props.map(func(k : Variant) -> String: return k.name)
 	for key : Variant in dict.keys():
@@ -178,13 +178,13 @@ static func assign_vars_from_dict(node : Node, dict : Dictionary) -> void:
 		node.set(key, dict[key])
 
 
-static func rekey_objects_to_names(dict : Dictionary) -> void:
+func rekey_objects_to_names(dict : Dictionary) -> void:
 	for val : Node in dict.keys():
 		dict[val.name] = dict[val]
 		dict.erase(val)
 	dict["rekeyed_to_name"] = true
 
-static func rekey_names_to_objects(dict : Dictionary, node : Node) -> void:
+func rekey_names_to_objects(dict : Dictionary, node : Node) -> void:
 	for val : String in dict.keys():
 		var node_match : Node = node.get_tree().get_root().find_child(val, true, false)
 		
@@ -202,6 +202,8 @@ func update_save_dicts_data() -> void:
 	player_data.clear()
 	scene_data.clear()
 	entities_data.clear()
+	progress_data.clear()
+	
 	
 	
 	# Player
@@ -256,6 +258,8 @@ func update_save_dicts_data() -> void:
 		# Call the node's save function.
 			entity_data = node.save()
 		entities_data[node.name] = entity_data
+		
+	progress_data = ProgressTracker.save()
 	
 
 ## Player Data
@@ -264,7 +268,12 @@ func save() -> Signal:
 	# Save Player Data
 	update_save_dicts_data()
 	var save_file : FileAccess = FileAccess.open("user://savegame.save", FileAccess.WRITE)
-	var all_data : Dictionary = {"player_data":  player_data, "scene_data" : scene_data, "entities_data" : entities_data}
+	var all_data : Dictionary = {
+		"player_data":  player_data, 
+		"scene_data" : scene_data, 
+		"entities_data" : entities_data, 
+		"progress_data" : progress_data
+	}
 	var json_string : String = JSON.stringify(all_data, "\t")
 	save_file.store_line(json_string)
 	
@@ -288,6 +297,7 @@ func load_save() -> Signal:
 	player_data = data["player_data"]
 	scene_data = data["scene_data"]
 	entities_data = data["entities_data"]
+	progress_data = data["progress_data"]
 	
 	# Set Player Data
 	for i : String in player_data.keys():
@@ -311,6 +321,9 @@ func load_save() -> Signal:
 	
 	# Spawn and Set Entities
 	# done in respective scenes during initialize()
+
+	# Progress
+	ProgressTracker.load_save(progress_data)
 
 	return get_tree().process_frame
 

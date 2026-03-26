@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://dtd6gnc80f1cj" path="res://Scenes/KoDEncounter/kod_encounter.gd" id="1_8fqdq"]
 [ext_resource type="Texture2D" uid="uid://bg4ka8j8kkd0p" path="res://Scenes/KoDEncounter/Art/king_of_diamonds_background.png" id="1_eb50b"]
 [ext_resource type="Texture2D" uid="uid://br76sf6slne03" path="res://Scenes/KoDEncounter/Art/king_of_diamonds.png" id="2_mfxm5"]
-[ext_resource type="PackedScene" uid="uid://btogkg4xf5q08" path="res://Scenes/UI/TextBox/balloon.tscn" id="3_1dgc4"]
 [ext_resource type="Texture2D" uid="uid://645dyip863eq" path="res://Scenes/KoDEncounter/Art/player.png" id="4_kip1e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mfxm5"]
@@ -158,6 +157,18 @@ tracks/6/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_odhdj"]
 resource_name = "arrive"
@@ -246,6 +257,18 @@ tracks/6/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_8fqdq"]
 resource_name = "bump"
@@ -330,7 +353,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_o3hs7"]
@@ -407,9 +430,8 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_eb50b")
 
-[node name="Balloon" parent="." unique_id=599062984 instance=ExtResource("3_1dgc4")]
-
 [node name="King" type="Node2D" parent="." unique_id=1283400304]
+visible = false
 
 [node name="Cloud" type="AnimatedSprite2D" parent="King" unique_id=180667785 groups=["animated_sprite"]]
 position = Vector2(320, 180)
@@ -436,6 +458,7 @@ frame_progress = 0.6660516
 libraries/ = SubResource("AnimationLibrary_kip1e")
 
 [node name="Player" type="Node2D" parent="." unique_id=1133307599]
+visible = false
 
 [node name="Player" type="Sprite2D" parent="Player" unique_id=1506371388]
 position = Vector2(279, 201)

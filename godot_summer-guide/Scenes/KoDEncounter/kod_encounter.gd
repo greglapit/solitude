@@ -9,16 +9,10 @@ var encounters : Dictionary = {
 	"rare" : 1
 }
 
+var test : String = "Testign"
+
 # === Custom Methods ===========================================================
-
-
-# === Built In =================================================================
-
-func _ready() -> void:
-	#Globals.load_all_resources()
-	#Globals.add_item("tatters",350)
-	#Globals.add_item("core",250)
-	#Globals.save()
+func arrive_sequences() -> void:
 	player.hide()
 	
 	king_ap.play("arrive")
@@ -31,12 +25,28 @@ func _ready() -> void:
 		var node : AnimatedSprite2D = child
 		node.play("default")
 		node.set_frame_and_progress(0,0.0)
-	
+		
 	await player_ap.animation_finished
-	
-	DialogueManager.show_dialogue_balloon(load("res://Scenes/KoDEncounter/kod.dialogue"), "start")
+
+func initialize() -> void:
+	var balloon : Node = DialogueManager.show_dialogue_balloon(load("res://Scenes/KoDEncounter/kod_default.dialogue"), "start")
+	balloon.char_spoke.connect(_on_balloon_char_spoke)
+
+# === Built In =================================================================
+
+func _ready() -> void:
+	pass
 
 func _input(_event: InputEvent) -> void:
 	pass
 
 # === Signals ==================================================================
+
+func _on_balloon_char_spoke(_char : String) -> void:
+	match _char:
+		"Fool":
+			player_ap.play("bump")
+		"KOD":
+			king_ap.play("bump")
+		_:
+			pass
