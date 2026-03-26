@@ -31,10 +31,23 @@ func arrive_sequences() -> void:
 func initialize() -> void:
 	var balloon : Node = DialogueManager.show_dialogue_balloon(load("res://Scenes/KoDEncounter/kod_default.dialogue"), "start")
 	balloon.char_spoke.connect(_on_balloon_char_spoke)
+	
+	# If player has cores
+	if Globals.inventory.has("core"):
+		@warning_ignore("unused_variable")
+		var core_stack : ItemStack = Globals.inventory["core"]
+		@warning_ignore("unused_variable")
+		var increase_memory_scn : Node = load("res://Scenes/KoDEncounter/Interactions/increase_memory.tscn").instantiate()
+		
+		balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/KoDEncounter/kod_give_core.dialogue"), "start")
+		balloon.char_spoke.connect(_on_balloon_char_spoke)
+		
+		
 
 # === Built In =================================================================
 
 func _ready() -> void:
+	Globals.save()
 	pass
 
 func _input(_event: InputEvent) -> void:

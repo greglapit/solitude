@@ -1,0 +1,8 @@
+~ start
+if not ProgressTracker.given_kod_core:
+	KOD: I see you have a {{Globals.all_item_data["core"].name}} on you.
+	KOD: I'm sure you've noticed I have a special interest in the fate of cards.
+	KOD: Let me take that off of your hands. And perhaps I can offer this a reward.
+	do core_stack.count = 0
+	do add_child(increase_memory_scn)
+=> END

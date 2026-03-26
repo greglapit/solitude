@@ -1,6 +1,7 @@
 extends Node
 
 var met_kod : bool = false
+var given_kod_core : bool = false
 
 func save() -> Dictionary:
 	var dict : Dictionary = {

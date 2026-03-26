@@ -12,8 +12,8 @@ var save_queued : bool = false
 var loading_in_background : bool = false
 
 # DEV TOOLS
-const starting_scn : PackedScene = main_menu_scn
-#const starting_scn : PackedScene = preload("res://Scenes/KoDEncounter/kod_encounter.tscn")
+#const starting_scn : PackedScene = main_menu_scn
+const starting_scn : PackedScene = preload("res://Scenes/KoDEncounter/kod_encounter.tscn")
 
 # === Custom Methods ===========================================================
 
