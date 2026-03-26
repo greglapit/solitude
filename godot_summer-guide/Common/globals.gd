@@ -59,11 +59,11 @@ var all_weapons : Dictionary = {
 	'10_base_weapon' : 10, '10_clock_weapon' : 10, '10_pirate_weapon' : 10\
 }
 
-var all_weap_data : Dictionary		## file_name : resources. All loaded modified weapon resources
+var all_weap_data : Dictionary 		## file_name : resources. All loaded modified weapon resources
 var all_item_data : Dictionary 		## 
 
-var invalid_save_scenes : Array = [
-	"res://Scenes/Battle/battle.tscn",
+var valid_save_scenes : Array = [
+	"sample_scn",
 ]
 
 # ==================================================================================================
@@ -366,4 +366,5 @@ func load_all_resources() -> void:
 #endregion
 # ==============================================================================
 func _ready() -> void:
+	load_all_resources() # TODO: Maybe DELETE? Handled in scenehandler
 	rng.randomize()

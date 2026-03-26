@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cphkstgn5vw14" path="res://Scenes/UI/StudyJournal/journal_memory.gd" id="1_lu2ty"]
 [ext_resource type="Shader" uid="uid://bvu6mr6dwkfa5" path="res://Common/Shaders/fog_shader.gdshader" id="2_7fogt"]
 [ext_resource type="PackedScene" uid="uid://brhe05xvrskam" path="res://Scenes/UI/StudyJournal/Journal/journal.tscn" id="2_lu2ty"]
+[ext_resource type="PackedScene" uid="uid://1e51h2a8pgtn" path="res://Scenes/UI/StudyJournal/capacity_label.tscn" id="5_tchwb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_id3su"]
 shader = ExtResource("2_7fogt")
@@ -113,11 +114,8 @@ grow_vertical = 0
 theme_override_constants/margin_left = 13
 theme_override_constants/margin_bottom = 6
 
-[node name="CapacityLabel" type="Label" parent="CanvasLayer2/MarginContainer" unique_id=629491377]
+[node name="CapacityLabel" parent="CanvasLayer2/MarginContainer" unique_id=315747629 instance=ExtResource("5_tchwb")]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
-theme_override_font_sizes/font_size = 32
-text = "Memory Capacity: XX/XX"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer2" unique_id=55166214]
 

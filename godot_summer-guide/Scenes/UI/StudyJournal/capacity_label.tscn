@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://1e51h2a8pgtn"]
+
+[ext_resource type="Script" uid="uid://d3agy1bjlcdey" path="res://Scenes/UI/StudyJournal/capacity_label.gd" id="1_4i7nx"]
+
+[node name="CapacityLabel" type="Label" unique_id=315747629]
+theme_override_colors/font_color = Color(0.78039217, 0.8627451, 0.8156863, 1)
+theme_override_font_sizes/font_size = 32
+text = "Memory Capacity: XX/XX"
+script = ExtResource("1_4i7nx")
