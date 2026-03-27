@@ -3,6 +3,12 @@ if not ProgressTracker.given_kod_core:
 	KOD: I see you have a {{Globals.all_item_data["core"].name}} on you.
 	KOD: I'm sure you've noticed I have a special interest in the fate of cards.
 	KOD: Let me take that off of your hands. And perhaps I can offer this a reward.
-	do core_stack.count = 0
-	do add_child(increase_memory_scn)
+	set ProgressTracker.given_kod_core = true
+else:
+	KOD: I sense another core
+	KOD: I'll take it off your hands.
+do play_increase_memory()
+KOD: Be sure to bring me more if you find any. I can offer a similar reward.
+Fool: Thanks.
+do end_encounter()
 => END

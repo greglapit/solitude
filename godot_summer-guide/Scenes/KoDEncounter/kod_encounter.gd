@@ -32,22 +32,33 @@ func initialize() -> void:
 	var balloon : Node = DialogueManager.show_dialogue_balloon(load("res://Scenes/KoDEncounter/kod_default.dialogue"), "start")
 	balloon.char_spoke.connect(_on_balloon_char_spoke)
 	
+	await balloon.tree_exited
+	
 	# If player has cores
 	if Globals.inventory.has("core"):
-		@warning_ignore("unused_variable")
-		var core_stack : ItemStack = Globals.inventory["core"]
-		@warning_ignore("unused_variable")
-		var increase_memory_scn : Node = load("res://Scenes/KoDEncounter/Interactions/increase_memory.tscn").instantiate()
-		
-		balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/KoDEncounter/kod_give_core.dialogue"), "start")
+		balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/KoDEncounter/kod_take_core.dialogue"), "start")
 		balloon.char_spoke.connect(_on_balloon_char_spoke)
 		
-		
+
+func play_increase_memory() -> void:
+	var increase_memory_scn : Node = load("res://Scenes/KoDEncounter/Interactions/increase_memory.tscn").instantiate()
+	
+	var core_stack : ItemStack = Globals.inventory["core"]
+	increase_memory_scn.cores_being_used = core_stack.count
+	
+	add_child(increase_memory_scn)
+	
+	await increase_memory_scn.tree_exited
+	
+	Globals.add_item("core", -core_stack.count)
+	
+func end_encounter() -> void:
+	change_scn.emit()
 
 # === Built In =================================================================
 
 func _ready() -> void:
-	Globals.save()
+	Globals.add_item("core", 3)
 	pass
 
 func _input(_event: InputEvent) -> void:

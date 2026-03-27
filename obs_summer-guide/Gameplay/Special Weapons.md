@@ -12,6 +12,7 @@ Unsure if naming should be unique names or references to real objects
 * Stormprong : Special. Huge aoe, split between targets. If one target, centered on that one
 * Prowler: Special: Attacks first, even if higher. Refunds crit
 
+
 # Four
 
 * Cleft Bastion. Special: Bulwark. Reduce next instances to 1
@@ -20,7 +21,6 @@ Unsure if naming should be unique names or references to real objects
 # Five
 
 * Claws. Special: 
-* Marionette Hand controlling player
 # Six
 
 * Shardcoil: Bind enemy
@@ -32,6 +32,7 @@ Unsure if naming should be unique names or references to real objects
 # Eight
 
 * Skysplitter. Passive damages adjacent enemies. Hurts self
+* Catacylsm
 # Nine
 
 * Worldpost: damage carries over to next enemy
@@ -39,7 +40,12 @@ Unsure if naming should be unique names or references to real objects
 * Command kneel. Force enemy to obey, kneel into ground damaging. Skips their turn
 # Ten
 
-* casino Slots. Jackpot does big damage.
 * Clock. Reverse turn order until used again
 * pirate wheel. Big aoe, tilt screen like driving ship, splash water
 * A ring
+
+# Unimplementeed
+* casino Slots. Jackpot does big damage.
+* Wushu, flexible spear
+* Marionette Hand controlling player
+* 

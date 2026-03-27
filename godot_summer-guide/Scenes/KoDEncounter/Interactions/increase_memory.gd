@@ -3,18 +3,25 @@ extends Node
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var capacity_label : Label = $CanvasLayer/MarginContainer/CapacityLabel
 
-## Set when play animation has finished and ready to hide
+# Set to amount memory should increase by
+var cores_being_used : int = 0
+
+## Used internally
 var event_completed : bool = false
+
+
 
 # === Custom Methods ===========================================================
 
 func increase_memory_capacity() -> void:
-	Globals.memory_capacity += 1
+	Globals.memory_capacity += cores_being_used
 	capacity_label.update()
+	await animation_player.animation_finished
 
 # === Built In =================================================================
 
 func _ready() -> void:
+	capacity_label.display_current_stress = false
 	capacity_label.update()
 	animation_player.play("show")
 	

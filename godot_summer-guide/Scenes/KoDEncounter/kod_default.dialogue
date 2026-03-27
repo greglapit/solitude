@@ -2,11 +2,12 @@
 do arrive_sequences()
 if not ProgressTracker.met_kod:
 	% KOD: So the fool hath arrived.
-	% KOD: 
+	% KOD: And so he returns.
+	KOD: Your arrival was fated.
 	set ProgressTracker.met_kod = true
 else:
 	% KOD: We meet again.
-KOD: [[Hi|Hello|Howdy]], this is some dialogue.
-Fool: Here are some choices {{test}}.
+KOD: Here is a random weapon.
+Fool: Thanks.
 
 => END

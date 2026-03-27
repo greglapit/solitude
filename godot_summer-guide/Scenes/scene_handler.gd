@@ -38,6 +38,8 @@ func _ready() -> void:
 	curr_scene = init_scn
 	add_child(init_scn)
 	
+	if init_scn.has_method("initialize"):
+		init_scn.initialize()
 	
 	# Dialogue manager
 	DialogueManager.get_current_scene = func() -> Node:
