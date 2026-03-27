@@ -10,5 +10,4 @@ else:
 do play_increase_memory()
 KOD: Be sure to bring me more if you find any. I can offer a similar reward.
 Fool: Thanks.
-do end_encounter()
 => END

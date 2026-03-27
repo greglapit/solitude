@@ -1,0 +1,5 @@
+~ start
+KOD: It is time for you to continue your journey.
+KOD: Until next time
+do end_encounter()
+=> END

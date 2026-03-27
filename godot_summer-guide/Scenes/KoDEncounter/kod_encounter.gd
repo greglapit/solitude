@@ -38,10 +38,21 @@ func initialize() -> void:
 	if Globals.inventory.has("core"):
 		balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/KoDEncounter/kod_take_core.dialogue"), "start")
 		balloon.char_spoke.connect(_on_balloon_char_spoke)
-		
+		await balloon.tree_exited
+	
+	balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/KoDEncounter/kod_end_encounter.dialogue"), "start")
+	balloon.char_spoke.connect(_on_balloon_char_spoke)
+
+func play_gift_weapon() -> void:
+	var gift_weapon_scn : Node2D = load("res://Scenes/KoDEncounter/Interactions/gift_weapon.tscn").instantiate()
+	
+	add_child(gift_weapon_scn)
+	
+	await gift_weapon_scn.tree_exited
+
 
 func play_increase_memory() -> void:
-	var increase_memory_scn : Node = load("res://Scenes/KoDEncounter/Interactions/increase_memory.tscn").instantiate()
+	var increase_memory_scn : Node2D = load("res://Scenes/KoDEncounter/Interactions/increase_memory.tscn").instantiate()
 	
 	var core_stack : ItemStack = Globals.inventory["core"]
 	increase_memory_scn.cores_being_used = core_stack.count
@@ -53,7 +64,7 @@ func play_increase_memory() -> void:
 	Globals.add_item("core", -core_stack.count)
 	
 func end_encounter() -> void:
-	change_scn.emit()
+	change_scn.emit("res://Scenes/Nighttime/nighttime.tscn", false, false)
 
 # === Built In =================================================================
 

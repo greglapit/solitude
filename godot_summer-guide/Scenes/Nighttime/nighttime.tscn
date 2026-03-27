@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://bh72kuvxj3ep8"]
+
+[ext_resource type="Script" uid="uid://dumx8ixjy81b6" path="res://Scenes/Nighttime/nighttime.gd" id="1_dblca"]
+[ext_resource type="Texture2D" uid="uid://dh4ds4nymuebr" path="res://Scenes/Nighttime/Art/nighttime.png" id="2_g5jg2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5jg2"]
+atlas = ExtResource("2_g5jg2")
+region = Rect2(0, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23yqe"]
+atlas = ExtResource("2_g5jg2")
+region = Rect2(640, 0, 640, 360)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dblca"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5jg2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23yqe")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="Animation" id="Animation_23yqe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_g5jg2"]
+resource_name = "hide"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_23yqe"]
+_data = {
+&"RESET": SubResource("Animation_23yqe"),
+&"hide": SubResource("Animation_g5jg2")
+}
+
+[node name="Nighttime" type="Node2D" unique_id=1546063454]
+script = ExtResource("1_dblca")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=817234972]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1106770004]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1228922548]
+position = Vector2(320, 180)
+sprite_frames = SubResource("SpriteFrames_dblca")
+autoplay = "default"
+frame_progress = 0.50332147
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1524742654]
+libraries/ = SubResource("AnimationLibrary_23yqe")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

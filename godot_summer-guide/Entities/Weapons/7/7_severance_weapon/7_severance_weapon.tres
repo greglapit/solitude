@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_datvg")
+rank = 7
 file_name = "7_severance_weapon"
 display_name = "Severance"
 second_name = "FILLER FILLER FILLER"

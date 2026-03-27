@@ -241,7 +241,7 @@ tracks/8/path = NodePath("CanvasLayer/MarginContainer/CapacityLabel:theme_overri
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 2.5625),
+"times": PackedFloat32Array(0, 2.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [32, 48]
