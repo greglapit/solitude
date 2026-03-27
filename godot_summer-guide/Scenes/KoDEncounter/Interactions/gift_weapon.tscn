@@ -1,0 +1,207 @@
+[gd_scene format=3 uid="uid://bmp36lcfb453r"]
+
+[ext_resource type="Texture2D" uid="uid://byjwkfff5cxqe" path="res://Scenes/Battle/Art/WeaponDisplay/Art/weapon_art_filler.png" id="1_4oc2i"]
+[ext_resource type="Script" uid="uid://d0mu3u4oap51v" path="res://Scenes/KoDEncounter/Interactions/gift_weapon.gd" id="1_i74t4"]
+[ext_resource type="Shader" uid="uid://bvu6mr6dwkfa5" path="res://Common/Shaders/fog_shader.gdshader" id="3_2jvn2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7vm4v"]
+shader = ExtResource("3_2jvn2")
+shader_parameter/radius = 1.0
+shader_parameter/speed = 10.0
+shader_parameter/effect_color = Color(0.2901961, 0, 0, 1)
+shader_parameter/pixelate_amount = 40
+shader_parameter/NumDivisions = 32
+
+[sub_resource type="Animation" id="Animation_2jvn2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer2/CanvasModulate:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7vm4v"]
+resource_name = "hide"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/VBoxContainer:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer2/CanvasModulate:color")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_i74t4"]
+resource_name = "show"
+length = 3.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/VBoxContainer:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer2/CanvasModulate:color")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2jvn2"]
+_data = {
+&"RESET": SubResource("Animation_2jvn2"),
+&"hide": SubResource("Animation_7vm4v"),
+&"show": SubResource("Animation_i74t4")
+}
+
+[node name="GiftWeapon" type="Node2D" unique_id=1686536844]
+script = ExtResource("1_i74t4")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2123046999]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=2145507525]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7058824)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1936946763]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(300, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.5
+offset_top = -54.5
+offset_right = 76.5
+offset_bottom = 54.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WeaponName" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=1513994443]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78039217, 0.8627451, 0.8156863, 1)
+theme_override_font_sizes/font_size = 32
+text = "WEAPON NAME :D"
+horizontal_alignment = 1
+
+[node name="Rank" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=1658488804]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78039217, 0.8627451, 0.8156863, 1)
+text = "SecondName"
+horizontal_alignment = 1
+
+[node name="WeaponArt" type="TextureRect" parent="CanvasLayer/VBoxContainer" unique_id=1152112]
+layout_mode = 2
+texture = ExtResource("1_4oc2i")
+expand_mode = 5
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1856960056]
+layer = 2
+
+[node name="PixelFogShader" type="ColorRect" parent="CanvasLayer2" unique_id=1126204802 groups=["UI"]]
+material = SubResource("ShaderMaterial_7vm4v")
+offset_left = -44.0
+offset_top = -32.0
+offset_right = 691.07074
+offset_bottom = 390.0
+mouse_filter = 2
+
+[node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer2" unique_id=142327007]
+color = Color(1, 1, 1, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=695287116]
+libraries/ = SubResource("AnimationLibrary_2jvn2")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

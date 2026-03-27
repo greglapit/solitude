@@ -33,17 +33,33 @@ var memory_capacity : int = 5
 var armory_durs : Array = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
 var inventory : Dictionary
 
+#region # Weapon Dicts
+
 var learned_weapons : Dictionary = {
-	'1_base_weapon' : 1, '1_philo_weapon' : 1, '1_seed_weapon' : 1, \
-	'2_base_weapon' : 2, '2_twin_weapon' : 2, '2_glass_weapon' : 2, \
-	'3_base_weapon' : 3, '3_trident_weapon' : 3, '3_prowler_weapon' : 3, \
-	'4_base_weapon' : 4, '4_mirra_weapon' : 4, '4_bastion_weapon' : 4,\
-	'5_base_weapon' : 5, '5_claw_weapon' : 5, '5_maw_weapon' : 5,\
-	'6_base_weapon' : 6, '6_locklash_weapon' : 6, '6_weaver_weapon' : 6,\
-	'7_base_weapon' : 7, '7_vamp_weapon' : 7, '7_severance_weapon' : 7,\
-	'8_base_weapon' : 8, '8_splitter_weapon' : 8, '8_cata_weapon' : 8,\
-	'9_base_weapon' : 9, '9_cloud_weapon' : 9, '9_cmd_weapon' : 9,\
-	'10_base_weapon' : 10, '10_clock_weapon' : 10, '10_pirate_weapon' : 10\
+	#'1_base_weapon' : 1, '1_philo_weapon' : 1, '1_seed_weapon' : 1, \
+	#'2_base_weapon' : 2, '2_twin_weapon' : 2, '2_glass_weapon' : 2, \
+	#'3_base_weapon' : 3, '3_trident_weapon' : 3, '3_prowler_weapon' : 3, \
+	#'4_base_weapon' : 4, '4_mirra_weapon' : 4, '4_bastion_weapon' : 4,\
+	#'5_base_weapon' : 5, '5_claw_weapon' : 5, '5_maw_weapon' : 5,\
+	#'6_base_weapon' : 6, '6_locklash_weapon' : 6, '6_weaver_weapon' : 6,\
+	#'7_base_weapon' : 7, '7_vamp_weapon' : 7, '7_severance_weapon' : 7,\
+	#'8_base_weapon' : 8, '8_splitter_weapon' : 8, '8_cata_weapon' : 8,\
+	#'9_base_weapon' : 9, '9_cloud_weapon' : 9, '9_cmd_weapon' : 9,\
+	#'10_base_weapon' : 10, '10_clock_weapon' : 10, '10_pirate_weapon' : 10\
+}
+
+## Weapons still available to be given during run. Value is their weight
+var available_weapon_pool : Dictionary = {
+	'1_philo_weapon' : 1, '1_seed_weapon' : 1, \
+	'2_twin_weapon' : 1, '2_glass_weapon' : 1, \
+	'3_trident_weapon' : 1, '3_prowler_weapon' : 1, \
+	'4_mirra_weapon' : 1, '4_bastion_weapon' : 1,\
+	'5_claw_weapon' : 1, '5_maw_weapon' : 1,\
+	'6_locklash_weapon' : 1, '6_weaver_weapon' : 1,\
+	'7_vamp_weapon' : 1, '7_severance_weapon' : 1,\
+	'8_splitter_weapon' : 1, '8_cata_weapon' : 1,\
+	'9_cloud_weapon' : 1, '9_cmd_weapon' : 1,\
+	'10_clock_weapon' : 1, '10_pirate_weapon' : 1\
 }
 
 var all_weapons : Dictionary = {
@@ -58,6 +74,8 @@ var all_weapons : Dictionary = {
 	'9_base_weapon' : 9, '9_cloud_weapon' : 9, '9_cmd_weapon' : 9,\
 	'10_base_weapon' : 10, '10_clock_weapon' : 10, '10_pirate_weapon' : 10\
 }
+
+#endregion
 
 var all_weap_data : Dictionary 		## file_name : resources. All loaded modified weapon resources
 var all_item_data : Dictionary 		## 
@@ -217,6 +235,8 @@ func update_save_dicts_data() -> void:
 		"max_crits" = max_crits,
 		"armory" = armory,
 		"learned_ranks" = armory.keys(),
+		"learned_weapons" = learned_weapons,
+		"available_weapon_pool" = available_weapon_pool,
 		"memory_capacity" = memory_capacity,
 		"armory_durs" = armory_durs
 	}
@@ -309,6 +329,10 @@ func load_save() -> Signal:
 					new_stack.item = all_item_data[dict.item_id]
 					new_stack.count = dict.count
 					inventory[dict.item_id] = new_stack
+			"available_weapon_pool":
+				for key : String in available_weapon_pool:
+					if key not in player_data["available_weapon_pool"]:
+						available_weapon_pool.erase(key)
 			_:
 				Globals.set(i, player_data[i])
 		

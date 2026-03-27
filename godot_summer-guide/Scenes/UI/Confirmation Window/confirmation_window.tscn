@@ -19,7 +19,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 0, 0, 0.4)]
+"values": [Color(0, 0, 0, 0.7058824)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -59,7 +59,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.23333335),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(0, 0, 0, 0.4), Color(0, 0, 0, 0)]
+"values": [Color(0, 0, 0, 0.7058824), Color(0, 0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -101,7 +101,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.4)]
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.7058824)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -135,7 +135,7 @@ layer = 2
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1098047092]
 offset_right = 640.0
 offset_bottom = 360.0
-color = Color(0, 0, 0, 0.4)
+color = Color(0, 0, 0, 0.7058824)
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" unique_id=1039839155]
 custom_minimum_size = Vector2(640, 360)
