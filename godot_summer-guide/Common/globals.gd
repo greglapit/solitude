@@ -238,7 +238,7 @@ func update_save_dicts_data() -> void:
 		"learned_weapons" = learned_weapons,
 		"available_weapon_pool" = available_weapon_pool,
 		"memory_capacity" = memory_capacity,
-		"armory_durs" = armory_durs
+		"armory_durs" = armory_durs,
 	}
 	
 	var JSON_inventory : Dictionary

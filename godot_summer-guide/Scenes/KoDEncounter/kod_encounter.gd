@@ -17,7 +17,7 @@ func arrive_sequences() -> void:
 	
 	king_ap.play("arrive")
 	
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(1.5).timeout
 	
 	player_ap.play("arrive")
 	
@@ -27,6 +27,10 @@ func arrive_sequences() -> void:
 		node.set_frame_and_progress(0,0.0)
 		
 	await player_ap.animation_finished
+
+func show_title() -> void:
+	king_ap.play("show_title")
+	await king_ap.animation_finished
 
 func initialize() -> void:
 	var balloon : Node = DialogueManager.show_dialogue_balloon(load("res://Scenes/KoDEncounter/kod_default.dialogue"), "start")
@@ -54,14 +58,10 @@ func play_gift_weapon() -> void:
 func play_increase_memory() -> void:
 	var increase_memory_scn : Node2D = load("res://Scenes/KoDEncounter/Interactions/increase_memory.tscn").instantiate()
 	
-	var core_stack : ItemStack = Globals.inventory["core"]
-	increase_memory_scn.cores_being_used = core_stack.count
-	
 	add_child(increase_memory_scn)
 	
 	await increase_memory_scn.tree_exited
 	
-	Globals.add_item("core", -core_stack.count)
 	
 func end_encounter() -> void:
 	change_scn.emit("res://Scenes/Nighttime/nighttime.tscn", false, false)
@@ -69,7 +69,7 @@ func end_encounter() -> void:
 # === Built In =================================================================
 
 func _ready() -> void:
-	Globals.add_item("core", 3)
+	Globals.add_item("core", 1)
 	pass
 
 func _input(_event: InputEvent) -> void:

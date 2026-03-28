@@ -4,7 +4,6 @@ extends Node
 @onready var capacity_label : Label = $CanvasLayer/MarginContainer/CapacityLabel
 
 # Set to amount memory should increase by
-var cores_being_used : int = 0
 
 ## Used internally
 var event_completed : bool = false
@@ -14,9 +13,13 @@ var event_completed : bool = false
 # === Custom Methods ===========================================================
 
 func increase_memory_capacity() -> void:
+	var core_stack : ItemStack = Globals.inventory["core"]
+	var cores_being_used : int = core_stack.count
 	Globals.memory_capacity += cores_being_used
 	capacity_label.update()
+	Globals.add_item("core", -core_stack.count)
 	await animation_player.animation_finished
+	
 
 # === Built In =================================================================
 

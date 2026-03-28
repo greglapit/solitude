@@ -1,13 +1,18 @@
 ~ start
 do arrive_sequences()
 if not ProgressTracker.met_kod:
-	% KOD: So the fool hath arrived.
-	% KOD: And so he returns.
-	KOD: Your arrival was fated.
+	% KOD: So the fool has returned, as I had hoped.
+	% KOD: Ah, I was hoping to see you arrive in this world soon.
+	do show_title()
+	KOD: I am Star, one of the three Faces of the Diamonds.
+	Ambient: *King attends to a fallen card*
+	KOD: I've grown fond examining these battlefields. Our fallen allies... their remnant powers give the Spread's future a chance.
 	set ProgressTracker.met_kod = true
 else:
-	% KOD: We meet again.
-KOD: Here is a random weapon.
+	% KOD: We meet again. I hope the Spread hasn't been too cruel to you.
+	% KOD: I always hope to run into you again.
+	KOD: I've come across another weapon.
+KOD: Perhaps learning of this fallen Card's weapon can aid your journey.
 do play_gift_weapon()
 Fool: Thanks.
 

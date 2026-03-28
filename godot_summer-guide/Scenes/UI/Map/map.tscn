@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://e4mwlmv6gd8g"]
+
+[ext_resource type="Texture2D" uid="uid://dph4spvkemd4g" path="res://Scenes/UI/Map/Art/map.png" id="1_48iyi"]
+[ext_resource type="Texture2D" uid="uid://dudmdx3pkmtnl" path="res://Scenes/UI/Map/Art/red_joker.png" id="2_8dhgj"]
+[ext_resource type="Script" uid="uid://dqi3qtwdnc8tn" path="res://Scenes/UI/Map/map.gd" id="2_alnkd"]
+
+[sub_resource type="Curve2D" id="Curve2D_4sp1q"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 510, 280, 0.74321795, 27.35042, -0.74321795, -27.35042, 528, 242, -1.9323666, 23.931618, 1.9323666, -23.931618, 509, 153, -5.401253, 14.723526, 5.401253, -14.723526, 529, 96, 0, 0, 0, 0, 533, 77)
+}
+point_count = 5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7afm"]
+atlas = ExtResource("2_8dhgj")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukhxd"]
+atlas = ExtResource("2_8dhgj")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4wra"]
+atlas = ExtResource("2_8dhgj")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhqs0"]
+atlas = ExtResource("2_8dhgj")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_li0a7"]
+atlas = ExtResource("2_8dhgj")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8ah0"]
+atlas = ExtResource("2_8dhgj")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4anx"]
+atlas = ExtResource("2_8dhgj")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egnvu"]
+atlas = ExtResource("2_8dhgj")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fa5i"]
+atlas = ExtResource("2_8dhgj")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ocbe2"]
+atlas = ExtResource("2_8dhgj")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hhcgx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k7afm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ukhxd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x4wra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhqs0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_li0a7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8ah0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4anx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_egnvu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fa5i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ocbe2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Map" type="Sprite2D" unique_id=377144661]
+texture = ExtResource("1_48iyi")
+offset = Vector2(-38, -65)
+script = ExtResource("2_alnkd")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=1151951006]
+visible = false
+position = Vector2(-566, -216)
+points = PackedVector2Array(510, 280, 527, 233, 509, 153, 529, 91, 534, 58)
+joint_mode = 1
+
+[node name="Path2D" type="Path2D" parent="." unique_id=1908296579]
+position = Vector2(-566, -216)
+curve = SubResource("Curve2D_4sp1q")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=754317133]
+position = Vector2(533.00006, 77.00001)
+progress = 215.63863
+rotates = false
+
+[node name="RedJoker" type="AnimatedSprite2D" parent="Path2D/PathFollow2D" unique_id=1775343476]
+position = Vector2(-0.21459961, -20.279877)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_hhcgx")
+frame = 2
+frame_progress = 0.34093285
