@@ -1,3 +1,4 @@
+class_name PlayerBattle
 extends Node2D
 
 # Status Effects

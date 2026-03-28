@@ -1,3 +1,4 @@
+class_name HealthBar
 extends PanelContainer
 
 # Intended only to display visual health values, not keep track of health

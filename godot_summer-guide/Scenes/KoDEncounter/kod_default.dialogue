@@ -5,7 +5,7 @@ if not ProgressTracker.met_kod:
 	% KOD: Ah, I was hoping to see you arrive in this world soon.
 	do show_title()
 	KOD: I am Star, one of the three Faces of the Diamonds.
-	Ambient: *King attends to a fallen card*
+	Ambient: *King, on battlefield with the Fool, attends to a fallen card*
 	KOD: I've grown fond examining these battlefields. Our fallen allies... their remnant powers give the Spread's future a chance.
 	set ProgressTracker.met_kod = true
 else:

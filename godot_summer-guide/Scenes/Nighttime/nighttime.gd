@@ -3,7 +3,7 @@ extends Node2DScene
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 
 func initialize() -> void:
-	await get_tree().create_timer(3.0).timeout
+	await get_tree().create_timer(2.0).timeout
 	animation_player.play("hide")
 
 

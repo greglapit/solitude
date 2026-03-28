@@ -25,3 +25,7 @@ func _on_memory_armory_updated() -> void:
 func _on_journal_armory_updated() -> void:
 	memory.update_icons(true)
 	capacity_label.update()
+
+
+func _on_button_pressed() -> void:
+	queue_free()

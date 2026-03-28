@@ -9,7 +9,9 @@ var scene_data : Dictionary
 var entities_data : Dictionary
 var progress_data : Dictionary
 
-var hp : int = 20
+var hp : int = 15:
+	set(value):
+		hp = clamp(value, 0, max_hp)
 var max_hp : int = 20
 var draw_amt : int = 3
 var actions : int = 1
@@ -18,7 +20,7 @@ var max_draw : int = 3			# How many items player can have drawn at a time
 var max_crits : int = 3
 
 # Convert all keys to int automatically for JSON
-var armory : Dictionary = {1 : "1_seed_weapon"}: 
+var armory : Dictionary = {1 : "1_base_weapon"}: 
 	set(value):
 		# If key is string (JSON)
 		if typeof(value.keys()[0]) == TYPE_STRING:
@@ -36,7 +38,7 @@ var inventory : Dictionary
 #region # Weapon Dicts
 
 var learned_weapons : Dictionary = {
-	#'1_base_weapon' : 1, '1_philo_weapon' : 1, '1_seed_weapon' : 1, \
+	'1_base_weapon' : 1# , '1_philo_weapon' : 1, '1_seed_weapon' : 1, \
 	#'2_base_weapon' : 2, '2_twin_weapon' : 2, '2_glass_weapon' : 2, \
 	#'3_base_weapon' : 3, '3_trident_weapon' : 3, '3_prowler_weapon' : 3, \
 	#'4_base_weapon' : 4, '4_mirra_weapon' : 4, '4_bastion_weapon' : 4,\

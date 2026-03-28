@@ -23,6 +23,56 @@ shader_parameter/effect_color = Color(0.251, 0, 0, 1)
 shader_parameter/pixelate_amount = 40
 shader_parameter/NumDivisions = 32
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ev1ic"]
+
+[sub_resource type="Gradient" id="Gradient_ojuhj"]
+colors = PackedColorArray(1, 0, 0, 0.25100002, 1, 0, 0, 0.246)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g0m8i"]
+gradient = SubResource("Gradient_ojuhj")
+width = 2
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Curve" id="Curve_yds2a"]
+_data = [Vector2(0, 0), 0.0, 3.2429712, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xxu1y"]
+curve = SubResource("Curve_yds2a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rcd83"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(150, 1, 1)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_xxu1y")
+sub_emitter_mode = 2
+sub_emitter_amount_at_end = 32
+
+[sub_resource type="Gradient" id="Gradient_11rds"]
+offsets = PackedFloat32Array(0.0056390977, 0.9868421)
+colors = PackedColorArray(1, 0, 0, 0.273, 1, 0, 0, 0.29500002)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xx4v1"]
+gradient = SubResource("Gradient_11rds")
+width = 2
+fill_to = Vector2(0, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pcxeh"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+direction = Vector3(1, 1, 0)
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 250.0
+gravity = Vector3(0, 98, 0)
+damping_max = 100.00001
+scale_min = 0.5
+
 [node name="Battle" type="Node2D" unique_id=37975594]
 script = ExtResource("1_o8bsx")
 
@@ -118,6 +168,17 @@ anchor_top = 0.5
 anchor_bottom = 0.5
 grow_vertical = 2
 
+[node name="Rounds" type="MarginContainer" parent="UI" unique_id=624246959]
+offset_right = 31.0
+offset_bottom = 14.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+
+[node name="Label" type="Label" parent="UI/Rounds" unique_id=5679931]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Round: XX/XX"
+
 [node name="Background" type="Node2D" parent="." unique_id=1951546377]
 
 [node name="TextureRect" type="TextureRect" parent="Background" unique_id=1751131861 groups=["UI"]]
@@ -146,6 +207,23 @@ position = Vector2(250, 335)
 
 [node name="EnemyTargetPosition" type="Marker2D" parent="." unique_id=594326017]
 position = Vector2(250, 80)
+
+[node name="FireworkGPUParticles2D" type="GPUParticles2D" parent="." unique_id=1599037541]
+material = SubResource("CanvasItemMaterial_ev1ic")
+position = Vector2(241, 282)
+emitting = false
+amount = 2
+sub_emitter = NodePath("../BurstGPUParticles2D2")
+texture = SubResource("GradientTexture2D_g0m8i")
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_rcd83")
+
+[node name="BurstGPUParticles2D2" type="GPUParticles2D" parent="." unique_id=389922457]
+emitting = false
+amount = 1000
+texture = SubResource("GradientTexture2D_xx4v1")
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_pcxeh")
 
 [connection signal="timeout" from="SpamTimer" to="." method="_on_spam_timer_timeout"]
 [connection signal="pressed" from="UI/CritButton" to="." method="_on_crit_button_pressed"]

@@ -17,6 +17,8 @@ func move_player(suit : String, progress : float) -> void:
 	 .set_trans(Tween.TRANS_SINE)\
 	 .set_ease(Tween.EASE_OUT)
 	
+	ProgressTracker.map_last_pos = progress
+	
 	await tween.finished
 	
 func _ready() -> void:

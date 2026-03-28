@@ -2,33 +2,179 @@
 
 [ext_resource type="Script" uid="uid://cpal200felerd" path="res://Scenes/Camp/camp.gd" id="1_td56y"]
 [ext_resource type="Texture2D" uid="uid://bcs16jvq0lg4n" path="res://Scenes/Camp/Art/camp_background.png" id="2_w1dsw"]
+[ext_resource type="Texture2D" uid="uid://cd87xfrbrit20" path="res://Scenes/Camp/Art/rest_button.png" id="3_ng1nq"]
+[ext_resource type="Texture2D" uid="uid://cgu1q4vekhwyk" path="res://Scenes/Camp/Art/rest_button_pressed.png" id="4_toldk"]
+[ext_resource type="Texture2D" uid="uid://cnlsn5uctftri" path="res://Scenes/Camp/Art/memory_button.png" id="5_2w8dv"]
+[ext_resource type="Texture2D" uid="uid://b6mv41by4fupy" path="res://Scenes/Camp/Art/memory_button_pressed.png" id="6_frpnv"]
+[ext_resource type="PackedScene" uid="uid://dpn0wn5vhd8du" path="res://Scenes/Battle/Art/HealthBar/health_bar.tscn" id="7_toldk"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qabeb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_w1dsw"]
 atlas = ExtResource("2_w1dsw")
 region = Rect2(0, 0, 640, 360)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0j7t8"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qabeb"]
 atlas = ExtResource("2_w1dsw")
 region = Rect2(640, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arpd2"]
+atlas = ExtResource("2_w1dsw")
+region = Rect2(1280, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5br8"]
+atlas = ExtResource("2_w1dsw")
+region = Rect2(1920, 0, 640, 360)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_uxq1s"]
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_w1dsw")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_qabeb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0j7t8")
+"texture": SubResource("AtlasTexture_arpd2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5br8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w1dsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qabeb")
 }],
 "loop": true,
 "name": &"default",
 "speed": 2.0
 }]
 
+[sub_resource type="Animation" id="Animation_2w8dv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/PlusHealLabel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(76, 295)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/PlusHealLabel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_toldk"]
+resource_name = "plus_health"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/PlusHealLabel:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(76, 295), Vector2(76, 281)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/PlusHealLabel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2w8dv"]
+_data = {
+&"RESET": SubResource("Animation_2w8dv"),
+&"plus_health": SubResource("Animation_toldk")
+}
+
 [node name="Camp" type="Node2D" unique_id=1833936592]
 script = ExtResource("1_td56y")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=232767809]
+[node name="Background" type="AnimatedSprite2D" parent="." unique_id=232767809]
 position = Vector2(320, 180)
 sprite_frames = SubResource("SpriteFrames_uxq1s")
-frame_progress = 0.4115684
+autoplay = "default"
+frame_progress = 0.8319321
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1272053556]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=2135749626]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -146.0
+offset_top = -42.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 34
+theme_override_constants/margin_bottom = 2
+
+[node name="RestButton" type="TextureButton" parent="CanvasLayer/MarginContainer" unique_id=1431131514]
+layout_mode = 2
+texture_normal = ExtResource("3_ng1nq")
+texture_pressed = ExtResource("4_toldk")
+texture_disabled = ExtResource("4_toldk")
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer" unique_id=14102522]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -90.0
+offset_bottom = 74.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 23
+
+[node name="MemoryButton" type="TextureButton" parent="CanvasLayer/MarginContainer2" unique_id=1558623334]
+layout_mode = 2
+texture_normal = ExtResource("5_2w8dv")
+texture_pressed = ExtResource("6_frpnv")
+texture_disabled = ExtResource("6_frpnv")
+
+[node name="HealthBar" parent="CanvasLayer" unique_id=2049937169 instance=ExtResource("7_toldk")]
+
+[node name="PlusHealLabel" type="Label" parent="CanvasLayer" unique_id=182101380]
+visible = false
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 76.0
+offset_top = -65.0
+offset_right = 116.0
+offset_bottom = -37.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_font_sizes/font_size = 32
+text = "+XX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=995648538]
+libraries/ = SubResource("AnimationLibrary_2w8dv")
+
+[connection signal="pressed" from="CanvasLayer/MarginContainer/RestButton" to="." method="_on_rest_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer2/MemoryButton" to="." method="_on_memory_button_pressed"]

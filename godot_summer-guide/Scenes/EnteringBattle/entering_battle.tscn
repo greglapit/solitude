@@ -30,7 +30,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 2.0
+"speed": 1.0
 }]
 
 [sub_resource type="Animation" id="Animation_12eay"]
@@ -50,7 +50,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_4sp1q"]
 resource_name = "show_map"
-length = 0.66667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true

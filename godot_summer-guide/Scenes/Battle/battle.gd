@@ -1,12 +1,15 @@
 extends Node2DScene
 
-@onready var player : Node2D = $Player
+@onready var firework_particle : GPUParticles2D = $FireworkGPUParticles2D
+
+@onready var player : PlayerBattle = $Player
 @onready var weapons_display : Control = $UI/WeaponDisplay
 @onready var health_bar : PanelContainer = $UI/HealthBar
 @onready var chain_button : TextureButton = $UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton
 @onready var attack_button : TextureButton = $UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer/AttackButton
 @onready var crit_button : TextureButton = $UI/CritButton
 @onready var turn_clock : Control = $UI/TurnClock
+@onready var rounds_label : Label = $UI/Rounds/Label
 @onready var spam_timer : Timer = $SpamTimer
 @onready var camera : Camera2D = $BattleCamera2D
 @onready var armory_position : Vector2 = $ArmoryPosition.position
@@ -14,7 +17,7 @@ extends Node2DScene
 @onready var enemy_positions : Array[Vector2] = [enemy_target_pos, enemy_target_pos - Vector2(35,10), enemy_target_pos - Vector2(-30, 20), \
 										Vector2.ZERO, Vector2.ZERO, Vector2.ZERO, Vector2.ZERO]
 										
-										
+# Used internally
 var mini_equipped : Card							# Current card player has equipped
 var curr_weapon : Weapon							# String name of player weapon
 var player_weapons : Dictionary						## Rank : Weapon
@@ -47,6 +50,11 @@ var turn_order_flipped : bool = false:
 
 signal pause_input_update(val : bool)
 
+
+# Presets
+var curr_round : int = 1
+var max_rounds : int = 5
+
 # DEV TOOLS
 var crit_infinite : bool = true
 
@@ -56,7 +64,20 @@ var crit_infinite : bool = true
 func initialize() -> void:
 	spawn_enemy(3)
 	pause_input = false
+
+func end_round() -> void:
+	curr_round += 5
 	
+	if curr_round > max_rounds:
+		player.play("base_bow")
+		await player.anim_finished
+		firework_particle.emitting = true
+		await get_tree().create_timer(4.0).timeout
+		change_scn.emit("res://Scenes/Camp/camp.tscn", false, false)
+		return
+	
+	rounds_label.text = "Round: %d/%d" % [curr_round, max_rounds]
+	spawn_enemy(3)
 # Obselete save code
 #region
 # OBSELETE. No longer allowing saving during battle
@@ -166,7 +187,7 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1, enemy_data : Dictionary = {}) -> void:
 	for i : int in range(num):
 		enemies = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART, range(1,11)) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART, range(1,2)) # 2 * (2 + randi() % 2)
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
 		
@@ -196,6 +217,7 @@ func spawn_enemy(num : int = 1, enemy_data : Dictionary = {}) -> void:
 	
 
 func align_enemies(tweening : bool = true) -> void:
+	pause_input = true
 	await weapon_pause()
 	enemies = get_tree().get_nodes_in_group("enemies")
 	for i : int in enemies.size():
@@ -204,10 +226,13 @@ func align_enemies(tweening : bool = true) -> void:
 			tween.tween_property(enemies[i], "position", enemy_positions[i], 0.3) \
 			 .set_trans(Tween.TRANS_SINE)\
 			 .set_ease(Tween.EASE_OUT)
+			if i == enemies.size() - 1:
+				await tween.finished
 		else:
 			enemies[i].position = enemy_positions[i]
 			enemies[i].z_index = 5 - i
-	pass
+	
+	pause_input = false
 
 
 func initiate_combat() -> void:
@@ -432,6 +457,7 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 #region
 func _ready() -> void:
 	hp = Globals.hp
+	rounds_label.text = "Round: %d/%d" % [curr_round, max_rounds]
 	
 	load_armory()
 	load_weapons_display()
@@ -697,8 +723,10 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 	if space_in_armory:
 		weapons_display.play("draw_highlight")
 		equip_mini_card(null)
-		
-	equip_mini_card(mini_equipped)
+	
+	# Stops player from equipping when round is over
+	if curr_round != max_rounds:
+		equip_mini_card(mini_equipped)
 	
 
 func _on_weapon_crit() -> void:
@@ -741,7 +769,7 @@ func _on_enemy_freed(_enemy : Enemy) -> void:
 		await player.anim_finished
 	enemies = get_tree().get_nodes_in_group("enemies")
 	if enemies.is_empty():
-		spawn_enemy(3)
+		end_round()
 	else:
 		align_enemies()
 	update_turn_clock()
