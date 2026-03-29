@@ -90,7 +90,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(76, 295), Vector2(76, 281)]
+"values": [Vector2(76, 273), Vector2(76, 244.4)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -166,11 +166,11 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 76.0
 offset_top = -65.0
-offset_right = 116.0
-offset_bottom = -37.0
+offset_right = 140.0
+offset_bottom = -8.999878
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.780392, 0.862745, 0.815686, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 64
 text = "+XX"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=995648538]

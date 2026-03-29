@@ -47,6 +47,7 @@ emission_shape = 3
 emission_box_extents = Vector3(150, 1, 1)
 direction = Vector3(0, -1, 0)
 spread = 0.0
+initial_velocity_min = 100.0
 initial_velocity_max = 200.0
 gravity = Vector3(0, 0, 0)
 alpha_curve = SubResource("CurveTexture_xxu1y")

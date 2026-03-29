@@ -187,7 +187,7 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1, enemy_data : Dictionary = {}) -> void:
 	for i : int in range(num):
 		enemies = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART, range(1,2)) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART, range(1,11)) # 2 * (2 + randi() % 2)
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
 		
@@ -725,8 +725,7 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 		equip_mini_card(null)
 	
 	# Stops player from equipping when round is over
-	if curr_round != max_rounds:
-		equip_mini_card(mini_equipped)
+	equip_mini_card(mini_equipped)
 	
 
 func _on_weapon_crit() -> void:

@@ -34,10 +34,12 @@ func _on_memory_button_pressed() -> void:
 	add_child(journal_memory_node)
 	
 	pausing_input = true
+	memory_button.disabled = true
 	background.pause()
 	await journal_memory_node.tree_exited
 	
 	pausing_input = false
+	memory_button.disabled = false
 	background.play()
 
 func _on_rest_button_pressed() -> void:
@@ -52,5 +54,8 @@ func _on_rest_button_pressed() -> void:
 	Globals.hp += campfire_heal_amt
 	health_bar.display_hp(Globals.hp)
 	await animation_player.animation_finished
+	
+	
+	ProgressTracker.player_location["round"] += 1 
 	
 	change_scn.emit("res://Scenes/Nighttime/nighttime.tscn", false, false)

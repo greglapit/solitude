@@ -3,6 +3,8 @@ extends Node2D
 @onready var memory : Node2D = $CanvasLayer2/Memory
 @onready var journal : Node2D = $CanvasLayer2/Journal
 @onready var capacity_label : Label = $CanvasLayer2/MarginContainer/CapacityLabel
+@onready var animation_player : AnimationPlayer = $AnimationPlayer
+
 
 # === Custom Methods ===========================================================
 
@@ -28,4 +30,12 @@ func _on_journal_armory_updated() -> void:
 
 
 func _on_button_pressed() -> void:
-	queue_free()
+	animation_player.play("hide")
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	match anim_name:
+		"show":
+			pass
+		"hide":
+			queue_free()

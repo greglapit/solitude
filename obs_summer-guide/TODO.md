@@ -11,20 +11,22 @@
 - [x] new weapons ✅ 2026-02-21
 - [x] filter base weapons from journal ✅ 2026-03-14
 - [x] save file ✅ 2026-03-21
-- [ ] In between player sitting at campfire. Will be where they edit their memory and recallable weapons. Player daydreaming at the sky, available weapons circling their head
-	- [ ] Click campfire to sleep the night and enter spread again. Gain a little health back
+- [x] In between player sitting at campfire. Will be where they edit their memory and recallable weapons. Player daydreaming at the sky, available weapons circling their head ✅ 2026-03-28
+	- [x] Click campfire to sleep the night and enter spread again. Gain a little health back ✅ 2026-03-28
 	- [ ] Chance encounters in dusk of shop with king, queen, jack of diamonds. Provide player weapons/upgrades
 	- [x] consult notebook with weapon recipes written in it. That is how the player swaps out their "learned" weapons with what is in their limited memory ✅ 2026-02-24📅 
-- [ ] King of Diamonds
-	- [ ] Global script tracking if has met during run
-	- [ ] player inventory. Gives player random weapon. If has 
+- [x] King of Diamonds ✅ 2026-03-28
+	- [x] Global script tracking if has met during run ✅ 2026-03-28
+	- [x] player inventory. Gives player random weapon. If has ✅ 2026-03-28
 	- [ ] She is found surveying fallen ally, gives player personal weapons of these cards to use
-	- [ ] Also increases player's memory capacity
+	- [x] Also increases player's memory capacity ✅ 2026-03-28
+- [ ] Choose encounter scene. Three slots, make node2d for each encounter that fits into slots. Chooses encounter randomly if encounter is valid for gamestate
 - [ ] Queen of diamonds
 	- [ ] mapping battlefield, planning next move. Unlocks standard issue card weapons for the player
 - [ ] Jack of diamonds
 	- [ ] Offers player weapon upgrades. More durability, more equip slots. Takes card Tatters as currency
 	- [ ] Gamble minigame, three cups
+- [ ] "Forever" save_file for tracking if player has done tutorial.
 - [ ] enemy spawn pool in globals
 - [ ] Show somewhere the enemies max health. Should be apparent so player remembers their power even if their health lowers. 
 - [ ] boss encounter
