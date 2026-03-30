@@ -9,7 +9,7 @@ var scene_data : Dictionary
 var entities_data : Dictionary
 var progress_data : Dictionary
 
-var hp : int = 15:
+var hp : int = 20:
 	set(value):
 		hp = clamp(value, 0, max_hp)
 var max_hp : int = 20

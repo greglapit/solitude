@@ -13,7 +13,7 @@ var loading_in_background : bool = false
 
 # DEV TOOLS
 #const starting_scn : PackedScene = main_menu_scn
-const starting_scn : PackedScene = preload("res://Scenes/Camp/camp.tscn")
+const starting_scn : PackedScene = preload("res://Scenes/EnteringBattle/entering_battle.tscn")
 
 # === Custom Methods ===========================================================
 

@@ -9,7 +9,7 @@ extends Node2DScene
 @onready var attack_button : TextureButton = $UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer/AttackButton
 @onready var crit_button : TextureButton = $UI/CritButton
 @onready var turn_clock : Control = $UI/TurnClock
-@onready var rounds_label : Label = $UI/Rounds/Label
+@onready var hands_label : Label = $UI/Rounds/Label
 @onready var spam_timer : Timer = $SpamTimer
 @onready var camera : Camera2D = $BattleCamera2D
 @onready var armory_position : Vector2 = $ArmoryPosition.position
@@ -76,7 +76,7 @@ func end_round() -> void:
 		change_scn.emit("res://Scenes/Camp/camp.tscn", false, false)
 		return
 	
-	rounds_label.text = "Round: %d/%d" % [curr_round, max_rounds]
+	hands_label.text = "Round: %d/%d" % [curr_round, max_rounds]
 	spawn_enemy(3)
 # Obselete save code
 #region
@@ -457,7 +457,7 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 #region
 func _ready() -> void:
 	hp = Globals.hp
-	rounds_label.text = "Round: %d/%d" % [curr_round, max_rounds]
+	hands_label.text = "Hand: %d/%d" % [curr_round, max_rounds]
 	
 	load_armory()
 	load_weapons_display()

@@ -6,7 +6,7 @@ var rounds_per_suit : int = 5
 # Saveable
 var player_location : Dictionary = {
 	"suit" = "hearts",
-	"round" = 0
+	"round" = 4
 }
 var map_last_pos : float
 var met_kod : bool = false

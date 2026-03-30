@@ -88,25 +88,105 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_8dhgj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D/Control/RoundsLabel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Path2D/PathFollow2D/Control/RoundsLabel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Path2D/PathFollow2D/Control/RoundsLabel:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3, -22)]
+}
+
+[sub_resource type="Animation" id="Animation_alnkd"]
+resource_name = "flash_rounds"
+length = 4.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D/Control/RoundsLabel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.5, 2, 2.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, true, false, true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Path2D/PathFollow2D/Control/RoundsLabel:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3.5, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Path2D/PathFollow2D/Control/RoundsLabel:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(3, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(3, -22), Vector2(3, -26)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fr0de"]
+_data = {
+&"RESET": SubResource("Animation_8dhgj"),
+&"flash_rounds": SubResource("Animation_alnkd")
+}
+
 [node name="Map" type="Sprite2D" unique_id=377144661]
 texture = ExtResource("1_48iyi")
 offset = Vector2(-38, -65)
 script = ExtResource("2_alnkd")
-
-[node name="Line2D" type="Line2D" parent="." unique_id=1151951006]
-visible = false
-position = Vector2(-566, -216)
-points = PackedVector2Array(510, 280, 527, 233, 509, 153, 529, 91, 534, 58)
-joint_mode = 1
 
 [node name="Path2D" type="Path2D" parent="." unique_id=1908296579]
 position = Vector2(-566, -216)
 curve = SubResource("Curve2D_4sp1q")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=754317133]
-position = Vector2(533.00006, 77.00001)
-progress = 215.63863
+position = Vector2(510, 280)
 rotates = false
+loop = false
 
 [node name="RedJoker" type="AnimatedSprite2D" parent="Path2D/PathFollow2D" unique_id=1775343476]
 position = Vector2(-0.21459961, -20.279877)
@@ -114,3 +194,37 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_hhcgx")
 frame = 2
 frame_progress = 0.34093285
+
+[node name="Control" type="Control" parent="Path2D/PathFollow2D" unique_id=507676416]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -23.0
+offset_top = -36.0
+offset_right = 23.0
+offset_bottom = 4.0
+
+[node name="RoundsLabel" type="Label" parent="Path2D/PathFollow2D/Control" unique_id=1615785592]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -42.0
+offset_right = 20.0
+offset_bottom = 19.999992
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 32
+text = "X/X"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2109862900]
+libraries/ = SubResource("AnimationLibrary_fr0de")
+
+[connection signal="mouse_entered" from="Path2D/PathFollow2D/Control" to="." method="_on_control_mouse_entered"]
+[connection signal="mouse_exited" from="Path2D/PathFollow2D/Control" to="." method="_on_control_mouse_exited"]
