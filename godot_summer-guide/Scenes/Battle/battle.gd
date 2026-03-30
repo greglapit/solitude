@@ -66,7 +66,7 @@ func initialize() -> void:
 	pause_input = false
 
 func end_round() -> void:
-	curr_round += 5
+	curr_round += 1
 	
 	if curr_round > max_rounds:
 		player.play("base_bow")
@@ -187,7 +187,7 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1, enemy_data : Dictionary = {}) -> void:
 	for i : int in range(num):
 		enemies = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART, range(1,11)) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART, range(1,2)) # 2 * (2 + randi() % 2)
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
 		
@@ -761,6 +761,11 @@ func _on_enemy_animation_finished(anim : String, enemy : Enemy) -> void:
 		enemy_just_attacked = false
 
 func _on_enemy_freed(_enemy : Enemy) -> void:
+	# Loot
+	var loot_dict : Dictionary = _enemy.generate_loot()
+	for item : String in loot_dict.keys():
+		Globals.add_item(item, loot_dict[item])
+	
 	enemies.erase(_enemy)
 	await _enemy.tree_exited
 	var player_animation : String = player.animation_player.current_animation

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bumiomtnvvth"]
+
+[ext_resource type="Script" uid="uid://dmrkev573gsft" path="res://Entities/Items/item_icon.gd" id="1_ttpp1"]
+
+[node name="ItemIcon" type="Node2D" unique_id=60871839]
+script = ExtResource("1_ttpp1")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1479665661]

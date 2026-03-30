@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="LootTable" format=3 uid="uid://xqrk4uyip73i"]
+
+[ext_resource type="Script" uid="uid://0fvabq8peeb6" path="res://Entities/Items/Loot/loot_table.gd" id="1_6u4f5"]
+[ext_resource type="Script" uid="uid://bp3ddnjku4axs" path="res://Entities/Items/Loot/loot.gd" id="2_nay8u"]
+[ext_resource type="Resource" uid="uid://cknaban57p60l" path="res://Entities/Items/Resources/tatter.tres" id="3_o2roo"]
+[ext_resource type="Resource" uid="uid://bu5uct85pj7g2" path="res://Entities/Items/Resources/core.tres" id="4_1im0j"]
+
+[sub_resource type="Resource" id="Resource_vex3u"]
+script = ExtResource("2_nay8u")
+item = ExtResource("3_o2roo")
+min_amount = 2
+max_amount = 4
+drop_chance = 1.0
+metadata/_custom_type_script = "uid://bp3ddnjku4axs"
+
+[sub_resource type="Resource" id="Resource_vxyu0"]
+script = ExtResource("2_nay8u")
+item = ExtResource("4_1im0j")
+min_amount = 1
+max_amount = 1
+drop_chance = 0.1
+metadata/_custom_type_script = "uid://bp3ddnjku4axs"
+
+[resource]
+script = ExtResource("1_6u4f5")
+table = Array[ExtResource("2_nay8u")]([SubResource("Resource_vex3u"), SubResource("Resource_vxyu0")])
+metadata/_custom_type_script = "uid://0fvabq8peeb6"

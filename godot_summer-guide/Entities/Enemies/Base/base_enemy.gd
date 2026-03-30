@@ -9,10 +9,11 @@ extends Area2D
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var status_label : Label = $CollisionShape2D/Status/Label
 @onready var status_animation_player : AnimationPlayer = $CollisionShape2D/Status/AnimationPlayer2
+@onready var tatters_particles : GPUParticles2D = $TattersGPUParticles2D
 
 # Node References
 var player : Node2D
-const enemy_scn : PackedScene = preload("res://Entities/Enemies/base_enemy.tscn")
+const enemy_scn : PackedScene = preload("res://Entities/Enemies/Base/base_enemy.tscn")
 
 # Stats
 var rank : int = -1:	# The effective hp
@@ -45,11 +46,6 @@ var kneeling : bool = false:	# Cmd
 var attack_disabled : bool = false
 var slowed : bool = false
 var starting_anim : String = "spawn"
-
-# Loot
-var loot : Array = [
-	Loot.new()
-]
 
 signal rank_update(new : int)
 @warning_ignore("unused_signal")
@@ -153,6 +149,19 @@ func status_logic_update() -> void:
 	else:
 		slowed = false
 
+func generate_loot() -> Dictionary:
+	var drops : Dictionary = {}
+	var loot_table : LootTable = load("res://Entities/Enemies/Base/base_enemy_loot_table.tres")
+	
+	for loot : Loot in loot_table.table:
+		if randf() <= loot.drop_chance:
+			var amount : int = loot.get_amount() # or randi_range(min, max)
+			if drops.has(loot.item):
+				drops[loot.item.id] += amount
+			else:
+				drops[loot.item.id] = amount
+	return drops
+
 # === Built In =================================================================
 
 func _ready() -> void:
@@ -182,6 +191,8 @@ func _process(_delta: float) -> void:
 func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 	if _anim_name == "death":
 		freed.emit(self)
+		tatters_particles.emitting = true
+		await tatters_particles.finished
 		queue_free()
 	
 	if attack_disabled or slowed:
