@@ -1,6 +1,7 @@
 class_name ItemStack
+## Inventory purposes only
 
-var item : ItemData
+var item : Item
 var count : int:
 	set(value):
 		var new_value : int = clamp(value, 0, item.max_count)

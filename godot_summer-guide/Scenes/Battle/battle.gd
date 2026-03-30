@@ -772,3 +772,5 @@ func _on_enemy_freed(_enemy : Enemy) -> void:
 	else:
 		align_enemies()
 	update_turn_clock()
+	
+	

@@ -386,7 +386,7 @@ func load_all_resources() -> void:
 	var folder_path : String = "res://Entities/Items/Resources/"
 	var files_in_dir : PackedStringArray = DirAccess.get_files_at(folder_path)
 	for file_name : String in files_in_dir:
-		var item_data : ItemData = load(folder_path + "/" + file_name)
+		var item_data : Item = load(folder_path + "/" + file_name)
 		all_item_data[item_data.id] = item_data
 
 #endregion

@@ -41,10 +41,15 @@ var kneeling : bool = false:	# Cmd
 		kneeling = value
 		status_logic_update()
 
-# Status Effect Logic. Updated in _process
+# Status Effect Logic
 var attack_disabled : bool = false
 var slowed : bool = false
 var starting_anim : String = "spawn"
+
+# Loot
+var loot : Array = [
+	Loot.new()
+]
 
 signal rank_update(new : int)
 @warning_ignore("unused_signal")
@@ -57,28 +62,28 @@ signal freed(enemy : Enemy)
 
 # OBSOLETE. No longer allowing saving during battle
 #region
-func save() -> Dictionary:
-	var data : Dictionary = {
-	"attack_disabled": attack_disabled,
-	"chained": chained,
-	"class_name": "Enemy",
-	"filename": get_scene_file_path(),
-	"kneeling": kneeling,
-	"name": name,
-	"parent": get_parent().get_path(),
-	"pos_x": position.x,
-	"pos_y": position.y,
-	"prowled": prowled,
-	"rank": rank,
-	"slowed": slowed,
-	"starting_anim": starting_anim,
-	"suit": suit,
-	"true_rank": true_rank,
-	"webbed": webbed,
-	"z_index": z_index
-	}
-
-	return data
+#func save() -> Dictionary:
+	#var data : Dictionary = {
+	#"attack_disabled": attack_disabled,
+	#"chained": chained,
+	#"class_name": "Enemy",
+	#"filename": get_scene_file_path(),
+	#"kneeling": kneeling,
+	#"name": name,
+	#"parent": get_parent().get_path(),
+	#"pos_x": position.x,
+	#"pos_y": position.y,
+	#"prowled": prowled,
+	#"rank": rank,
+	#"slowed": slowed,
+	#"starting_anim": starting_anim,
+	#"suit": suit,
+	#"true_rank": true_rank,
+	#"webbed": webbed,
+	#"z_index": z_index
+	#}
+#
+	#return data
 
 #endregion
 
@@ -136,9 +141,6 @@ func display_bleed(duration : int) -> void:
 	else:
 		status_animation_player.play("RESET")
 
-@warning_ignore("unused_parameter")
-func emit_freed(card : Enemy = self) -> void:
-	freed.emit(self)
 
 func status_logic_update() -> void:
 	if chained or kneeling: # add other attack disabling HERE
@@ -177,8 +179,11 @@ func _process(_delta: float) -> void:
 
 # === Signals ==================================================================
 
-
 func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
+	if _anim_name == "death":
+		freed.emit(self)
+		queue_free()
+	
 	if attack_disabled or slowed:
 		animation_player.play("hindered_idle")
 	else:
