@@ -1,9 +1,19 @@
+@tool
 class_name ItemIcon
-extends Node2D
+extends TextureRect
 
-@onready var sprite2d : Sprite2D = $Sprite2D
-
-var item : Item
+@export var item: Item:
+	set(value):
+		item = value
+		_update_icon()
 
 func _ready() -> void:
-	sprite2d.texture = item.texture
+	_update_icon()
+
+func _update_icon() -> void:
+	if not is_inside_tree():
+		return
+	if item and item.texture:
+		texture = item.texture
+	else:
+		texture = null

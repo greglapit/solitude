@@ -33,7 +33,7 @@ var armory : Dictionary = {1 : "1_base_weapon"}:
 var learned_ranks : Array = armory.keys()
 var memory_capacity : int = 5
 var armory_durs : Array = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
-var inventory : Dictionary
+var inventory : Dictionary		# item.id : item_stack
 
 #region # Weapon Dicts
 

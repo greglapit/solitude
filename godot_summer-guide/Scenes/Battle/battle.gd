@@ -1,10 +1,13 @@
 extends Node2DScene
 
 @onready var firework_particle : GPUParticles2D = $FireworkGPUParticles2D
+@onready var tatters_particle : GPUParticles2D = $TattersGPUParticles2D
 
 @onready var player : PlayerBattle = $Player
 @onready var weapons_display : Control = $UI/WeaponDisplay
 @onready var health_bar : PanelContainer = $UI/HealthBar
+@onready var tatter_count : Control = $UI/TatterCount
+@onready var tatter_count_label : Label = $UI/TatterCount/PanelContainer/HBoxContainer/TatterLabel
 @onready var chain_button : TextureButton = $UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton
 @onready var attack_button : TextureButton = $UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer/AttackButton
 @onready var crit_button : TextureButton = $UI/CritButton
@@ -64,6 +67,8 @@ var crit_infinite : bool = true
 func initialize() -> void:
 	spawn_enemy(3)
 	pause_input = false
+	
+	update_tatters()
 
 func end_round() -> void:
 	curr_round += 1
@@ -299,7 +304,26 @@ func update_turn_clock() -> void:
 		turn_clock.show_turn(turn_clock.turn.DOWN)
 	else:
 		turn_clock.show_turn(turn_clock.turn.UP)
-	
+
+func update_tatters() -> void:
+	var updating_tatters : bool = true
+	while updating_tatters:
+		var prev_tat_count : int = int(tatter_count_label.text)
+		if !Globals.inventory.has("tatter"):
+			tatter_count.hide()
+			updating_tatters = false
+			return
+		
+		var curr_tat_count : int = Globals.inventory["tatter"].count
+		
+		tatter_count.show()
+		
+		if prev_tat_count == curr_tat_count:
+			updating_tatters = false
+			return
+		
+		tatter_count_label.text = "%.0f" % move_toward(prev_tat_count, curr_tat_count, 1)
+		await get_tree().create_timer(.1).timeout
 
 # Mini Cards
 #-------------------------------------------------------------------------------
@@ -489,6 +513,9 @@ func _process(_delta: float) -> void:
 		
 	if crit_infinite:
 		crits_stored = 3
+
+		
+		
 #endregion
 
 # === Signals ==================================================================
@@ -764,7 +791,14 @@ func _on_enemy_freed(_enemy : Enemy) -> void:
 	# Loot
 	var loot_dict : Dictionary = _enemy.generate_loot()
 	for item : String in loot_dict.keys():
+		if item == "tatter":
+			tatters_particle.position = _enemy.position
+			tatters_particle.z_index = _enemy.z_index + 1
+			tatters_particle.amount = loot_dict["tatter"]
+			tatters_particle.emitting = true
 		Globals.add_item(item, loot_dict[item])
+	
+	update_tatters()
 	
 	enemies.erase(_enemy)
 	await _enemy.tree_exited

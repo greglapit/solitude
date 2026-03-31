@@ -14,6 +14,13 @@
 [ext_resource type="Texture2D" uid="uid://eb7xsouy7gep" path="res://Scenes/Battle/Art/AttackButtons/Art/chain_button_down.png" id="8_q43bu"]
 [ext_resource type="PackedScene" uid="uid://c2e24843ekof6" path="res://Scenes/Battle/Art/TurnClock/turn_clock.tscn" id="11_q43bu"]
 [ext_resource type="PackedScene" uid="uid://qv3uiu0pk3pt" path="res://Scenes/Battle/battle_camera_2d.tscn" id="13_ev1ic"]
+[ext_resource type="Texture2D" uid="uid://dkwt60cqdl0qa" path="res://Entities/Items/item_atlas.png" id="15_ojuhj"]
+[ext_resource type="Script" uid="uid://dmrkev573gsft" path="res://Entities/Items/item_icon.gd" id="16_yds2a"]
+[ext_resource type="Resource" uid="uid://cknaban57p60l" path="res://Entities/Items/Resources/tatter.tres" id="17_xxu1y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xr7ht"]
+atlas = ExtResource("15_ojuhj")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7e3i2"]
 shader = ExtResource("1_c8wje")
@@ -73,6 +80,39 @@ initial_velocity_max = 250.0
 gravity = Vector3(0, 98, 0)
 damping_max = 100.00001
 scale_min = 0.5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0m8i"]
+atlas = ExtResource("15_ojuhj")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="Curve" id="Curve_ojuhj"]
+_data = [Vector2(0, 0.51500857), 0.0, 0.0, 0, 0, Vector2(0.49798384, 0.51500857), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.029579958, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_g0m8i"]
+curve = SubResource("Curve_ojuhj")
+
+[sub_resource type="Curve" id="Curve_xxu1y"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 2.4442596), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_rcd83"]
+curve = SubResource("Curve_xxu1y")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yds2a"]
+particle_flag_disable_z = true
+direction = Vector3(1, 1, 0)
+spread = 180.0
+initial_velocity_min = 93.74
+initial_velocity_max = 93.74
+gravity = Vector3(0, 0, 0)
+damping_min = 92.687004
+damping_max = 92.687004
+damping_curve = SubResource("CurveTexture_rcd83")
+scale_min = 0.5
+scale_max = 0.5
+alpha_curve = SubResource("CurveTexture_g0m8i")
 
 [node name="Battle" type="Node2D" unique_id=37975594]
 script = ExtResource("1_o8bsx")
@@ -163,6 +203,39 @@ text = "ATTACK [V]"
 [node name="HealthBar" parent="UI" unique_id=913688278 groups=["UI"] instance=ExtResource("3_en5gs")]
 offset_right = 157.0
 
+[node name="TatterCount" type="Control" parent="UI" unique_id=1252679269]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 66.0
+offset_top = -40.0
+offset_right = 106.0
+grow_vertical = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/TatterCount" unique_id=1282072937]
+layout_mode = 0
+offset_top = 16.0
+offset_right = 68.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/TatterCount/PanelContainer" unique_id=1578403646]
+layout_mode = 2
+theme_override_constants/separation = -3
+
+[node name="ItemIcon" type="TextureRect" parent="UI/TatterCount/PanelContainer/HBoxContainer" unique_id=1904938194]
+layout_mode = 2
+texture = SubResource("AtlasTexture_xr7ht")
+expand_mode = 3
+stretch_mode = 4
+script = ExtResource("16_yds2a")
+item = ExtResource("17_xxu1y")
+metadata/_custom_type_script = "uid://dmrkev573gsft"
+
+[node name="TatterLabel" type="Label" parent="UI/TatterCount/PanelContainer/HBoxContainer" unique_id=54441747]
+layout_mode = 2
+text = "0"
+
 [node name="TurnClock" parent="UI" unique_id=2046317109 groups=["UI"] instance=ExtResource("11_q43bu")]
 anchors_preset = 4
 anchor_top = 0.5
@@ -225,6 +298,16 @@ amount = 1000
 texture = SubResource("GradientTexture2D_xx4v1")
 trail_enabled = true
 process_material = SubResource("ParticleProcessMaterial_pcxeh")
+
+[node name="TattersGPUParticles2D" type="GPUParticles2D" parent="." unique_id=1754541793]
+position = Vector2(250, 80)
+emitting = false
+amount = 4
+texture = SubResource("AtlasTexture_g0m8i")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_yds2a")
 
 [connection signal="timeout" from="SpamTimer" to="." method="_on_spam_timer_timeout"]
 [connection signal="pressed" from="UI/CritButton" to="." method="_on_crit_button_pressed"]

@@ -9,7 +9,6 @@ extends Area2D
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var status_label : Label = $CollisionShape2D/Status/Label
 @onready var status_animation_player : AnimationPlayer = $CollisionShape2D/Status/AnimationPlayer2
-@onready var tatters_particles : GPUParticles2D = $TattersGPUParticles2D
 
 # Node References
 var player : Node2D
@@ -191,8 +190,6 @@ func _process(_delta: float) -> void:
 func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 	if _anim_name == "death":
 		freed.emit(self)
-		tatters_particles.emitting = true
-		await tatters_particles.finished
 		queue_free()
 	
 	if attack_disabled or slowed:
