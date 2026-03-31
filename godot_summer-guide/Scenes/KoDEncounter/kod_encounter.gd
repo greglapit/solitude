@@ -2,12 +2,14 @@ extends Node2DScene
 
 @onready var player : Node2D = $Player
 @onready var player_ap : AnimationPlayer = $Player/AnimationPlayer
-@onready var king_ap : AnimationPlayer = $King/AnimationPlayer
+@onready var king_ap : AnimationPlayer = $KOD/AnimationPlayer
 
 var encounters : Dictionary = {
 	"default" : 5,
 	"rare" : 1
 }
+
+
 
 var test : String = "Testign"
 
@@ -69,7 +71,6 @@ func end_encounter() -> void:
 # === Built In =================================================================
 
 func _ready() -> void:
-	Globals.add_item("core", 1)
 	pass
 
 func _input(_event: InputEvent) -> void:

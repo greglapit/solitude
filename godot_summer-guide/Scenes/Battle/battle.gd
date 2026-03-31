@@ -7,12 +7,12 @@ extends Node2DScene
 @onready var weapons_display : Control = $UI/WeaponDisplay
 @onready var health_bar : PanelContainer = $UI/HealthBar
 @onready var tatter_count : Control = $UI/TatterCount
-@onready var tatter_count_label : Label = $UI/TatterCount/PanelContainer/HBoxContainer/TatterLabel
+@onready var tatter_count_label : Label = $UI/TatterCount/MarginContainer/PanelContainer/HBoxContainer/TatterLabel
 @onready var chain_button : TextureButton = $UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton
 @onready var attack_button : TextureButton = $UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer/AttackButton
 @onready var crit_button : TextureButton = $UI/CritButton
 @onready var turn_clock : Control = $UI/TurnClock
-@onready var hands_label : Label = $UI/Rounds/Label
+@onready var hands_label : Label = $UI/Hands/Label
 @onready var spam_timer : Timer = $SpamTimer
 @onready var camera : Camera2D = $BattleCamera2D
 @onready var armory_position : Vector2 = $ArmoryPosition.position
@@ -81,7 +81,7 @@ func end_round() -> void:
 		change_scn.emit("res://Scenes/Camp/camp.tscn", false, false)
 		return
 	
-	hands_label.text = "Round: %d/%d" % [curr_round, max_rounds]
+	hands_label.text = "Hands: %d/%d" % [curr_round, max_rounds]
 	spawn_enemy(3)
 # Obselete save code
 #region
@@ -798,7 +798,6 @@ func _on_enemy_freed(_enemy : Enemy) -> void:
 			tatters_particle.emitting = true
 		Globals.add_item(item, loot_dict[item])
 	
-	update_tatters()
 	
 	enemies.erase(_enemy)
 	await _enemy.tree_exited
@@ -811,5 +810,4 @@ func _on_enemy_freed(_enemy : Enemy) -> void:
 	else:
 		align_enemies()
 	update_turn_clock()
-	
-	
+	update_tatters()

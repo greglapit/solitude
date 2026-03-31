@@ -86,15 +86,15 @@ atlas = ExtResource("15_ojuhj")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="Curve" id="Curve_ojuhj"]
-_data = [Vector2(0, 0.51500857), 0.0, 0.0, 0, 0, Vector2(0.49798384, 0.51500857), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.029579958, 0.0, 0, 0]
-point_count = 3
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.25201613, 0), 0.0, 0.0, 0, 0, Vector2(0.75201607, 0.8606347), 0.029579958, 0.0, 0, 0, Vector2(1, 0.013293266), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [sub_resource type="CurveTexture" id="CurveTexture_g0m8i"]
 curve = SubResource("Curve_ojuhj")
 
 [sub_resource type="Curve" id="Curve_xxu1y"]
 _limits = [0.0, 100.0, 0.0, 1.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 2.4442596), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.9979838, 4.674103), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_rcd83"]
@@ -104,11 +104,11 @@ curve = SubResource("Curve_xxu1y")
 particle_flag_disable_z = true
 direction = Vector3(1, 1, 0)
 spread = 180.0
-initial_velocity_min = 93.74
-initial_velocity_max = 93.74
+initial_velocity_min = 85.93
+initial_velocity_max = 85.93
 gravity = Vector3(0, 0, 0)
-damping_min = 92.687004
-damping_max = 92.687004
+damping_min = 100.00001
+damping_max = 100.00001
 damping_curve = SubResource("CurveTexture_rcd83")
 scale_min = 0.5
 scale_max = 0.5
@@ -208,22 +208,26 @@ layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 66.0
-offset_top = -40.0
-offset_right = 106.0
+offset_top = -81.0
+offset_right = 40.0
+offset_bottom = -41.0
 grow_vertical = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="UI/TatterCount" unique_id=1282072937]
+[node name="MarginContainer" type="MarginContainer" parent="UI/TatterCount" unique_id=1947331101]
 layout_mode = 0
-offset_top = 16.0
-offset_right = 68.0
+offset_top = 14.0
+offset_right = 54.0
 offset_bottom = 40.0
+theme_override_constants/margin_left = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/TatterCount/PanelContainer" unique_id=1578403646]
+[node name="PanelContainer" type="PanelContainer" parent="UI/TatterCount/MarginContainer" unique_id=1282072937]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/TatterCount/MarginContainer/PanelContainer" unique_id=1578403646]
 layout_mode = 2
 theme_override_constants/separation = -3
 
-[node name="ItemIcon" type="TextureRect" parent="UI/TatterCount/PanelContainer/HBoxContainer" unique_id=1904938194]
+[node name="ItemIcon" type="TextureRect" parent="UI/TatterCount/MarginContainer/PanelContainer/HBoxContainer" unique_id=1904938194]
 layout_mode = 2
 texture = SubResource("AtlasTexture_xr7ht")
 expand_mode = 3
@@ -232,7 +236,7 @@ script = ExtResource("16_yds2a")
 item = ExtResource("17_xxu1y")
 metadata/_custom_type_script = "uid://dmrkev573gsft"
 
-[node name="TatterLabel" type="Label" parent="UI/TatterCount/PanelContainer/HBoxContainer" unique_id=54441747]
+[node name="TatterLabel" type="Label" parent="UI/TatterCount/MarginContainer/PanelContainer/HBoxContainer" unique_id=54441747]
 layout_mode = 2
 text = "0"
 
@@ -242,16 +246,16 @@ anchor_top = 0.5
 anchor_bottom = 0.5
 grow_vertical = 2
 
-[node name="Rounds" type="MarginContainer" parent="UI" unique_id=624246959]
+[node name="Hands" type="MarginContainer" parent="UI" unique_id=624246959]
 offset_right = 31.0
 offset_bottom = 14.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 
-[node name="Label" type="Label" parent="UI/Rounds" unique_id=5679931]
+[node name="Label" type="Label" parent="UI/Hands" unique_id=5679931]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Round: XX/XX"
+text = "Hands: XX/XX"
 
 [node name="Background" type="Node2D" parent="." unique_id=1951546377]
 
@@ -300,11 +304,12 @@ trail_enabled = true
 process_material = SubResource("ParticleProcessMaterial_pcxeh")
 
 [node name="TattersGPUParticles2D" type="GPUParticles2D" parent="." unique_id=1754541793]
+visible = false
 position = Vector2(250, 80)
 emitting = false
 amount = 4
 texture = SubResource("AtlasTexture_g0m8i")
-lifetime = 0.5
+lifetime = 0.75
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_yds2a")
