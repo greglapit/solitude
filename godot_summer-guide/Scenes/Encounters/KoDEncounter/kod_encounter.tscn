@@ -1,13 +1,16 @@
-[gd_scene format=3 uid="uid://da3qejqonioxw"]
+[gd_scene format=3 uid="uid://bftsicf3oxgct"]
 
-[ext_resource type="Texture2D" uid="uid://br76sf6slne03" path="res://Scenes/KoDEncounter/Art/king_of_diamonds.png" id="1_nract"]
+[ext_resource type="Script" uid="uid://dtd6gnc80f1cj" path="res://Scenes/Encounters/KoDEncounter/kod_encounter.gd" id="1_8fqdq"]
+[ext_resource type="Texture2D" uid="uid://bg4ka8j8kkd0p" path="res://Scenes/Encounters/KoDEncounter/Art/king_of_diamonds_background.png" id="1_eb50b"]
+[ext_resource type="Texture2D" uid="uid://br76sf6slne03" path="res://Scenes/Encounters/KoDEncounter/Art/king_of_diamonds.png" id="3_kip1e"]
+[ext_resource type="Texture2D" uid="uid://645dyip863eq" path="res://Scenes/Encounters/KoDEncounter/Art/player.png" id="4_kip1e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mfxm5"]
-atlas = ExtResource("1_nract")
+atlas = ExtResource("3_kip1e")
 region = Rect2(0, 720, 640, 360)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1dgc4"]
-atlas = ExtResource("1_nract")
+atlas = ExtResource("3_kip1e")
 region = Rect2(640, 720, 640, 360)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s1myb"]
@@ -25,11 +28,11 @@ animations = [{
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3it05"]
-atlas = ExtResource("1_nract")
+atlas = ExtResource("3_kip1e")
 region = Rect2(0, 1080, 640, 360)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o3hs7"]
-atlas = ExtResource("1_nract")
+atlas = ExtResource("3_kip1e")
 region = Rect2(640, 1080, 640, 360)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3it05"]
@@ -47,11 +50,11 @@ animations = [{
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8fqdq"]
-atlas = ExtResource("1_nract")
+atlas = ExtResource("3_kip1e")
 region = Rect2(0, 360, 640, 360)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kip1e"]
-atlas = ExtResource("1_nract")
+atlas = ExtResource("3_kip1e")
 region = Rect2(640, 360, 640, 360)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1dgc4"]
@@ -320,31 +323,167 @@ _data = {
 &"show_title": SubResource("Animation_8ik3o")
 }
 
-[node name="KODDefault" type="Node2D" unique_id=1680643867]
+[sub_resource type="Animation" id="Animation_3it05"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(279, 201)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("..:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_o3hs7"]
+resource_name = "arrive"
+length = 0.33333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(301, 195), Vector2(320, 180)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.33333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_1dgc4"]
+resource_name = "bump"
+length = 0.33333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -8), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3it05"]
+_data = {
+&"RESET": SubResource("Animation_3it05"),
+&"arrive": SubResource("Animation_o3hs7"),
+&"bump": SubResource("Animation_1dgc4")
+}
+
+[node name="KodEncounter" type="Node2D" unique_id=72906977]
+script = ExtResource("1_8fqdq")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=983061558]
+layer = -1
+
+[node name="Background" type="TextureRect" parent="CanvasLayer" unique_id=1072941362]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_eb50b")
+
+[node name="KOD" type="Node2D" parent="." unique_id=1680643867]
 visible = false
 
-[node name="Cloud" type="AnimatedSprite2D" parent="." unique_id=1493355562 groups=["animated_sprite"]]
+[node name="Cloud" type="AnimatedSprite2D" parent="KOD" unique_id=1493355562 groups=["animated_sprite"]]
 position = Vector2(320, 180)
 sprite_frames = SubResource("SpriteFrames_s1myb")
 frame_progress = 0.8463162
 
-[node name="King" type="AnimatedSprite2D" parent="." unique_id=113280063 groups=["animated_sprite"]]
+[node name="King" type="AnimatedSprite2D" parent="KOD" unique_id=113280063 groups=["animated_sprite"]]
 position = Vector2(320, 180)
 sprite_frames = SubResource("SpriteFrames_3it05")
 frame_progress = 0.35897633
 
-[node name="Title" type="Sprite2D" parent="." unique_id=1932127334]
+[node name="Title" type="Sprite2D" parent="KOD" unique_id=1932127334]
 visible = false
 modulate = Color(1, 1, 1, 0)
 position = Vector2(320, 180)
-texture = ExtResource("1_nract")
+texture = ExtResource("3_kip1e")
 region_enabled = true
 region_rect = Rect2(0, 2160, 640, 360)
 
-[node name="Stars" type="AnimatedSprite2D" parent="." unique_id=2045058303 groups=["animated_sprite"]]
+[node name="Stars" type="AnimatedSprite2D" parent="KOD" unique_id=2045058303 groups=["animated_sprite"]]
 position = Vector2(320, 163)
 sprite_frames = SubResource("SpriteFrames_1dgc4")
 frame_progress = 0.6660516
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=418058207]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="KOD" unique_id=418058207]
 libraries/ = SubResource("AnimationLibrary_kip1e")
+
+[node name="Player" type="Node2D" parent="." unique_id=1133307599]
+visible = false
+
+[node name="Player" type="Sprite2D" parent="Player" unique_id=1506371388]
+position = Vector2(279, 201)
+texture = ExtResource("4_kip1e")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player" unique_id=1631910019]
+root_node = NodePath("../Player")
+libraries/ = SubResource("AnimationLibrary_3it05")

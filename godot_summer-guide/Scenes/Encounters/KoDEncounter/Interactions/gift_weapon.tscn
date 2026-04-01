@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bmp36lcfb453r"]
 
 [ext_resource type="Texture2D" uid="uid://byjwkfff5cxqe" path="res://Scenes/Battle/Art/WeaponDisplay/Art/weapon_art_filler.png" id="1_4oc2i"]
-[ext_resource type="Script" uid="uid://d0mu3u4oap51v" path="res://Scenes/KoDEncounter/Interactions/gift_weapon.gd" id="1_i74t4"]
+[ext_resource type="Script" uid="uid://d0mu3u4oap51v" path="res://Scenes/Encounters/KoDEncounter/Interactions/gift_weapon.gd" id="1_i74t4"]
 [ext_resource type="Shader" uid="uid://bvu6mr6dwkfa5" path="res://Common/Shaders/fog_shader.gdshader" id="3_2jvn2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7vm4v"]

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c60flpq787rp5"]
 
-[ext_resource type="Script" uid="uid://yfqwt8v25wa8" path="res://Scenes/KoDEncounter/Interactions/increase_memory.gd" id="1_8rpb2"]
+[ext_resource type="Script" uid="uid://yfqwt8v25wa8" path="res://Scenes/Encounters/KoDEncounter/Interactions/increase_memory.gd" id="1_8rpb2"]
 [ext_resource type="PackedScene" uid="uid://1e51h2a8pgtn" path="res://Scenes/UI/StudyJournal/capacity_label.tscn" id="2_3w4at"]
-[ext_resource type="Texture2D" uid="uid://byjtlbe474uyv" path="res://Scenes/KoDEncounter/Interactions/increase_memory.png" id="2_6m35j"]
+[ext_resource type="Texture2D" uid="uid://byjtlbe474uyv" path="res://Scenes/Encounters/KoDEncounter/Interactions/increase_memory.png" id="2_6m35j"]
 
 [sub_resource type="Animation" id="Animation_6m35j"]
 length = 0.001

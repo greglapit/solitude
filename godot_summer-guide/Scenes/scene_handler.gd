@@ -1,6 +1,6 @@
 extends Node
 
-var loading_screen_scn : PackedScene = preload("res://Scenes/loading_screen.tscn")
+var loading_screen_scn : PackedScene = preload("res://Scenes/UI/LoadingScreen/loading_screen.tscn")
 const main_menu_scn : PackedScene = preload("res://Scenes/MainMenu/main_menu.tscn")
 var loading_screen : LoadingScreen
 var curr_scene : Node2DScene:
@@ -13,7 +13,7 @@ var loading_in_background : bool = false
 
 # DEV TOOLS
 #const starting_scn : PackedScene = main_menu_scn
-const starting_scn : PackedScene = preload("res://Scenes/KoDEncounter/kod_encounter.tscn")
+const starting_scn : PackedScene = preload("res://Scenes/Encounters/KoDEncounter/kod_encounter.tscn")
 
 # === Custom Methods ===========================================================
 

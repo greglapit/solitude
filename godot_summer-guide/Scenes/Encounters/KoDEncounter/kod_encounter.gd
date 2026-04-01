@@ -14,6 +14,21 @@ var encounters : Dictionary = {
 var test : String = "Testign"
 
 # === Custom Methods ===========================================================
+func initialize() -> void:
+	var balloon : Node = DialogueManager.show_dialogue_balloon(load("res://Scenes/Encounters/KoDEncounter/kod_default.dialogue"), "start")
+	balloon.char_spoke.connect(_on_balloon_char_spoke)
+	
+	await balloon.tree_exited
+	
+	# If player has cores
+	if Globals.inventory.has("core"):
+		balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/Encounters/KoDEncounter/kod_take_core.dialogue"), "start")
+		balloon.char_spoke.connect(_on_balloon_char_spoke)
+		await balloon.tree_exited
+	
+	balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/Encounters/KoDEncounter/kod_end_encounter.dialogue"), "start")
+	balloon.char_spoke.connect(_on_balloon_char_spoke)
+
 func arrive_sequences() -> void:
 	player.hide()
 	
@@ -34,23 +49,9 @@ func show_title() -> void:
 	king_ap.play("show_title")
 	await king_ap.animation_finished
 
-func initialize() -> void:
-	var balloon : Node = DialogueManager.show_dialogue_balloon(load("res://Scenes/KoDEncounter/kod_default.dialogue"), "start")
-	balloon.char_spoke.connect(_on_balloon_char_spoke)
-	
-	await balloon.tree_exited
-	
-	# If player has cores
-	if Globals.inventory.has("core"):
-		balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/KoDEncounter/kod_take_core.dialogue"), "start")
-		balloon.char_spoke.connect(_on_balloon_char_spoke)
-		await balloon.tree_exited
-	
-	balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/KoDEncounter/kod_end_encounter.dialogue"), "start")
-	balloon.char_spoke.connect(_on_balloon_char_spoke)
 
 func play_gift_weapon() -> void:
-	var gift_weapon_scn : Node2D = load("res://Scenes/KoDEncounter/Interactions/gift_weapon.tscn").instantiate()
+	var gift_weapon_scn : Node2D = load("res://Scenes/Encounters/KoDEncounter/Interactions/gift_weapon.tscn").instantiate()
 	
 	add_child(gift_weapon_scn)
 	
@@ -58,7 +59,7 @@ func play_gift_weapon() -> void:
 
 
 func play_increase_memory() -> void:
-	var increase_memory_scn : Node2D = load("res://Scenes/KoDEncounter/Interactions/increase_memory.tscn").instantiate()
+	var increase_memory_scn : Node2D = load("res://Scenes/Encounters/KoDEncounter/Interactions/increase_memory.tscn").instantiate()
 	
 	add_child(increase_memory_scn)
 	

@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://bwhw0w28bag80"
+path="res://.godot/imported/kod_default.dialogue-2056feadd3ee9702b4d372ce2b4184c8.tres"
+
+[deps]
+
+source_file="res://Scenes/Encounters/KoDEncounter/kod_default.dialogue"
+dest_files=["res://.godot/imported/kod_default.dialogue-2056feadd3ee9702b4d372ce2b4184c8.tres"]
+
+[params]
+
+defaults=true

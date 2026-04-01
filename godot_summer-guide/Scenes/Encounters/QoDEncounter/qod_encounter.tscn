@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bad2r77gx65ar"]
+
+[ext_resource type="Script" uid="uid://dsdfohew88m5o" path="res://Scenes/Encounters/QoDEncounter/qod_encounter.gd" id="1_nrikt"]
+[ext_resource type="Texture2D" uid="uid://hynflv4g48og" path="res://Scenes/Encounters/QoDEncounter/Art/player.png" id="2_ppth1"]
+
+[node name="QodEncounter" type="Node2D" unique_id=720276644]
+script = ExtResource("1_nrikt")
+
+[node name="QOD" type="Node2D" parent="." unique_id=555005570]
+
+[node name="Player" type="Node2D" parent="." unique_id=1708492166]
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=365641196]
+texture = ExtResource("2_ppth1")

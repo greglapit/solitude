@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byjtlbe474uyv"
-path="res://.godot/imported/increase_memory.png-377c956e94945ec6181ab4e7bcb1f776.ctex"
+uid="uid://bg4ka8j8kkd0p"
+path="res://.godot/imported/king_of_diamonds_background.png-2d008064ac1694ab8569ea730b3192c7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/KoDEncounter/Interactions/increase_memory.png"
-dest_files=["res://.godot/imported/increase_memory.png-377c956e94945ec6181ab4e7bcb1f776.ctex"]
+source_file="res://Scenes/Encounters/KoDEncounter/Art/king_of_diamonds_background.png"
+dest_files=["res://.godot/imported/king_of_diamonds_background.png-2d008064ac1694ab8569ea730b3192c7.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://645dyip863eq"
-path="res://.godot/imported/player.png-6b23adf52288b48226f5a7a0ced67281.ctex"
+uid="uid://br76sf6slne03"
+path="res://.godot/imported/king_of_diamonds.png-a737ba8e3aaa1714cc5fce776ba934cc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/KoDEncounter/Art/player.png"
-dest_files=["res://.godot/imported/player.png-6b23adf52288b48226f5a7a0ced67281.ctex"]
+source_file="res://Scenes/Encounters/KoDEncounter/Art/king_of_diamonds.png"
+dest_files=["res://.godot/imported/king_of_diamonds.png-a737ba8e3aaa1714cc5fce776ba934cc.ctex"]
 
 [params]
 
