@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dbso7xaqk15ip" path="res://Scenes/Encounters/QoDEncounter/Art/queen_of_diamonds.png" id="2_43y0a"]
 [ext_resource type="Texture2D" uid="uid://bh8bh0asmo6vu" path="res://Scenes/Encounters/QoDEncounter/Art/background.png" id="4_34uku"]
 [ext_resource type="Texture2D" uid="uid://645dyip863eq" path="res://Scenes/Encounters/KoDEncounter/Art/player.png" id="4_43y0a"]
+[ext_resource type="Texture2D" uid="uid://bg4ka8j8kkd0p" path="res://Scenes/Encounters/KoDEncounter/Art/army.png" id="4_x4a60"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x4a60"]
 atlas = ExtResource("2_43y0a")
@@ -314,10 +315,6 @@ _data = {
 &"show_title": SubResource("Animation_0chrh")
 }
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_43y0a"]
-atlas = ExtResource("2_43y0a")
-region = Rect2(0, 0, 640, 360)
-
 [sub_resource type="Animation" id="Animation_3it05"]
 length = 0.001
 tracks/0/type = "value"
@@ -469,9 +466,12 @@ texture = ExtResource("4_34uku")
 [node name="Army" type="TextureRect" parent="CanvasLayer" unique_id=1492181667]
 visible = false
 modulate = Color(1, 1, 1, 0)
-offset_right = 40.0
-offset_bottom = 40.0
-texture = SubResource("AtlasTexture_43y0a")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_x4a60")
 
 [node name="Player" type="Node2D" parent="." unique_id=136286589]
 visible = false

@@ -9,10 +9,6 @@ var encounters : Dictionary = {
 	"rare" : 1
 }
 
-
-
-var test : String = "Testign"
-
 # === Custom Methods ===========================================================
 func initialize() -> void:
 	var balloon : Node = DialogueManager.show_dialogue_balloon(load("res://Scenes/Encounters/QoDEncounter/qod_default.dialogue"), "start")
@@ -39,6 +35,13 @@ func arrive_sequences() -> void:
 func show_title() -> void:
 	queen_ap.play("show_title")
 	await queen_ap.animation_finished
+
+func play_gift_rank() -> void:
+	var gift_rank_scn : Node2D = load("res://Scenes/Encounters/QoDEncounter/Interactions/gift_rank.tscn").instantiate()
+	
+	add_child(gift_rank_scn)
+	
+	await gift_rank_scn.tree_exited
 
 func end_encounter() -> void:
 	change_scn.emit("res://Scenes/Camp/camp.tscn", false, false)

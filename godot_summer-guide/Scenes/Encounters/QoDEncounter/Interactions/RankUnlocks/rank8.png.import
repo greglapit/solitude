@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bg4ka8j8kkd0p"
-path="res://.godot/imported/background.png-018e37fe16af7ee7edfedfcd80d5e69d.ctex"
+uid="uid://coq8ifheh83ad"
+path="res://.godot/imported/rank8.png-2606b29486c2c553602da630bf7361ae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Encounters/KoDEncounter/Art/background.png"
-dest_files=["res://.godot/imported/background.png-018e37fe16af7ee7edfedfcd80d5e69d.ctex"]
+source_file="res://Scenes/Encounters/QoDEncounter/Interactions/RankUnlocks/rank8.png"
+dest_files=["res://.godot/imported/rank8.png-2606b29486c2c553602da630bf7361ae.ctex"]
 
 [params]
 

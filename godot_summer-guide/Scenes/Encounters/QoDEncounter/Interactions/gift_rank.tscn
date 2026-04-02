@@ -1,0 +1,191 @@
+[gd_scene format=3 uid="uid://c6msf5wpaps0i"]
+
+[ext_resource type="Script" uid="uid://cqa6dqnggnnis" path="res://Scenes/Encounters/QoDEncounter/Interactions/gift_rank.gd" id="1_pxycr"]
+[ext_resource type="Texture2D" uid="uid://byjwkfff5cxqe" path="res://Scenes/Battle/Art/WeaponDisplay/Art/weapon_art_filler.png" id="2_fg55s"]
+[ext_resource type="Shader" uid="uid://bvu6mr6dwkfa5" path="res://Common/Shaders/fog_shader.gdshader" id="3_eywp7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cmuyj"]
+shader = ExtResource("3_eywp7")
+shader_parameter/radius = 1.0
+shader_parameter/speed = 10.0
+shader_parameter/effect_color = Color(0.2901961, 0, 0, 1)
+shader_parameter/pixelate_amount = 40
+shader_parameter/NumDivisions = 32
+
+[sub_resource type="Animation" id="Animation_2jvn2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer2/CanvasModulate:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Label:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7vm4v"]
+resource_name = "hide"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer2/CanvasModulate:color")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Label:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_i74t4"]
+resource_name = "show"
+length = 4.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer2/CanvasModulate:color")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Label:modulate")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(3, 3.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1sjkm"]
+_data = {
+&"RESET": SubResource("Animation_2jvn2"),
+&"hide": SubResource("Animation_7vm4v"),
+&"show": SubResource("Animation_i74t4")
+}
+
+[node name="GiftRank" type="Node2D" unique_id=1143491451]
+script = ExtResource("1_pxycr")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2071872632]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=373387504]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="WeaponArt" type="TextureRect" parent="CanvasLayer" unique_id=656302081]
+offset_left = 170.0
+offset_top = 147.5
+offset_right = 470.0
+offset_bottom = 263.18628
+texture = ExtResource("2_fg55s")
+expand_mode = 5
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=258874399]
+modulate = Color(1, 1, 1, 0)
+offset_left = 170.0
+offset_top = 257.5
+offset_right = 470.0
+offset_bottom = 271.5
+theme_override_colors/font_color = Color(0.78039217, 0.8627451, 0.8156863, 1)
+theme_override_font_sizes/font_size = 32
+text = "Unlocked Rank XX Weapons"
+horizontal_alignment = 1
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=2049217032]
+layer = 2
+
+[node name="PixelFogShader" type="ColorRect" parent="CanvasLayer2" unique_id=928548327 groups=["UI"]]
+material = SubResource("ShaderMaterial_cmuyj")
+offset_left = -44.0
+offset_top = -32.0
+offset_right = 691.07074
+offset_bottom = 390.0
+mouse_filter = 2
+
+[node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer2" unique_id=1935360096]
+color = Color(1, 1, 1, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1716995632]
+libraries/ = SubResource("AnimationLibrary_1sjkm")

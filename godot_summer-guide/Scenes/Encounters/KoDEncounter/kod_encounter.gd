@@ -4,7 +4,6 @@ extends Node2DScene
 @onready var player_ap : AnimationPlayer = $Player/AnimationPlayer
 @onready var king_ap : AnimationPlayer = $KOD/AnimationPlayer
 
-var test : String = "Testign"
 
 # === Custom Methods ===========================================================
 func initialize() -> void:
