@@ -1,14 +1,485 @@
 [gd_scene format=3 uid="uid://bad2r77gx65ar"]
 
 [ext_resource type="Script" uid="uid://dsdfohew88m5o" path="res://Scenes/Encounters/QoDEncounter/qod_encounter.gd" id="1_nrikt"]
-[ext_resource type="Texture2D" uid="uid://hynflv4g48og" path="res://Scenes/Encounters/QoDEncounter/Art/player.png" id="2_ppth1"]
+[ext_resource type="Texture2D" uid="uid://dbso7xaqk15ip" path="res://Scenes/Encounters/QoDEncounter/Art/queen_of_diamonds.png" id="2_43y0a"]
+[ext_resource type="Texture2D" uid="uid://bh8bh0asmo6vu" path="res://Scenes/Encounters/QoDEncounter/Art/background.png" id="4_34uku"]
+[ext_resource type="Texture2D" uid="uid://645dyip863eq" path="res://Scenes/Encounters/KoDEncounter/Art/player.png" id="4_43y0a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4a60"]
+atlas = ExtResource("2_43y0a")
+region = Rect2(0, 1800, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0chrh"]
+atlas = ExtResource("2_43y0a")
+region = Rect2(0, 360, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvf2i"]
+atlas = ExtResource("2_43y0a")
+region = Rect2(640, 360, 640, 360)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i64h7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0chrh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvf2i")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yo0qj"]
+atlas = ExtResource("2_43y0a")
+region = Rect2(0, 1080, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifn8p"]
+atlas = ExtResource("2_43y0a")
+region = Rect2(640, 1080, 640, 360)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4i51g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yo0qj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ifn8p")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5kwp"]
+atlas = ExtResource("2_43y0a")
+region = Rect2(0, 720, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfsxx"]
+atlas = ExtResource("2_43y0a")
+region = Rect2(640, 720, 640, 360)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_42c7y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5kwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kfsxx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="Animation" id="Animation_43y0a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Title:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(320, 180)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Title:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../Title:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(320, 180)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../CanvasLayer/Army:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../CanvasLayer/Army:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_34uku"]
+resource_name = "arrive"
+length = 0.50000334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.33333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Title:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.33333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(320, 165), Vector2(320, 180)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../CanvasLayer/Army:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../CanvasLayer/Army:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.33333334, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_x4a60"]
+resource_name = "bump"
+length = 0.33333668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(320, 180), Vector2(320, 172), Vector2(320, 180)]
+}
+
+[sub_resource type="Animation" id="Animation_0chrh"]
+resource_name = "show_title"
+length = 0.33333668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Title:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Title:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.33333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Title:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.33333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(320, 165), Vector2(320, 180)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x4a60"]
+_data = {
+&"RESET": SubResource("Animation_43y0a"),
+&"arrive": SubResource("Animation_34uku"),
+&"bump": SubResource("Animation_x4a60"),
+&"show_title": SubResource("Animation_0chrh")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43y0a"]
+atlas = ExtResource("2_43y0a")
+region = Rect2(0, 0, 640, 360)
+
+[sub_resource type="Animation" id="Animation_3it05"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(279, 201)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("..:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_o3hs7"]
+resource_name = "arrive"
+length = 0.33333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(301, 195), Vector2(320, 180)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.33333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_1dgc4"]
+resource_name = "bump"
+length = 0.33333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -8), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_34uku"]
+_data = {
+&"RESET": SubResource("Animation_3it05"),
+&"arrive": SubResource("Animation_o3hs7"),
+&"bump": SubResource("Animation_1dgc4")
+}
 
 [node name="QodEncounter" type="Node2D" unique_id=720276644]
 script = ExtResource("1_nrikt")
 
+[node name="Title" type="Sprite2D" parent="." unique_id=1782523965]
+visible = false
+modulate = Color(1, 1, 1, 0)
+position = Vector2(320, 180)
+texture = SubResource("AtlasTexture_x4a60")
+
 [node name="QOD" type="Node2D" parent="." unique_id=555005570]
+visible = false
+modulate = Color(1, 1, 1, 0)
+position = Vector2(320, 180)
 
-[node name="Player" type="Node2D" parent="." unique_id=1708492166]
+[node name="Flag" type="AnimatedSprite2D" parent="QOD" unique_id=272731942 groups=["animated_sprite"]]
+sprite_frames = SubResource("SpriteFrames_i64h7")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=365641196]
-texture = ExtResource("2_ppth1")
+[node name="Queen" type="AnimatedSprite2D" parent="QOD" unique_id=688455762 groups=["animated_sprite"]]
+sprite_frames = SubResource("SpriteFrames_4i51g")
+
+[node name="Horse" type="AnimatedSprite2D" parent="QOD" unique_id=1033377335 groups=["animated_sprite"]]
+sprite_frames = SubResource("SpriteFrames_42c7y")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="QOD" unique_id=1127950887]
+libraries/ = SubResource("AnimationLibrary_x4a60")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2021874397]
+layer = -1
+
+[node name="Background" type="TextureRect" parent="CanvasLayer" unique_id=1852682108]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_34uku")
+
+[node name="Army" type="TextureRect" parent="CanvasLayer" unique_id=1492181667]
+visible = false
+modulate = Color(1, 1, 1, 0)
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_43y0a")
+
+[node name="Player" type="Node2D" parent="." unique_id=136286589]
+visible = false
+
+[node name="Player" type="Sprite2D" parent="Player" unique_id=153851845]
+position = Vector2(279, 201)
+texture = ExtResource("4_43y0a")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player" unique_id=1428574144]
+root_node = NodePath("../Player")
+libraries/ = SubResource("AnimationLibrary_34uku")

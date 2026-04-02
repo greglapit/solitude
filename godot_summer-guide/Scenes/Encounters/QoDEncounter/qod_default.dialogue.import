@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://bikvcs0u3ypl0"
+path="res://.godot/imported/qod_default.dialogue-1bc7e91912947a67309f52ffcdc73c4d.tres"
+
+[deps]
+
+source_file="res://Scenes/Encounters/QoDEncounter/qod_default.dialogue"
+dest_files=["res://.godot/imported/qod_default.dialogue-1bc7e91912947a67309f52ffcdc73c4d.tres"]
+
+[params]
+
+defaults=true

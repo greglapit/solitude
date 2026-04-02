@@ -9,8 +9,12 @@ var player_location : Dictionary = {
 	"round" = 4
 }
 var map_last_pos : float
+
+# NPC Meetings
 var met_kod : bool = false
 var given_kod_core : bool = false
+
+var met_qod : bool = false
 
 func save() -> Dictionary:
 	var dict : Dictionary = {

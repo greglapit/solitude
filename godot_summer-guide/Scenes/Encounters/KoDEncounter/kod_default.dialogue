@@ -9,6 +9,7 @@ if not ProgressTracker.met_kod:
 	KOD: I've grown fond examining these battlefields. Our fallen allies... their remnant powers give the Spread's future a chance.
 	set ProgressTracker.met_kod = true
 else:
+	do show_title()
 	% KOD: We meet again. I hope the Spread hasn't been too cruel to you.
 	% KOD: I always hope to run into you again.
 	KOD: I've come across another weapon.

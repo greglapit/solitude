@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bftsicf3oxgct"]
 
 [ext_resource type="Script" uid="uid://dtd6gnc80f1cj" path="res://Scenes/Encounters/KoDEncounter/kod_encounter.gd" id="1_8fqdq"]
-[ext_resource type="Texture2D" uid="uid://bg4ka8j8kkd0p" path="res://Scenes/Encounters/KoDEncounter/Art/king_of_diamonds_background.png" id="1_eb50b"]
+[ext_resource type="Texture2D" uid="uid://bg4ka8j8kkd0p" path="res://Scenes/Encounters/KoDEncounter/Art/background.png" id="1_eb50b"]
 [ext_resource type="Texture2D" uid="uid://br76sf6slne03" path="res://Scenes/Encounters/KoDEncounter/Art/king_of_diamonds.png" id="3_kip1e"]
 [ext_resource type="Texture2D" uid="uid://645dyip863eq" path="res://Scenes/Encounters/KoDEncounter/Art/player.png" id="4_kip1e"]
 

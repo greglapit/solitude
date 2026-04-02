@@ -4,13 +4,6 @@ extends Node2DScene
 @onready var player_ap : AnimationPlayer = $Player/AnimationPlayer
 @onready var king_ap : AnimationPlayer = $KOD/AnimationPlayer
 
-var encounters : Dictionary = {
-	"default" : 5,
-	"rare" : 1
-}
-
-
-
 var test : String = "Testign"
 
 # === Custom Methods ===========================================================
