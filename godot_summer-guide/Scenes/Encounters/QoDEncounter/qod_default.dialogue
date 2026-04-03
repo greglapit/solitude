@@ -8,7 +8,9 @@ if not ProgressTracker.met_qod:
 else:
 	do show_title()
 	QOD: I don't have much time, but I see you have mastered the previous rank of Diamonds.
-QOD: You are ready for the next step. Wield the next rank
+QOD: You are ready for the next step. Wield the next rank and dispatch the plague on the Spread.
 do play_gift_rank()
 Fool: Thanks.
+QOD: You must be on your way. Safe travels, [wait=0.5]Fool.
+do end_encounter()
 => END

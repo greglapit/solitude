@@ -38,7 +38,7 @@ var inventory : Dictionary		# item.id : item_stack
 #region # Weapon Dicts
 
 var learned_weapons : Dictionary = {
-	'1_base_weapon' : 1# , '1_philo_weapon' : 1, '1_seed_weapon' : 1, \
+	#'1_base_weapon' : 1 , '1_philo_weapon' : 1, '1_seed_weapon' : 1, \
 	#'2_base_weapon' : 2, '2_twin_weapon' : 2, '2_glass_weapon' : 2, \
 	#'3_base_weapon' : 3, '3_trident_weapon' : 3, '3_prowler_weapon' : 3, \
 	#'4_base_weapon' : 4, '4_mirra_weapon' : 4, '4_bastion_weapon' : 4,\
@@ -52,16 +52,16 @@ var learned_weapons : Dictionary = {
 
 ## Weapons still available to be given during run. Value is their weight
 var available_weapon_pool : Dictionary = {
-	'1_philo_weapon' : 1, '1_seed_weapon' : 1, \
-	'2_twin_weapon' : 1, '2_glass_weapon' : 1, \
-	'3_trident_weapon' : 1, '3_prowler_weapon' : 1, \
-	'4_mirra_weapon' : 1, '4_bastion_weapon' : 1,\
-	'5_claw_weapon' : 1, '5_maw_weapon' : 1,\
-	'6_locklash_weapon' : 1, '6_weaver_weapon' : 1,\
-	'7_vamp_weapon' : 1, '7_severance_weapon' : 1,\
-	'8_splitter_weapon' : 1, '8_cata_weapon' : 1,\
-	'9_cloud_weapon' : 1, '9_cmd_weapon' : 1,\
-	'10_clock_weapon' : 1, '10_pirate_weapon' : 1\
+	#'1_philo_weapon' : 1, '1_seed_weapon' : 1, \
+	#'2_twin_weapon' : 1, '2_glass_weapon' : 1, \
+	#'3_trident_weapon' : 1, '3_prowler_weapon' : 1, \
+	#'4_mirra_weapon' : 1, '4_bastion_weapon' : 1,\
+	#'5_claw_weapon' : 1, '5_maw_weapon' : 1,\
+	#'6_locklash_weapon' : 1, '6_weaver_weapon' : 1,\
+	#'7_vamp_weapon' : 1, '7_severance_weapon' : 1,\
+	#'8_splitter_weapon' : 1, '8_cata_weapon' : 1,\
+	#'9_cloud_weapon' : 1, '9_cmd_weapon' : 1,\
+	#'10_clock_weapon' : 1, '10_pirate_weapon' : 1\
 }
 
 var all_weapons : Dictionary = {

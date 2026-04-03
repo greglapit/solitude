@@ -9,7 +9,7 @@ var boss_battle : bool
 func initialize() -> void:
 	boss_battle = ProgressTracker.rounds_per_suit == ProgressTracker.player_location["round"]
 	if boss_battle:
-		pass
+		change_scn.emit("res://Scenes/Battle/battle.tscn", false, true)
 	else:
 		change_scn.emit("res://Scenes/Battle/battle.tscn", false, true)
 	background.play("default")
