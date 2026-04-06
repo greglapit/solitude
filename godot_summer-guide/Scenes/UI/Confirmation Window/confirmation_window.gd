@@ -37,6 +37,7 @@ func _input(_event: InputEvent) -> void:
 	if _event.is_action_pressed("escape_menu"):
 		get_viewport().set_input_as_handled()
 		option_selected.emit("no")
+		get_tree().root.set_input_as_handled()
 
 # === Signals ==================================================================
 

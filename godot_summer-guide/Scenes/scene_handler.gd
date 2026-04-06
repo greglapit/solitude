@@ -12,8 +12,8 @@ var save_queued : bool = false
 var loading_in_background : bool = false
 
 # DEV TOOLS
-#const starting_scn : PackedScene = main_menu_scn
-const starting_scn : PackedScene = preload("res://Scenes/StartCutscene/start_cutscene.tscn")
+const starting_scn : PackedScene = main_menu_scn
+#const starting_scn : PackedScene = preload("res://Scenes/StartCutscene/start_cutscene.tscn")
 
 # === Custom Methods ===========================================================
 
@@ -62,6 +62,7 @@ func _input(event: InputEvent) -> void:
 				return
 			else:
 				return
+		get_tree().root.set_input_as_handled()
 		
 
 # === Signals ==================================================================
@@ -94,8 +95,8 @@ func _on_node_2d_change_scn(target : Globals.scenes, prog_visible : bool, backgr
 	if curr_scene_path in Globals.valid_save_scenes:
 		save_queued = true
 		Globals.save()
-	else:
-		Globals.delete_save()
+	#else:
+		#Globals.delete_save()
 	
 	var path : String = Globals.scene_paths[target]
 	

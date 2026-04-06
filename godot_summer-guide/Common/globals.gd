@@ -379,11 +379,12 @@ func load_save() -> Signal:
 func delete_save() -> void:
 	if not FileAccess.file_exists("user://savegame.save"):
 		push_error("Attempt to delete nonexistent save.")
+		return
 		
 	var error : Error = DirAccess.remove_absolute("user://savegame.save")
 	if error != OK:
 		push_error("Failed to delete save file. Error code: ", error)
-	
+		return
 
 func load_all_resources() -> void:
 	

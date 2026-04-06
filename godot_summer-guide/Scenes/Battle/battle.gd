@@ -1,3 +1,4 @@
+class_name Battle
 extends Node2DScene
 
 @onready var firework_particle : GPUParticles2D = $FireworkGPUParticles2D
