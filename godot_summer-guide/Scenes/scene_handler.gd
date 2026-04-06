@@ -12,8 +12,8 @@ var save_queued : bool = false
 var loading_in_background : bool = false
 
 # DEV TOOLS
-const starting_scn : PackedScene = main_menu_scn
-#const starting_scn : PackedScene = preload("res://Scenes/StartCutscene/start_cutscene.tscn")
+#const starting_scn : PackedScene = main_menu_scn
+const starting_scn : PackedScene = preload("res://Scenes/Encounters/KoDEncounter/kod_encounter.tscn")
 
 # === Custom Methods ===========================================================
 
@@ -46,7 +46,7 @@ func _ready() -> void:
 		return get_node("/root/SceneHandler").curr_scene
 	
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("escape_menu") and !get_parent().find_child("ConfirmationWindow"):
+	if event.is_action_pressed("ui_cancel") and !get_parent().find_child("ConfirmationWindow"):
 		if curr_scene_path in Globals.valid_save_scenes:
 			var result : String = await ConfirmationWindow.prompt_user(self, "Save and quit to menu?", "Quit", "Cancel")
 			if result == "Quit":

@@ -1,43 +1,59 @@
+class_name GiftRank
 extends Node2D
 
-@onready var weapon_art : TextureRect = $CanvasLayer/VBoxContainer/WeaponArt
+@onready var weapon_art1 : TextureRect = $CanvasLayer/VBoxContainer/HBoxContainer/WeaponArt
+@onready var weapon_art2 : TextureRect = $CanvasLayer/VBoxContainer/HBoxContainer/WeaponArt2
+@onready var weapon_art3 : TextureRect = $CanvasLayer/VBoxContainer/HBoxContainer/WeaponArt3
 @onready var label : Label = $CanvasLayer/VBoxContainer/Label
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 
+var ranks_to_unlock : Array = range(ProgressTracker.unlocked_rank + 1, ProgressTracker.unlocked_rank + 2)
 var event_completed : bool = false
+
 # === Custom Methods ===========================================================
-func adjust_weapon_pool(new_rank : int) -> void:
+func add_weapon_pool(new_ranks : Array) -> void:
 	
-	# Add weapons to available weapons to be given to player
-	for weapon : String in Globals.all_weapons.keys():
-		if weapon.contains("base"):
-			continue
-		if Globals.all_weapons[weapon] == new_rank:
-			Globals.available_weapon_pool[weapon] = new_rank
+	for new_rank : int in new_ranks:
+		# Add weapons to available weapons to be given to player
+		for weapon : String in Globals.all_weapons.keys():
+			if weapon.contains("base"):
+				continue
+			if Globals.all_weapons[weapon] == new_rank:
+				Globals.available_weapon_pool[weapon] = new_rank
+		
+		# Give player base weapon
+		Globals.learned_weapons[str(new_rank) + "_base_weapon"] = new_rank
+		ProgressTracker.unlocked_rank = new_rank
 	
-	# Give player base weapon
-	Globals.learned_weapons[str(new_rank) + "_base_weapon"] = new_rank
-	ProgressTracker.unlocked_rank = new_rank
-	
-	
+	return
 
 # === Built In =================================================================
 
 func _ready() -> void:
-	var rank_to_unlock : int = ProgressTracker.unlocked_rank + 1
 	
-	if rank_to_unlock > 10:
-		push_error("Attempting to unlock rank %d" % [rank_to_unlock])
+	# DELETE
+	ranks_to_unlock = range(5,8)
+	
+	if ranks_to_unlock.back() > 10:
+		push_error("Attempting to unlock rank %d" % [ranks_to_unlock.back()])
 		return
 	
-	label.text = "Unlocked Rank %d Weapons" % [rank_to_unlock]
-	weapon_art.texture = load("res://Scenes/Encounters/QoDEncounter/Interactions/RankUnlocks/rank%d.png" % [rank_to_unlock])
+	if ranks_to_unlock.size() == 1:
+		label.text = "Unlocked Rank %d Weapons" % [ranks_to_unlock[0]]
+	else:
+		label.text = "Unlocked Rank %d - %d Weapons" % [ranks_to_unlock[0], ranks_to_unlock.back()]
+	
+	for i : int in ranks_to_unlock.size():
+		var var_name : String = "weapon_art" + str(i + 1) + ".texture"
+		var rank_to_unlock : int = ranks_to_unlock[i]
+		set(var_name, \
+			load("res://Scenes/Encounters/QoDEncounter/Interactions/RankUnlocks/rank%d.png" % [rank_to_unlock]))
 	
 	
 	animation_player.play("show")
 	
 	await animation_player.animation_finished
-	adjust_weapon_pool(rank_to_unlock)
+	add_weapon_pool(ranks_to_unlock)
 	
 func _input(_event: InputEvent) -> void:
 		if _event.is_pressed():

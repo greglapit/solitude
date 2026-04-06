@@ -1,9 +1,12 @@
 [gd_scene format=3 uid="uid://bftsicf3oxgct"]
 
 [ext_resource type="Script" uid="uid://dtd6gnc80f1cj" path="res://Scenes/Encounters/KoDEncounter/kod_encounter.gd" id="1_8fqdq"]
-[ext_resource type="Texture2D" uid="uid://bg4ka8j8kkd0p" path="res://Scenes/Encounters/KoDEncounter/Art/army.png" id="1_eb50b"]
 [ext_resource type="Texture2D" uid="uid://br76sf6slne03" path="res://Scenes/Encounters/KoDEncounter/Art/king_of_diamonds.png" id="3_kip1e"]
 [ext_resource type="Texture2D" uid="uid://645dyip863eq" path="res://Scenes/Encounters/KoDEncounter/Art/player.png" id="4_kip1e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6mo5"]
+atlas = ExtResource("3_kip1e")
+region = Rect2(0, 0, 640, 360)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mfxm5"]
 atlas = ExtResource("3_kip1e")
@@ -446,7 +449,7 @@ layer = -1
 [node name="Background" type="TextureRect" parent="CanvasLayer" unique_id=1072941362]
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("1_eb50b")
+texture = SubResource("AtlasTexture_m6mo5")
 
 [node name="KOD" type="Node2D" parent="." unique_id=1680643867]
 visible = false

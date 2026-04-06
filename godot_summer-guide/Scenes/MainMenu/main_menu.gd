@@ -13,7 +13,7 @@ func _ready() -> void:
 	return
 	
 func _input(_event: InputEvent) -> void:
-	if _event.is_action_pressed("escape_menu") and !get_parent().find_child("ConfirmationWindow"):
+	if _event.is_action_pressed("ui_cancel") and !get_parent().find_child("ConfirmationWindow"):
 		_on_quit_button_pressed()
 
 # === Signals ==================================================================

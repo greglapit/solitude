@@ -4,8 +4,10 @@ extends Battle
 # === Custom Methods ===========================================================
 
 func initialize() -> void:
-	var balloon : Node = DialogueManager.show_dialogue_balloon(load("res://Scenes/Encounters/KoDEncounter/kod_default.dialogue"), "start")
+	#var balloon : Node = DialogueManager.show_dialogue_balloon(load("res://Scenes/Encounters/KoDEncounter/kod_default.dialogue"), "start")
+	pass
 	
+func 
 
 # === Built In =================================================================
 

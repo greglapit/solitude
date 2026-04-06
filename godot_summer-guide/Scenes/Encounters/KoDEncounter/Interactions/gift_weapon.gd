@@ -26,7 +26,7 @@ func _ready() -> void:
 	Globals.learned_weapons[weapon_data.file_name] = weapon_data.rank
 	Globals.available_weapon_pool.erase(weapon_data.file_name)
 
-func _input(_event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if _event.is_pressed():
 		if event_completed:
 			animation_player.play("hide")

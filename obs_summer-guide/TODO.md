@@ -37,7 +37,7 @@
 - [ ] Visually communicate you have space to draw so unequipping. Armory with physically empty slots?
 
 # before releasing
-- [ ] Save file and game encryption
+- [ ] Save file, settings, and game encryption
 
 Create satisfying player attack system first, ignore enemies, just have dummy hit system  
 * Drawing random weapon  
