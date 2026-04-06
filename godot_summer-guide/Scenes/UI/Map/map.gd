@@ -35,7 +35,7 @@ func move_player(suit : String, progress : float) -> void:
 		await tween.finished
 
 func update_rounds_label() -> void:
-	rounds_label.text = str(ProgressTracker.player_location["round"]) + "/" + str(ProgressTracker.rounds_per_suit)
+	rounds_label.text = str(int(ProgressTracker.player_location["round"])) + "/" + str(ProgressTracker.rounds_per_suit)
 
 # === Built In =================================================================
 

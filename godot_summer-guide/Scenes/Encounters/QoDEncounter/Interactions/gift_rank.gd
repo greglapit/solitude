@@ -1,4 +1,4 @@
-extends Node2DScene
+extends Node2D
 
 @onready var weapon_art : TextureRect = $CanvasLayer/VBoxContainer/WeaponArt
 @onready var label : Label = $CanvasLayer/VBoxContainer/Label
@@ -17,6 +17,7 @@ func adjust_weapon_pool(new_rank : int) -> void:
 	
 	# Give player base weapon
 	Globals.learned_weapons[str(new_rank) + "_base_weapon"] = new_rank
+	ProgressTracker.unlocked_rank = new_rank
 	
 	
 
@@ -24,6 +25,10 @@ func adjust_weapon_pool(new_rank : int) -> void:
 
 func _ready() -> void:
 	var rank_to_unlock : int = ProgressTracker.unlocked_rank + 1
+	
+	if rank_to_unlock > 10:
+		push_error("Attempting to unlock rank %d" % [rank_to_unlock])
+		return
 	
 	label.text = "Unlocked Rank %d Weapons" % [rank_to_unlock]
 	weapon_art.texture = load("res://Scenes/Encounters/QoDEncounter/Interactions/RankUnlocks/rank%d.png" % [rank_to_unlock])

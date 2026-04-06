@@ -83,8 +83,31 @@ var all_weap_data : Dictionary 		## file_name : resources. All loaded modified w
 var all_item_data : Dictionary 		## 
 
 var valid_save_scenes : Array = [
-	"sample_scn",
+	"res://Scenes/Camp/camp.tscn",
 ]
+
+enum scenes {
+	MAIN_MENU,
+	START_CUTSCENE,
+	BATTLE,
+	KOD,
+	QOD,
+	CAMP,
+	NIGHTTIME,
+	ENTERING_SPREAD
+}
+
+var scene_paths : Dictionary = {
+	scenes.MAIN_MENU : "res://Scenes/MainMenu/main_menu.tscn",
+	scenes.START_CUTSCENE : "res://Scenes/StartCutscene/start_cutscene.tscn",
+	scenes.BATTLE : "res://Scenes/Battle/battle.tscn",
+	scenes.KOD : "res://Scenes/Encounters/KoDEncounter/kod_encounter.tscn",
+	scenes.QOD : "res://Scenes/Encounters/QoDEncounter/qod_encounter.tscn",
+	scenes.CAMP : "res://Scenes/Camp/camp.tscn",
+	scenes.NIGHTTIME : "res://Scenes/Nighttime/nighttime.tscn",
+	scenes.ENTERING_SPREAD : "res://Scenes/EnteringSpread/entering_spread.tscn"
+}
+
 
 # ==================================================================================================
 # Inventory

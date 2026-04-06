@@ -1,0 +1,25 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://d153l8eh02n73"]
+
+[ext_resource type="Texture2D" uid="uid://d4l6wmo7v3jki" path="res://Scenes/ChooseEncounter/Art/EncounterFrames/battle_encounter_frame.png" id="1_0gcui"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0gcui"]
+atlas = ExtResource("1_0gcui")
+region = Rect2(0, 0, 80, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_78gth"]
+atlas = ExtResource("1_0gcui")
+region = Rect2(80, 0, 80, 112)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0gcui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_78gth")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]

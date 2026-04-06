@@ -59,7 +59,7 @@ func play_increase_memory() -> void:
 	
 	
 func end_encounter() -> void:
-	change_scn.emit("res://Scenes/Camp/camp.tscn", false, false)
+	change_scn.emit(Globals.scenes.CAMP, false, false)
 
 # === Built In =================================================================
 

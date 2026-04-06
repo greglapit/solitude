@@ -1,19 +1,19 @@
 [gd_scene format=3 uid="uid://ckqg3g6o2d1b"]
 
-[ext_resource type="Script" uid="uid://de7180d18vm1u" path="res://Scenes/EnteringBattle/entering_battle.gd" id="1_w3pbr"]
-[ext_resource type="Texture2D" uid="uid://b1j1mefbm6ab5" path="res://Scenes/EnteringBattle/Art/entering_battle.png" id="2_4i57d"]
-[ext_resource type="PackedScene" uid="uid://e4mwlmv6gd8g" path="res://Scenes/UI/Map/map.tscn" id="3_12eay"]
+[ext_resource type="Script" uid="uid://de7180d18vm1u" path="res://Scenes/EnteringSpread/entering_spread.gd" id="1_arv87"]
+[ext_resource type="Texture2D" uid="uid://b1j1mefbm6ab5" path="res://Scenes/EnteringSpread/Art/entering_spread.png" id="2_hdduj"]
+[ext_resource type="PackedScene" uid="uid://e4mwlmv6gd8g" path="res://Scenes/UI/Map/map.tscn" id="3_oeop5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_12eay"]
-atlas = ExtResource("2_4i57d")
+atlas = ExtResource("2_hdduj")
 region = Rect2(0, 0, 640, 360)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4sp1q"]
-atlas = ExtResource("2_4i57d")
+atlas = ExtResource("2_hdduj")
 region = Rect2(640, 0, 640, 360)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y184v"]
-atlas = ExtResource("2_4i57d")
+atlas = ExtResource("2_hdduj")
 region = Rect2(1280, 0, 640, 360)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_k7afm"]
@@ -69,8 +69,8 @@ _data = {
 &"show_map": SubResource("Animation_4sp1q")
 }
 
-[node name="EnteringBattle" type="Node2D" unique_id=1209902836]
-script = ExtResource("1_w3pbr")
+[node name="EnteringSpread" type="Node2D" unique_id=1209902836]
+script = ExtResource("1_arv87")
 
 [node name="Background" type="AnimatedSprite2D" parent="." unique_id=1636506102]
 position = Vector2(320, 180)
@@ -79,7 +79,7 @@ autoplay = "default"
 frame = 2
 frame_progress = 1.0
 
-[node name="Map" parent="." unique_id=377144661 instance=ExtResource("3_12eay")]
+[node name="Map" parent="." unique_id=377144661 instance=ExtResource("3_oeop5")]
 modulate = Color(1, 1, 1, 0)
 position = Vector2(566, 216)
 

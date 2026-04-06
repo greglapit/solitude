@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://dlbumq303tfww"]
+
+[ext_resource type="Script" uid="uid://4hcoq11xfryy" path="res://Scenes/ChooseEncounter/choose_encounter.gd" id="1_d3k2s"]
+[ext_resource type="Texture2D" uid="uid://d4fgkrk80nktt" path="res://Scenes/ChooseEncounter/Art/choose_encounter.png" id="2_4nqlx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ni3gj"]
+atlas = ExtResource("2_4nqlx")
+region = Rect2(0, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3k2s"]
+atlas = ExtResource("2_4nqlx")
+region = Rect2(0, 1440, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4nqlx"]
+atlas = ExtResource("2_4nqlx")
+region = Rect2(0, 1800, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ayrp0"]
+atlas = ExtResource("2_4nqlx")
+region = Rect2(0, 2160, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5q0qa"]
+atlas = ExtResource("2_4nqlx")
+region = Rect2(0, 360, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twr35"]
+atlas = ExtResource("2_4nqlx")
+region = Rect2(0, 720, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jl4g6"]
+atlas = ExtResource("2_4nqlx")
+region = Rect2(0, 1080, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfbc4"]
+atlas = ExtResource("2_4nqlx")
+region = Rect2(640, 1080, 640, 360)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7814b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jl4g6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wfbc4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[node name="ChooseEncounter" type="Node2D" unique_id=1405495379]
+script = ExtResource("1_d3k2s")
+
+[node name="Background" type="Node2D" parent="." unique_id=66734363]
+position = Vector2(320, 180)
+
+[node name="Background" type="Sprite2D" parent="Background" unique_id=1509932465]
+texture = SubResource("AtlasTexture_ni3gj")
+
+[node name="LeftTrail" type="Sprite2D" parent="Background" unique_id=135010655]
+visible = false
+texture = SubResource("AtlasTexture_d3k2s")
+
+[node name="RightTrail" type="Sprite2D" parent="Background" unique_id=1162065742]
+visible = false
+texture = SubResource("AtlasTexture_4nqlx")
+
+[node name="MiddleTrail" type="Sprite2D" parent="Background" unique_id=1331193375]
+visible = false
+texture = SubResource("AtlasTexture_ayrp0")
+
+[node name="Trees" type="Sprite2D" parent="Background" unique_id=1977117526]
+texture = SubResource("AtlasTexture_5q0qa")
+
+[node name="MiddleTreeCover" type="Sprite2D" parent="Background" unique_id=93097829]
+position = Vector2(9, -145)
+texture = SubResource("AtlasTexture_twr35")
+
+[node name="LeftTreeCover" type="Sprite2D" parent="Background" unique_id=1743974562]
+position = Vector2(-175, -77)
+texture = SubResource("AtlasTexture_twr35")
+
+[node name="RightTreeCover" type="Sprite2D" parent="Background" unique_id=214620554]
+position = Vector2(184, -82)
+texture = SubResource("AtlasTexture_twr35")
+
+[node name="EncounterFrames" type="Node2D" parent="." unique_id=1545348838]
+position = Vector2(320, 180)
+
+[node name="MiddleFrameMarker" type="Marker2D" parent="EncounterFrames" unique_id=905181897]
+position = Vector2(-10, -122)
+
+[node name="LeftFrameMarker" type="Marker2D" parent="EncounterFrames" unique_id=1968485720]
+position = Vector2(-222, -105)
+
+[node name="RightFrameMarker" type="Marker2D" parent="EncounterFrames" unique_id=1279613672]
+position = Vector2(175, -100)
+
+[node name="Player" type="AnimatedSprite2D" parent="." unique_id=910641940]
+position = Vector2(320, 180)
+sprite_frames = SubResource("SpriteFrames_7814b")
+autoplay = "default"
+frame_progress = 0.50425214

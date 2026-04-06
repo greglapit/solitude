@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://2i821xg4sm5p"]
+
+[ext_resource type="SpriteFrames" uid="uid://d153l8eh02n73" path="res://Scenes/ChooseEncounter/Art/EncounterFrames/battle_sprite_frames.tres" id="1_2feus"]
+[ext_resource type="Script" uid="uid://dk1wp07uk4mdc" path="res://Scenes/ChooseEncounter/encounter_frame.gd" id="2_2feus"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2feus"]
+bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.180392, 0.133333, 0.184314, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4nqlx"]
+size = Vector2(80, 112)
+
+[node name="EncounterFrame" type="AnimatedSprite2D" unique_id=958822504]
+sprite_frames = ExtResource("1_2feus")
+autoplay = "default"
+script = ExtResource("2_2feus")
+
+[node name="Panel" type="Panel" parent="." unique_id=684402079]
+visible = false
+offset_left = -40.0
+offset_top = -38.0
+offset_right = 40.0
+offset_bottom = 38.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2feus")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=305248979]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1031018200]
+shape = SubResource("RectangleShape2D_4nqlx")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

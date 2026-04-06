@@ -59,7 +59,7 @@ var curr_round : int = 1
 var max_rounds : int = 5
 
 # DEV TOOLS
-var crit_infinite : bool = true
+var crit_infinite : bool = false
 
 # === Custom Methods ===========================================================
 # General
@@ -67,8 +67,6 @@ var crit_infinite : bool = true
 func initialize() -> void:
 	spawn_enemy(3)
 	pause_input = false
-	
-	update_tatters()
 
 func end_round() -> void:
 	curr_round += 1
@@ -78,7 +76,7 @@ func end_round() -> void:
 		await player.anim_finished
 		firework_particle.emitting = true
 		await get_tree().create_timer(4.0).timeout
-		change_scn.emit("res://Scenes/Camp/camp.tscn", false, false)
+		change_scn.emit(Globals.scenes.CAMP, false, false)
 		return
 	
 	hands_label.text = "Hands: %d/%d" % [curr_round, max_rounds]
@@ -486,6 +484,7 @@ func _ready() -> void:
 	load_armory()
 	load_weapons_display()
 	equip_mini_card(null)
+	update_tatters()
 	
 	
 func _input(event: InputEvent) -> void:

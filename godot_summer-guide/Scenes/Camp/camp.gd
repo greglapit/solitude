@@ -56,6 +56,4 @@ func _on_rest_button_pressed() -> void:
 	await animation_player.animation_finished
 	
 	
-	ProgressTracker.player_location["round"] += 1 
-	
-	change_scn.emit("res://Scenes/Nighttime/nighttime.tscn", false, false)
+	change_scn.emit(Globals.scenes.NIGHTTIME, false, false)

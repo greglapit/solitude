@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1j1mefbm6ab5"
-path="res://.godot/imported/entering_battle.png-f384b2a060d558619889e8b093ab8ee6.ctex"
+uid="uid://cn1f8v1d4uw1"
+path="res://.godot/imported/player_laying.png-c62d975349a3564c7f30e3c153e0f16e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/EnteringBattle/Art/entering_battle.png"
-dest_files=["res://.godot/imported/entering_battle.png-f384b2a060d558619889e8b093ab8ee6.ctex"]
+source_file="res://Scenes/StartCutscene/Art/player_laying.png"
+dest_files=["res://.godot/imported/player_laying.png-c62d975349a3564c7f30e3c153e0f16e.ctex"]
 
 [params]
 

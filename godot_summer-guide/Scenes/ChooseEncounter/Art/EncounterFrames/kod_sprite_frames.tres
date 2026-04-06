@@ -1,0 +1,25 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://b6obcd0yskrp4"]
+
+[ext_resource type="Texture2D" uid="uid://dx30kb50mr6rd" path="res://Scenes/ChooseEncounter/Art/EncounterFrames/kod_encounter_frame.png" id="1_x2hq1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8vq2"]
+atlas = ExtResource("1_x2hq1")
+region = Rect2(0, 0, 80, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tkw8i"]
+atlas = ExtResource("1_x2hq1")
+region = Rect2(80, 0, 80, 112)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k8vq2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tkw8i")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]

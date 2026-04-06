@@ -44,7 +44,7 @@ func play_gift_rank() -> void:
 	await gift_rank_scn.tree_exited
 
 func end_encounter() -> void:
-	change_scn.emit("res://Scenes/Camp/camp.tscn", false, false)
+	change_scn.emit(Globals.scenes.CAMP, false, false)
 
 # === Built In =================================================================
 

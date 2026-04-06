@@ -5,6 +5,7 @@ var rounds_per_suit : int = 5
 
 # ==============================================================================
 # ADD TO SAVE DICT
+var forced_battles_in_row : int = 9 		# Number of battles forced into in a row
 var unlocked_rank : int = 0
 var player_location : Dictionary = {
 	"suit" = "hearts",
@@ -21,6 +22,8 @@ var met_qod : bool = false
 
 func save() -> Dictionary:
 	var dict : Dictionary = {
+		"forced_battles_in_row" = forced_battles_in_row,
+		
 		"unlocked_rank" = unlocked_rank,
 		"player_location" = player_location,
 		"map_last_pos" = map_last_pos,

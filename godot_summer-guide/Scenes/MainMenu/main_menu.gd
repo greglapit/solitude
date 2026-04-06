@@ -26,7 +26,7 @@ func _on_play_button_pressed() -> void:
 			Globals.delete_save()
 		else:
 			return
-	change_scn.emit("res://Scenes/EnteringBattle/entering_battle.tscn", true, false)
+	change_scn.emit(Globals.scenes.START_CUTSCENE, true, false)
 	Globals.load_all_resources()
 
 func _on_continue_button_pressed() -> void:
