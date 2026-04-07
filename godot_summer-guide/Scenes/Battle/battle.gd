@@ -11,6 +11,7 @@ extends Node2DScene
 @onready var tatter_count_label : Label = $UI/TatterCount/MarginContainer/PanelContainer/HBoxContainer/TatterLabel
 @onready var chain_button : TextureButton = $UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton
 @onready var attack_button : TextureButton = $UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer/AttackButton
+@onready var attack_buttons_ui : PanelContainer = $UI/AttackButtons
 @onready var crit_button : TextureButton = $UI/CritButton
 @onready var turn_clock : TurnClock = $UI/TurnClock
 @onready var hands_label : Label = $UI/Hands/Label

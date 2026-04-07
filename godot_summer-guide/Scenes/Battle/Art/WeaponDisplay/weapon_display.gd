@@ -1,3 +1,4 @@
+class_name WeaponDisplay
 extends Control
 
 @onready var joker : Sprite2D = $JokerArea2D/Joker

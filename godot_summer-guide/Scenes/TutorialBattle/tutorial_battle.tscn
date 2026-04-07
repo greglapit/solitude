@@ -314,6 +314,8 @@ one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_yds2a")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=698668326]
+
 [connection signal="timeout" from="SpamTimer" to="." method="_on_spam_timer_timeout"]
 [connection signal="pressed" from="UI/CritButton" to="." method="_on_crit_button_pressed"]
 [connection signal="pressed" from="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton" to="." method="_on_chain_button_pressed"]
