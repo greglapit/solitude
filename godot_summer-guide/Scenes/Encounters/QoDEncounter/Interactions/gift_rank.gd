@@ -1,7 +1,7 @@
 class_name GiftRank
 extends Node2D
 
-@onready var weapon_art1 : TextureRect = $CanvasLayer/VBoxContainer/HBoxContainer/WeaponArt
+@onready var weapon_art1 : TextureRect = $CanvasLayer/VBoxContainer/HBoxContainer/WeaponArt1
 @onready var weapon_art2 : TextureRect = $CanvasLayer/VBoxContainer/HBoxContainer/WeaponArt2
 @onready var weapon_art3 : TextureRect = $CanvasLayer/VBoxContainer/HBoxContainer/WeaponArt3
 @onready var label : Label = $CanvasLayer/VBoxContainer/Label
@@ -32,23 +32,26 @@ func add_weapon_pool(new_ranks : Array) -> void:
 func _ready() -> void:
 	
 	# DELETE
-	ranks_to_unlock = range(5,8)
+	ranks_to_unlock = range(5,7)
 	
 	if ranks_to_unlock.back() > 10:
 		push_error("Attempting to unlock rank %d" % [ranks_to_unlock.back()])
 		return
 	
-	if ranks_to_unlock.size() == 1:
-		label.text = "Unlocked Rank %d Weapons" % [ranks_to_unlock[0]]
-	else:
-		label.text = "Unlocked Rank %d - %d Weapons" % [ranks_to_unlock[0], ranks_to_unlock.back()]
+	match ranks_to_unlock.size():
+		1:
+			label.text = "Unlocked Rank %d Weapons" % [ranks_to_unlock[0]]
+		2:
+			label.text = "Unlocked Rank %d & %d Weapons" % [ranks_to_unlock[0], ranks_to_unlock.back()]
+		3:
+			label.text = "Unlocked Rank %d - %d Weapons" % [ranks_to_unlock[0], ranks_to_unlock.back()]
 	
 	for i : int in ranks_to_unlock.size():
-		var var_name : String = "weapon_art" + str(i + 1) + ".texture"
+		var var_name : String = "WeaponArt" + str(i + 1)
 		var rank_to_unlock : int = ranks_to_unlock[i]
-		set(var_name, \
-			load("res://Scenes/Encounters/QoDEncounter/Interactions/RankUnlocks/rank%d.png" % [rank_to_unlock]))
-	
+		var weapon_art_node : TextureRect = find_child(var_name)
+		weapon_art_node.texture = load("res://Scenes/Encounters/QoDEncounter/Interactions/RankUnlocks/rank%d.png" % [rank_to_unlock])
+		weapon_art_node.show()
 	
 	animation_player.play("show")
 	
@@ -56,10 +59,10 @@ func _ready() -> void:
 	add_weapon_pool(ranks_to_unlock)
 	
 func _input(_event: InputEvent) -> void:
-		if _event.is_pressed():
-			if event_completed:
-				animation_player.play("hide")
-			get_viewport().set_input_as_handled()
+	if _event.is_pressed():
+		if event_completed:
+			animation_player.play("hide")
+		get_viewport().set_input_as_handled()
 		
 
 # === Signals ==================================================================

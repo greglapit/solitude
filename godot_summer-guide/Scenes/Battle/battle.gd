@@ -221,7 +221,7 @@ func spawn_enemy(num : int = 1, enemy_data : Dictionary = {}) -> void:
 			
 		await get_tree().create_timer(0.2).timeout
 	
-	align_enemies(false)
+	await align_enemies(false)
 	
 
 func align_enemies(tweening : bool = true) -> void:
@@ -281,6 +281,14 @@ func weapon_pause() -> void:
 	while !pausing_weapons.is_empty():
 		await get_tree().process_frame
 	return
+
+func update_attack_buttons() -> void:
+	if mini_equipped and !chaining and !enemies.is_empty():
+		attack_button.disabled = false
+		chain_button.disabled = false
+	else:
+		attack_button.disabled = true
+		chain_button.disabled = true
 
 
 var enemy_just_attacked : bool = false
@@ -458,12 +466,7 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 	
 	# Doesn't update weapon display until after drawing
 	if !drawing:
-		if mini_equipped and !chaining:
-			attack_button.disabled = false
-			chain_button.disabled = false
-		else:
-			attack_button.disabled = true
-			chain_button.disabled = true
+		update_attack_buttons()
 		weapons_display.display_weapon(curr_weapon, mini_equipped, actions)
 		
 		# Show Draw Button
@@ -492,7 +495,7 @@ func _ready() -> void:
 	update_tatters()
 	
 	
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if pause_input:
 		return
 	
@@ -607,9 +610,8 @@ func _on_weapon_display_update() -> void:
 	if drawing:
 		align_mini_cards()
 		if mini_equipped:
-			attack_button.disabled = false
-			chain_button.disabled = false
 			curr_weapon.equip()
+			update_attack_buttons()
 			update_turn_clock()
 			update_crit_button()
 		else:

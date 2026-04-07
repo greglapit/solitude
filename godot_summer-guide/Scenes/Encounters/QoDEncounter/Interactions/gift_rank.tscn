@@ -55,7 +55,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CanvasLayer/VBoxContainer/HBoxContainer/WeaponArt:modulate")
+tracks/3/path = NodePath("CanvasLayer/VBoxContainer/HBoxContainer/WeaponArt1:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -87,6 +87,42 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CanvasLayer/VBoxContainer/HBoxContainer/WeaponArt1:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CanvasLayer/VBoxContainer/HBoxContainer/WeaponArt2:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CanvasLayer/VBoxContainer/HBoxContainer/WeaponArt3:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_7vm4v"]
@@ -132,7 +168,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CanvasLayer/VBoxContainer/HBoxContainer/WeaponArt:modulate")
+tracks/3/path = NodePath("CanvasLayer/VBoxContainer/HBoxContainer/WeaponArt1:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -209,7 +245,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CanvasLayer/VBoxContainer/HBoxContainer/WeaponArt:modulate")
+tracks/3/path = NodePath("CanvasLayer/VBoxContainer/HBoxContainer/WeaponArt1:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -280,20 +316,24 @@ theme_override_constants/separation = -33
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=1888175109]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = -127
 alignment = 1
 
-[node name="WeaponArt" type="TextureRect" parent="CanvasLayer/VBoxContainer/HBoxContainer" unique_id=656302081]
+[node name="WeaponArt1" type="TextureRect" parent="CanvasLayer/VBoxContainer/HBoxContainer" unique_id=656302081]
+visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 texture = ExtResource("2_fg55s")
 
 [node name="WeaponArt2" type="TextureRect" parent="CanvasLayer/VBoxContainer/HBoxContainer" unique_id=1696854910]
+visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 texture = ExtResource("3_cmuyj")
 
 [node name="WeaponArt3" type="TextureRect" parent="CanvasLayer/VBoxContainer/HBoxContainer" unique_id=1049456073]
+visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 texture = ExtResource("4_cmuyj")
