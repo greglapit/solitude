@@ -1,3 +1,4 @@
+class_name TurnClock
 extends Control
 
 @onready var animation_player : AnimationPlayer = $Sprite2D/AnimationPlayer
@@ -18,7 +19,7 @@ func show_turn(_turn : turn) -> void:
 			animation_player.play("confused")
 	
 	# So correct transition plays
-	if curr_anim != turn.UP or _turn != turn.HALF or _turn != turn.DOWN:
+	if curr_anim != turn.UP and curr_anim != turn.HALF and curr_anim != turn.DOWN:
 		curr_anim = turn.HALF
 	match _turn:
 		turn.UP:

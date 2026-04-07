@@ -34,7 +34,7 @@ func _ready() -> void:
 	pass
 	
 func _input(_event: InputEvent) -> void:
-	if _event.is_action_pressed("escape_menu"):
+	if _event.is_action_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
 		option_selected.emit("no")
 		get_tree().root.set_input_as_handled()

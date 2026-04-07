@@ -89,6 +89,7 @@ var valid_save_scenes : Array = [
 enum scenes {
 	MAIN_MENU,
 	START_CUTSCENE,
+	TUTORIAL_BATTLE,
 	BATTLE,
 	KOD,
 	QOD,
@@ -100,6 +101,7 @@ enum scenes {
 var scene_paths : Dictionary = {
 	scenes.MAIN_MENU : "res://Scenes/MainMenu/main_menu.tscn",
 	scenes.START_CUTSCENE : "res://Scenes/StartCutscene/start_cutscene.tscn",
+	scenes.TUTORIAL_BATTLE : "res://Scenes/TutorialBattle/tutorial_battle.tscn",
 	scenes.BATTLE : "res://Scenes/Battle/battle.tscn",
 	scenes.KOD : "res://Scenes/Encounters/KoDEncounter/kod_encounter.tscn",
 	scenes.QOD : "res://Scenes/Encounters/QoDEncounter/qod_encounter.tscn",

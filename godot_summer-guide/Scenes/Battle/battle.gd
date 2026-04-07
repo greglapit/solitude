@@ -12,7 +12,7 @@ extends Node2DScene
 @onready var chain_button : TextureButton = $UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton
 @onready var attack_button : TextureButton = $UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer/AttackButton
 @onready var crit_button : TextureButton = $UI/CritButton
-@onready var turn_clock : Control = $UI/TurnClock
+@onready var turn_clock : TurnClock = $UI/TurnClock
 @onready var hands_label : Label = $UI/Hands/Label
 @onready var spam_timer : Timer = $SpamTimer
 @onready var camera : Camera2D = $BattleCamera2D
@@ -73,15 +73,19 @@ func end_round() -> void:
 	curr_round += 1
 	
 	if curr_round > max_rounds:
-		player.play("base_bow")
-		await player.anim_finished
-		firework_particle.emitting = true
-		await get_tree().create_timer(4.0).timeout
-		change_scn.emit(Globals.scenes.CAMP, false, false)
+		end_battle()
 		return
 	
 	hands_label.text = "Hands: %d/%d" % [curr_round, max_rounds]
 	spawn_enemy(3)
+	
+func end_battle() -> void:
+	player.play("base_bow")
+	await player.anim_finished
+	firework_particle.emitting = true
+	await get_tree().create_timer(4.0).timeout
+	change_scn.emit(Globals.scenes.CAMP, false, false)
+	
 # Obselete save code
 #region
 # OBSELETE. No longer allowing saving during battle

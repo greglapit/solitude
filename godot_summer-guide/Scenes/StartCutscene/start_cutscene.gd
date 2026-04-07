@@ -8,7 +8,7 @@ var pausing_input : bool = false
 # === Custom Methods ===========================================================
 
 func end_cutscene() -> void:
-	change_scn.emit(Globals.scenes.BATTLE, false, false)
+	change_scn.emit(Globals.scenes.TUTORIAL_BATTLE, false, false)
 	pausing_input = true
 
 
