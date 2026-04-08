@@ -26,6 +26,7 @@ signal anim_finished(anim : String)
 
 func play(anim : StringName) -> void:
 	animation_player.play(anim)
+	await animation_player.animation_finished
 	
 func effect(anim : StringName) -> void:
 	effects_animation_player.play(anim)

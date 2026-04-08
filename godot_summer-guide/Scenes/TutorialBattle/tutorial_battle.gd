@@ -7,7 +7,10 @@ extends Battle
 
 func initialize() -> void:
 	var balloon : Balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/TutorialBattle/tutorial.dialogue"), "start")
-	balloon.char_spoke.connect(_on_char_spoke)
+	await balloon.char_spoke
+	balloon.dialogue_label.started_typing.connect(_on_started_typing)
+	balloon.dialogue_label.finished_typing.connect(_on_finished_typing)
+	
 	
 	await balloon.tree_exited
 	spawn_enemy(3)
@@ -22,20 +25,21 @@ func end_battle() -> void:
 
 func _ready() -> void:
 	super()
-	weapons_display.hide()
-	attack_buttons_ui.hide()
-	turn_clock.hide()
-	health_bar.hide()
-	tatter_count.hide()
-	crit_button.hide()
-	hands_label.hide()
+	#weapons_display.hide()
+	#attack_buttons_ui.hide()
+	#turn_clock.hide()
+	#health_bar.hide()
+	#tatter_count.hide()
+	#crit_button.hide()
+	#hands_label.hide()
 	
 func _unhandled_input(event: InputEvent) -> void:
 	super(event)
 
 # === Signals ==================================================================
 
-func _on_char_spoke(character : String) -> void:
-	match character:
-		"Fool":
-			pass
+func _on_started_typing() -> void:
+	weapons_display.play("joker_talking")
+	
+func _on_finished_typing() -> void:
+	weapons_display.play("joker_idle")
