@@ -23,7 +23,7 @@ extends Node2DScene
 										Vector2.ZERO, Vector2.ZERO, Vector2.ZERO, Vector2.ZERO]
 										
 # Used internally
-var mini_equipped : Card							# Current card player has equipped
+var mini_equipped : MiniCard							# Current card player has equipped
 var curr_weapon : Weapon							# String name of player weapon
 var player_weapons : Dictionary						## Rank : Weapon
 var enemies : Array
@@ -119,8 +119,8 @@ func end_battle() -> void:
 	##region
 	#var entites_data : Array = Globals.entities_data.values()
 	#
-	## Mini Card
-	#var minis_group : Array = entites_data.filter(func(e : Dictionary) -> bool: return e["class_name"] == "Card")
+	## Mini MiniCard
+	#var minis_group : Array = entites_data.filter(func(e : Dictionary) -> bool: return e["class_name"] == "MiniCard")
 	#for i : int in range(minis_group.size()):
 		#spawn_card(minis_group[i])
 	#
@@ -197,7 +197,7 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1, enemy_data : Dictionary = {}) -> void:
 	for i : int in range(num):
 		enemies = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(Card.Suits.HEART, range(1,2)) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(MiniCard.Suits.HEART, range(1,2)) # 2 * (2 + randi() % 2)
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
 		
@@ -338,13 +338,13 @@ func update_tatters() -> void:
 		tatter_count_label.text = "%.0f" % move_toward(prev_tat_count, curr_tat_count, 1)
 		await get_tree().create_timer(.1).timeout
 
-# Mini Cards
+# Mini MiniCards
 #-------------------------------------------------------------------------------
 #region
 
 ## Spawn card. ONLY USE WHEN LOADING SAVE. NO CHECKS FOR GOING OVER LIMIT
 func spawn_card(mini_data : Dictionary) -> void:
-	var mini_card : Card = Card.new_random_card(Globals.armory.keys())
+	var mini_card : MiniCard = MiniCard.new_random_card(Globals.armory.keys())
 	mini_card.position = armory_position
 	add_child(mini_card)
 	
@@ -370,7 +370,7 @@ func draw_card(amount : int = 1) -> void:
 		pause_input = false
 		
 	for i : int in range(amount):
-		var mini_card : Card = Card.new_random_card(Globals.armory.keys())
+		var mini_card : MiniCard = MiniCard.new_random_card(Globals.armory.keys())
 		mini_card.position = armory_position
 		mini_card.visible = false
 		add_child(mini_card)
@@ -396,7 +396,7 @@ func align_mini_cards(tweening : bool = true) -> void:
 	var positions : Array[Vector2]
 	
 	# Sort nodes based on current x position to account for dragging
-	mini_cards.sort_custom(func(a: Card, b: Card) -> bool: \
+	mini_cards.sort_custom(func(a: MiniCard, b: MiniCard) -> bool: \
 		return a.global_position.x < b.global_position.x)
 	
 	for i : int in range(num_cards):
@@ -415,7 +415,7 @@ func align_mini_cards(tweening : bool = true) -> void:
 		else:
 			mini_cards[i].global_position = positions[i]
 
-func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> void:
+func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -> void:
 	
 	if mini_card:
 		if curr_weapon:
@@ -429,7 +429,7 @@ func equip_mini_card(mini_card : Card = null, player_update : bool = true) -> vo
 			
 			# Position
 			var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards") 
-			mini_cards.sort_custom(func(a: Card, b: Card) -> bool: \
+			mini_cards.sort_custom(func(a: MiniCard, b: MiniCard) -> bool: \
 			return a.global_position.x < b.global_position.x)
 			mini_equipped.position = mini_cards.back().position + Vector2(30,0)
 			mini_equipped.visible = true
@@ -626,17 +626,17 @@ func _on_weapon_display_update() -> void:
 
 
 
-# Mini Cards
+# Mini MiniCards
 #-------------------------------------------------------------------------------
 #region
 
-# Card dragging and equipping
+# MiniCard dragging and equipping
 var click_pos : Vector2 = Vector2.ZERO
 var dragging: bool = false
-var dragged_card : Card = null
+var dragged_card : MiniCard = null
 const DRAG_THRESHOLD : float = 2.0
 
-func _on_mini_card_input_event(_viewport: Node, event: InputEvent, _shape_idx: int, mini_card : Card) -> void:
+func _on_mini_card_input_event(_viewport: Node, event: InputEvent, _shape_idx: int, mini_card : MiniCard) -> void:
 	if !spam_timer.is_stopped() or pause_input or mini_card.used:
 		return
 	
@@ -670,18 +670,18 @@ func _on_mini_card_input_event(_viewport: Node, event: InputEvent, _shape_idx: i
 			dragged_card = mini_card
 			
 
-func _on_mini_card_mouse_entered(mini_card : Card) -> void:
+func _on_mini_card_mouse_entered(mini_card : MiniCard) -> void:
 	if dragging or mini_card.used:
 		return
 	
-	for card : Card in get_tree().get_nodes_in_group("mini_cards"):
+	for card : MiniCard in get_tree().get_nodes_in_group("mini_cards"):
 		card.deselect()
 	mini_card.select()
 	
-func _on_mini_card_mouse_exited(mini_card : Card) -> void:
+func _on_mini_card_mouse_exited(mini_card : MiniCard) -> void:
 	mini_card.deselect()
 
-func _on_mini_card_free(mini_card : Card) -> void:
+func _on_mini_card_free(mini_card : MiniCard) -> void:
 	if mini_card == mini_equipped:
 		await player.anim_finished
 		equip_mini_card(null)
@@ -706,7 +706,7 @@ func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 	enemies = get_tree().get_nodes_in_group("enemies")
 	
 	# If all weapons have been used
-	if mini_cards.all(func(n : Card) -> bool: return n.used) or mini_cards.size() == 0:
+	if mini_cards.all(func(n : MiniCard) -> bool: return n.used) or mini_cards.size() == 0:
 		attacks = 0
 		initiate_combat() # Resolves combat with defend
 		return
@@ -714,12 +714,12 @@ func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 	# Chaining
 	if chaining and !enemies[0].is_dead:
 		# Sort minis by order in player armory
-		mini_cards.sort_custom(func(a: Card, b: Card) -> bool: \
+		mini_cards.sort_custom(func(a: MiniCard, b: MiniCard) -> bool: \
 			return a.global_position.x < b.global_position.x)
 			
-		var sorted_unused : Array = mini_cards.filter(func(e : Card) -> bool: return !e.used)
+		var sorted_unused : Array = mini_cards.filter(func(e : MiniCard) -> bool: return !e.used)
 		sorted_unused.erase(mini_equipped)
-		var next_mini : Card = sorted_unused[0]
+		var next_mini : MiniCard = sorted_unused[0]
 		equip_mini_card(next_mini)
 		await get_tree().create_timer(0.2).timeout
 		initiate_combat()
@@ -745,8 +745,8 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 	var mini_cards : Array= get_tree().get_nodes_in_group("mini_cards")
 	var space_in_armory : bool = Globals.max_draw > mini_cards.size() + int(mini_equipped != null)
 	
-	# Reset Used Cards
-	for mini_card : Card in mini_cards:
+	# Reset Used MiniCards
+	for mini_card : MiniCard in mini_cards:
 		mini_card.used = false
 	
 	if mini_equipped:

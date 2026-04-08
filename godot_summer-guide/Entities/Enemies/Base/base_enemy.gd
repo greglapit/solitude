@@ -20,7 +20,7 @@ var rank : int = -1:	# The effective hp
 		rank_update.emit(value)
 		rank = value
 var true_rank : int 	# The rank the enemy spawned with and uses abilities based off of
-var suit : Card.Suits = Card.Suits.HEART
+var suit : MiniCard.Suits = MiniCard.Suits.HEART
 var is_dead : bool = false
 
 # Status Effects
@@ -82,9 +82,9 @@ signal freed(enemy : Enemy)
 
 #endregion
 
-static func new_enemy(_suit : Card.Suits, _ranks : Array) -> Enemy:
+static func new_enemy(_suit : MiniCard.Suits, _ranks : Array) -> Enemy:
 	var _rank : int = _ranks.pick_random()
-	if _suit not in Card.Suits.values() or _rank not in range(1,14):
+	if _suit not in MiniCard.Suits.values() or _rank not in range(1,14):
 		print("Invalid enemy declaration")
 		return
 	var enemy : Enemy = enemy_scn.instantiate()
@@ -164,7 +164,7 @@ func generate_loot() -> Dictionary:
 # === Built In =================================================================
 
 func _ready() -> void:
-	var suit_name : String = str(Card.Suits.keys()[suit]).to_lower() + "s" + ".png"
+	var suit_name : String = str(MiniCard.Suits.keys()[suit]).to_lower() + "s" + ".png"
 	var suit_art_path : String = "res://Entities/Enemies/Base/Art/"
 	suit_sprite.texture = load(suit_art_path + suit_name)
 	card_sprite.frame = randi() % 4

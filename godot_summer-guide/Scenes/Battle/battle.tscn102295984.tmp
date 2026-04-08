@@ -1,0 +1,320 @@
+[gd_scene format=3 uid="uid://0tk7al8pp3w"]
+
+[ext_resource type="Shader" uid="uid://bvu6mr6dwkfa5" path="res://Common/Shaders/fog_shader.gdshader" id="1_c8wje"]
+[ext_resource type="Script" uid="uid://bvnir8m4dq0uv" path="res://Scenes/Battle/battle.gd" id="1_o8bsx"]
+[ext_resource type="Texture2D" uid="uid://cmbcyj88a71q5" path="res://Scenes/Battle/Art/game_background.png" id="1_wqxgi"]
+[ext_resource type="PackedScene" uid="uid://bewmpgn4nhlxk" path="res://Entities/Player/player.tscn" id="2_3qw02"]
+[ext_resource type="PackedScene" uid="uid://dhcp5xhhbvfsa" path="res://Scenes/Battle/Art/WeaponDisplay/weapon_display.tscn" id="2_en5gs"]
+[ext_resource type="PackedScene" uid="uid://dpn0wn5vhd8du" path="res://Scenes/Battle/Art/HealthBar/health_bar.tscn" id="3_en5gs"]
+[ext_resource type="PackedScene" uid="uid://dqstcqwmyk61d" path="res://Scenes/Battle/Art/AttackButtons/crit_button.tscn" id="4_11mmy"]
+[ext_resource type="Texture2D" uid="uid://fni0n8450q3x" path="res://Scenes/Battle/Art/AttackButtons/Art/button_background.png" id="4_17ekq"]
+[ext_resource type="Texture2D" uid="uid://dab06hwckatf2" path="res://Scenes/Battle/Art/AttackButtons/Art/attack_button_up.png" id="5_rgg0r"]
+[ext_resource type="Texture2D" uid="uid://b2o2xbjprmy24" path="res://Scenes/Battle/Art/AttackButtons/Art/attack_button_down.png" id="6_bch6i"]
+[ext_resource type="Texture2D" uid="uid://nsnsa5s7wqcy" path="res://Scenes/Battle/Art/AttackButtons/Art/chain_button_up.png" id="7_bch6i"]
+[ext_resource type="Texture2D" uid="uid://eb7xsouy7gep" path="res://Scenes/Battle/Art/AttackButtons/Art/chain_button_down.png" id="8_q43bu"]
+[ext_resource type="PackedScene" uid="uid://c2e24843ekof6" path="res://Scenes/Battle/Art/TurnClock/turn_clock.tscn" id="11_q43bu"]
+[ext_resource type="PackedScene" uid="uid://qv3uiu0pk3pt" path="res://Scenes/Battle/battle_camera_2d.tscn" id="13_ev1ic"]
+[ext_resource type="Texture2D" uid="uid://dkwt60cqdl0qa" path="res://Entities/Items/item_atlas.png" id="15_ojuhj"]
+[ext_resource type="Script" uid="uid://dmrkev573gsft" path="res://Entities/Items/item_icon.gd" id="16_yds2a"]
+[ext_resource type="Resource" uid="uid://cknaban57p60l" path="res://Entities/Items/Resources/tatter.tres" id="17_xxu1y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xr7ht"]
+atlas = ExtResource("15_ojuhj")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7e3i2"]
+shader = ExtResource("1_c8wje")
+shader_parameter/radius = 1.0
+shader_parameter/speed = 10.0
+shader_parameter/effect_color = Color(0.251, 0, 0, 1)
+shader_parameter/pixelate_amount = 40
+shader_parameter/NumDivisions = 32
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ev1ic"]
+
+[sub_resource type="Gradient" id="Gradient_ojuhj"]
+colors = PackedColorArray(1, 0, 0, 0.25100002, 1, 0, 0, 0.246)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g0m8i"]
+gradient = SubResource("Gradient_ojuhj")
+width = 2
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Curve" id="Curve_yds2a"]
+_data = [Vector2(0, 0), 0.0, 3.2429712, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xxu1y"]
+curve = SubResource("Curve_yds2a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rcd83"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(150, 1, 1)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_xxu1y")
+sub_emitter_mode = 2
+sub_emitter_amount_at_end = 32
+
+[sub_resource type="Gradient" id="Gradient_11rds"]
+offsets = PackedFloat32Array(0.0056390977, 0.9868421)
+colors = PackedColorArray(1, 0, 0, 0.273, 1, 0, 0, 0.29500002)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xx4v1"]
+gradient = SubResource("Gradient_11rds")
+width = 2
+fill_to = Vector2(0, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pcxeh"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+direction = Vector3(1, 1, 0)
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 250.0
+gravity = Vector3(0, 98, 0)
+damping_max = 100.00001
+scale_min = 0.5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0m8i"]
+atlas = ExtResource("15_ojuhj")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="Curve" id="Curve_ojuhj"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.25201613, 0), 0.0, 0.0, 0, 0, Vector2(0.75201607, 0.8606347), 0.029579958, 0.0, 0, 0, Vector2(1, 0.013293266), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_g0m8i"]
+curve = SubResource("Curve_ojuhj")
+
+[sub_resource type="Curve" id="Curve_xxu1y"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.9979838, 4.674103), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_rcd83"]
+curve = SubResource("Curve_xxu1y")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yds2a"]
+particle_flag_disable_z = true
+direction = Vector3(1, 1, 0)
+spread = 180.0
+initial_velocity_min = 85.93
+initial_velocity_max = 85.93
+gravity = Vector3(0, 0, 0)
+damping_min = 100.00001
+damping_max = 100.00001
+damping_curve = SubResource("CurveTexture_rcd83")
+scale_min = 0.5
+scale_max = 0.5
+alpha_curve = SubResource("CurveTexture_g0m8i")
+
+[node name="Battle" type="Node2D" unique_id=37975594]
+script = ExtResource("1_o8bsx")
+
+[node name="SpamTimer" type="Timer" parent="." unique_id=801915524]
+one_shot = true
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1595769166]
+
+[node name="CritButton" parent="UI" unique_id=30877568 groups=["UI"] instance=ExtResource("4_11mmy")]
+offset_left = 399.0
+offset_top = 209.0
+offset_right = 463.0
+offset_bottom = 273.0
+
+[node name="AttackButtons" type="PanelContainer" parent="UI" unique_id=115089341 groups=["UI"]]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 65.0
+offset_top = -88.0
+offset_right = 154.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ButtonBackground" type="TextureRect" parent="UI/AttackButtons" unique_id=174482364]
+layout_mode = 2
+texture = ExtResource("4_17ekq")
+stretch_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/AttackButtons" unique_id=1220675956]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 9
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/AttackButtons/MarginContainer" unique_id=2139052137]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="UI/AttackButtons/MarginContainer/VBoxContainer" unique_id=402631278]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ChainButton" type="TextureButton" parent="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2" unique_id=1892671056]
+layout_mode = 2
+texture_normal = ExtResource("7_bch6i")
+texture_pressed = ExtResource("8_q43bu")
+texture_disabled = ExtResource("8_q43bu")
+stretch_mode = 4
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2" unique_id=333292537]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/CenterContainer" unique_id=784080788]
+layout_mode = 2
+theme_override_constants/line_spacing = -6
+text = "CHAIN ATTACK
+[C]"
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/AttackButtons/MarginContainer/VBoxContainer" unique_id=1479625479]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="AttackButton" type="TextureButton" parent="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer" unique_id=2038194524]
+layout_mode = 2
+texture_normal = ExtResource("5_rgg0r")
+texture_pressed = ExtResource("6_bch6i")
+texture_disabled = ExtResource("6_bch6i")
+stretch_mode = 4
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer" unique_id=1385014713]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer/CenterContainer" unique_id=1598512560]
+layout_mode = 2
+text = "ATTACK [V]"
+
+[node name="WeaponDisplay" parent="UI" unique_id=2124456606 groups=["UI"] instance=ExtResource("2_en5gs")]
+
+[node name="HealthBar" parent="UI" unique_id=913688278 groups=["UI"] instance=ExtResource("3_en5gs")]
+offset_right = 157.0
+
+[node name="TatterCount" type="Control" parent="UI" unique_id=1252679269]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -81.0
+offset_right = 40.0
+offset_bottom = -41.0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/TatterCount" unique_id=1947331101]
+layout_mode = 0
+offset_top = 14.0
+offset_right = 54.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/TatterCount/MarginContainer" unique_id=1282072937]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/TatterCount/MarginContainer/PanelContainer" unique_id=1578403646]
+layout_mode = 2
+theme_override_constants/separation = -3
+
+[node name="ItemIcon" type="TextureRect" parent="UI/TatterCount/MarginContainer/PanelContainer/HBoxContainer" unique_id=1904938194]
+layout_mode = 2
+texture = SubResource("AtlasTexture_xr7ht")
+expand_mode = 3
+stretch_mode = 4
+script = ExtResource("16_yds2a")
+item = ExtResource("17_xxu1y")
+metadata/_custom_type_script = "uid://dmrkev573gsft"
+
+[node name="TatterLabel" type="Label" parent="UI/TatterCount/MarginContainer/PanelContainer/HBoxContainer" unique_id=54441747]
+layout_mode = 2
+text = "0"
+
+[node name="TurnClock" parent="UI" unique_id=2046317109 groups=["UI"] instance=ExtResource("11_q43bu")]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_vertical = 2
+
+[node name="Hands" type="MarginContainer" parent="UI" unique_id=624246959]
+offset_right = 31.0
+offset_bottom = 14.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+
+[node name="Label" type="Label" parent="UI/Hands" unique_id=5679931]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Hands: XX/XX"
+
+[node name="Background" type="Node2D" parent="." unique_id=1951546377]
+
+[node name="TextureRect" type="TextureRect" parent="Background" unique_id=1751131861 groups=["UI"]]
+offset_left = -171.0
+offset_top = -85.0
+offset_right = 649.0
+offset_bottom = 455.0
+texture = ExtResource("1_wqxgi")
+
+[node name="PixelFogShader" type="ColorRect" parent="Background" unique_id=1807977809 groups=["UI"]]
+material = SubResource("ShaderMaterial_7e3i2")
+offset_left = -203.0
+offset_top = -82.0
+offset_right = 708.0
+offset_bottom = 441.0
+mouse_filter = 2
+
+[node name="BattleCamera2D" parent="." unique_id=1195768831 instance=ExtResource("13_ev1ic")]
+
+[node name="Player" parent="." unique_id=832279553 instance=ExtResource("2_3qw02")]
+z_index = 10
+position = Vector2(240, 227)
+
+[node name="ArmoryPosition" type="Marker2D" parent="." unique_id=825787940]
+position = Vector2(250, 335)
+
+[node name="EnemyTargetPosition" type="Marker2D" parent="." unique_id=594326017]
+position = Vector2(250, 80)
+
+[node name="FireworkGPUParticles2D" type="GPUParticles2D" parent="." unique_id=1599037541]
+material = SubResource("CanvasItemMaterial_ev1ic")
+position = Vector2(241, 282)
+emitting = false
+amount = 2
+sub_emitter = NodePath("../BurstGPUParticles2D2")
+texture = SubResource("GradientTexture2D_g0m8i")
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_rcd83")
+
+[node name="BurstGPUParticles2D2" type="GPUParticles2D" parent="." unique_id=389922457]
+emitting = false
+amount = 1000
+texture = SubResource("GradientTexture2D_xx4v1")
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_pcxeh")
+
+[node name="TattersGPUParticles2D" type="GPUParticles2D" parent="." unique_id=1754541793]
+visible = false
+position = Vector2(250, 80)
+emitting = false
+amount = 4
+texture = SubResource("AtlasTexture_g0m8i")
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_yds2a")
+
+[connection signal="timeout" from="SpamTimer" to="." method="_on_spam_timer_timeout"]
+[connection signal="pressed" from="UI/CritButton" to="." method="_on_crit_button_pressed"]
+[connection signal="pressed" from="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton" to="." method="_on_chain_button_pressed"]
+[connection signal="pressed" from="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer/AttackButton" to="." method="_on_attack_button_pressed"]

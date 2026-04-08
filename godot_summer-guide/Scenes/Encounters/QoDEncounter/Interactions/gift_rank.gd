@@ -11,7 +11,7 @@ var ranks_to_unlock : Array = range(ProgressTracker.unlocked_rank + 1, ProgressT
 var event_completed : bool = false
 
 # === Custom Methods ===========================================================
-func add_weapon_pool(new_ranks : Array) -> void:
+static func add_weapon_pool(new_ranks : Array) -> void:
 	
 	for new_rank : int in new_ranks:
 		# Add weapons to available weapons to be given to player
@@ -30,9 +30,6 @@ func add_weapon_pool(new_ranks : Array) -> void:
 # === Built In =================================================================
 
 func _ready() -> void:
-	
-	# DELETE
-	ranks_to_unlock = range(5,7)
 	
 	if ranks_to_unlock.back() > 10:
 		push_error("Attempting to unlock rank %d" % [ranks_to_unlock.back()])

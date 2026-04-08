@@ -3,6 +3,10 @@ extends Battle
 
 @onready var tutorial_ap : AnimationPlayer = $AnimationPlayer
 
+var tutorial_cards : Array[Dictionary] = [
+	
+]
+
 # === Custom Methods ===========================================================
 
 func wait(sec : float) -> Signal:
@@ -33,7 +37,6 @@ func _ready() -> void:
 	turn_clock.hide()
 	health_bar.hide()
 	tatter_count.hide()
-	crit_button.hide()
 	hands_label.hide()
 	
 	player.play("tutorial_laying")

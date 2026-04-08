@@ -5,13 +5,17 @@ do player.play("tutorial_get_up")
 do player.play("tutorial_idle_no_cards")
 do weapons_display.play("joker_show")
 Fool: ...
-do wait(1)
-
-Fool: I cant remember anything.
+Fool: *animation of the player's head in pain, hinting at memory issues*
+Fool: Where am I...
 
 do spawn_enemy(3)
 
-Fool: Ah shoot i need weapons.
+do initiate_combat()
+do weapons_display.play("RESET")
+do weapons_display.draw_button.hide()
+do player.play("tutorial_idle_no_cards")
+
+Fool: Why is this world my enemy...
 
 do player.play("tutorial_grab_cards")
 do attack_buttons_ui.show()

@@ -60,7 +60,3 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	 #Loops idle animations
 	if anim_name.contains("idle"):
 		animation_player.play(anim_name)
-	#elif anim_name.contains("attack"):
-		#animation_player.play(anim_name.replace("attack", "idle"))
-	#elif anim_name.contains("defend"):
-		#animation_player.play(anim_name.replace("defend", "idle"))

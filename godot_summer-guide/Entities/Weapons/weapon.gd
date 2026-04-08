@@ -30,7 +30,7 @@ var camera : Camera2D
 var hp : float
 var crits_stored : int 
 var attacks : int
-var mini_equipped : Card
+var mini_equipped : MiniCard
 var mini_cards : Array
 var turn_order_flipped : bool:
 	set(value):

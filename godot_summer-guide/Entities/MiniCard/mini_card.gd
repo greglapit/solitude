@@ -1,4 +1,4 @@
-class_name Card
+class_name MiniCard
 extends Area2D
 
 # Logic
@@ -37,7 +37,7 @@ signal free
 # === Custom Methods ===========================================================
 #func save() -> Dictionary:
 	#var data : Dictionary = {
-		#"class_name" : "Card",
+		#"class_name" : "MiniCard",
 		#"durability": durability,
 		#"parent": get_parent().get_path(),
 		#"pos_x": position.x,
@@ -49,19 +49,19 @@ signal free
 	#return data
 	#
 	
-static func new_card(_suit : Suits, _rank : int) -> Card:
+static func new_card(_suit : Suits, _rank : int) -> MiniCard:
 	if _suit not in Suits.values() or _rank not in range(1,14):
 		print("Invalid card declaration")
 		return
-	var card : Card = card_scn.instantiate()
+	var card : MiniCard = card_scn.instantiate()
 	card.suit = _suit
 	card.rank = _rank
 	return card
 
 ## Returns random card with optional range for rank and suit
-static func new_random_card(_range : Array = range(1,14), suit1 : int = -1, suit2 : int = -1, suit3 : int = -1, suit4 : int = -1) -> Card:
+static func new_random_card(_range : Array = range(1,14), suit1 : int = -1, suit2 : int = -1, suit3 : int = -1, suit4 : int = -1) -> MiniCard:
 	
-	var card : Card = card_scn.instantiate()
+	var card : MiniCard = card_scn.instantiate()
 	var suits : Array[int] = [suit1, suit2, suit3, suit4]
 	
 	var no_suit_constraint : bool = suits.all(func(e : int) -> bool: return e == -1)
@@ -142,7 +142,7 @@ func queue(anim : String) -> void:
 # === Built In =================================================================
 
 func _ready() -> void:
-	name = "MiniCard" + str(get_tree().get_node_count_in_group("mini_cards"))
+	name = "MiniMiniCard" + str(get_tree().get_node_count_in_group("mini_cards"))
 	# Assigns random edge texture
 	sprite2d.frame = randi() % 4
 	sprite_variant = sprite2d.frame

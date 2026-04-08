@@ -1,5 +1,7 @@
 extends Control
 
+# DEPRECIATED
+
 @onready var panel1 : Panel = $MarginContainer/HBoxContainer/Panel
 @onready var panel2 : Panel = $MarginContainer/HBoxContainer/Panel2
 @onready var panel3 : Panel = $MarginContainer/HBoxContainer/Panel3

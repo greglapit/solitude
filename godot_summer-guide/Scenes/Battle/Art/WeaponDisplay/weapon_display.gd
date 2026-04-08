@@ -24,7 +24,7 @@ extends Control
 @onready var click_timer : Timer = $ClickTimer
 
 var displayed_weapon : Weapon
-var card : Card
+var card : MiniCard
 var ticks : Array[TextureRect] 
 var actions : int
 
@@ -37,7 +37,7 @@ signal weapon_display_update 			## Sent when Weapons display should update has o
 
 # === Custom Methods ===========================================================
 ## Updates weapon display's weapon and card objects. Puts weapon arts and name
-func display_weapon(weapon : Weapon = displayed_weapon, mini_card : Card = card, _actions : int = 0) -> void:
+func display_weapon(weapon : Weapon = displayed_weapon, mini_card : MiniCard = card, _actions : int = 0) -> void:
 	actions = _actions
 	if actions >= 1:
 		draw_button.disabled = false
@@ -108,11 +108,12 @@ func play(anim : String = "RESET") -> void:
 	if anim == "draw_highlight":
 		$DrawHighlight/AnimationPlayer.play("draw_highlight")
 		return
-	if anim == "RESET":
+	elif anim == "RESET":
 		$DrawHighlight/AnimationPlayer.play("RESET")
 		return
-	animation_player.play(anim)
-	await animation_player.animation_finished
+	else:
+		animation_player.play(anim)
+		await animation_player.animation_finished
 
 # === Built In =================================================================
 

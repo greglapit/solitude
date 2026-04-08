@@ -6,7 +6,7 @@ var seeded_scn : PackedScene = preload("res://Entities/Weapons/ArtWeaponEffects/
 
 # === Custom Methods ===========================================================
 #region
-# OBSOLETE. No longer allowing saving during battle
+# DEPRECIATED. No longer allowing saving during battle
 #func save() -> Dictionary:
 	#var data : Dictionary = super()
 	#Globals.rekey_objects_to_names(enemies_seeded_dict)

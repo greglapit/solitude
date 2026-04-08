@@ -20,7 +20,7 @@ var max_draw : int = 3			# How many items player can have drawn at a time
 var max_crits : int = 3
 
 # Convert all keys to int automatically for JSON
-var armory : Dictionary = {1 : "1_base_weapon"}: 
+var armory : Dictionary = {2 : "2_base_weapon"}: 
 	set(value):
 		# If key is string (JSON)
 		if typeof(value.keys()[0]) == TYPE_STRING:
@@ -416,7 +416,18 @@ func load_all_resources() -> void:
 		all_item_data[item_data.id] = item_data
 
 #endregion
+
+func intitialize_weapon_pool() -> void:
+	var armory_keys : Array = armory.keys()
+	armory_keys.sort()
+	if !armory.is_empty() and armory_keys.size() <= 3:
+		GiftRank.add_weapon_pool(range(armory_keys[0], armory_keys.back() + 1))
+	else:
+		push_error("Initializing with too many items in armory")
+
 # ==============================================================================
 func _ready() -> void:
 	load_all_resources() # TODO: Maybe DELETE? Handled in scenehandler
 	rng.randomize()
+	
+	intitialize_weapon_pool()
