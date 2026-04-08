@@ -88,9 +88,9 @@ func end_battle() -> void:
 	await get_tree().create_timer(4.0).timeout
 	change_scn.emit(Globals.scenes.CAMP, false, false)
 	
-# Obselete save code
+# Depreciated save code
 #region
-# OBSELETE. No longer allowing saving during battle
+# DEPRECIATED. No longer allowing saving during battle
 #func save() -> Dictionary:
 	#var data : Dictionary = {
 		#"actions": actions,
@@ -165,7 +165,6 @@ func load_armory() -> void:
 		player.anim_finished.connect(weapon._on_player_anim_finished)
 		player.attack_impact.connect(weapon._on_player_attack_impact)
 		player.weap_effect_start.connect(weapon._on_player_weap_effect_start)
-		weapon.add_to_group("persist")
 		add_child(weapon)
 		
 		# After because property gets assigned after added to tree
@@ -206,10 +205,9 @@ func spawn_enemy(num : int = 1, enemy_data : Dictionary = {}) -> void:
 				if prop == "filename" or prop == "parent" or prop == "pos_x" or prop == "pos_y":
 					continue
 				enemy.set(prop, enemy_data[prop])
-			enemy.position = Vector2(enemy_data["pos_x"], enemy_data["pos_y"])
+			#enemy.position = Vector2(enemy_data["pos_x"], enemy_data["pos_y"])
 		
 		add_child(enemy)
-		enemy.add_to_group("persist")
 		enemy.animation_player.animation_finished.connect(_on_enemy_animation_finished.bind(enemy))
 		enemy.damaged.connect(_on_enemy_damaged.bind(enemy))
 		enemy.freed.connect(_on_enemy_freed)
@@ -374,7 +372,6 @@ func draw_card(amount : int = 1) -> void:
 		mini_card.position = armory_position
 		mini_card.visible = false
 		add_child(mini_card)
-		mini_card.add_to_group("persist")
 		
 		# Equips only first one
 		if i == 0:

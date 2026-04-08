@@ -55,7 +55,7 @@ signal freed(enemy : Enemy)
 
 # === Custom Methods ===========================================================
 
-# OBSOLETE. No longer allowing saving during battle
+# Depreciated. No longer allowing saving during battle
 #region
 #func save() -> Dictionary:
 	#var data : Dictionary = {

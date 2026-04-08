@@ -4,8 +4,37 @@ extends Battle
 @onready var tutorial_ap : AnimationPlayer = $AnimationPlayer
 
 var tutorial_cards : Array[Dictionary] = [
-	
+	{
+		"rank" = 2,
+	},
+	{
+		"rank" = 2,
+	},
+	{
+		"rank" = 2,
+	}
 ]
+
+var tutorial_enemies : Array[Dictionary] = [
+	
+	# First Set of Enemies
+	{
+		"rank" = 3,
+		"true_rank" = 3
+	},
+	{
+		"rank" = 3,
+		"true_rank" = 3
+	},
+	{
+		"rank" = 3,
+		"true_rank" = 3
+	}
+	
+	# Second Set of Enemies
+]
+
+#var tutorial_finished : bool = false
 
 # === Custom Methods ===========================================================
 
@@ -26,6 +55,24 @@ func end_battle() -> void:
 	await get_tree().create_timer(3.0).timeout
 	change_scn.emit(Globals.scenes.CAMP, false, false)
 
+func spawn_tutorial_card(amt : int = 3) -> void:
+	for i : int in range(amt):
+		spawn_card(tutorial_cards[0])
+		tutorial_cards.remove_at(0)
+	align_mini_cards(true)
+
+func spawn_tutorial_enemy(amt : int = 3) -> void:
+	for i : int in range(amt):
+		spawn_enemy(1, tutorial_enemies[0])
+		tutorial_enemies.remove_at(0)
+		await get_tree().create_timer(0.2).timeout
+
+# No tatters from first fight
+func update_tatters() -> void:
+	pass
+
+func play
+
 # === Built In =================================================================
 
 func _ready() -> void:
@@ -41,10 +88,14 @@ func _ready() -> void:
 	
 	player.play("tutorial_laying")
 	
-func _unhandled_input(event: InputEvent) -> void:
-	super(event)
+func _unhandled_input(_event: InputEvent) -> void:
+	return
+	#if !tutorial_finished:
+		#return
+	#super(event)
 
 # === Signals ==================================================================
+
 
 func _on_started_typing() -> void:
 	weapons_display.play("joker_talking")

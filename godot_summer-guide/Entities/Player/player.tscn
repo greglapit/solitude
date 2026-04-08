@@ -6622,7 +6622,6 @@ hframes = 7
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D" unique_id=1859624017]
 root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_3uyv8")
-next/base_defend = &"base_idle"
 
 [node name="Effects" type="Sprite2D" parent="." unique_id=191164400]
 visible = false
