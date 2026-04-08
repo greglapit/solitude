@@ -112,12 +112,14 @@ func play(anim : String = "RESET") -> void:
 		$DrawHighlight/AnimationPlayer.play("RESET")
 		return
 	animation_player.play(anim)
+	await animation_player.animation_finished
 
 # === Built In =================================================================
 
 func _ready() -> void:
 	ticks = [tick1,tick2,tick3,tick4,tick5,tick6,tick7]
 	display_weapon(null, null, Globals.actions)
+	
 	
 func _input(_event: InputEvent) -> void:
 	pass
@@ -152,5 +154,5 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		card_label1.text = str(Globals.ranks[card.rank])
 		card_label2.text = str(Globals.ranks[card.rank])
 		animation_player.play("joker_end_spin")
-	if anim_name == "joker_crit":
+	if anim_name == "joker_crit" or "joker_show":
 		animation_player.play("joker_idle")

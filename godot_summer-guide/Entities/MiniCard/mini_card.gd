@@ -35,19 +35,19 @@ signal free
 
 
 # === Custom Methods ===========================================================
-func save() -> Dictionary:
-	var data : Dictionary = {
-		"class_name" : "Card",
-		"durability": durability,
-		"parent": get_parent().get_path(),
-		"pos_x": position.x,
-		"pos_y": position.y,
-		"sprite_variant": sprite_variant,
-		"suit": suit,
-		"used": used,
-	}
-	return data
-	
+#func save() -> Dictionary:
+	#var data : Dictionary = {
+		#"class_name" : "Card",
+		#"durability": durability,
+		#"parent": get_parent().get_path(),
+		#"pos_x": position.x,
+		#"pos_y": position.y,
+		#"sprite_variant": sprite_variant,
+		#"suit": suit,
+		#"used": used,
+	#}
+	#return data
+	#
 	
 static func new_card(_suit : Suits, _rank : int) -> Card:
 	if _suit not in Suits.values() or _rank not in range(1,14):

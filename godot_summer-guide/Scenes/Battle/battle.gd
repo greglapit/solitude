@@ -4,8 +4,8 @@ extends Node2DScene
 @onready var firework_particle : GPUParticles2D = $FireworkGPUParticles2D
 @onready var tatters_particle : GPUParticles2D = $TattersGPUParticles2D
 
-@onready var player : PlayerBattle = $Player
-@onready var weapons_display : Control = $UI/WeaponDisplay
+@onready var player : Player = $Player
+@onready var weapons_display : WeaponDisplay = $UI/WeaponDisplay
 @onready var health_bar : PanelContainer = $UI/HealthBar
 @onready var tatter_count : Control = $UI/TatterCount
 @onready var tatter_count_label : Label = $UI/TatterCount/MarginContainer/PanelContainer/HBoxContainer/TatterLabel
@@ -67,6 +67,7 @@ var crit_infinite : bool = false
 # General
 #-------------------------------------------------------------------------------
 func initialize() -> void:
+	weapons_display.animation_player.play("joker_show")
 	spawn_enemy(3)
 	pause_input = false
 
@@ -346,7 +347,6 @@ func spawn_card(mini_data : Dictionary) -> void:
 	var mini_card : Card = Card.new_random_card(Globals.armory.keys())
 	mini_card.position = armory_position
 	add_child(mini_card)
-	mini_card.add_to_group("persist")
 	
 	Globals.assign_vars_from_dict(mini_card, mini_data)
 	mini_card.update_visuals()

@@ -5,15 +5,16 @@ extends Battle
 
 # === Custom Methods ===========================================================
 
+func wait(sec : float) -> Signal:
+	return await get_tree().create_timer(sec).timeout
+	
 func initialize() -> void:
-	var balloon : Balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/TutorialBattle/tutorial.dialogue"), "start")
+	var balloon : Balloon = DialogueManager.show_dialogue_balloon_scene("res://Scenes/UI/TextBox/battle_balloon.tscn",load("res://Scenes/TutorialBattle/tutorial.dialogue"), "start")
 	await balloon.char_spoke
 	balloon.dialogue_label.started_typing.connect(_on_started_typing)
 	balloon.dialogue_label.finished_typing.connect(_on_finished_typing)
 	
-	
 	await balloon.tree_exited
-	spawn_enemy(3)
 	pause_input = false
 
 func end_battle() -> void:
@@ -26,12 +27,16 @@ func end_battle() -> void:
 func _ready() -> void:
 	super()
 	#weapons_display.hide()
-	#attack_buttons_ui.hide()
-	#turn_clock.hide()
-	#health_bar.hide()
-	#tatter_count.hide()
-	#crit_button.hide()
-	#hands_label.hide()
+	weapons_display.joker.hide()
+	weapons_display.draw_button.hide()
+	attack_buttons_ui.hide()
+	turn_clock.hide()
+	health_bar.hide()
+	tatter_count.hide()
+	crit_button.hide()
+	hands_label.hide()
+	
+	player.play("tutorial_laying")
 	
 func _unhandled_input(event: InputEvent) -> void:
 	super(event)

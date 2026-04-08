@@ -6270,6 +6270,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_se8dd"]
 resource_name = "tutorial_get_up"
+length = 2.0
 step = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -6290,7 +6291,7 @@ tracks/1/path = NodePath("Sprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [4, 5]
@@ -6350,7 +6351,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_r8ihd"]
 resource_name = "tutorial_idle_no_card"
-loop_mode = 1
 step = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -6547,7 +6547,7 @@ _data = {
 &"base_idle": SubResource("Animation_mv1ah"),
 &"tutorial_get_up": SubResource("Animation_se8dd"),
 &"tutorial_grab_cards": SubResource("Animation_htwll"),
-&"tutorial_idle_no_card": SubResource("Animation_r8ihd"),
+&"tutorial_idle_no_cards": SubResource("Animation_r8ihd"),
 &"tutorial_laying": SubResource("Animation_1pnuw")
 }
 

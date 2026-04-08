@@ -1,4 +1,19 @@
 ~ start
-Fool: TESTING TESTING
-Fool: I wonder if htis is possible.
+do wait(3)
+
+do player.play("tutorial_get_up")
+do player.play("tutorial_idle_no_cards")
+do weapons_display.play("joker_show")
+Fool: ...
+do wait(1)
+
+Fool: I cant remember anything.
+
+do spawn_enemy(3)
+
+Fool: Ah shoot i need weapons.
+
+do player.play("tutorial_grab_cards")
+do attack_buttons_ui.show()
+do player.play("base_idle")
 => END
