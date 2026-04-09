@@ -69,6 +69,7 @@ var crit_infinite : bool = false
 func initialize() -> void:
 	weapons_display.animation_player.play("joker_show")
 	spawn_enemy(3)
+	await weapons_display.animation_player.animation_finished
 	pause_input = false
 
 func end_round() -> void:
@@ -538,6 +539,7 @@ func _on_draw_button_pressed() -> void:
 		return
 		
 	weapons_display.buttons_enabled(false)
+	weapons_display.play("RESET")
 	pause_input = true
 	if get_tree().get_node_count_in_group("mini_cards") + int(mini_equipped != null) >= Globals.max_draw:
 		pause_input = false

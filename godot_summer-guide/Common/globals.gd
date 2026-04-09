@@ -13,7 +13,7 @@ var hp : int = 20:
 	set(value):
 		hp = clamp(value, 0, max_hp)
 var max_hp : int = 20
-var draw_amt : int = 3
+var draw_amt : int = 1
 var actions : int = 1
 var attacks : int = 1
 var max_draw : int = 3			# How many items player can have drawn at a time

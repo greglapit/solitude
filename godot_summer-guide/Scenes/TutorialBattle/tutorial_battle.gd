@@ -208,7 +208,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		tutorial_ap.play("explain_hide")
 		get_viewport().set_input_as_handled()
 		return
-	super(event)
+	#super(event)
 	
 
 # === Signals ==================================================================
@@ -233,6 +233,7 @@ func _on_draw_button_pressed() -> void:
 	pause_input = true
 	actions -= 1
 	weapons_display.buttons_enabled(false)
+	weapons_display.play("RESET")
 	player.play("tutorial_grab_cards")
 	await player.anim_finished
 	spawn_tutorial_card(1)

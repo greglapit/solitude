@@ -21,7 +21,6 @@ extends CanvasLayer
 ## The action to use to skip typing the dialogue
 @export var skip_action: StringName = &"ui_cancel"
 
-@export var accept_action : StringName = &"ui_accept"
 
 ## A sound player for voice lines (if they exist).
 @onready var audio_stream_player: AudioStreamPlayer = %AudioStreamPlayer
@@ -46,14 +45,14 @@ var dialogue_line: DialogueLine:
 		if value:
 			dialogue_line = value
 			animation_player.play("fade_out")
-			await animation_player.animation_finished
+			#await animation_player.animation_finished
 			animation_player.play("fade_in")
 			apply_dialogue_line()
 		else:
 			# The dialogue has finished so close the balloon
 			if owner == null:
 				animation_player.play("fade_out")
-				await animation_player.animation_finished
+				#await animation_player.animation_finished
 				queue_free()
 			else:
 				hide()
@@ -209,8 +208,8 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 	if dialogue_label.is_typing:
 		var mouse_was_clicked: bool = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed()
 		var skip_button_was_pressed: bool = event.is_action_pressed(skip_action)
-		var accept_button_was_pressed : bool = event.is_action_pressed(accept_action)
-		if mouse_was_clicked or skip_button_was_pressed or accept_button_was_pressed:
+		var next_button_was_pressed : bool = event.is_action_pressed(next_action)
+		if mouse_was_clicked or skip_button_was_pressed or next_button_was_pressed:
 			get_viewport().set_input_as_handled()
 			dialogue_label.skip_typing()
 			return
