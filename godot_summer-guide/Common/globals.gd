@@ -16,11 +16,11 @@ var max_hp : int = 20
 var draw_amt : int = 3
 var actions : int = 1
 var attacks : int = 1
-var max_draw : int = 2			# How many items player can have drawn at a time
+var max_draw : int = 3			# How many items player can have drawn at a time
 var max_crits : int = 3
 
 # Convert all keys to int automatically for JSON
-var armory : Dictionary = {2 : "2_base_weapon"}: 
+var armory : Dictionary = {1 : "1_base_weapon", 2 : "2_base_weapon", 3 : "3_base_weapon"}: 
 	set(value):
 		# If key is string (JSON)
 		if typeof(value.keys()[0]) == TYPE_STRING:
@@ -32,7 +32,8 @@ var armory : Dictionary = {2 : "2_base_weapon"}:
 			armory = value
 var learned_ranks : Array = armory.keys()
 var memory_capacity : int = 5
-var armory_durs : Array = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+var init_armory_dur : int = 3
+var armory_durs : Array # Form = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5] (for each rank)
 var inventory : Dictionary		# item.id : item_stack
 
 #region # Weapon Dicts
@@ -425,9 +426,15 @@ func intitialize_weapon_pool() -> void:
 	else:
 		push_error("Initializing with too many items in armory")
 
+func initialize_armory_durs() -> void:
+	armory_durs.clear()
+	armory_durs.resize(10)
+	armory_durs.fill(init_armory_dur)
+	
 # ==============================================================================
 func _ready() -> void:
 	load_all_resources() # TODO: Maybe DELETE? Handled in scenehandler
 	rng.randomize()
 	
 	intitialize_weapon_pool()
+	initialize_armory_durs()

@@ -25,13 +25,23 @@ do weapons_display.play("draw_highlight")
 
 ~ hint_equip_card 
 Fool: A Two of Diamonds...
-Fool: I can sense great power from within this card.
 => END
 
 ~ equip_first_card
-Fool: Daggers... Perhaps I can survive this encounter.
+Fool: Daggers... Perhaps I have a chance at surviving this encounter.
+do explain(explains.INITIATIVE)
 => END
 
 ~ hint_grab_new_card
 Fool: I have time to grab another card before the enemy attacks again.
 do weapons_display.play("draw_highlight")
+
+=> END
+
+~ equip_second_card
+Fool: What a powerful gem...
+=> END
+
+~ equip_fourth_card
+Fool: Quite an agile spear.
+=> END

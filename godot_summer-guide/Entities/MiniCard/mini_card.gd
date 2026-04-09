@@ -11,7 +11,7 @@ enum Suits {
 var rank : int = -1
 var suit : Suits = Suits.DIAMOND
 var selected : bool = false
-var durability : int = 5
+var durability : int
 var used : bool = false:
 	set(value):
 		if value:
@@ -148,6 +148,8 @@ func _ready() -> void:
 	sprite_variant = sprite2d.frame
 	animation_player.play("spawn")
 	update_visuals()
+	
+	durability = Globals.armory_durs[rank + 1]
 	
 func _input(_event: InputEvent) -> void:
 	pass

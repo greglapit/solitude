@@ -2,7 +2,7 @@ class_name Battle
 extends Node2DScene
 
 @onready var firework_particle : GPUParticles2D = $FireworkGPUParticles2D
-@onready var tatters_particle : GPUParticles2D = $TattersGPUParticles2D
+@onready var tatters_particle : GPUParticles2D = $TattersGPUParticles2D			#DEPRECIATED
 
 @onready var player : Player = $Player
 @onready var weapons_display : WeaponDisplay = $UI/WeaponDisplay
@@ -756,7 +756,9 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 		equip_mini_card(null)
 	
 	# Stops player from equipping when round is over
-	equip_mini_card(mini_equipped)
+	if curr_weapon:
+		curr_weapon.equip()
+		#equip_mini_card(mini_equipped)
 	
 
 func _on_weapon_crit() -> void:
