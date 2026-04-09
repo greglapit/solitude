@@ -168,11 +168,13 @@ texture_pressed = ExtResource("8_q43bu")
 texture_disabled = ExtResource("8_q43bu")
 stretch_mode = 4
 
-[node name="CenterContainer" type="CenterContainer" parent="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2" unique_id=333292537]
-layout_mode = 2
+[node name="CenterContainer" type="CenterContainer" parent="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton" unique_id=333292537]
+layout_mode = 0
+offset_right = 67.0
+offset_bottom = 36.0
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/CenterContainer" unique_id=784080788]
+[node name="Label" type="Label" parent="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton/CenterContainer" unique_id=784080788]
 layout_mode = 2
 theme_override_constants/line_spacing = -6
 text = "CHAIN ATTACK
@@ -190,11 +192,13 @@ texture_pressed = ExtResource("6_bch6i")
 texture_disabled = ExtResource("6_bch6i")
 stretch_mode = 4
 
-[node name="CenterContainer" type="CenterContainer" parent="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer" unique_id=1385014713]
-layout_mode = 2
+[node name="CenterContainer" type="CenterContainer" parent="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer/AttackButton" unique_id=1385014713]
+layout_mode = 0
+offset_right = 67.0
+offset_bottom = 37.0
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer/CenterContainer" unique_id=1598512560]
+[node name="Label" type="Label" parent="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer/AttackButton/CenterContainer" unique_id=1598512560]
 layout_mode = 2
 text = "ATTACK [V]"
 

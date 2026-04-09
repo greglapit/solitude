@@ -19,6 +19,7 @@ extends Control
 @onready var tick7 : TextureRect = $HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer/Tick7
 @onready var weapon_art : TextureRect = $HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/WeaponArt
 @onready var draw_button : TextureButton = $HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton
+@onready var draw_button_label : Label = $HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton/Draw
 @onready var cut_button : TextureButton = $HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/CutButton
 @onready var socket_button : TextureButton = $HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/SocketButton
 @onready var click_timer : Timer = $ClickTimer
@@ -42,7 +43,7 @@ func display_weapon(weapon : Weapon = displayed_weapon, mini_card : MiniCard = c
 	if actions >= 1:
 		draw_button.disabled = false
 	else:
-		draw_button.disabled = false
+		draw_button.disabled = true
 	cut_button.disabled = true
 	socket_button.disabled = true
 	

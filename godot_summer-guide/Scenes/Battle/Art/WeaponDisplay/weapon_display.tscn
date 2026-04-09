@@ -690,11 +690,18 @@ texture_pressed = ExtResource("8_q6tnq")
 texture_disabled = ExtResource("8_q6tnq")
 
 [node name="Draw" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton" unique_id=1026087139]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 2.0
-offset_right = 50.0
-offset_bottom = 16.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -7.0
+offset_right = 20.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
 text = "DRAW [D]"
 horizontal_alignment = 1
@@ -807,7 +814,7 @@ one_shot = true
 
 [node name="DrawHighlight" type="Sprite2D" parent="." unique_id=2123830605]
 visible = false
-position = Vector2(41, 60)
+position = Vector2(41, 50)
 texture = ExtResource("12_cjusc")
 hframes = 2
 

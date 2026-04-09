@@ -16,7 +16,7 @@ var max_hp : int = 20
 var draw_amt : int = 3
 var actions : int = 1
 var attacks : int = 1
-var max_draw : int = 3			# How many items player can have drawn at a time
+var max_draw : int = 2			# How many items player can have drawn at a time
 var max_crits : int = 3
 
 # Convert all keys to int automatically for JSON

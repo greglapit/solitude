@@ -144,7 +144,7 @@ func apply_dialogue_line() -> void:
 	balloon.focus_mode = Control.FOCUS_ALL
 	balloon.grab_focus()
 
-	#character_label.visible = not dialogue_line.character.is_empty()
+	#character_label.visibl = not dialogue_line.character.is_empty()
 	character_label.text = tr(dialogue_line.character, "dialogue")
 	char_spoke.emit(character_label.text)
 

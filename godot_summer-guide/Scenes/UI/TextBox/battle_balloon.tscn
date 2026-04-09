@@ -220,7 +220,6 @@ _data = {
 }
 
 [node name="BattleBalloon" type="CanvasLayer" unique_id=599062984]
-layer = 100
 script = ExtResource("1_4ffoc")
 
 [node name="Balloon" type="Control" parent="." unique_id=491663068]
@@ -288,11 +287,11 @@ scroll_active = false
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/normal_font_size = 10
-theme_override_font_sizes/bold_font_size = 10
-theme_override_font_sizes/bold_italics_font_size = 10
-theme_override_font_sizes/italics_font_size = 10
-theme_override_font_sizes/mono_font_size = 10
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
 text = "Dialogue..."
 
 [node name="Control" type="Control" parent="Balloon/MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=2084240142]

@@ -2,12 +2,13 @@
 do wait(3)
 
 do player.play("tutorial_get_up")
-do player.play("tutorial_idle_no_cards")
+do! player.play("tutorial_idle_no_cards")
 do weapons_display.play("joker_show")
 Fool: ...
 Fool: Where am I...
-Fool: *animation of the player's head in pain, hinting at memory issues*
+Fool: *animation of the player's head in pain, hinting at amnesia issues*
 
+do wait(0.5)
 do spawn_tutorial_enemy(3)
 do wait(2)
 
@@ -15,11 +16,22 @@ do initiate_combat()
 do weapons_display.play("RESET")
 do weapons_display.draw_button.hide()
 do player.play("tutorial_idle_no_cards")
-Fool: Why is this world my enemy...
+Fool: Why must I experience hostility...
 
-do wait(1)
-do player.play("tutorial_grab_cards")
-do weapons_display.play("joker_show")
-do spawn_tutorial_card(3)
-do player.play("base_idle")
+do weapons_display.draw_button.show()
+do weapons_display.play("draw_highlight")
+
 => END
+
+~ hint_equip_card 
+Fool: A Two of Diamonds...
+Fool: I can sense great power from within this card.
+=> END
+
+~ equip_first_card
+Fool: Daggers... Perhaps I can survive this encounter.
+=> END
+
+~ hint_grab_new_card
+Fool: I have time to grab another card before the enemy attacks again.
+do weapons_display.play("draw_highlight")
