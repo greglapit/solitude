@@ -84,6 +84,10 @@ func initialize() -> void:
 	balloon.dialogue_label.finished_typing.connect(_on_finished_typing)
 	
 	await balloon.tree_exited
+	
+	tutorial_ap.play("draw_button_show")
+	await tutorial_ap.animation_finished
+	weapons_display.play("draw_highlight")
 	pause_input = false
 
 func end_battle() -> void:
@@ -114,7 +118,7 @@ func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -
 				
 				# Show when equipping for first time
 				chain_button.hide()
-				tutorial_ap.play("attack_buttons_show")
+				await tutorial_ap.animation_finished
 				
 				
 			2: # Picked second ACE
@@ -172,14 +176,17 @@ func explain(scn : explains) -> void:
 	match scn:
 		explains.INITIATIVE:
 			tutorial_ap.play("explain_initiative")
+			await tutorial_ap.animation_finished
 			explained_initiative = true
 		explains.CHAIN:
 			tutorial_ap.play("explain_chain")
 			await tutorial_ap.animation_finished
 			tutorial_ap.play("chain_button_show")
+			await tutorial_ap.animation_finished
 			explained_chain = true
 		explains.CUT_SOCKET:
 			tutorial_ap.play("explain_cut_socket")
+			await tutorial_ap.animation_finished
 			explained_cut_socket = true
 	
 	await get_tree().create_timer(5.0).timeout
@@ -207,6 +214,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_pressed() and explanations.visible:
 		tutorial_ap.play("explain_hide")
 		get_viewport().set_input_as_handled()
+		await tutorial_ap.animation_finished
 		return
 	#super(event)
 	
@@ -274,3 +282,11 @@ func _on_enemy_freed(_enemy : Enemy) -> void:
 
 func _on_explanations_gui_input(event: InputEvent) -> void:
 	_unhandled_input(event)
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	match anim_name:
+		"explain_hide":
+			if turn_clock.visible == false:
+				tutorial_ap.play("attack_buttons_show")
+				await tutorial_ap.animation_finished

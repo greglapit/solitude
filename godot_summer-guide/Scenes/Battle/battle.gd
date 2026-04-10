@@ -197,7 +197,7 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1, enemy_data : Dictionary = {}) -> void:
 	for i : int in range(num):
 		enemies = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(MiniCard.Suits.HEART, range(1,2)) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(MiniCard.Suits.HEART, range(3,4)) # 2 * (2 + randi() % 2)
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
 		
@@ -308,11 +308,15 @@ func update_turn_clock() -> void:
 		return
 		
 	var target : Enemy = enemies[0]
-	if enemies.is_empty() or target.rank <= 0 or !mini_equipped:
+	if enemies.is_empty() or target.rank <= 0 or !mini_equipped \
+			or (enemy_just_attacked and mini_equipped.used):
+		
 		turn_clock.show_turn(turn_clock.turn.HALF)
 		return
 	
-	if (target.rank >= mini_equipped.rank and !mini_equipped.used) or enemy_just_attacked or target.attack_disabled or target.slowed:
+	if (target.rank >= mini_equipped.rank and !mini_equipped.used) \
+			or enemy_just_attacked or target.attack_disabled or target.slowed:
+				
 		turn_clock.show_turn(turn_clock.turn.DOWN)
 	else:
 		turn_clock.show_turn(turn_clock.turn.UP)
@@ -700,13 +704,16 @@ func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 	if !_weapon.active:
 		return
 	await weapon_pause()
-
+	
+	update_turn_clock()
+	
 	var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
 	enemies = get_tree().get_nodes_in_group("enemies")
 	
 	# If all weapons have been used
 	if mini_cards.all(func(n : MiniCard) -> bool: return n.used) or mini_cards.size() == 0:
 		attacks = 0
+		await get_tree().create_timer(0.3).timeout # Allow turnclock to adjust
 		initiate_combat() # Resolves combat with defend
 		return
 		
@@ -720,7 +727,6 @@ func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 		sorted_unused.erase(mini_equipped)
 		var next_mini : MiniCard = sorted_unused[0]
 		equip_mini_card(next_mini)
-		await get_tree().create_timer(0.2).timeout
 		initiate_combat()
 	else:
 		await weapon_pause()

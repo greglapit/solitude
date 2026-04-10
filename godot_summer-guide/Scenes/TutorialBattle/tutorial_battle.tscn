@@ -276,6 +276,18 @@ tracks/12/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("UI/WeaponDisplay/HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton:modulate")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_rq6su"]
 resource_name = "attack_buttons_show"
@@ -304,6 +316,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/TurnClock:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/TurnClock:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.33333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_vwm6i"]
 resource_name = "chain_button_show"
@@ -316,6 +352,22 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.33333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_q4dbv"]
+resource_name = "draw_button_show"
+length = 0.33333668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/WeaponDisplay/HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33333668),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -466,7 +518,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_6wy80"]
 resource_name = "explain_initiative"
-length = 0.5
+length = 0.8333367
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -474,7 +526,7 @@ tracks/0/path = NodePath("Explanations/Explanations:modulate")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.33333334),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -486,7 +538,7 @@ tracks/1/path = NodePath("Explanations/Explanation:modulate")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.33333334, 0.5),
+"times": PackedFloat32Array(0.5, 0.8333333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -572,46 +624,18 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_7oubb"]
-resource_name = "turn_clock_show"
-length = 0.33333668
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("UI/TurnClock:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("UI/TurnClock:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.33333334),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l7k1a"]
 _data = {
 &"RESET": SubResource("Animation_cvjyv"),
 &"attack_buttons_show": SubResource("Animation_rq6su"),
 &"chain_button_show": SubResource("Animation_vwm6i"),
+&"draw_button_show": SubResource("Animation_q4dbv"),
 &"explain_chain": SubResource("Animation_2ul7s"),
 &"explain_cut_socket": SubResource("Animation_8s6mt"),
 &"explain_hide": SubResource("Animation_vx7l8"),
 &"explain_initiative": SubResource("Animation_6wy80"),
 &"hands_label_show": SubResource("Animation_e7sk4"),
-&"hp_bar_show": SubResource("Animation_l7k1a"),
-&"turn_clock_show": SubResource("Animation_7oubb")
+&"hp_bar_show": SubResource("Animation_l7k1a")
 }
 
 [node name="TutorialBattle" type="Node2D" unique_id=37975594]
@@ -705,6 +729,9 @@ layout_mode = 2
 text = "ATTACK"
 
 [node name="WeaponDisplay" parent="UI" unique_id=2124456606 groups=["UI"] instance=ExtResource("8_ot34x")]
+
+[node name="DrawButton" parent="UI/WeaponDisplay/HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer" parent_id_path=PackedInt32Array(2124456606, 820594437) index="0" unique_id=318016024]
+modulate = Color(1, 1, 1, 0)
 
 [node name="HealthBar" parent="UI" unique_id=913688278 groups=["UI"] instance=ExtResource("9_0cxvy")]
 visible = false
@@ -861,3 +888,6 @@ libraries/ = SubResource("AnimationLibrary_l7k1a")
 [connection signal="pressed" from="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton" to="." method="_on_chain_button_pressed"]
 [connection signal="pressed" from="UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer/AttackButton" to="." method="_on_attack_button_pressed"]
 [connection signal="gui_input" from="Explanations/Explanations" to="." method="_on_explanations_gui_input"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+
+[editable path="UI/WeaponDisplay"]

@@ -10,16 +10,13 @@ Fool: *animation of the player's head in pain, hinting at amnesia issues*
 
 do wait(0.5)
 do spawn_tutorial_enemy(3)
+do tutorial_ap.play("hp_bar_show")
 do wait(2)
 
 do initiate_combat()
 do weapons_display.play("RESET")
-do weapons_display.draw_button.hide()
 do player.play("tutorial_idle_no_cards")
 Fool: Why must I experience hostility...
-
-do weapons_display.draw_button.show()
-do weapons_display.play("draw_highlight")
 
 => END
 

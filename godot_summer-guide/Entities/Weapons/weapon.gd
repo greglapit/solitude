@@ -143,7 +143,7 @@ func resolve_combat() -> Dictionary:
 	#===== Combat order calculations
 	# Player has no attacks left, enemy attacks
 	if attacks <= 0:
-		combat_data= enemies[0].attack(self, combat_data)
+		combat_data= enemy_attack()
 		return combat_data
 	
 	# Player has attacks left
@@ -155,7 +155,7 @@ func resolve_combat() -> Dictionary:
 		return combat_data
 	else:
 		reciprocal_attack = true
-		combat_data = enemies[0].attack(self, combat_data)
+		combat_data = enemy_attack()
 		return combat_data
 
 func special_attack() -> Dictionary:
@@ -176,11 +176,11 @@ func has_valid_spec_target(_enemies : Array) -> bool:
 		return true
 	return false
 
-func enemy_attack() -> void:
+func enemy_attack() -> Dictionary:
 	if enemies.is_empty():
-		return
+		return {}
 	var target : Enemy = enemies[0]
-	target.attack(self,combat_data)
+	return target.attack(self,combat_data)
 
 # === Built In =================================================================
 
