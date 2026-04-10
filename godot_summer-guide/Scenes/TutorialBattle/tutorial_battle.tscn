@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://ckdsjkvm6tp0k" path="res://Scenes/TutorialBattle/Art/cut_socket_explanation.png" id="14_e7sk4"]
 [ext_resource type="Texture2D" uid="uid://c8h3cb1tj0n3e" path="res://Scenes/TutorialBattle/Art/initiative_explanation.png" id="14_l7k1a"]
 [ext_resource type="Texture2D" uid="uid://cmbcyj88a71q5" path="res://Scenes/Battle/Art/game_background.png" id="14_qhud3"]
+[ext_resource type="Texture2D" uid="uid://cbx0ucfprogdb" path="res://Scenes/TutorialBattle/Art/mini_card_highlight.png" id="14_vwm6i"]
 [ext_resource type="Shader" uid="uid://bvu6mr6dwkfa5" path="res://Common/Shaders/fog_shader.gdshader" id="15_mb3d8"]
 [ext_resource type="PackedScene" uid="uid://qv3uiu0pk3pt" path="res://Scenes/Battle/battle_camera_2d.tscn" id="16_e13dd"]
 [ext_resource type="PackedScene" uid="uid://bewmpgn4nhlxk" path="res://Entities/Player/player.tscn" id="17_oldgx"]
@@ -117,6 +118,52 @@ damping_curve = SubResource("CurveTexture_rcd83")
 scale_min = 0.5
 scale_max = 0.5
 alpha_curve = SubResource("CurveTexture_g0m8i")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wy80"]
+atlas = ExtResource("14_vwm6i")
+region = Rect2(48, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwm6i"]
+atlas = ExtResource("14_vwm6i")
+region = Rect2(0, 0, 48, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vx7l8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6wy80")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwm6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6wy80")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwm6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6wy80")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwm6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6wy80")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwm6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6wy80")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwm6i")
+}],
+"loop": false,
+"name": &"default",
+"speed": 3.0
+}]
 
 [sub_resource type="Animation" id="Animation_cvjyv"]
 length = 0.001
@@ -879,6 +926,12 @@ lifetime = 0.75
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_yds2a")
+
+[node name="MiniCardHighlight" type="AnimatedSprite2D" parent="." unique_id=529742736]
+visible = false
+sprite_frames = SubResource("SpriteFrames_vx7l8")
+frame = 9
+frame_progress = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=698668326]
 libraries/ = SubResource("AnimationLibrary_l7k1a")

@@ -18,9 +18,13 @@ enum explains {
 var grabbed_last_card : bool = false
 var enemy_freed_counter : int = 0
 
-var force_grab_card : bool = false
+var force_grab_card : bool = false		# Force player to grab card
+var force_equip_rank : int = 0 			# Card rank to be forced to equip
+
+var highlighted_card : MiniCard
 
 @onready var explanations : CanvasLayer = $Explanations
+@onready var mini_card_highlight : AnimatedSprite2D = $MiniCardHighlight
 @onready var cards_on_ground : Sprite2D = $CardsOnGround
 @onready var tutorial_ap : AnimationPlayer = $AnimationPlayer
 
@@ -101,6 +105,15 @@ func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -
 		weapons_display.play("draw_highlight")
 		return
 	
+	if force_equip_rank > 0 and mini_card:
+		if !highlighted_card:
+			push_error("Forcing to pick rank but no highlighted card")
+			return
+			
+		if mini_card.rank != force_equip_rank:
+			highlight_mini_card(highlighted_card)
+			return
+	
 	super(mini_card, player_update)
 	
 	
@@ -141,8 +154,6 @@ func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -
 				balloon.dialogue_label.finished_typing.connect(_on_finished_typing)
 				await balloon.tree_exited
 				equipped_fourth_card = true
-	
-	
 
 func spawn_tutorial_card(amt : int = 1) -> void:
 	if cards_left_on_ground == 0:
@@ -154,6 +165,22 @@ func spawn_tutorial_card(amt : int = 1) -> void:
 	align_mini_cards(true)
 	cards_left_on_ground -= 1
 	cards_on_ground.frame = min(cards_on_ground.frame + 1, 4)
+	
+	# Do specific thing when picked up card
+	match cards_left_on_ground:
+		3:
+			highlight_mini_card(get_tree().get_first_node_in_group("mini_cards"))
+		2:
+			force_equip_rank = 1
+			var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
+			var cards_with_force_rank : Array= mini_cards.filter(func(e : MiniCard) -> bool: return e.rank == force_equip_rank)
+			if cards_with_force_rank.is_empty():
+				push_error("Forcing rank of card that player doesn't have.")
+			highlight_mini_card(cards_with_force_rank[0])
+		1:
+			pass
+		0:
+			pass
 	
 	if cards_left_on_ground == 0:
 		grabbed_last_card = true
@@ -191,6 +218,20 @@ func explain(scn : explains) -> void:
 	
 	await get_tree().create_timer(5.0).timeout
 	pause_input = false
+
+
+func highlight_mini_card(card : MiniCard = null) -> void:
+	highlighted_card = card
+	if !card:
+		mini_card_highlight.hide()
+		mini_card_highlight.stop()
+	else:
+		mini_card_highlight.global_position = card.global_position
+		mini_card_highlight.show()
+		mini_card_highlight.play("default")
+		await mini_card_highlight.animation_finished
+		mini_card_highlight.hide()
+
 	
 # === Built In =================================================================
 
@@ -207,6 +248,12 @@ func _ready() -> void:
 	
 	player.play("tutorial_laying")
 	weapons_display.draw_button_label.text = "Grab Card"
+
+func _process(_delta: float) -> void:
+	super(_delta)
+	if highlighted_card:
+		mini_card_highlight.global_position = highlighted_card.sprite2d.global_position
+	
 
 func _unhandled_input(event: InputEvent) -> void:
 	if pause_input:
