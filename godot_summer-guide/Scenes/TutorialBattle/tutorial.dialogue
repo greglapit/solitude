@@ -20,9 +20,9 @@ Fool: Why must I experience hostility...
 
 => END
 
-~ hint_equip_card 
-Fool: A Two of Diamonds...
-=> END
+#~ hint_equip_card 
+#Fool: A Two of Diamonds...
+#=> END
 
 ~ equip_first_card
 Fool: Daggers... Perhaps I have a chance at surviving this encounter.
@@ -32,11 +32,19 @@ do explain(explains.INITIATIVE)
 ~ hint_grab_new_card
 Fool: I have time to grab another card before the enemy attacks again.
 do weapons_display.play("draw_highlight")
+=> END
 
+~ hint_equip_crit_card
+% Fool: I think I can use a better weapon for this enemy.
+% Fool: Another weapon is better suited for this enemy.
 => END
 
 ~ equip_second_card
 Fool: What a powerful gem...
+=> END
+
+~ hint_chain_attack
+Fool: Let me try chaining these weaponst together...
 => END
 
 ~ equip_fourth_card

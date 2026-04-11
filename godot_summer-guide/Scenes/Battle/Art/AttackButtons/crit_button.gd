@@ -1,3 +1,4 @@
+class_name CritButton
 extends TextureButton
 
 @onready var crit_stored1 : Sprite2D = $CritStored

@@ -80,6 +80,8 @@ var mutation_cooldown: Timer = Timer.new()
 ## Animation player for fade in/out
 @onready var animation_player : AnimationPlayer = $Balloon/MarginContainer/PanelContainer/AnimationPlayer
 
+var skippable : bool = true
+
 ## Emits which character just spoke
 signal char_spoke(char : String)
 
@@ -209,7 +211,7 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 		var mouse_was_clicked: bool = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed()
 		var skip_button_was_pressed: bool = event.is_action_pressed(skip_action)
 		var next_button_was_pressed : bool = event.is_action_pressed(next_action)
-		if mouse_was_clicked or skip_button_was_pressed or next_button_was_pressed:
+		if (mouse_was_clicked or skip_button_was_pressed or next_button_was_pressed) and skippable:
 			get_viewport().set_input_as_handled()
 			dialogue_label.skip_typing()
 			return

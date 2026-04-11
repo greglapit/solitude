@@ -768,6 +768,8 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 		curr_weapon.equip()
 		#equip_mini_card(mini_equipped)
 	
+	update_attack_buttons()
+	update_crit_button()
 
 func _on_weapon_crit() -> void:
 	weapons_display.play("joker_crit")

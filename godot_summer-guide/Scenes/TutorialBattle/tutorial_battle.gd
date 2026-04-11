@@ -2,7 +2,6 @@ class_name TutorialBattle
 extends Battle
 
 var cards_left_on_ground : int = 4
-var hinted_equip_card : bool = false
 var equipped_first_card : bool = false
 var equipped_second_card : bool = false
 var equipped_fourth_card : bool = false
@@ -20,10 +19,12 @@ var enemy_freed_counter : int = 0
 
 var force_grab_card : bool = false		# Force player to grab card
 var force_equip_rank : int = 0 			# Card rank to be forced to equip
+var force_chain_attack : bool = false	# Force player to pick chain
 
 var highlighted_card : MiniCard
 
 @onready var explanations : CanvasLayer = $Explanations
+@onready var attack_button_highlight : AnimatedSprite2D = $UI/AttackButtonHighlight
 @onready var mini_card_highlight : AnimatedSprite2D = $MiniCardHighlight
 @onready var cards_on_ground : Sprite2D = $CardsOnGround
 @onready var tutorial_ap : AnimationPlayer = $AnimationPlayer
@@ -78,16 +79,23 @@ var tutorial_enemies : Array[Dictionary] = [
 
 # === Custom Methods ===========================================================
 
-func wait(sec : float) -> Signal:
-	return await get_tree().create_timer(sec).timeout
+func balloon_and_connect(starting_loc : String) -> void:
+	var balloon : Balloon = DialogueManager.show_dialogue_balloon_scene("res://Scenes/UI/TextBox/battle_balloon.tscn",load("res://Scenes/TutorialBattle/tutorial.dialogue"), starting_loc)
 	
-func initialize() -> void:
-	var balloon : Balloon = DialogueManager.show_dialogue_balloon_scene("res://Scenes/UI/TextBox/battle_balloon.tscn",load("res://Scenes/TutorialBattle/tutorial.dialogue"), "start")
+	# TODO CHANGE
+	balloon.skippable = true
 	await balloon.char_spoke
 	balloon.dialogue_label.started_typing.connect(_on_started_typing)
 	balloon.dialogue_label.finished_typing.connect(_on_finished_typing)
 	
 	await balloon.tree_exited
+
+func wait(sec : float) -> Signal:
+	return await get_tree().create_timer(sec).timeout
+	
+func initialize() -> void:
+	
+	await balloon_and_connect("start")
 	
 	tutorial_ap.play("draw_button_show")
 	await tutorial_ap.animation_finished
@@ -102,6 +110,7 @@ func end_battle() -> void:
 
 func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -> void:
 	if force_grab_card:
+		await balloon_and_connect("hint_grab_new_card")
 		weapons_display.play("draw_highlight")
 		return
 	
@@ -111,8 +120,12 @@ func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -
 			return
 			
 		if mini_card.rank != force_equip_rank:
+			await balloon_and_connect("hint_equip_crit_card")
 			highlight_mini_card(highlighted_card)
 			return
+	
+	# Stop highlighting anim if not needed once equipped
+	mini_card_highlight.hide()
 	
 	super(mini_card, player_update)
 	
@@ -122,11 +135,8 @@ func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -
 			3: # Picked up the first DAGGER
 				if mini_equipped.rank != 2 or equipped_first_card:
 					return
-				var balloon : Balloon = DialogueManager.show_dialogue_balloon_scene("res://Scenes/UI/TextBox/battle_balloon.tscn",load("res://Scenes/TutorialBattle/tutorial.dialogue"), "equip_first_card")
-				await balloon.char_spoke
-				balloon.dialogue_label.started_typing.connect(_on_started_typing)
-				balloon.dialogue_label.finished_typing.connect(_on_finished_typing)
-				await balloon.tree_exited
+				
+				await balloon_and_connect("equip_first_card")
 				equipped_first_card = true
 				
 				# Show when equipping for first time
@@ -137,23 +147,17 @@ func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -
 			2: # Picked second ACE
 				if mini_equipped.rank != 1 or equipped_second_card:
 					return
-				var balloon : Balloon = DialogueManager.show_dialogue_balloon_scene("res://Scenes/UI/TextBox/battle_balloon.tscn",load("res://Scenes/TutorialBattle/tutorial.dialogue"), "equip_second_card")
-				await balloon.char_spoke
-				balloon.dialogue_label.started_typing.connect(_on_started_typing)
-				balloon.dialogue_label.finished_typing.connect(_on_finished_typing)
-				await balloon.tree_exited
+				await balloon_and_connect("equip_second_card")
 				equipped_second_card = true
 			1:
 				pass
 			0: # Picked third SPEAR
 				if mini_equipped.rank != 3 or equipped_fourth_card:
 					return
-				var balloon : Balloon = DialogueManager.show_dialogue_balloon_scene("res://Scenes/UI/TextBox/battle_balloon.tscn",load("res://Scenes/TutorialBattle/tutorial.dialogue"), "equip_fourth_card")
-				await balloon.char_spoke
-				balloon.dialogue_label.started_typing.connect(_on_started_typing)
-				balloon.dialogue_label.finished_typing.connect(_on_finished_typing)
-				await balloon.tree_exited
+					
+				await balloon_and_connect("equip_fourth_card")
 				equipped_fourth_card = true
+				
 
 func spawn_tutorial_card(amt : int = 1) -> void:
 	if cards_left_on_ground == 0:
@@ -206,10 +210,12 @@ func explain(scn : explains) -> void:
 			await tutorial_ap.animation_finished
 			explained_initiative = true
 		explains.CHAIN:
-			tutorial_ap.play("explain_chain")
-			await tutorial_ap.animation_finished
 			tutorial_ap.play("chain_button_show")
 			await tutorial_ap.animation_finished
+			await get_tree().create_timer(1.0).timeout
+			tutorial_ap.play("explain_chain")
+			await tutorial_ap.animation_finished
+			force_chain_attack = true
 			explained_chain = true
 		explains.CUT_SOCKET:
 			tutorial_ap.play("explain_cut_socket")
@@ -225,13 +231,15 @@ func highlight_mini_card(card : MiniCard = null) -> void:
 	if !card:
 		mini_card_highlight.hide()
 		mini_card_highlight.stop()
-	else:
+	elif card != mini_equipped:
 		mini_card_highlight.global_position = card.global_position
 		mini_card_highlight.show()
 		mini_card_highlight.play("default")
 		await mini_card_highlight.animation_finished
 		mini_card_highlight.hide()
 
+func update_crit_button() -> void:
+	pass
 	
 # === Built In =================================================================
 
@@ -275,6 +283,19 @@ func _on_started_typing() -> void:
 func _on_finished_typing() -> void:
 	weapons_display.play("joker_idle")
 
+func _on_attack_button_pressed() -> void:
+	if force_chain_attack:
+		await balloon_and_connect("hint_chain_attack")
+		attack_button_highlight.show()
+		attack_button_highlight.play("default")
+		await attack_button_highlight.animation_finished
+		attack_button_highlight.hide()
+		return
+	super()
+
+func _on_chain_button_pressed() -> void:
+	super()
+	force_chain_attack = false
 
 func _on_draw_button_pressed() -> void:
 	if grabbed_last_card:
@@ -294,37 +315,33 @@ func _on_draw_button_pressed() -> void:
 	spawn_tutorial_card(1)
 	
 	# Grabbed second card
-	if cards_left_on_ground == 1:
-		await get_tree().create_timer(.5).timeout
-		explain(explains.CHAIN)
+	#if cards_left_on_ground == 1:
+		#await get_tree().create_timer(.5).timeout
+		#explain(explains.CHAIN)
 	
 	player.play("base_idle")
 	
-	if !hinted_equip_card:
-		var balloon : Balloon = DialogueManager.show_dialogue_balloon_scene("res://Scenes/UI/TextBox/battle_balloon.tscn",load("res://Scenes/TutorialBattle/tutorial.dialogue"), "hint_equip_card")
-		await balloon.char_spoke
-		balloon.dialogue_label.started_typing.connect(_on_started_typing)
-		balloon.dialogue_label.finished_typing.connect(_on_finished_typing)
-		hinted_equip_card = true
-		
-		await balloon.tree_exited
-
 	pause_input = false
 
 func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 	super(_weapon)
 	if equipped_first_card and !hinted_grab_new_card:
-		var balloon : Balloon = DialogueManager.show_dialogue_balloon_scene("res://Scenes/UI/TextBox/battle_balloon.tscn",load("res://Scenes/TutorialBattle/tutorial.dialogue"), "hint_grab_new_card")
-		await balloon.char_spoke
-		balloon.dialogue_label.started_typing.connect(_on_started_typing)
-		balloon.dialogue_label.finished_typing.connect(_on_finished_typing)
-		
+		await balloon_and_connect("hint_grab_new_card")
 		force_grab_card = true
 		hinted_grab_new_card = true 
 
 func _on_enemy_freed(_enemy : Enemy) -> void:
 	super(_enemy)
 	enemy_freed_counter += 1
+	
+	match enemy_freed_counter:
+		1: # Killed first enemy with Ace and crit
+			force_equip_rank = 0
+			highlighted_card = null
+		2: # Killed second 2
+			if cards_left_on_ground > 1:		# hasnt picked up the 2 2's and Ace
+				force_grab_card = true
+			explain(explains.CHAIN)
 
 
 func _on_explanations_gui_input(event: InputEvent) -> void:
