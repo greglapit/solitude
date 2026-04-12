@@ -5,6 +5,7 @@ extends Node2D
 signal change_scn(target : Globals.scenes, prog_visible : bool, background : bool)		# Sends to scenehandler
 @warning_ignore("unused_signal")
 signal scene_ready_for_swap														# When scene wants to swap to background load
+var scene_id : Globals.scenes
 
 # === Custom Methods ===========================================================
 

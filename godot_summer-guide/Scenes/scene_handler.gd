@@ -5,9 +5,9 @@ const main_menu_scn : PackedScene = preload("res://Scenes/MainMenu/main_menu.tsc
 var loading_screen : LoadingScreen
 var curr_scene : Node2DScene:
 	set(value):
-		curr_scene_path = value.get_scene_file_path()
+		curr_scene_id = value.scene_id
 		curr_scene = value
-var curr_scene_path : String
+var curr_scene_id : Globals.scenes
 var save_queued : bool = false
 var loading_in_background : bool = false
 
@@ -48,7 +48,7 @@ func _ready() -> void:
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and !get_parent().find_child("ConfirmationWindow"):
-		if curr_scene_path in Globals.valid_save_scenes:
+		if curr_scene_id in Globals.valid_save_scenes:
 			var result : String = await ConfirmationWindow.prompt_user(self, "Save and quit to menu?", "Quit", "Cancel")
 			if result == "Quit":
 				Globals.save()
@@ -93,7 +93,7 @@ func _on_node_2d_change_scn(target : Globals.scenes, prog_visible : bool, backgr
 		push_error("Scene calling change when already loading already.")
 	
 	# Save game on transitions
-	if curr_scene_path in Globals.valid_save_scenes:
+	if curr_scene_id in Globals.valid_save_scenes:
 		save_queued = true
 		Globals.save()
 	#else:

@@ -18,6 +18,9 @@ var pausing_input : bool = false
 
 # === Built In =================================================================
 
+func _init() -> void:
+	scene_id = Globals.scenes.CAMP
+
 func _ready() -> void:
 	pass
 	

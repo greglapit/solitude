@@ -60,19 +60,6 @@ var tutorial_enemies : Array[Dictionary] = [
 		"true_rank" = 5
 	},
 	
-	# Second Set of Enemies
-	{
-		"rank" = 3,
-		"true_rank" = 3
-	},
-	{
-		"rank" = 2,
-		"true_rank" = 2
-	},
-	{
-		"rank" = 5,
-		"true_rank" = 5
-	}
 ]
 
 
@@ -150,8 +137,9 @@ func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -
 				await balloon_and_connect("equip_second_card")
 				equipped_second_card = true
 			1:
+				print("test")
 				pass
-			0: # Picked third SPEAR
+			0: # Picked fourth SPEAR
 				if mini_equipped.rank != 3 or equipped_fourth_card:
 					return
 					
@@ -314,10 +302,6 @@ func _on_draw_button_pressed() -> void:
 	await player.anim_finished
 	spawn_tutorial_card(1)
 	
-	# Grabbed second card
-	#if cards_left_on_ground == 1:
-		#await get_tree().create_timer(.5).timeout
-		#explain(explains.CHAIN)
 	
 	player.play("base_idle")
 	

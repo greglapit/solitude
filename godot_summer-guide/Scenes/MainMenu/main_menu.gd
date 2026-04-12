@@ -33,7 +33,7 @@ func _on_continue_button_pressed() -> void:
 	Globals.load_all_resources()
 	await Globals.load_save()
 	var scene_handler : Node = get_parent()
-	change_scn.emit(scene_handler.curr_scene_path, true, false)
+	change_scn.emit(scene_handler.curr_scene_id, true, false)
 	
 
 func _on_quit_button_pressed() -> void:

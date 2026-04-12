@@ -24,7 +24,10 @@ extends Node2DScene
 										
 # Used internally
 var mini_equipped : MiniCard							# Current card player has equipped
-var curr_weapon : Weapon							# String name of player weapon
+var curr_weapon : Weapon:							# String name of player weapon
+	set(value):
+		active_weapon(value)
+		curr_weapon = value
 var player_weapons : Dictionary						## Rank : Weapon
 var enemies : Array
 var hp : int = Globals.hp:
@@ -176,6 +179,7 @@ func load_armory() -> void:
 
 ## Marks weapon as active for purposes of weapon signals. Avoids all weapons activating signals
 func active_weapon(_weapon : Weapon = null) -> void:
+	await get_tree().process_frame
 	for weapon : Weapon in player_weapons.values():
 		weapon.active = false
 	if _weapon:
@@ -426,7 +430,6 @@ func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -
 		curr_weapon =  player_weapons[mini_card.rank]
 		curr_weapon.player = player
 		curr_weapon.enemies = get_tree().get_nodes_in_group("enemies")
-		active_weapon(curr_weapon)
 		if mini_equipped and mini_equipped != mini_card:
 			
 			# Position
@@ -444,7 +447,6 @@ func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -
 		if curr_weapon:
 			curr_weapon.unequip()
 		curr_weapon =  null
-		active_weapon(null)
 		
 		if mini_equipped:
 			mini_equipped.position = armory_position + (Vector2(30,0) * get_tree().get_node_count_in_group("mini_cards"))
@@ -482,8 +484,8 @@ func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -
 		update_crit_button()
 		update_turn_clock()
 	
-	
-	align_mini_cards()
+	if !chaining:
+		align_mini_cards()
 #endregion
 
 # === Built In =================================================================
@@ -684,10 +686,11 @@ func _on_mini_card_mouse_entered(mini_card : MiniCard) -> void:
 func _on_mini_card_mouse_exited(mini_card : MiniCard) -> void:
 	mini_card.deselect()
 
-func _on_mini_card_free(mini_card : MiniCard) -> void:
-	if mini_card == mini_equipped:
-		await player.anim_finished
-		equip_mini_card(null)
+func _on_mini_card_free(_mini_card : MiniCard) -> void:
+	#if mini_card == mini_equipped:
+		#await player.anim_finished
+		#equip_mini_card(null)
+	pass
 
 func _on_spam_timer_timeout() -> void:
 	pass
@@ -705,7 +708,6 @@ func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 		return
 	await weapon_pause()
 	
-	update_turn_clock()
 	
 	var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
 	enemies = get_tree().get_nodes_in_group("enemies")
@@ -726,12 +728,17 @@ func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 		var sorted_unused : Array = mini_cards.filter(func(e : MiniCard) -> bool: return !e.used)
 		sorted_unused.erase(mini_equipped)
 		var next_mini : MiniCard = sorted_unused[0]
+		
 		equip_mini_card(next_mini)
+		
+		await get_tree().create_timer(0.3).timeout # Allow turnclock to adjust
 		initiate_combat()
 	else:
 		await weapon_pause()
 		pause_input = false
 		equip_mini_card(null)
+	
+	#update_turn_clock()
 	
 
 ## After weapon is used and combat cycle restarts
@@ -768,6 +775,7 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 		curr_weapon.equip()
 		#equip_mini_card(mini_equipped)
 	
+	align_mini_cards()
 	update_attack_buttons()
 	update_crit_button()
 

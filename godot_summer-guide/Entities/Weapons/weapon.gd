@@ -24,7 +24,7 @@ var player_defend_anim : String
 var player_special_anim : String
 
 # Variables from battle_scn
-var player : Node2D
+var player : Player
 var enemies : Array					## Enemies the player is in combat with. Position 0 is main target
 var camera : Camera2D
 var hp : float

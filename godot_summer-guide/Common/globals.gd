@@ -13,7 +13,7 @@ var hp : int = 20:
 	set(value):
 		hp = clamp(value, 0, max_hp)
 var max_hp : int = 20
-var draw_amt : int = 1
+var draw_amt : int = 3
 var actions : int = 1
 var attacks : int = 1
 var max_draw : int = 3			# How many items player can have drawn at a time
@@ -84,7 +84,7 @@ var all_weap_data : Dictionary 		## file_name : resources. All loaded modified w
 var all_item_data : Dictionary 		## 
 
 var valid_save_scenes : Array = [
-	"res://Scenes/Camp/camp.tscn",
+	scenes.CAMP,
 ]
 
 enum scenes {
@@ -286,7 +286,7 @@ func update_save_dicts_data() -> void:
 	else:
 		# Call the node's save function.
 		scene_data = curr_scene_node.save()
-	scene_data["curr_scene_path"] = scene_handler.curr_scene_path
+	scene_data["curr_scene_id"] = scene_handler.curr_scene_id
 	scene_data["seed"] = rng.seed
 	
 	
@@ -368,7 +368,7 @@ func load_save() -> Signal:
 		
 	# Set Scene Transfer
 	var scene_handler : Node = get_tree().get_nodes_in_group("SceneHandler")[0]
-	scene_handler.curr_scene_path = scene_data["curr_scene_path"]
+	scene_handler.curr_scene_id = scene_data["curr_scene_id"]
 	seed(scene_data["seed"])
 	
 	# Spawn and Set Entities

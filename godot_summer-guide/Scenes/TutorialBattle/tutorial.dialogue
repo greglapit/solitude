@@ -14,6 +14,7 @@ do tutorial_ap.play("hp_bar_show")
 do wait(2)
 
 do initiate_combat()
+do weapons_display.draw_button.disabled = true
 do weapons_display.play("RESET")
 do player.play("tutorial_idle_no_cards")
 Fool: Why must I experience hostility...

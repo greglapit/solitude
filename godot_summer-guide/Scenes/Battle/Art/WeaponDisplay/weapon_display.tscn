@@ -54,7 +54,6 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_d31kx"]
 resource_name = "highlight"
 length = 4.000025
-loop_mode = 1
 step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
