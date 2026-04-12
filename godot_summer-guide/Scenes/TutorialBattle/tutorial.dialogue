@@ -9,7 +9,7 @@ Fool: Where am I...
 Fool: *animation of the player's head in pain, hinting at amnesia issues*
 
 do wait(0.5)
-do spawn_tutorial_enemy(3)
+do spawn_enemy(3)
 do tutorial_ap.play("hp_bar_show")
 do wait(2)
 
@@ -45,9 +45,30 @@ Fool: What a powerful gem...
 => END
 
 ~ hint_chain_attack
-Fool: Let me try chaining these weaponst together...
+Fool: Let me try chaining these weapons together...
+=> END
+
+~ weapon_break
+Fool: These weapons are quite fragile...
 => END
 
 ~ equip_fourth_card
-Fool: Quite an agile spear.
+Fool: Quite a balanced spear...
+=> END
+
+~ no_more_cards_left
+Fool: There are no more cards left...
+=> END
+
+~ hint_cut
+Fool: I can make this weapon more effective here...
+=> END
+
+~ first_time_draw
+Fool: I've run out of weapons...
+Fool: But...perhaps I can replicate them.
+=> END
+
+~ generated_first_time
+Fool: Excellent.
 => END

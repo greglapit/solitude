@@ -57,6 +57,7 @@ var combat_data : Dictionary = {
 # Signals
 @warning_ignore("unused_signal")
 signal crit
+signal attack_impact
 signal hp_update
 @warning_ignore("unused_signal")
 signal weapon_used(weapon : Weapon)			## Signals when weapon is put marked as used after attack
@@ -206,9 +207,9 @@ func _on_player_anim_finished(anim : String) -> void:
 		enemy_died = false
 	if anim.contains("attack") or anim.contains("special"):
 		# Damage Weapon
-		if !critting:
-			mini_equipped.used = true
-			mini_equipped.damage(-combat_data["durability_delta"])
+		#if !critting:
+			#mini_equipped.used = true
+			#mini_equipped.damage(-combat_data["durability_delta"])
 			
 		# Attacked after enemy due to higher card rank
 		if reciprocal_attack or enemy_died:
@@ -218,7 +219,7 @@ func _on_player_anim_finished(anim : String) -> void:
 		# Player lower with higher rank card
 		else:
 			weapon_used.emit(self)
-			
+			equip()
 		using_special = false
 		return
 		
@@ -240,6 +241,13 @@ func _on_player_attack_impact() -> void:
 		critting = true
 		crit.emit()
 	enemies[0].damage(rank)
+	
+	if !critting:
+		mini_equipped.used = true
+		mini_equipped.damage(-combat_data["durability_delta"])
+		attack_impact.emit()
+		
+		
 
 func _on_player_special_impact() -> void:
 	pass

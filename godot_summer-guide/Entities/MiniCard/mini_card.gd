@@ -26,6 +26,7 @@ var red : Color = Color.html("#b33831")
 var black : Color = Color.html("#2e222f")
 var sprite_variant : int = -1
 
+signal damaged
 signal free
 
 @onready var sprite2d : Sprite2D = $CollisionShape2D/Sprite2D
@@ -97,6 +98,7 @@ func deselect() -> void:
 	return
 
 func damage(amount : int = 1) -> void:
+	damaged.emit()
 	durability -= amount
 	if durability <= 0:
 		free.emit(self)

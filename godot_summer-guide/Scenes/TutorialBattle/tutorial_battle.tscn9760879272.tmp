@@ -289,7 +289,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("UI/TatterCount:visible")
+tracks/6/path = NodePath("UI/Hands:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -301,7 +301,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton:modulate")
+tracks/7/path = NodePath("UI/Hands:modulate")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -313,19 +313,19 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Explanations/Explanations:modulate")
+tracks/8/path = NodePath("UI/TatterCount:visible")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
+"update": 1,
+"values": [false]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Explanations/Explanation:modulate")
+tracks/9/path = NodePath("UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton:modulate")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -337,19 +337,19 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Explanations:visible")
+tracks/10/path = NodePath("Explanations/Explanations:modulate")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("UI/WeaponDisplay/HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton:modulate")
+tracks/11/path = NodePath("Explanations/Explanation:modulate")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -361,7 +361,7 @@ tracks/11/keys = {
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton:visible")
+tracks/12/path = NodePath("Explanations:visible")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
@@ -373,43 +373,43 @@ tracks/12/keys = {
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("UI/WeaponDisplay/HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton:disabled")
+tracks/13/path = NodePath("UI/WeaponDisplay/HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton:modulate")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("UI/WeaponDisplay/HBoxContainer/PanelContainer/VBoxContainer/CutSocket:modulate")
+tracks/14/path = NodePath("UI/AttackButtons/MarginContainer/VBoxContainer/PanelContainer2/ChainButton:visible")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
+"update": 1,
+"values": [false]
 }
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("UI/WeaponDisplay/HBoxContainer/PanelContainer/VBoxContainer/CutSocket:visible")
+tracks/15/path = NodePath("UI/WeaponDisplay/HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton:disabled")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("UI/Hands/Label:modulate")
+tracks/16/path = NodePath("UI/WeaponDisplay/HBoxContainer/PanelContainer/VBoxContainer/CutSocket:modulate")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
@@ -417,6 +417,18 @@ tracks/16/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("UI/WeaponDisplay/HBoxContainer/PanelContainer/VBoxContainer/CutSocket:visible")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_rq6su"]
@@ -780,7 +792,7 @@ length = 0.33333668
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("UI/Hands/Label:visible")
+tracks/0/path = NodePath("UI/Hands:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -792,7 +804,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("UI/Hands/Label:modulate")
+tracks/1/path = NodePath("UI/Hands:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -998,20 +1010,21 @@ anchor_bottom = 0.5
 grow_vertical = 2
 
 [node name="Hands" type="MarginContainer" parent="UI" unique_id=624246959]
+visible = false
+modulate = Color(1, 1, 1, 0)
 offset_right = 31.0
 offset_bottom = 14.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 
 [node name="Label" type="Label" parent="UI/Hands" unique_id=5679931]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Hands: XX/XX"
 
 [node name="AttackButtonHighlight" type="AnimatedSprite2D" parent="UI" unique_id=989460964]
 visible = false
-position = Vector2(694, 434)
+position = Vector2(601, 461)
 sprite_frames = SubResource("SpriteFrames_8s6mt")
 offset = Vector2(-172, -161)
 

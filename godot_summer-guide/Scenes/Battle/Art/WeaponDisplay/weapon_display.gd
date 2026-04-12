@@ -20,8 +20,9 @@ extends Control
 @onready var weapon_art : TextureRect = $HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/WeaponArt
 @onready var draw_button : TextureButton = $HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton
 @onready var draw_button_label : Label = $HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton/Draw
-@onready var cut_button : TextureButton = $HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/CutButton
-@onready var socket_button : TextureButton = $HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/SocketButton
+@onready var cut_socket : HBoxContainer = $HBoxContainer/PanelContainer/VBoxContainer/CutSocket
+@onready var cut_button : TextureButton = $HBoxContainer/PanelContainer/VBoxContainer/CutSocket/CutButton
+@onready var socket_button : TextureButton = $HBoxContainer/PanelContainer/VBoxContainer/CutSocket/SocketButton
 @onready var click_timer : Timer = $ClickTimer
 
 var displayed_weapon : Weapon
@@ -151,10 +152,15 @@ func _on_click_timer_timeout() -> void:
 	pass
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	if anim_name == "joker_spinning":
-		mouth_label.text = str(Globals.ranks[card.rank])
-		card_label1.text = str(Globals.ranks[card.rank])
-		card_label2.text = str(Globals.ranks[card.rank])
-		animation_player.play("joker_end_spin")
-	if anim_name == "joker_crit" or "joker_show":
-		animation_player.play("joker_idle")
+	match anim_name:
+		"joker_idle":
+			animation_player.play("joker_idle")
+		"joker_spinning":
+			mouth_label.text = str(Globals.ranks[card.rank])
+			card_label1.text = str(Globals.ranks[card.rank])
+			card_label2.text = str(Globals.ranks[card.rank])
+			animation_player.play("joker_end_spin")
+		"joker_crit":
+			animation_player.play("joker_idle")
+		"joker_show":
+			animation_player.play("joker_idle")

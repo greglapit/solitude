@@ -163,6 +163,7 @@ func load_armory() -> void:
 		weapon.weapon_used.connect(_on_weapon_weapon_used)
 		weapon.combat_fin.connect(_on_weapon_combat_fin.bind(weapon))
 		weapon.crit.connect(_on_weapon_crit)
+		weapon.attack_impact.connect(_on_weapon_attack_impact)
 		weapon.hp_update.connect(_on_weapon_hp_update)
 		weapon.pause.connect(_on_weapon_pause)
 		weapon.resume.connect(_on_weapon_resume)
@@ -201,7 +202,7 @@ func reset_globals() -> void:
 func spawn_enemy(num : int = 1, enemy_data : Dictionary = {}) -> void:
 	for i : int in range(num):
 		enemies = get_tree().get_nodes_in_group("enemies")
-		var enemy : Enemy = Enemy.new_enemy(MiniCard.Suits.HEART, range(3,4)) # 2 * (2 + randi() % 2)
+		var enemy : Enemy = Enemy.new_enemy(MiniCard.Suits.HEART, range(1,6)) # 2 * (2 + randi() % 2)
 		enemy.position = enemy_positions[enemies.size()]
 		enemy.z_index -= enemies.size()-1
 		
@@ -230,7 +231,7 @@ func spawn_enemy(num : int = 1, enemy_data : Dictionary = {}) -> void:
 	
 
 func align_enemies(tweening : bool = true) -> void:
-	pause_input = true
+	#pause_input = true
 	await weapon_pause()
 	enemies = get_tree().get_nodes_in_group("enemies")
 	for i : int in enemies.size():
@@ -245,7 +246,7 @@ func align_enemies(tweening : bool = true) -> void:
 			enemies[i].position = enemy_positions[i]
 			enemies[i].z_index = 5 - i
 	
-	pause_input = false
+	#pause_input = false
 
 
 func initiate_combat() -> void:
@@ -361,6 +362,7 @@ func spawn_card(mini_data : Dictionary) -> void:
 	mini_card.input_event.connect(_on_mini_card_input_event.bind(mini_card))
 	mini_card.mouse_entered.connect(_on_mini_card_mouse_entered.bind(mini_card))
 	mini_card.mouse_exited.connect(_on_mini_card_mouse_exited.bind(mini_card))
+	mini_card.damaged.connect(_on_mini_card_damaged.bind(mini_card))
 	mini_card.free.connect(_on_mini_card_free)
 	return
 
@@ -391,6 +393,7 @@ func draw_card(amount : int = 1) -> void:
 		mini_card.input_event.connect(_on_mini_card_input_event.bind(mini_card))
 		mini_card.mouse_entered.connect(_on_mini_card_mouse_entered.bind(mini_card))
 		mini_card.mouse_exited.connect(_on_mini_card_mouse_exited.bind(mini_card))
+		mini_card.damaged.connect(_on_mini_card_damaged.bind(mini_card))
 		mini_card.free.connect(_on_mini_card_free)
 	return
 
@@ -686,6 +689,12 @@ func _on_mini_card_mouse_entered(mini_card : MiniCard) -> void:
 func _on_mini_card_mouse_exited(mini_card : MiniCard) -> void:
 	mini_card.deselect()
 
+func _on_mini_card_damaged(mini_card : MiniCard) -> void:
+	if mini_equipped:
+		if mini_card != mini_equipped:
+			return
+		weapons_display.display_weapon(curr_weapon, mini_equipped, actions)
+
 func _on_mini_card_free(_mini_card : MiniCard) -> void:
 	#if mini_card == mini_equipped:
 		#await player.anim_finished
@@ -715,7 +724,7 @@ func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 	# If all weapons have been used
 	if mini_cards.all(func(n : MiniCard) -> bool: return n.used) or mini_cards.size() == 0:
 		attacks = 0
-		await get_tree().create_timer(0.3).timeout # Allow turnclock to adjust
+		#await get_tree().create_timer(0.3).timeout # Allow turnclock to adjust
 		initiate_combat() # Resolves combat with defend
 		return
 		
@@ -742,7 +751,7 @@ func _on_weapon_weapon_used(_weapon : Weapon) -> void:
 	
 
 ## After weapon is used and combat cycle restarts
-func _on_weapon_combat_fin(_weapon : Weapon) -> void:
+func _on_weapon_combat_fin(_weapon : Weapon, block_unequip : bool = false) -> void:
 	
 	pause_input = true
 	
@@ -766,7 +775,7 @@ func _on_weapon_combat_fin(_weapon : Weapon) -> void:
 	
 	
 	# Unequip if space in armory
-	if space_in_armory:
+	if space_in_armory and !block_unequip:
 		weapons_display.play("draw_highlight")
 		equip_mini_card(null)
 	
@@ -783,7 +792,9 @@ func _on_weapon_crit() -> void:
 	weapons_display.play("joker_crit")
 	crits_stored = clamp(crits_stored + 1, 0, Globals.max_crits)
 	update_crit_button()
-	
+
+func _on_weapon_attack_impact() -> void:
+	weapons_display.display_weapon(curr_weapon, mini_equipped, actions)
 
 func _on_weapon_hp_update(_hp_delta : int = combat_data["hp_delta"]) -> void:
 	# HP
