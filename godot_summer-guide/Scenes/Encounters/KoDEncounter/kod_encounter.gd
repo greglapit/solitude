@@ -14,11 +14,11 @@ func initialize() -> void:
 	
 	# If player has cores
 	if Globals.inventory.has("core"):
-		balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/Encounters/KoDEncounter/kod_take_core.dialogue"), "start")
+		balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/Encounters/KoDEncounter/kod_take_core.dialogue"), "take_core")
 		balloon.char_spoke.connect(_on_balloon_char_spoke)
 		await balloon.tree_exited
 	
-	balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/Encounters/KoDEncounter/kod_end_encounter.dialogue"), "start")
+	balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/Encounters/KoDEncounter/kod_end_encounter.dialogue"), "end_encounter")
 	balloon.char_spoke.connect(_on_balloon_char_spoke)
 
 func arrive_sequences() -> void:

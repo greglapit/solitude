@@ -88,7 +88,7 @@ func balloon_and_connect(starting_loc : String) -> void:
 	var balloon : Balloon = DialogueManager.show_dialogue_balloon_scene("res://Scenes/UI/TextBox/battle_balloon.tscn",load("res://Scenes/TutorialBattle/tutorial.dialogue"), starting_loc)
 	
 	# TODO CHANGE false
-	balloon.skippable = true
+	balloon.skippable = false
 	await balloon.char_spoke
 	balloon.dialogue_label.started_typing.connect(_on_started_typing)
 	balloon.dialogue_label.finished_typing.connect(_on_finished_typing)
@@ -111,6 +111,11 @@ func initialize() -> void:
 	pause_input = false
 
 func end_battle() -> void:
+	equip_mini_card(null)
+	# Break all player cards
+	var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
+	for mini_card : MiniCard in mini_cards:
+		mini_card.damage(mini_card.durability)
 	player.play("base_dazed")
 	await get_tree().create_timer(3.0).timeout
 	change_scn.emit(Globals.scenes.CAMP, false, false)

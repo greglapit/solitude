@@ -942,7 +942,7 @@ text = "ATTACK"
 modulate = Color(1, 1, 1, 0)
 disabled = true
 
-[node name="CutSocket" parent="UI/WeaponDisplay/HBoxContainer/PanelContainer/VBoxContainer" parent_id_path=PackedInt32Array(2124456606, 1097104587) index="6" unique_id=1372375109]
+[node name="CutSocket" parent="UI/WeaponDisplay/HBoxContainer/PanelContainer/VBoxContainer" parent_id_path=PackedInt32Array(2124456606, 1097104587) index="5" unique_id=1372375109]
 visible = false
 modulate = Color(1, 1, 1, 0)
 

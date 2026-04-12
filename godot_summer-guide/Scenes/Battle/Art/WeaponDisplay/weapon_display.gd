@@ -6,7 +6,9 @@ extends Control
 @onready var card_label1 : Label = $JokerArea2D/Joker/CardLabel
 @onready var card_label2 : Label = $JokerArea2D/Joker/CardLabel2
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
-@onready var weapon_name_label : Label = $HBoxContainer/PanelContainer/VBoxContainer/NameBanner/WeaponName
+@onready var rank_label : Label = $HBoxContainer/PanelContainer/VBoxContainer/NameBanner/MarginContainer/Rank/RankLabel
+@onready var rank_diamond : TextureRect = $HBoxContainer/PanelContainer/VBoxContainer/NameBanner/MarginContainer/Rank/RankDiamond
+@onready var weapon_name_label : Label = $HBoxContainer/PanelContainer/VBoxContainer/NameBanner/MarginContainer/Rank/WeaponName
 @onready var second_name : Label = $HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/SecondName
 @onready var weapon_box : PanelContainer = $HBoxContainer/PanelContainer/VBoxContainer/PanelContainer
 @onready var weapon_desc : Label = $HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/WeapDesc
@@ -52,6 +54,8 @@ func display_weapon(weapon : Weapon = displayed_weapon, mini_card : MiniCard = c
 		weapon.mini_equipped = mini_card
 		#weapon.assign_prop()
 		weapon_name_label.text = weapon.display_name
+		rank_label.text = Globals.ranks[weapon.rank]
+		rank_diamond.show()
 		second_name.text = weapon.second_name
 		weapon_art.texture = weapon.display_texture
 		weapon_desc.text = weapon.description
@@ -72,6 +76,8 @@ func display_weapon(weapon : Weapon = displayed_weapon, mini_card : MiniCard = c
 		play("RESET")
 	else:
 		weapon_name_label.text = ""
+		rank_label.text = ""
+		rank_diamond.hide()
 		second_name.text = ""
 		weapon_art.texture = load("res://Scenes/Battle/Art/WeaponDisplay/Art/weapon_art_filler.png")
 		weapon_desc.text = ""

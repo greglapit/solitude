@@ -1,4 +1,0 @@
-~ start
-KOD: It is time for you to continue your journey. Until next time, [wait=1]Fool.
-do end_encounter()
-=> END

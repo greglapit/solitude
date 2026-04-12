@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cusppjlshxdy4" path="res://Scenes/Battle/Art/WeaponDisplay/weapon_display.gd" id="1_mm5xb"]
 [ext_resource type="Texture2D" uid="uid://c33momyuwfb5g" path="res://Scenes/Battle/Art/WeaponDisplay/Art/weapon_display_background.png" id="1_qtw0e"]
 [ext_resource type="Texture2D" uid="uid://dp5xoqoe5e5sa" path="res://Scenes/Battle/Art/WeaponDisplay/Art/name_banner.png" id="3_yvjsa"]
+[ext_resource type="Texture2D" uid="uid://c02es3jix37pp" path="res://Scenes/Battle/Art/WeaponDisplay/Art/diamond.png" id="4_bukqg"]
 [ext_resource type="Texture2D" uid="uid://c511lxg4jtk1f" path="res://Scenes/Battle/Art/WeaponDisplay/Art/weapon_banner.png" id="4_mm5xb"]
 [ext_resource type="Texture2D" uid="uid://dcqixavooiiev" path="res://Scenes/Battle/Art/WeaponDisplay/Art/button1.png" id="5_lfrrw"]
 [ext_resource type="Texture2D" uid="uid://byjwkfff5cxqe" path="res://Scenes/Battle/Art/WeaponDisplay/Art/weapon_art_filler.png" id="5_yvjsa"]
@@ -18,7 +19,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2jaol"]
 bg_color = Color(0.043137256, 0.36862746, 0.39607844, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ba3pm"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bukqg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2atbk"]
 
@@ -628,7 +629,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_2jaol")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer" unique_id=1097104587]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 1
 
 [node name="JokerBg" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1859684409]
 layout_mode = 2
@@ -639,22 +640,46 @@ visible = false
 layout_mode = 2
 text = " Equipped:"
 
-[node name="HSeparator" type="HSeparator" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=2144492860]
+[node name="NameBanner" type="PanelContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1530900317]
 layout_mode = 2
-theme_override_constants/separation = 8
-theme_override_styles/separator = SubResource("StyleBoxEmpty_ba3pm")
 
-[node name="NameBanner" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1095482522]
+[node name="NameBanner" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/NameBanner" unique_id=1095482522]
 layout_mode = 2
 texture = ExtResource("3_yvjsa")
 
-[node name="WeaponName" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/NameBanner" unique_id=420161992]
-layout_mode = 0
-offset_top = 2.0
-offset_right = 160.0
-offset_bottom = 30.0
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/NameBanner" unique_id=1071186503]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 1
+
+[node name="Rank" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/NameBanner/MarginContainer" unique_id=683654621]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = -2
+
+[node name="RankLabel" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/NameBanner/MarginContainer/Rank" unique_id=734245253]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.701961, 0.219608, 0.192157, 1)
+theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 32
-text = "WEAPON NAME :D"
+text = "10"
+
+[node name="RankDiamond" type="TextureRect" parent="HBoxContainer/PanelContainer/VBoxContainer/NameBanner/MarginContainer/Rank" unique_id=930177535]
+layout_mode = 2
+texture = ExtResource("4_bukqg")
+expand_mode = 3
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer/PanelContainer/VBoxContainer/NameBanner/MarginContainer/Rank" unique_id=2057420321]
+layout_mode = 2
+theme_override_constants/separation = 7
+theme_override_styles/separator = SubResource("StyleBoxEmpty_bukqg")
+
+[node name="WeaponName" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/NameBanner/MarginContainer/Rank" unique_id=420161992]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "WEAPON"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=966689232]
@@ -813,7 +838,7 @@ one_shot = true
 
 [node name="DrawHighlight" type="Sprite2D" parent="." unique_id=2123830605]
 visible = false
-position = Vector2(41, 50)
+position = Vector2(41, 43)
 texture = ExtResource("12_cjusc")
 hframes = 2
 
