@@ -9,9 +9,10 @@ var boss_battle : bool
 func initialize() -> void:
 	boss_battle = ProgressTracker.rounds_per_suit == ProgressTracker.player_location["round"]
 	if boss_battle:
+		# TODO ADD PRE-BOSS => BOSS SCREEN OR JUST BOSS BATTLE
 		change_scn.emit(Globals.scenes.BATTLE, false, true)
 	else:
-		change_scn.emit(Globals.scenes.BATTLE, false, true)
+		change_scn.emit(Globals.scenes.CHOOSE_ENCOUNTER, false, true)
 	background.play("default")
 
 func _on_background_animation_finished() -> void:

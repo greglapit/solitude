@@ -5,7 +5,8 @@ extends Resource
 @export var file_name : String
 @export var display_name : String
 @export var second_name : String
-@export_multiline var description : String
+@export_multiline var short_description : String		## Shown when unlocking
+@export_multiline var description : String				## Shown in battle and journal
 @export_multiline var lore : String = "Example made up lore. filler filler. This weapon was used by made up figure back when madeup event happend. Etc. Etc."
 @export var display_texture : Resource
 @export var has_special : bool = false

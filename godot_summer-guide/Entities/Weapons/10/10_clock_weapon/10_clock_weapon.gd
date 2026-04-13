@@ -12,7 +12,7 @@ func special_attack() -> Dictionary:
 func post_combat() -> void:
 	update_node_refs()
 	var holding_weapon : bool = false
-	for mini_card : Card in mini_cards:
+	for mini_card : MiniCard in mini_cards:
 		if mini_card.rank == 10:
 			holding_weapon = true
 	

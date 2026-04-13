@@ -45,7 +45,10 @@ func update_icons(weapon_added : bool = false) -> void:
 	
 	var non_base_weapons : Array = Globals.armory.values().filter(func(e : String) -> bool: return !e.contains("base"))
 	if non_base_weapons.size() <= Globals.memory_capacity:
-		animation_player.queue("default")
+		if non_base_weapons.is_empty():
+			animation_player.play("happy")
+		else:
+			animation_player.queue("default")
 	elif weapon_added:
 		animation_player.play("strained")
 

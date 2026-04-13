@@ -76,10 +76,15 @@ pass_button={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":80,"key_label":0,"unicode":112,"location":0,"echo":false,"script":null)
 ]
 }
+left_click={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
+}
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://Scenes/Encounters/KoDEncounter/kod_default.dialogue", "res://Scenes/Encounters/KoDEncounter/kod_end_encounter.dialogue", "res://Scenes/Encounters/KoDEncounter/kod_take_core.dialogue", "res://Scenes/Encounters/QoDEncounter/qod_default.dialogue", "res://Scenes/TutorialBattle/tutorial.dialogue")
+locale/translations_pot_files=PackedStringArray("res://Scenes/Encounters/KoDEncounter/kod_default.dialogue", "res://Scenes/Encounters/QoDEncounter/qod_default.dialogue", "res://Scenes/TutorialBattle/tutorial.dialogue", "res://Scenes/Camp/camp.dialogue", "res://Scenes/UI/StudyJournal/journal_memory.dialogue")
 
 [rendering]
 

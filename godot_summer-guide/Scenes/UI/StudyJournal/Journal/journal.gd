@@ -8,7 +8,7 @@ extends Node2D
 var pages : Array
 var curr_section : int = 0:
 	set(value):
-		var clamped : int = clamp(value, 0, Globals.learned_weapons.size() - 2)
+		var clamped : int = clamp(value, 0, Globals.learned_weapons.size() - 1)
 		curr_section = clamped
 		
 signal armory_updated

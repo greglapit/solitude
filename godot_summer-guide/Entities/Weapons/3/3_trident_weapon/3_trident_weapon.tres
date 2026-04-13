@@ -9,6 +9,7 @@ rank = 3
 file_name = "3_trident_weapon"
 display_name = "Stormprong"
 second_name = "Filler Filler Filler"
+short_description = "Consume crit to cause a devastating hurricane"
 description = "-Special: Hurricane
 -Cost: {special_cost}
 -Aoe {int1} Damage"

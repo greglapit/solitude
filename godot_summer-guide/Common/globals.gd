@@ -31,7 +31,7 @@ var armory : Dictionary = {1 : "1_base_weapon", 2 : "2_base_weapon", 3 : "3_base
 		else:
 			armory = value
 var learned_ranks : Array = armory.keys()
-var memory_capacity : int = 5
+var memory_capacity : int = 2
 var init_armory_dur : int = 3
 var armory_durs : Array # Form = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5] (for each rank)
 var inventory : Dictionary		# item.id : item_stack
@@ -39,7 +39,7 @@ var inventory : Dictionary		# item.id : item_stack
 #region # Weapon Dicts
 
 var learned_weapons : Dictionary = {
-	#'1_base_weapon' : 1 , '1_philo_weapon' : 1, '1_seed_weapon' : 1, \
+	#'1_base_weapon' : 1 , '1_philo_weapon' : 1 , '1_seed_weapon' : 1, \
 	#'2_base_weapon' : 2, '2_twin_weapon' : 2, '2_glass_weapon' : 2, \
 	#'3_base_weapon' : 3, '3_trident_weapon' : 3, '3_prowler_weapon' : 3, \
 	#'4_base_weapon' : 4, '4_mirra_weapon' : 4, '4_bastion_weapon' : 4,\
@@ -96,7 +96,8 @@ enum scenes {
 	QOD,
 	CAMP,
 	NIGHTTIME,
-	ENTERING_SPREAD
+	ENTERING_SPREAD,
+	CHOOSE_ENCOUNTER
 }
 
 var scene_paths : Dictionary = {
@@ -108,7 +109,8 @@ var scene_paths : Dictionary = {
 	scenes.QOD : "res://Scenes/Encounters/QoDEncounter/qod_encounter.tscn",
 	scenes.CAMP : "res://Scenes/Camp/camp.tscn",
 	scenes.NIGHTTIME : "res://Scenes/Nighttime/nighttime.tscn",
-	scenes.ENTERING_SPREAD : "res://Scenes/EnteringSpread/entering_spread.tscn"
+	scenes.ENTERING_SPREAD : "res://Scenes/EnteringSpread/entering_spread.tscn",
+	scenes.CHOOSE_ENCOUNTER : "res://Scenes/ChooseEncounter/choose_encounter.tscn"
 }
 
 

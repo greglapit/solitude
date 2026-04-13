@@ -522,7 +522,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 
 func _process(_delta: float) -> void:
+	
+	
 	if dragging and dragged_card:
+		# Failsafe to stop dragging when not holding button
+		if !Input.is_action_pressed("left_click"):
+			dragging = false
 		dragged_card.z_index = 12
 		dragged_card.position = get_global_mouse_position()
 		

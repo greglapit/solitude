@@ -9,6 +9,7 @@ rank = 8
 file_name = "8_cata_weapon"
 display_name = "Catacylsm"
 second_name = "FILLER FILLER FILLER"
+short_description = "Consume crit to deal massive damage, dazing yourself"
 description = "-Special: Ruinfall
 -Cost: {special_cost}
 -Slam {name} into the ground, dealing {int1} to all, and dazing yourself in the process."

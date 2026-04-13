@@ -9,6 +9,7 @@ rank = 2
 file_name = "2_twin_weapon"
 display_name = "Twin Shards"
 second_name = "FILLER FILLER FILLER"
+short_description = "Consume crit to mark enemy for additional damage"
 description = "-Special: Mark
 -Cost: {special_cost}
 -Attack and mark enemy. Next attack deals bonus {int1}. Attacking mark with Twin Shards deals {int2}. "

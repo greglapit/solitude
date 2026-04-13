@@ -9,9 +9,10 @@ rank = 5
 file_name = "5_claw_weapon"
 display_name = "Fanghand"
 second_name = "Filler Filler Filler"
+short_description = "Consume crit to go on rampage"
 description = "-Special: Ravage
 -Cost: {special_cost}
--Go on rampage, 4 striking enemies for {int1} and ending with {int2}"
+-Go on rampage, striking enemies for {int1} and ending with {int2}"
 display_texture = ExtResource("1_rcufq")
 has_special = true
 special_cost = 2

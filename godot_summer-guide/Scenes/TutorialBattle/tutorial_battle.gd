@@ -118,6 +118,9 @@ func end_battle() -> void:
 		mini_card.damage(mini_card.durability)
 	player.play("base_dazed")
 	await get_tree().create_timer(3.0).timeout
+	
+	ProgressTracker.force_encounters = [Globals.scenes.KOD]
+	ProgressTracker.force_gift_weapon = "1_philo_weapon"
 	change_scn.emit(Globals.scenes.CAMP, false, false)
 
 
@@ -205,12 +208,7 @@ func spawn_tutorial_card(amt : int = 1) -> void:
 	
 	if cards_left_on_ground == 0:
 		grabbed_last_card = true
-
-#func spawn_tutorial_enemy(amt : int = 3) -> void:
-	#for i : int in range(amt):
-		#spawn_enemy(1, tutorial_enemies[0])
-		#tutorial_enemies.remove_at(0)
-		#await get_tree().create_timer(0.2).timeout
+		
 
 func spawn_enemy(num : int = 1, enemy_data : Dictionary = {}) -> void:
 	if tutorial_enemies.is_empty():
@@ -280,6 +278,8 @@ func update_crit_button() -> void:
 # === Built In =================================================================
 
 func _ready() -> void:
+	end_battle()
+	
 	super()
 	#weapons_display.hide()
 	weapons_display.joker.hide()

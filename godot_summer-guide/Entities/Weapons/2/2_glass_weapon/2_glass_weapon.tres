@@ -9,6 +9,7 @@ rank = 2
 file_name = "2_glass_weapon"
 display_name = "Glass's Edge"
 second_name = "FILLER FILLER FILLER"
+short_description = "Consume crit to bleed enemy"
 description = "-Special: Lacerate
 -Cost: {special_cost}
 -Attack and bleed enemy for {int 1} turns"

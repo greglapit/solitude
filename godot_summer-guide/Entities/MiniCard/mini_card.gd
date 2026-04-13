@@ -129,7 +129,12 @@ func socket(amount : int = 1) -> bool:
 	
 func update_visuals() -> void:
 	# Frames for card variant are stored every 4. Math to account for this animation
-	sprite2d.frame = sprite_variant + (4 * clamp(5 - durability, 0, 6))
+	var frame : int = sprite_variant + (4 * clamp(5 - durability, 0, 6))
+	if frame > sprite2d.hframes:
+		push_error("Assigning frame out of bounds")
+	else:
+		sprite2d.frame = frame
+	
 	label1.text = Globals.ranks[rank]
 	label2.text = Globals.ranks[rank]
 

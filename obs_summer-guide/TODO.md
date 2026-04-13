@@ -24,7 +24,7 @@
 - [ ] Queen of diamonds
 	- [ ] mapping battlefield, planning next move. Unlocks standard issue card weapons for the player
 - [ ] Jack of diamonds
-	- [ ] Offers player weapon upgrades. More durability, more equip slots, more actions, more draw_amt, increaesed max hp, max crits. Takes card Tatters as currency
+	- [ ] Offers player weapon upgrades. More durability, more equip slots, more actions, more draw_amt, increaesed max hp, max crits, item that lets player draw certain amount when round begins. Takes card Tatters as currency
 	- [ ] Gamble minigame, three cups
 - [ ] "Forever" save_file for tracking if player has done tutorial.
 - [ ] enemy spawn pool in globals

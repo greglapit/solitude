@@ -9,6 +9,7 @@ rank = 8
 file_name = "8_splitter_weapon"
 display_name = "Skysplitter"
 second_name = "FILLER FILLER FILLER"
+short_description = "Passively strike recklessly, hitting multiple enemies and damaging yourself"
 description = "-Passive: Reckless Strikes
 -Cost: {special_cost}
 -Attacks do {int1} aoe, but damage player {int2} in process. Cannot die from attacking."

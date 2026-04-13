@@ -9,6 +9,7 @@ rank = 7
 file_name = "7_severance_weapon"
 display_name = "Severance"
 second_name = "FILLER FILLER FILLER"
+short_description = "Consume crit to execute weak enemies"
 description = "-Special: Execute
 -Cost: {special_cost}
 -Execute all enemies below {int1}"

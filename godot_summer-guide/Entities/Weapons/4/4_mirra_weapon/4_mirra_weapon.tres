@@ -9,6 +9,7 @@ rank = 4
 file_name = "4_mirra_weapon"
 display_name = "Mirra"
 second_name = "Filler Filler Filler"
+short_description = "Consume crit to reflect enemy attack"
 description = "-Special: Reflect
 -Cost: {special_cost}
 -Attack. Then defend and mirror enemy damage, up to 4."

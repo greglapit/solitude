@@ -9,6 +9,7 @@ rank = 4
 file_name = "4_bastion_weapon"
 display_name = "Bastion"
 second_name = "Filler Filler Filler"
+short_description = "Consume crit to erect a protective barrier"
 description = "-Special: Barrier
 -Cost: {special_cost}
 -Conjure barrier on oneself. Acts before enemy. Reduces attack to {int1}."

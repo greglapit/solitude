@@ -9,6 +9,7 @@ rank = 1
 file_name = "1_seed_weapon"
 display_name = "SeedStone"
 second_name = "Filler filler filler"
+short_description = "Consume crit to plant damaging seed on enemy"
 description = "-Special: Seed
 -Cost: {special_cost}
 -Convert remaining durability into a seed. Plant in enemy. Drain at end of turn"

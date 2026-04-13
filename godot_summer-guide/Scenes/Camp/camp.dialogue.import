@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://c5owcnp36v7pa"
+path="res://.godot/imported/camp.dialogue-ec1fb28562ef7935ea2fd3fda82bda02.tres"
+
+[deps]
+
+source_file="res://Scenes/Camp/camp.dialogue"
+dest_files=["res://.godot/imported/camp.dialogue-ec1fb28562ef7935ea2fd3fda82bda02.tres"]
+
+[params]
+
+defaults=true

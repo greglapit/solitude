@@ -9,6 +9,7 @@ rank = 6
 file_name = "6_weaver_weapon"
 display_name = "Weaver's Thread"
 second_name = "Filler Filler Filler"
+short_description = "Consume crit to web and slow enemies"
 description = "-Special: Web
 -Cost: {special_cost}
 -Web enemies, slowing them. Slowed enemies attack last."

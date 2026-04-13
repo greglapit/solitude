@@ -9,6 +9,7 @@ rank = 1
 file_name = "1_philo_weapon"
 display_name = "Philo"
 second_name = "Filler filler filler"
+short_description = "Consume crit to heal hp"
 description = "-Special: Regenerate
 -Cost: 1
 -Heal for {int1} hp."

@@ -9,6 +9,7 @@ rank = 5
 file_name = "5_maw_weapon"
 display_name = "Grasping Maw"
 second_name = "Filler Filler Filler"
+short_description = "Consume crit to swallow weak enemies"
 description = "-Special: Consume
 -Cost: {special_cost}
 -Feed a weaker enemy to the gloves. Heal for {int1}"

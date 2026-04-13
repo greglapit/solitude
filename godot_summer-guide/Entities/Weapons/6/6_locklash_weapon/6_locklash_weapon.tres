@@ -9,6 +9,7 @@ rank = 6
 file_name = "6_locklash_weapon"
 display_name = "Locklash"
 second_name = "Filler Filler Filler"
+short_description = "Consume crit to bind and disable enemies in chains"
 description = "-Special: Restrain
 -Cost: {special_cost}
 -Bind enemies with {name} for {int1} turns, dealing {int2}. If enemies attack, they take {int3} to get rid of chains."

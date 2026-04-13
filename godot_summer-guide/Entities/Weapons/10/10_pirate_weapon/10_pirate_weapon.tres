@@ -9,6 +9,7 @@ rank = 10
 file_name = "10_pirate_weapon"
 display_name = "Pirate Wheel"
 second_name = "Filler Filler Filler"
+short_description = "Consume crit to slam enemies side to side"
 description = "-Special: Seaquake
 -Cost: {special_cost}
 -Slam enemies side to side, dealing {int 1} total damage"

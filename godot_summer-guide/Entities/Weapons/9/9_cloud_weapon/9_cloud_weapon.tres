@@ -9,6 +9,7 @@ rank = 9
 file_name = "9_cloud_weapon"
 display_name = "Cloudreign"
 second_name = "FILLER FILLER FILLER"
+short_description = "Consume crit to fully dodge an enemy's attack"
 description = "-Special: Counter
 -Cost: {special_cost}
 -Dodge enemy attack, then strike back. (Enemy attacking restarts combat, giving you a free turn.)"

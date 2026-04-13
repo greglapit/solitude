@@ -62,6 +62,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/VBoxContainer/ShortDescription:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_7vm4v"]
 resource_name = "hide"
@@ -118,7 +130,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_i74t4"]
 resource_name = "show"
-length = 4.5
+length = 5.5
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -163,6 +175,18 @@ tracks/3/path = NodePath("CanvasLayer/Label:modulate")
 tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/keys = {
+"times": PackedFloat32Array(4.5, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/VBoxContainer/ShortDescription:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(3, 3.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
@@ -223,12 +247,21 @@ layout_mode = 2
 texture = ExtResource("1_4oc2i")
 expand_mode = 5
 
+[node name="ShortDescription" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=815200748]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(290, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.780392, 0.862745, 0.815686, 1)
+text = "If you are seeing this, this is a bug"
+horizontal_alignment = 1
+autowrap_mode = 2
+
 [node name="Label" type="Label" parent="CanvasLayer" unique_id=1951149406]
 modulate = Color(1, 1, 1, 0)
 offset_left = 170.0
-offset_top = 257.5
+offset_top = 296.0
 offset_right = 470.0
-offset_bottom = 271.5
+offset_bottom = 324.0
 theme_override_colors/font_color = Color(0.78039217, 0.8627451, 0.8156863, 1)
 theme_override_font_sizes/font_size = 32
 text = "Added to Journal"

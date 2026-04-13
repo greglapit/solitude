@@ -9,6 +9,7 @@ rank = 9
 file_name = "9_cmd_weapon"
 display_name = "Worldpost"
 second_name = "FILLER FILLER FILLER"
+short_description = "Consume crit to command enemies to kneel, disabling their attack."
 description = "-Special: Command Kneel
 -Cost: {special_cost}
 -Command enemies to kneel and submit, dealing {int1} disabling their next attack."

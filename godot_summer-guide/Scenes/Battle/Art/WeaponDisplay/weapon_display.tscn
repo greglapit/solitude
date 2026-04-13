@@ -678,6 +678,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_bukqg")
 
 [node name="WeaponName" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/NameBanner/MarginContainer/Rank" unique_id=420161992]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.780392, 0.862745, 0.815686, 1)
 theme_override_font_sizes/font_size = 32
 text = "WEAPON"
 horizontal_alignment = 1

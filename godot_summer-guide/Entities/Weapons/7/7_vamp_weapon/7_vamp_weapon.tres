@@ -9,6 +9,7 @@ rank = 7
 file_name = "7_vamp_weapon"
 display_name = "Vamp"
 second_name = "FILLER FILLER FILLER"
+short_description = "Consume crit to heal for damage dealt"
 description = "-Special: Lifesteal
 -Cost: {special_cost}
 -Attack and heal for damage dealt."

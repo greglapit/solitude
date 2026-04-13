@@ -5,7 +5,14 @@ var rounds_per_suit : int = 5
 
 # ==============================================================================
 # ADD TO SAVE DICT
-var forced_battles_in_row : int = 9 		# Number of battles forced into in a row
+var force_encounters : Array				## Force specific encounters in next CHOOSE_ENCOUNTER. <= 3 Globals.scenes
+var force_gift_weapon : String				## Force KOD to give specific weapon
+var forced_battles_in_row : int = 0 		## Number of battles given to by game in a row
+var last_encounter : Globals.scenes
+var unlocked_journal : bool = false
+var gained_first_special : bool = false
+var unlocked_memory : bool = false
+
 var unlocked_rank : int = 0
 var player_location : Dictionary = {
 	"suit" = "hearts",
@@ -22,7 +29,12 @@ var met_qod : bool = false
 
 func save() -> Dictionary:
 	var dict : Dictionary = {
+		"force_encounters" = force_encounters,
 		"forced_battles_in_row" = forced_battles_in_row,
+		"last_encounter" = last_encounter,
+		"unlocked_journal" = unlocked_journal,
+		"gained_first_special" = gained_first_special,
+		"unlocked_memory" = unlocked_memory,
 		
 		"unlocked_rank" = unlocked_rank,
 		"player_location" = player_location,

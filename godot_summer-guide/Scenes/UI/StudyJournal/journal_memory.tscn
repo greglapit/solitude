@@ -5,6 +5,7 @@
 [ext_resource type="Shader" uid="uid://bvu6mr6dwkfa5" path="res://Common/Shaders/fog_shader.gdshader" id="2_7fogt"]
 [ext_resource type="PackedScene" uid="uid://brhe05xvrskam" path="res://Scenes/UI/StudyJournal/Journal/journal.tscn" id="2_lu2ty"]
 [ext_resource type="PackedScene" uid="uid://1e51h2a8pgtn" path="res://Scenes/UI/StudyJournal/capacity_label.tscn" id="5_tchwb"]
+[ext_resource type="Texture2D" uid="uid://bkholyyaexicg" path="res://Scenes/Camp/Art/weapon_memory_cover.png" id="5_xi6mp"]
 [ext_resource type="Texture2D" uid="uid://dhrwl3ceupdas" path="res://Scenes/UI/StudyJournal/exit_button.png" id="6_v3hhg"]
 [ext_resource type="Texture2D" uid="uid://b7t6rq7csgrgv" path="res://Scenes/UI/StudyJournal/exit_button_pressed.png" id="7_xi6mp"]
 
@@ -15,6 +16,28 @@ shader_parameter/speed = 7.88400037449
 shader_parameter/effect_color = Color(0, 0, 0, 1)
 shader_parameter/pixelate_amount = 40
 shader_parameter/NumDivisions = 32
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b5tuw"]
+atlas = ExtResource("5_xi6mp")
+region = Rect2(0, 0, 320, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_usi2f"]
+atlas = ExtResource("5_xi6mp")
+region = Rect2(320, 0, 320, 360)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7togf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b5tuw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_usi2f")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
 
 [sub_resource type="Animation" id="Animation_lu2ty"]
 length = 0.001
@@ -53,6 +76,30 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer2/MemoryCover:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer2/Memory:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_v3hhg"]
@@ -135,11 +182,63 @@ tracks/2/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_xi6mp"]
+resource_name = "uncover_memory"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer2/MemoryCover:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer2/Memory:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer2/MarginContainer/CapacityLabel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer2/MarginContainer/CapacityLabel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_id3su"]
 _data = {
 &"RESET": SubResource("Animation_lu2ty"),
 &"hide": SubResource("Animation_v3hhg"),
-&"show": SubResource("Animation_7fogt")
+&"show": SubResource("Animation_7fogt"),
+&"uncover_memory": SubResource("Animation_xi6mp")
 }
 
 [node name="JournalMemory" type="Node2D" unique_id=2094023816]
@@ -180,6 +279,12 @@ position = Vector2(468, 174)
 
 [node name="Journal" parent="CanvasLayer2" unique_id=862665318 instance=ExtResource("2_lu2ty")]
 position = Vector2(178, 174)
+
+[node name="MemoryCover" type="AnimatedSprite2D" parent="CanvasLayer2" unique_id=494414781]
+visible = false
+position = Vector2(468, 173)
+sprite_frames = SubResource("SpriteFrames_7togf")
+frame_progress = 0.15835045
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer2" unique_id=218544725]
 anchors_preset = 2

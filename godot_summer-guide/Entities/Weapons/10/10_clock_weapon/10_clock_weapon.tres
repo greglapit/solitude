@@ -9,9 +9,10 @@ rank = 10
 file_name = "10_clock_weapon"
 display_name = "Clock"
 second_name = "Filler Filler Filler"
-description = "-Special: Trick Room
+short_description = "Consume crit to twist time"
+description = "-Special: TrickRoom
 -Cost: {special_cost}
--Reverse turn order while holding the {name}. Larger numbers attack first. Use to reverse back."
+-Reverse turn order as long as weapon is held."
 display_texture = ExtResource("1_rnbla")
 has_special = true
 player_idle_anim = "10_clock_idle"

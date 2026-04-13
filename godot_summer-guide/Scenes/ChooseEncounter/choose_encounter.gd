@@ -14,6 +14,7 @@ extends Node2DScene
 
 var valid_encounters : Array = [Globals.scenes.KOD, Globals.scenes.BATTLE, Globals.scenes.QOD]
 
+
 const num_paths : int = 3
 
 @onready var scene_group : Dictionary = {
@@ -37,6 +38,11 @@ const num_paths : int = 3
 # === Custom Methods ===========================================================
 
 func get_encounters() -> Array:
+	if !ProgressTracker.force_encounters.is_empty():
+		var encs : Array = ProgressTracker.force_encounters.duplicate()
+		ProgressTracker.force_encounters.clear()
+		return encs
+		
 	valid_encounters.clear()
 	
 	# ENCOUNTER CHANCES
@@ -61,6 +67,10 @@ func get_encounters() -> Array:
 	# Cannot get KOD if no available weapons
 	if Globals.available_weapon_pool.is_empty():
 		encounter_chance[Globals.scenes.KOD] = 0
+		
+	# No special encounters twice in a row
+	if ProgressTracker.last_encounter != Globals.scenes.BATTLE:
+		encounter_chance[ProgressTracker.last_encounter] = 0
 	
 	# ==========================================================================
 	
@@ -86,7 +96,6 @@ func get_encounters() -> Array:
 # === Built In =================================================================
 
 func _ready() -> void:
-	
 	# Decide valid encounters
 	
 	var rand_path_order : Array = range(num_paths)
@@ -115,5 +124,6 @@ func _ready() -> void:
 
 func _on_frame_clicked(frame : EncounterFrame) -> void:
 	var scn : Globals.scenes = frame.scn
+	ProgressTracker.last_encounter = scn
 	change_scn.emit(scn, false, false)
 	pass

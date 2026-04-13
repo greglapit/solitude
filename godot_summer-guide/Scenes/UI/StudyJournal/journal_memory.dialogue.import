@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://dh7qqkgiffxxv"
+path="res://.godot/imported/journal_memory.dialogue-4ed2bf45b1800139d57818094dc78400.tres"
+
+[deps]
+
+source_file="res://Scenes/UI/StudyJournal/journal_memory.dialogue"
+dest_files=["res://.godot/imported/journal_memory.dialogue-4ed2bf45b1800139d57818094dc78400.tres"]
+
+[params]
+
+defaults=true
