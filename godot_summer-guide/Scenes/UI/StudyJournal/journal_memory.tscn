@@ -44,7 +44,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/path = NodePath("Background/ColorRect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -56,7 +56,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer2/CanvasModulate:color")
+tracks/1/path = NodePath("JournalMemory/CanvasModulate:color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -68,7 +68,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CanvasLayer/ColorRect2:modulate")
+tracks/2/path = NodePath("Background/ColorRect2:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -80,7 +80,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CanvasLayer2/MemoryCover:modulate")
+tracks/3/path = NodePath("JournalMemory/MemoryCover:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -92,7 +92,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CanvasLayer2/Memory:modulate")
+tracks/4/path = NodePath("JournalMemory/Memory:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -101,6 +101,122 @@ tracks/4/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Explanations/Explanations:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Explanations/Explanation:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Explanations:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_usi2f"]
+resource_name = "explain_hide"
+length = 0.50000334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Explanations/Explanation:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.20000002),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Explanations/Explanations:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Explanations:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_b5tuw"]
+resource_name = "explain_memory"
+length = 0.8333367
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Explanations/Explanations:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.50000006),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Explanations/Explanation:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 0.8333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Explanations:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_v3hhg"]
 resource_name = "hide"
@@ -108,7 +224,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/path = NodePath("Background/ColorRect:modulate")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -120,7 +236,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer2/CanvasModulate:color")
+tracks/1/path = NodePath("JournalMemory/CanvasModulate:color")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -132,7 +248,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CanvasLayer/ColorRect2:modulate")
+tracks/2/path = NodePath("Background/ColorRect2:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -148,7 +264,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/path = NodePath("Background/ColorRect:modulate")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -160,7 +276,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer2/CanvasModulate:color")
+tracks/1/path = NodePath("JournalMemory/CanvasModulate:color")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -172,7 +288,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CanvasLayer/ColorRect2:modulate")
+tracks/2/path = NodePath("Background/ColorRect2:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -187,7 +303,7 @@ resource_name = "uncover_memory"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer2/MemoryCover:modulate")
+tracks/0/path = NodePath("JournalMemory/MemoryCover:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -199,7 +315,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer2/Memory:modulate")
+tracks/1/path = NodePath("JournalMemory/Memory:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -211,7 +327,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CanvasLayer2/MarginContainer/CapacityLabel:visible")
+tracks/2/path = NodePath("JournalMemory/MarginContainer/CapacityLabel:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -223,7 +339,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CanvasLayer2/MarginContainer/CapacityLabel:modulate")
+tracks/3/path = NodePath("JournalMemory/MarginContainer/CapacityLabel:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -236,6 +352,8 @@ tracks/3/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_id3su"]
 _data = {
 &"RESET": SubResource("Animation_lu2ty"),
+&"explain_hide": SubResource("Animation_usi2f"),
+&"explain_memory": SubResource("Animation_b5tuw"),
 &"hide": SubResource("Animation_v3hhg"),
 &"show": SubResource("Animation_7fogt"),
 &"uncover_memory": SubResource("Animation_xi6mp")
@@ -244,10 +362,10 @@ _data = {
 [node name="JournalMemory" type="Node2D" unique_id=2094023816]
 script = ExtResource("1_lu2ty")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=852293926]
+[node name="Background" type="CanvasLayer" parent="." unique_id=852293926]
 layer = 2
 
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer" unique_id=1504770066]
+[node name="ColorRect2" type="ColorRect" parent="Background" unique_id=1504770066]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
@@ -256,14 +374,14 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=567870078]
+[node name="ColorRect" type="ColorRect" parent="Background" unique_id=567870078]
 modulate = Color(1, 1, 1, 0.4)
 offset_right = 640.0
 offset_bottom = 360.0
 mouse_filter = 2
 color = Color(0.5793735, 0, 0, 1)
 
-[node name="PixeFogShader" type="ColorRect" parent="CanvasLayer/ColorRect" unique_id=160690204]
+[node name="PixeFogShader" type="ColorRect" parent="Background/ColorRect" unique_id=160690204]
 modulate = Color(1, 1, 1, 0.4)
 material = SubResource("ShaderMaterial_id3su")
 layout_mode = 0
@@ -271,22 +389,22 @@ offset_right = 640.0
 offset_bottom = 360.0
 mouse_filter = 2
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=516159665]
+[node name="JournalMemory" type="CanvasLayer" parent="." unique_id=516159665]
 layer = 3
 
-[node name="Memory" parent="CanvasLayer2" unique_id=691997238 instance=ExtResource("1_bg22u")]
+[node name="Memory" parent="JournalMemory" unique_id=691997238 instance=ExtResource("1_bg22u")]
 position = Vector2(468, 174)
 
-[node name="Journal" parent="CanvasLayer2" unique_id=862665318 instance=ExtResource("2_lu2ty")]
+[node name="Journal" parent="JournalMemory" unique_id=862665318 instance=ExtResource("2_lu2ty")]
 position = Vector2(178, 174)
 
-[node name="MemoryCover" type="AnimatedSprite2D" parent="CanvasLayer2" unique_id=494414781]
+[node name="MemoryCover" type="AnimatedSprite2D" parent="JournalMemory" unique_id=494414781]
 visible = false
 position = Vector2(468, 173)
 sprite_frames = SubResource("SpriteFrames_7togf")
 frame_progress = 0.15835045
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer2" unique_id=218544725]
+[node name="MarginContainer" type="MarginContainer" parent="JournalMemory" unique_id=218544725]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -296,12 +414,12 @@ grow_vertical = 0
 theme_override_constants/margin_left = 13
 theme_override_constants/margin_bottom = 6
 
-[node name="CapacityLabel" parent="CanvasLayer2/MarginContainer" unique_id=315747629 instance=ExtResource("5_tchwb")]
+[node name="CapacityLabel" parent="JournalMemory/MarginContainer" unique_id=315747629 instance=ExtResource("5_tchwb")]
 layout_mode = 2
 
-[node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer2" unique_id=55166214]
+[node name="CanvasModulate" type="CanvasModulate" parent="JournalMemory" unique_id=55166214]
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer2" unique_id=328514479]
+[node name="MarginContainer2" type="MarginContainer" parent="JournalMemory" unique_id=328514479]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -314,22 +432,40 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_bottom = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer2/MarginContainer2" unique_id=1132390893]
+[node name="PanelContainer" type="PanelContainer" parent="JournalMemory/MarginContainer2" unique_id=1132390893]
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer2/MarginContainer2/PanelContainer" unique_id=653683698]
+[node name="CenterContainer" type="CenterContainer" parent="JournalMemory/MarginContainer2/PanelContainer" unique_id=653683698]
 layout_mode = 2
 
-[node name="Button" type="TextureButton" parent="CanvasLayer2/MarginContainer2/PanelContainer/CenterContainer" unique_id=403784219]
+[node name="Button" type="TextureButton" parent="JournalMemory/MarginContainer2/PanelContainer/CenterContainer" unique_id=403784219]
 custom_minimum_size = Vector2(80, 30)
 layout_mode = 2
 texture_normal = ExtResource("6_v3hhg")
 texture_pressed = ExtResource("7_xi6mp")
 texture_disabled = ExtResource("7_xi6mp")
 
+[node name="Explanations" type="CanvasLayer" parent="." unique_id=1975838137]
+layer = 4
+visible = false
+
+[node name="Explanations" type="ColorRect" parent="Explanations" unique_id=2022481715]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 0.85)
+
+[node name="Explanation" type="Sprite2D" parent="Explanations" unique_id=987195976]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(320, 180)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=295565490]
 libraries/ = SubResource("AnimationLibrary_id3su")
 autoplay = &"show"
 
-[connection signal="pressed" from="CanvasLayer2/MarginContainer2/PanelContainer/CenterContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="JournalMemory/MarginContainer2/PanelContainer/CenterContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

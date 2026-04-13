@@ -86,6 +86,9 @@ func end_round() -> void:
 	spawn_enemy(3)
 	
 func end_battle() -> void:
+	pause_input = true
+	weapons_display.buttons_enabled(false, false)
+	weapons_display.play("RESET")
 	player.play("base_bow")
 	await player.anim_finished
 	firework_particle.emitting = true

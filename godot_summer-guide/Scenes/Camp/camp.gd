@@ -11,7 +11,6 @@ const journal_memory_scn : PackedScene = preload("res://Scenes/UI/StudyJournal/j
 
 const campfire_heal_amt : int = 3
 
-var force_check_journal : bool = false
 var pause_input : bool = false
 
 # === Custom Methods ===========================================================
@@ -21,13 +20,31 @@ func initialize() -> void:
 		var balloon : Balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/Camp/camp.dialogue"), "start")
 		await balloon.tree_exited
 		
-		animation_player.play("journal_button_show")
+		animation_player.queue("journal_button_show")
 		ProgressTracker.unlocked_journal = true
-		force_check_journal = true
+		hide_rest(true)
 	elif ProgressTracker.gained_first_special and !ProgressTracker.unlocked_memory:
-		force_check_journal = true
+		show_journal_button(true)
+		hide_rest(true)
+	else:
+		show_journal_button(true)
+		hide_rest(false)
 	pause_input = false
 
+func hide_rest(status : bool) -> void:
+	if status:
+		animation_player.queue("rest_button_hide")
+	else:
+		animation_player.queue("rest_button_show")
+
+func show_journal_button(status : bool) -> void:
+	if status:
+		while animation_player.current_animation != "journal_button_show":
+			animation_player.queue("journal_button_show")
+			await animation_player.animation_finished
+		animation_player.seek(animation_player.current_animation.length())
+	else:
+		journal_button.hide()
 
 # === Built In =================================================================
 
@@ -47,7 +64,7 @@ func _input(_event: InputEvent) -> void:
 func _on_journal_button_pressed() -> void:
 	if pause_input:
 		return
-	force_check_journal = false
+	hide_rest(false)
 	
 	var journal_memory_node : Node2D = journal_memory_scn.instantiate()
 	add_child(journal_memory_node)
@@ -65,16 +82,16 @@ func _on_rest_button_pressed() -> void:
 	if pause_input:
 		return
 		
-	if force_check_journal:
-		var balloon : Balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/Camp/camp.dialogue"), "unlocked_journal")
-		await balloon.tree_exited
-		return
+	#if hide_rest:
+		#var balloon : Balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/Camp/camp.dialogue"), "unlocked_journal")
+		#await balloon.tree_exited
+		#return
 	
 	pause_input = true
 	rest_button.disabled = true
 	journal_button.disabled = true
 	plus_heal_label.text = "+" + str(campfire_heal_amt)
-	animation_player.play("plus_health")
+	animation_player.queue("plus_health")
 	
 	Globals.hp += campfire_heal_amt
 	health_bar.display_hp(Globals.hp)

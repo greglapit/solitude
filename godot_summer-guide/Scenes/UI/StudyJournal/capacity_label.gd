@@ -1,3 +1,4 @@
+class_name CapacityLabel
 extends Label
 
 var display_current_stress : bool = true

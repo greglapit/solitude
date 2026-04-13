@@ -1,11 +1,3 @@
 ~ start
 Fool: My memory isn't the best...perhaps its a good idea to keep things written.
 => END
-
-~ unlocked_journal
-Fool: Let me take a look at my journal first.
-=> END
-
-~ unlocked_memory
-Fool: Let me assess this new weapon first.
-=> END

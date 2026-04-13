@@ -49,7 +49,9 @@ func play_gift_weapon() -> void:
 	
 	await gift_weapon_scn.tree_exited
 	
-	ProgressTracker.gained_first_special = true
+	if !ProgressTracker.gained_first_special:
+		ProgressTracker.gained_first_special = true
+		ProgressTracker.force_encounters = [Globals.scenes.BATTLE]
 
 
 func play_increase_memory() -> void:

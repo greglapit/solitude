@@ -6,7 +6,7 @@ extends Sprite2D
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 
 ## Used internally
-const hearts_range : Array = [0,.245]
+const hearts_range : Array = [0, .245]
 const clubs_range : Array = [.471, .671]
 const spades_range : Array = [.803, 1.0]
 
@@ -23,7 +23,7 @@ func move_player(suit : String, progress : float) -> void:
 	 .set_trans(Tween.TRANS_SINE)\
 	 .set_ease(Tween.EASE_OUT)
 	
-	ProgressTracker.map_last_pos = progress
+	ProgressTracker.map_last_pos = dest
 	
 	animation_player.play("flash_rounds")
 	await get_tree().create_timer(.5).timeout		# wait to update while it is moving
