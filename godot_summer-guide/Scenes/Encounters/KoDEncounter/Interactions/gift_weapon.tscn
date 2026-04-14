@@ -53,7 +53,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CanvasLayer/Label:modulate")
+tracks/3/path = NodePath("CanvasLayer/VBoxContainer/Label:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -118,7 +118,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CanvasLayer/Label:modulate")
+tracks/3/path = NodePath("CanvasLayer/VBoxContainer/Label:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -171,7 +171,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CanvasLayer/Label:modulate")
+tracks/3/path = NodePath("CanvasLayer/VBoxContainer/Label:modulate")
 tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -254,17 +254,15 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.780392, 0.862745, 0.815686, 1)
 text = "If you are seeing this, this is a bug"
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer" unique_id=1951149406]
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=1951149406]
 modulate = Color(1, 1, 1, 0)
-offset_left = 170.0
-offset_top = 296.0
-offset_right = 470.0
-offset_bottom = 324.0
+layout_mode = 2
 theme_override_colors/font_color = Color(0.78039217, 0.8627451, 0.8156863, 1)
 theme_override_font_sizes/font_size = 32
-text = "Added to Journal"
+text = "Written in Journal"
 horizontal_alignment = 1
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1856960056]
