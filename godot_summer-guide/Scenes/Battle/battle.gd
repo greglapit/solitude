@@ -87,7 +87,7 @@ func end_round() -> void:
 	
 func end_battle() -> void:
 	pause_input = true
-	weapons_display.buttons_enabled(false, false)
+	weapons_display.buttons_disable()
 	weapons_display.play("RESET")
 	player.play("base_bow")
 	await player.anim_finished
@@ -481,10 +481,11 @@ func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -
 		weapons_display.display_weapon(curr_weapon, mini_equipped, actions)
 		
 		# Show Draw Button
-		var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
-		var space_in_armory : bool = Globals.max_draw > mini_cards.size() + int(mini_equipped != null)
-		if !space_in_armory:
-			weapons_display.buttons_enabled(space_in_armory, true)
+		#var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
+		#var space_in_armory : bool = Globals.max_draw > mini_cards.size() + int(mini_equipped != null)
+		
+		#if !space_in_armory:
+			#weapons_display.buttons_enabled(space_in_armory, true)
 		
 		
 		update_crit_button()
@@ -555,7 +556,7 @@ func _on_draw_button_pressed() -> void:
 	if pause_input:
 		return
 		
-	weapons_display.buttons_enabled(false)
+	weapons_display.buttons_disable()
 	weapons_display.play("RESET")
 	pause_input = true
 	if get_tree().get_node_count_in_group("mini_cards") + int(mini_equipped != null) >= Globals.max_draw:

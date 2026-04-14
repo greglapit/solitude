@@ -67,9 +67,9 @@ func display_weapon(weapon : Weapon = displayed_weapon, mini_card : MiniCard = c
 		# Adjust button visibility
 		if actions >= 1:
 			draw_button.disabled = false
-			if Globals.armory.keys().has(mini_card.rank - 1):
+			if Globals.armory.keys().has(mini_card.rank - 1) and mini_card.durability > 1:
 				cut_button.disabled = false
-			if Globals.armory.keys().has(mini_card.rank + 1):
+			if Globals.armory.keys().has(mini_card.rank + 1) and mini_card.durability > 1:
 				socket_button.disabled = false
 		
 		# Remove draw highlight
@@ -88,22 +88,26 @@ func display_weapon(weapon : Weapon = displayed_weapon, mini_card : MiniCard = c
 	weapon_display_update.emit()
 	
 
-func buttons_enabled(space_in_armory : bool = true, enabled : bool = true) -> void:
+func buttons_disable(status : bool = true) -> void:
+	draw_button.disabled = status
+	cut_button.disabled = status
+	socket_button.disabled = status
 	
-	draw_button.disabled = !enabled
-	if !space_in_armory:
-		draw_button.disabled = true
 	
-	# Disable buttons based on if available in armory
-	if enabled and actions > 0 and displayed_weapon:
-		var curr_rank : int = displayed_weapon.rank
-		var cut_available : bool = curr_rank - 1 in Globals.armory.keys()
-		cut_button.disabled = !cut_available
-		var socket_available : bool = curr_rank + 1 in Globals.armory.keys()
-		socket_button.disabled = !socket_available
-	else:
-		cut_button.disabled = true
-		socket_button.disabled = true
+	#draw_button.disabled = !enabled
+	#if !space_in_armory:
+		#draw_button.disabled = true
+	#
+	## Disable buttons based on if available in armory
+	#if enabled and actions > 0 and displayed_weapon:
+		#var curr_rank : int = displayed_weapon.rank
+		#var cut_available : bool = curr_rank - 1 in Globals.armory.keys()
+		#cut_button.disabled = !cut_available
+		#var socket_available : bool = curr_rank + 1 in Globals.armory.keys()
+		#socket_button.disabled = !socket_available
+	#else:
+		#cut_button.disabled = true
+		#socket_button.disabled = true
 
 func show_ticks(num : int = 0) -> void:
 	for tick : int in range(ticks.size()):

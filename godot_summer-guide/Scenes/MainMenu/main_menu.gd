@@ -19,15 +19,8 @@ func _input(_event: InputEvent) -> void:
 # === Signals ==================================================================
 
 func _on_play_button_pressed() -> void:
-	var has_save : bool = FileAccess.file_exists("user://savegame.save")
-	if has_save:
-		var result : String = await ConfirmationWindow.prompt_user(self, "Erase previous save?")
-		if result == "Yes":
-			Globals.delete_save()
-		else:
-			return
-	change_scn.emit(Globals.scenes.START_CUTSCENE, true, false)
-	Globals.load_all_resources()
+	Globals.new_game(self)
+	
 
 func _on_continue_button_pressed() -> void:
 	Globals.load_all_resources()

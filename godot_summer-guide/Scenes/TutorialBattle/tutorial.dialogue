@@ -53,7 +53,7 @@ Fool: These weapons are quite fragile...
 => END
 
 ~ equip_fourth_card
-Fool: Quite a balanced spear...
+Fool: A balanced spear...
 => END
 
 ~ no_more_cards_left
@@ -71,4 +71,8 @@ Fool: But...perhaps I can replicate their structure.
 
 ~ generated_first_time
 Fool: Excellent.
+=> END
+
+~ reached_max_hand
+Fool: It appears I can only carry three weapons at a time...
 => END

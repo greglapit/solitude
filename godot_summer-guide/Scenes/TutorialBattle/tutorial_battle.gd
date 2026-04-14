@@ -10,6 +10,7 @@ var explained_initiative : bool = false
 var explained_chain : bool = false
 var explained_cut_socket : bool = false
 var generated_first_time : bool = false
+var reached_max_hand : bool = false
 enum explains {
 	INITIATIVE,
 	CHAIN,
@@ -177,7 +178,12 @@ func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -
 				await balloon_and_connect("equip_fourth_card")
 				equipped_fourth_card = true
 				
-				
+	if finished_tutorial and !reached_max_hand:
+		var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
+		if mini_cards.size() == Globals.max_draw:
+			await balloon_and_connect("reached_max_hand")
+			reached_max_hand = true
+
 
 func spawn_tutorial_card(amt : int = 1) -> void:
 	if cards_left_on_ground == 0:
@@ -278,10 +284,9 @@ func update_crit_button() -> void:
 # === Built In =================================================================
 
 func _ready() -> void:
-	end_battle()
+	#end_battle()
 	
 	super()
-	#weapons_display.hide()
 	weapons_display.joker.hide()
 	weapons_display.draw_button.hide()
 	attack_buttons_ui.hide()
@@ -291,6 +296,7 @@ func _ready() -> void:
 	hands_label.hide()
 	
 	player.play("tutorial_laying")
+	player.animation_player.seek(player.animation_player.current_animation.length()/2.)
 	weapons_display.draw_button_label.text = "Grab Card"
 
 func _process(_delta: float) -> void:

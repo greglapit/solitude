@@ -1,7 +1,6 @@
 extends Node
 
 var ranks : Array = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
-var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
 # Save Dictionaries
 var player_data : Dictionary
@@ -130,7 +129,6 @@ func add_item(id : String, amt : int) -> void:
 		inventory.erase(id)
 
 #endregion
-
 # ==================================================================================================
 # Helper Functions
 #region
@@ -243,6 +241,29 @@ func rekey_names_to_objects(dict : Dictionary, node : Node) -> void:
 			dict.erase(val)
 #endregion
 # ==================================================================================================
+# Start New Game
+#region
+func new_game(calling_node : Node2DScene) -> void:
+	# Generate and save seed
+	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+	rng.randomize()
+	ProgressTracker.seed_data  = rng.seed
+	seed(ProgressTracker.seed_data)
+	
+	# Protect last save
+	var has_save : bool = FileAccess.file_exists("user://savegame.save")
+	if has_save:
+		var result : String = await ConfirmationWindow.prompt_user(self, "Erase previous save?")
+		if result == "Yes":
+			delete_save()
+		else:
+			return
+			
+	# Change scene
+	calling_node.change_scn.emit(Globals.scenes.START_CUTSCENE, true, false)
+	load_all_resources()
+#endregion
+# ==================================================================================================
 # Save/Loading
 #region
 ## Updates player, scene, and entity data
@@ -289,30 +310,30 @@ func update_save_dicts_data() -> void:
 		# Call the node's save function.
 		scene_data = curr_scene_node.save()
 	scene_data["curr_scene_id"] = scene_handler.curr_scene_id
-	scene_data["seed"] = rng.seed
 	
 	
 	# Entities
-	var save_entities : Array[Node] = get_tree().get_nodes_in_group("persist")
-	for node : Node in save_entities:
-		# Check the node is an instanced scene so it can be instanced again during load.
-		if node.scene_file_path.is_empty():
-			push_error("persistent node '%s' is not an instanced scene, skipped" % node.name)
-			continue
+	#var save_entities : Array[Node] = get_tree().get_nodes_in_group("persist")
+	#for node : Node in save_entities:
+		## Check the node is an instanced scene so it can be instanced again during load.
+		#if node.scene_file_path.is_empty():
+			#push_error("persistent node '%s' is not an instanced scene, skipped" % node.name)
+			#continue
 
-		# Check the node has a save function.
-		var entity_data : Dictionary
-		if !node.has_method("save"):
-			push_error("persistent node '%s' is missing a save() function, skipped" % node.name)
-		else:
-		# Call the node's save function.
-			entity_data = node.save()
-		entities_data[node.name] = entity_data
-		
+		## Check the node has a save function.
+		#var entity_data : Dictionary
+		#if !node.has_method("save"):
+			#push_error("persistent node '%s' is missing a save() function, skipped" % node.name)
+		#else:
+		## Call the node's save function.
+			#entity_data = node.save()
+		#entities_data[node.name] = entity_data
+	
+	# ProgressTracker
 	progress_data = ProgressTracker.save()
 	
 
-## Player Data
+## Run Data
 func save() -> Signal:
 	
 	# Save Player Data
@@ -419,7 +440,9 @@ func load_all_resources() -> void:
 		all_item_data[item_data.id] = item_data
 
 #endregion
-
+# ==================================================================================================
+# Initializers
+#region
 func intitialize_weapon_pool() -> void:
 	var armory_keys : Array = armory.keys()
 	armory_keys.sort()
@@ -432,11 +455,10 @@ func initialize_armory_durs() -> void:
 	armory_durs.clear()
 	armory_durs.resize(10)
 	armory_durs.fill(init_armory_dur)
-	
+
+#endregion
 # ==============================================================================
 func _ready() -> void:
 	load_all_resources() # TODO: Maybe DELETE? Handled in scenehandler
-	rng.randomize()
-	
 	intitialize_weapon_pool()
 	initialize_armory_durs()
