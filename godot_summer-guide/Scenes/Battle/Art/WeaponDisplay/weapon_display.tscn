@@ -9,9 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dcqixavooiiev" path="res://Scenes/Battle/Art/WeaponDisplay/Art/button1.png" id="5_lfrrw"]
 [ext_resource type="Texture2D" uid="uid://byjwkfff5cxqe" path="res://Scenes/Battle/Art/WeaponDisplay/Art/weapon_art_filler.png" id="5_yvjsa"]
 [ext_resource type="Texture2D" uid="uid://t8wqj3ln7bdw" path="res://Scenes/Battle/Art/WeaponDisplay/Art/button2.png" id="6_q6tnq"]
-[ext_resource type="Texture2D" uid="uid://cnve53w12ina" path="res://Scenes/Battle/Art/WeaponDisplay/Art/button1_grayed.png" id="8_q6tnq"]
 [ext_resource type="Texture2D" uid="uid://cjohnsu88xgsf" path="res://Scenes/Battle/Art/WeaponDisplay/Art/ticks.png" id="9_2jaol"]
-[ext_resource type="Texture2D" uid="uid://jh2mwiywgras" path="res://Scenes/Battle/Art/WeaponDisplay/Art/button2_grayed.png" id="10_2jaol"]
 [ext_resource type="Texture2D" uid="uid://xrs777rhr3" path="res://Scenes/Battle/Art/WeaponDisplay/Art/joker_ui.png" id="12_2atbk"]
 [ext_resource type="Texture2D" uid="uid://c3l5j7bpvy688" path="res://Scenes/Battle/Art/WeaponDisplay/Art/button_highlight.png" id="12_cjusc"]
 [ext_resource type="Shader" uid="uid://ligdqt5hrmri" path="res://Common/Shaders/pixel_melt.gdshader" id="12_ti0hy"]
@@ -21,7 +19,43 @@ bg_color = Color(0.043137256, 0.36862746, 0.39607844, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bukqg"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ba3pm"]
+atlas = ExtResource("5_lfrrw")
+region = Rect2(0, 0, 56, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bukqg"]
+atlas = ExtResource("5_lfrrw")
+region = Rect2(56, 0, 56, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rgp0"]
+atlas = ExtResource("5_lfrrw")
+region = Rect2(56, 0, 56, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mnoue"]
+atlas = ExtResource("5_lfrrw")
+region = Rect2(0, 0, 56, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ivjm"]
+atlas = ExtResource("5_lfrrw")
+region = Rect2(56, 0, 56, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_al42r"]
+atlas = ExtResource("5_lfrrw")
+region = Rect2(56, 0, 56, 19)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2atbk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ynnk"]
+atlas = ExtResource("6_q6tnq")
+region = Rect2(0, 0, 56, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6jkd"]
+atlas = ExtResource("6_q6tnq")
+region = Rect2(56, 0, 56, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2h5xe"]
+atlas = ExtResource("6_q6tnq")
+region = Rect2(56, 0, 56, 19)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ti0hy"]
 
@@ -710,9 +744,9 @@ layout_mode = 2
 
 [node name="DrawButton" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer" unique_id=318016024]
 layout_mode = 2
-texture_normal = ExtResource("5_lfrrw")
-texture_pressed = ExtResource("8_q6tnq")
-texture_disabled = ExtResource("8_q6tnq")
+texture_normal = SubResource("AtlasTexture_ba3pm")
+texture_pressed = SubResource("AtlasTexture_bukqg")
+texture_disabled = SubResource("AtlasTexture_6rgp0")
 
 [node name="Draw" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton" unique_id=1026087139]
 layout_mode = 1
@@ -784,9 +818,9 @@ alignment = 1
 
 [node name="CutButton" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/CutSocket" unique_id=955155325]
 layout_mode = 2
-texture_normal = ExtResource("5_lfrrw")
-texture_pressed = ExtResource("8_q6tnq")
-texture_disabled = ExtResource("8_q6tnq")
+texture_normal = SubResource("AtlasTexture_mnoue")
+texture_pressed = SubResource("AtlasTexture_6ivjm")
+texture_disabled = SubResource("AtlasTexture_al42r")
 
 [node name="Cut" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/CutSocket/CutButton" unique_id=1655654818]
 layout_mode = 0
@@ -804,9 +838,9 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_2atbk")
 
 [node name="SocketButton" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/CutSocket" unique_id=359118442]
 layout_mode = 2
-texture_normal = ExtResource("6_q6tnq")
-texture_pressed = ExtResource("10_2jaol")
-texture_disabled = ExtResource("10_2jaol")
+texture_normal = SubResource("AtlasTexture_8ynnk")
+texture_pressed = SubResource("AtlasTexture_d6jkd")
+texture_disabled = SubResource("AtlasTexture_2h5xe")
 
 [node name="Socket" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/CutSocket/SocketButton" unique_id=789970182]
 layout_mode = 0

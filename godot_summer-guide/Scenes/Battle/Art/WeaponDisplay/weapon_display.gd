@@ -49,6 +49,7 @@ func display_weapon(weapon : Weapon = displayed_weapon, mini_card : MiniCard = c
 		draw_button.disabled = true
 	cut_button.disabled = true
 	socket_button.disabled = true
+	cut_socket_cracked_update(mini_card)
 	
 	if weapon and mini_card:
 		weapon.mini_equipped = mini_card
@@ -86,7 +87,19 @@ func display_weapon(weapon : Weapon = displayed_weapon, mini_card : MiniCard = c
 		socket_button.visible = false
 		show_ticks()
 	weapon_display_update.emit()
-	
+
+# Displys cracked texture on cut socket buttons if not able to alter weapon because durability is too low
+func cut_socket_cracked_update(minicard : MiniCard) -> void:
+	if !minicard:
+		return
+	var cut_atlas : AtlasTexture = cut_button.texture_disabled
+	var socket_atlas : AtlasTexture = socket_button.texture_disabled
+	if minicard.durability > 1:
+		cut_atlas.region = Rect2(56., 0., 56., 19.)
+		socket_atlas.region = Rect2(56., 0., 56., 19.)
+	else:
+		cut_atlas.region = Rect2(112., 0., 56., 19.)
+		socket_atlas.region = Rect2(112., 0., 56., 19.)
 
 func buttons_disable(status : bool = true) -> void:
 	draw_button.disabled = status
