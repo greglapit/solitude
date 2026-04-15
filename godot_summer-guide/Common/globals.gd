@@ -29,7 +29,6 @@ var armory : Dictionary = {1 : "1_base_weapon", 2 : "2_base_weapon", 3 : "3_base
 				armory[int_key] = value[key]
 		else:
 			armory = value
-var learned_ranks : Array = armory.keys()
 var memory_capacity : int = 2
 var init_armory_dur : int = 3
 var armory_durs : Array # Form = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5] (for each rank)
@@ -285,7 +284,6 @@ func update_save_dicts_data() -> void:
 		"max_draw" = max_draw,
 		"max_crits" = max_crits,
 		"armory" = armory,
-		"learned_ranks" = armory.keys(),
 		"learned_weapons" = learned_weapons,
 		"available_weapon_pool" = available_weapon_pool,
 		"memory_capacity" = memory_capacity,

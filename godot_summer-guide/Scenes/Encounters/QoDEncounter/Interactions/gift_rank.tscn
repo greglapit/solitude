@@ -204,7 +204,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id="Animation_i74t4"]
 resource_name = "show"
-length = 4.5
+length = 8.0
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -290,6 +290,7 @@ _data = {
 script = ExtResource("1_pxycr")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2071872632]
+layer = 3
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=373387504]
 modulate = Color(1, 1, 1, 0)
@@ -298,7 +299,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.5)
+color = Color(0, 0, 0, 0.70000005)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=2011929567]
 anchors_preset = 8

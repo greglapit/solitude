@@ -7,8 +7,12 @@ extends Node2D
 @onready var label : Label = $CanvasLayer/VBoxContainer/Label
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 
-var ranks_to_unlock : Array = range(ProgressTracker.unlocked_rank + 1, ProgressTracker.unlocked_rank + 2)
+## Must be only 3 weapons
+var ranks_to_unlock : Array = range(ProgressTracker.unlocked_rank + 1, ProgressTracker.unlocked_rank + 2):
+	set(value):
+		ranks_to_unlock = value.slice(0,3)
 var event_completed : bool = false
+var pause_input : bool = false
 
 # === Custom Methods ===========================================================
 static func add_weapon_pool(new_ranks : Array) -> void:
@@ -30,7 +34,7 @@ static func add_weapon_pool(new_ranks : Array) -> void:
 # === Built In =================================================================
 
 func _ready() -> void:
-	
+	pause_input = true
 	if ranks_to_unlock.back() > 10:
 		push_error("Attempting to unlock rank %d" % [ranks_to_unlock.back()])
 		return
@@ -54,8 +58,11 @@ func _ready() -> void:
 	
 	await animation_player.animation_finished
 	add_weapon_pool(ranks_to_unlock)
+	pause_input = false
 	
 func _input(_event: InputEvent) -> void:
+	if pause_input:
+		return
 	if _event.is_pressed():
 		if event_completed:
 			animation_player.play("hide")

@@ -20,6 +20,12 @@ func initialize() -> void:
 		var balloon : Balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/Camp/camp.dialogue"), "start")
 		await balloon.tree_exited
 		
+		# Gift ranks 1-3
+		var gift_rank_scn : GiftRank = load("res://Scenes/Encounters/QoDEncounter/Interactions/gift_rank.tscn").instantiate()
+		gift_rank_scn.ranks_to_unlock = range(1,4)
+		add_child(gift_rank_scn)
+		await gift_rank_scn.tree_exited
+		
 		animation_player.queue("journal_button_show")
 		ProgressTracker.unlocked_journal = true
 		hide_rest(true)

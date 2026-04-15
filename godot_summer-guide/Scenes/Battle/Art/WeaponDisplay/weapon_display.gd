@@ -24,7 +24,9 @@ extends Control
 @onready var draw_button_label : Label = $HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/CenterContainer/DrawButton/Draw
 @onready var cut_socket : HBoxContainer = $HBoxContainer/PanelContainer/VBoxContainer/CutSocket
 @onready var cut_button : TextureButton = $HBoxContainer/PanelContainer/VBoxContainer/CutSocket/CutButton
+@onready var cut_button_label : Label = $HBoxContainer/PanelContainer/VBoxContainer/CutSocket/CutButton/Cut
 @onready var socket_button : TextureButton = $HBoxContainer/PanelContainer/VBoxContainer/CutSocket/SocketButton
+@onready var socket_button_label : Label = $HBoxContainer/PanelContainer/VBoxContainer/CutSocket/SocketButton/Socket
 @onready var click_timer : Timer = $ClickTimer
 
 var displayed_weapon : Weapon
@@ -94,12 +96,21 @@ func cut_socket_cracked_update(minicard : MiniCard) -> void:
 		return
 	var cut_atlas : AtlasTexture = cut_button.texture_disabled
 	var socket_atlas : AtlasTexture = socket_button.texture_disabled
+	
+	# Show normal texture
 	if minicard.durability > 1:
 		cut_atlas.region = Rect2(56., 0., 56., 19.)
 		socket_atlas.region = Rect2(56., 0., 56., 19.)
+		
+		cut_button_label.show()
+		socket_button_label.show()
+	# Show cracked texture
 	else:
 		cut_atlas.region = Rect2(112., 0., 56., 19.)
 		socket_atlas.region = Rect2(112., 0., 56., 19.)
+		
+		cut_button_label.hide()
+		socket_button_label.hide()
 
 func buttons_disable(status : bool = true) -> void:
 	draw_button.disabled = status

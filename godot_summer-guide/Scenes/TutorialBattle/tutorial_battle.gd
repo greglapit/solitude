@@ -379,7 +379,7 @@ func _on_draw_button_pressed() -> void:
 		
 	pause_input = true
 	actions -= 1
-	weapons_display.buttons_enabled(false)
+	weapons_display.buttons_disable()
 	weapons_display.play("RESET")
 	player.play("tutorial_grab_cards")
 	await player.anim_finished
@@ -420,9 +420,9 @@ func _on_weapon_combat_fin(_weapon : Weapon, block_unequip : bool = false) -> vo
 		
 	if play_first_time_draw:
 		weapons_display.play("RESET")
-		weapons_display.buttons_enabled(false, false)
+		weapons_display.buttons_disable()
 		await balloon_and_connect("first_time_draw")
-		weapons_display.buttons_enabled(true)
+		weapons_display.buttons_disable(false)
 		finished_tutorial = true
 		force_grab_card = true
 		weapons_display.play("draw_highlight")
@@ -454,7 +454,7 @@ func _on_enemy_freed(_enemy : Enemy) -> void:
 		4:
 			explain(explains.CUT_SOCKET)
 		5:
-			weapons_display.buttons_enabled(false, false)
+			weapons_display.buttons_disable()
 		6:
 			pass
 
