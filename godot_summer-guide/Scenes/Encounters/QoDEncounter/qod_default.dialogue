@@ -4,11 +4,11 @@ if not ProgressTracker.met_qod:
 	QOD: Hello, [wait=0.5]Fool.
 	do show_title()
 	QOD: I am the Death, one of the three faces of the Diamonds, commander of our military.
-	QOD: The ranks of the Diamond militia arm themselves with a range of weapons, many of which I've personally created. I see you carry some of my standard issued designs.
+	QOD: The ranks of the Diamond militia arm themselves with a range of weapons, many of which I've personally created. I see you carry some of my designs.
 else:
 	do show_title()
 	QOD: I don't have much time, but I see you have mastered another rank of the Diamond weapons.
-QOD: You are ready for the next step. Wield the next Diamond rank and dispatch the plague on the Spread.
+QOD: You are ready for the next step. Wield the next rank and dispatch the plague on the Spread.
 do play_gift_rank()
 QOD: You must be on your way. Safe travels, [wait=0.5]Fool.
 do end_encounter()

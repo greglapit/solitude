@@ -20,7 +20,7 @@ var rank : int = -1:	# The effective hp
 		rank_update.emit(value)
 		rank = value
 var true_rank : int 	# The rank the enemy spawned with and uses abilities based off of
-var suit : MiniCard.Suits = MiniCard.Suits.HEART
+var suit : MiniCard.Suits = MiniCard.Suits.CLUB
 var is_dead : bool = false
 
 # Status Effects
