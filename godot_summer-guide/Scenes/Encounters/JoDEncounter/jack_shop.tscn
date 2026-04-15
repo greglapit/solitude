@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://ba82db0k4eoir"]
+
+[node name="JackShop" type="Control" unique_id=1402927089]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_vertical = 2

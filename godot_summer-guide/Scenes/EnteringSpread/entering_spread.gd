@@ -7,10 +7,13 @@ extends Node2DScene
 var boss_battle : bool
 
 func initialize() -> void:
-	boss_battle = ProgressTracker.rounds_per_suit == ProgressTracker.player_location["round"]
+	boss_battle = ProgressTracker.player_location["round"] >= ProgressTracker.rounds_per_suit
 	if boss_battle:
 		# TODO ADD PRE-BOSS => BOSS SCREEN OR JUST BOSS BATTLE
-		change_scn.emit(Globals.scenes.BATTLE, false, true)
+		change_scn.emit(Globals.scenes.BATTLE, false, false)
+		var next_location_index : int = clamp(ProgressTracker.spread_location.find(ProgressTracker.player_location["spread_location"]) + 1, 0, ProgressTracker.spread_location.size() - 1)
+		ProgressTracker.player_location["spread_location"] = ProgressTracker.spread_location[next_location_index]
+		ProgressTracker.player_location["round"] = 0
 	else:
 		change_scn.emit(Globals.scenes.CHOOSE_ENCOUNTER, false, true)
 	background.play("default")
@@ -22,7 +25,7 @@ func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 	ProgressTracker.player_location["round"] += 1
 	var progress : float = float(ProgressTracker.player_location["round"]) / float(ProgressTracker.rounds_per_suit)
 	
-	await map.move_player(ProgressTracker.player_location["suit"], progress)
+	await map.move_player(ProgressTracker.player_location["spread_location"], progress)
 	await get_tree().create_timer(1.0).timeout
 	
 	

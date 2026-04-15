@@ -1,7 +1,8 @@
 extends Node
 
 # Internal
-var rounds_per_suit : int = 5
+var rounds_per_suit : int = 7
+const spread_location : Array = ["hearts", "clubs", "spades"]
 
 # ==============================================================================
 # ADD TO SAVE DICT
@@ -23,8 +24,8 @@ var unlocked_memory : bool = false
 
 var unlocked_rank : int = 0
 var player_location : Dictionary = {
-	"suit" = "hearts",
-	"round" = 0
+	"spread_location" = spread_location[0],
+	"round" = 7
 }
 var map_last_pos : float
 
