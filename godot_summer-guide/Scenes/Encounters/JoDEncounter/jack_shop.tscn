@@ -2,7 +2,18 @@
 
 [node name="JackShop" type="Control" unique_id=1402927089]
 layout_mode = 3
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-grow_vertical = 2
+anchors_preset = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1611007899]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="MarginContainer" unique_id=442809842]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=1585088494]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer" unique_id=1021929452]
+layout_mode = 2

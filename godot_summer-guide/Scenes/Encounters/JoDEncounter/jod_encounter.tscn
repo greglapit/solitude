@@ -1,275 +1,16 @@
 [gd_scene format=3 uid="uid://wlckdto36ngy"]
 
 [ext_resource type="Script" uid="uid://rylpo73fhatk" path="res://Scenes/Encounters/JoDEncounter/jod_encounter.gd" id="1_wfjeg"]
-[ext_resource type="Texture2D" uid="uid://dbso7xaqk15ip" path="res://Scenes/Encounters/QoDEncounter/Art/queen_of_diamonds.png" id="2_84wns"]
 [ext_resource type="Texture2D" uid="uid://bh8bh0asmo6vu" path="res://Scenes/Encounters/QoDEncounter/Art/background.png" id="3_4txt5"]
-[ext_resource type="Texture2D" uid="uid://bg4ka8j8kkd0p" path="res://Scenes/Encounters/KoDEncounter/Art/army.png" id="4_bnykc"]
-[ext_resource type="Texture2D" uid="uid://645dyip863eq" path="res://Scenes/Encounters/KoDEncounter/Art/player.png" id="5_f1ry8"]
+[ext_resource type="Texture2D" uid="uid://ches5ktlfm83y" path="res://Scenes/Encounters/JoDEncounter/Art/jack_table.png" id="3_38d5c"]
+[ext_resource type="Texture2D" uid="uid://cr78035ht6o4h" path="res://Scenes/Encounters/JoDEncounter/Art/jod_encounter.png" id="4_38d5c"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_12hdu"]
-atlas = ExtResource("2_84wns")
+[sub_resource type="AtlasTexture" id="AtlasTexture_bokya"]
+atlas = ExtResource("4_38d5c")
 region = Rect2(0, 1800, 640, 360)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0chrh"]
-atlas = ExtResource("2_84wns")
-region = Rect2(0, 360, 640, 360)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lvf2i"]
-atlas = ExtResource("2_84wns")
-region = Rect2(640, 360, 640, 360)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_00a0i"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0chrh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lvf2i")
-}],
-"loop": true,
-"name": &"default",
-"speed": 1.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yo0qj"]
-atlas = ExtResource("2_84wns")
-region = Rect2(0, 1080, 640, 360)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ifn8p"]
-atlas = ExtResource("2_84wns")
-region = Rect2(640, 1080, 640, 360)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_lc2lu"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yo0qj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ifn8p")
-}],
-"loop": true,
-"name": &"default",
-"speed": 1.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a5kwp"]
-atlas = ExtResource("2_84wns")
-region = Rect2(0, 720, 640, 360)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kfsxx"]
-atlas = ExtResource("2_84wns")
-region = Rect2(640, 720, 640, 360)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_b55sk"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_a5kwp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kfsxx")
-}],
-"loop": true,
-"name": &"default",
-"speed": 1.0
-}]
-
-[sub_resource type="Animation" id="Animation_43y0a"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Title:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(320, 180)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../Title:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../Title:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(320, 180)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("../CanvasLayer/Army:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("../CanvasLayer/Army:modulate")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_34uku"]
-resource_name = "arrive"
-length = 0.50000334
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.33333334),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Title:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:position")
-tracks/3/interp = 2
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.33333334),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(320, 165), Vector2(320, 180)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../CanvasLayer/Army:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../CanvasLayer/Army:modulate")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0.33333334, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_x4a60"]
-resource_name = "bump"
-length = 0.33333668
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.16666667, 0.33333334),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(320, 180), Vector2(320, 172), Vector2(320, 180)]
-}
-
-[sub_resource type="Animation" id="Animation_0chrh"]
+[sub_resource type="Animation" id="Animation_38d5c"]
 resource_name = "show_title"
-length = 0.33333668
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -307,13 +48,55 @@ tracks/2/keys = {
 "values": [Vector2(320, 165), Vector2(320, 180)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_qiqi0"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_84wns"]
 _data = {
-&"RESET": SubResource("Animation_43y0a"),
-&"arrive": SubResource("Animation_34uku"),
-&"bump": SubResource("Animation_x4a60"),
-&"show_title": SubResource("Animation_0chrh")
+&"show_title": SubResource("Animation_38d5c")
 }
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_84wns"]
+atlas = ExtResource("4_38d5c")
+region = Rect2(1280, 2160, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4txt5"]
+atlas = ExtResource("4_38d5c")
+region = Rect2(1920, 2160, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bnykc"]
+atlas = ExtResource("4_38d5c")
+region = Rect2(0, 2160, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1ry8"]
+atlas = ExtResource("4_38d5c")
+region = Rect2(640, 2160, 640, 360)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_12hdu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_84wns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4txt5")
+}],
+"loop": true,
+"name": &"candle_lit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bnykc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1ry8")
+}],
+"loop": true,
+"name": &"dark_idle",
+"speed": 3.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_00a0i"]
+atlas = ExtResource("4_38d5c")
+region = Rect2(0, 360, 640, 360)
 
 [sub_resource type="Animation" id="Animation_3it05"]
 length = 0.001
@@ -434,27 +217,19 @@ script = ExtResource("1_wfjeg")
 metadata/_custom_type_script = "uid://bmgke6kny72tq"
 
 [node name="Title" type="Sprite2D" parent="." unique_id=1196689771]
-visible = false
 modulate = Color(1, 1, 1, 0)
-position = Vector2(320, 180)
-texture = SubResource("AtlasTexture_12hdu")
+position = Vector2(320, 165)
+texture = SubResource("AtlasTexture_bokya")
 
-[node name="QOD" type="Node2D" parent="." unique_id=1601324595]
-visible = false
-modulate = Color(1, 1, 1, 0)
+[node name="JOD" type="Node2D" parent="." unique_id=1601324595]
 position = Vector2(320, 180)
 
-[node name="Flag" type="AnimatedSprite2D" parent="QOD" unique_id=326012252 groups=["animated_sprite"]]
-sprite_frames = SubResource("SpriteFrames_00a0i")
+[node name="JackTable" type="Sprite2D" parent="JOD" unique_id=196462421]
+texture = ExtResource("3_38d5c")
+hframes = 14
 
-[node name="Queen" type="AnimatedSprite2D" parent="QOD" unique_id=1084447327 groups=["animated_sprite"]]
-sprite_frames = SubResource("SpriteFrames_lc2lu")
-
-[node name="Horse" type="AnimatedSprite2D" parent="QOD" unique_id=1223365505 groups=["animated_sprite"]]
-sprite_frames = SubResource("SpriteFrames_b55sk")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="QOD" unique_id=463456261]
-libraries/ = SubResource("AnimationLibrary_qiqi0")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="JOD" unique_id=1950217870]
+libraries/ = SubResource("AnimationLibrary_84wns")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1156540851]
 layer = -1
@@ -465,22 +240,17 @@ offset_bottom = 40.0
 texture = ExtResource("3_4txt5")
 metadata/_edit_use_anchors_ = true
 
-[node name="Army" type="TextureRect" parent="CanvasLayer" unique_id=564944415]
-visible = false
-modulate = Color(1, 1, 1, 0)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("4_bnykc")
+[node name="Darkness" type="AnimatedSprite2D" parent="CanvasLayer" unique_id=1850322185]
+position = Vector2(320, 180)
+sprite_frames = SubResource("SpriteFrames_12hdu")
+animation = &"dark_idle"
 
 [node name="Player" type="Node2D" parent="." unique_id=1576738038]
 visible = false
 
 [node name="Player" type="Sprite2D" parent="Player" unique_id=1041430245]
 position = Vector2(279, 201)
-texture = ExtResource("5_f1ry8")
+texture = SubResource("AtlasTexture_00a0i")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player" unique_id=907910971]
 root_node = NodePath("../Player")
