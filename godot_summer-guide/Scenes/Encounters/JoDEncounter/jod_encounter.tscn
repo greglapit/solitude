@@ -51,7 +51,7 @@ atlas = ExtResource("4_38d5c")
 region = Rect2(0, 1800, 640, 360)
 
 [sub_resource type="Gradient" id="Gradient_38d5c"]
-offsets = PackedFloat32Array(0.36328125, 0.796875)
+offsets = PackedFloat32Array(0.36328125, 0.7578125)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_84wns"]
@@ -60,11 +60,169 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 metadata/_snap_enabled = true
 
+[sub_resource type="Animation" id="Animation_00a0i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("JackTable:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_lc2lu"]
+resource_name = "dark_idle"
+length = 2.0000033
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("JackTable:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b55sk"]
+_data = {
+&"RESET": SubResource("Animation_00a0i"),
+&"dark_idle": SubResource("Animation_lc2lu")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_00a0i"]
+atlas = ExtResource("4_38d5c")
+region = Rect2(0, 360, 1280, 360)
+
+[sub_resource type="Animation" id="Animation_f1ry8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_12hdu"]
+resource_name = "idle"
+length = 2.0000033
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_00a0i"]
+_data = {
+&"RESET": SubResource("Animation_f1ry8"),
+&"idle": SubResource("Animation_12hdu")
+}
+
 [sub_resource type="Animation" id="Animation_4txt5"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("JackTable:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Player/Player:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Lighting/JOD:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bnykc"]
+resource_name = "arrive_sequence"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Lighting/JOD:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_84wns"]
 resource_name = "dark_idle"
+length = 2.0000033
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("JackTable:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.0000001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Player/Player:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.0000001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
 
 [sub_resource type="Animation" id="Animation_38d5c"]
 resource_name = "show_title"
@@ -108,20 +266,9 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_84wns"]
 _data = {
 &"RESET": SubResource("Animation_4txt5"),
+&"arrive_sequence": SubResource("Animation_bnykc"),
 &"dark_idle": SubResource("Animation_84wns"),
 &"show_title": SubResource("Animation_38d5c")
-}
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_00a0i"]
-atlas = ExtResource("4_38d5c")
-region = Rect2(0, 360, 640, 360)
-
-[sub_resource type="Animation" id="Animation_3it05"]
-length = 0.001
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_vl5e5"]
-_data = {
-&"RESET": SubResource("Animation_3it05")
 }
 
 [node name="JodEncounter" type="Node2D" unique_id=491633713]
@@ -152,16 +299,25 @@ texture = SubResource("AtlasTexture_bokya")
 
 [node name="Lighting" type="Node2D" parent="." unique_id=1266536774]
 
-[node name="JOD" type="PointLight2D" parent="Lighting" unique_id=1639015635]
+[node name="JOD" type="PointLight2D" parent="Lighting" unique_id=1639015635 groups=["light"]]
 position = Vector2(319, 46)
 scale = Vector2(1.3125, 1)
+color = Color(1, 1, 1, 0)
+energy = 0.5
 blend_mode = 2
 texture = SubResource("GradientTexture2D_84wns")
 
-[node name="Player" type="PointLight2D" parent="Lighting" unique_id=390013347]
-position = Vector2(337, 275)
-scale = Vector2(1.3828124, 1.2109379)
+[node name="Player" type="PointLight2D" parent="Lighting" unique_id=390013347 groups=["light"]]
+position = Vector2(337, 298)
+scale = Vector2(1.3828124, 1.6992188)
+energy = 0.5
 blend_mode = 2
+texture = SubResource("GradientTexture2D_84wns")
+
+[node name="Candle" type="PointLight2D" parent="Lighting" unique_id=400721283 groups=["light"]]
+visible = false
+position = Vector2(253, 126)
+scale = Vector2(1.2304686, 1.2042885)
 texture = SubResource("GradientTexture2D_84wns")
 
 [node name="JOD" type="Node2D" parent="." unique_id=1601324595]
@@ -171,15 +327,21 @@ position = Vector2(320, 180)
 texture = ExtResource("3_38d5c")
 hframes = 14
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="JOD" unique_id=1950217870]
-libraries/ = SubResource("AnimationLibrary_84wns")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="JOD" unique_id=522059236]
+libraries/ = SubResource("AnimationLibrary_b55sk")
+autoplay = &"dark_idle"
 
 [node name="Player" type="Node2D" parent="." unique_id=1576738038]
 position = Vector2(320, 180)
 
 [node name="Player" type="Sprite2D" parent="Player" unique_id=1041430245]
 texture = SubResource("AtlasTexture_00a0i")
+hframes = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Player" unique_id=907910971]
-root_node = NodePath("../Player")
-libraries/ = SubResource("AnimationLibrary_vl5e5")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player" unique_id=2480978]
+libraries/ = SubResource("AnimationLibrary_00a0i")
+autoplay = &"idle"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1950217870]
+root_node = NodePath("../JOD")
+libraries/ = SubResource("AnimationLibrary_84wns")
