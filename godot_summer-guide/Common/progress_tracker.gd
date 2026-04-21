@@ -34,6 +34,9 @@ var met_kod : bool = false
 var given_kod_core : bool = false
 
 var met_qod : bool = false
+
+var met_jod : bool = false
+
 # ==============================================================================
 ## Tracks data for current run
 func save() -> Dictionary:
@@ -52,7 +55,8 @@ func save() -> Dictionary:
 		"map_last_pos" = map_last_pos,
 		"met_kod" = met_kod,
 		"given_kod_core" = given_kod_core,
-		"met_qod" = met_qod
+		"met_qod" = met_qod,
+		"met_jod" = met_jod
 	}
 	return dict
 

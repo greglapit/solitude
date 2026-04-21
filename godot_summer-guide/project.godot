@@ -84,7 +84,7 @@ left_click={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://Scenes/Encounters/KoDEncounter/kod_default.dialogue", "res://Scenes/Encounters/QoDEncounter/qod_default.dialogue", "res://Scenes/TutorialBattle/tutorial.dialogue", "res://Scenes/Camp/camp.dialogue", "res://Scenes/UI/StudyJournal/journal_memory.dialogue")
+locale/translations_pot_files=PackedStringArray("res://Scenes/Encounters/KoDEncounter/kod_default.dialogue", "res://Scenes/Encounters/QoDEncounter/qod_default.dialogue", "res://Scenes/TutorialBattle/tutorial.dialogue", "res://Scenes/Camp/camp.dialogue", "res://Scenes/UI/StudyJournal/journal_memory.dialogue", "res://Scenes/Encounters/JoDEncounter/jod_default.dialogue")
 
 [rendering]
 

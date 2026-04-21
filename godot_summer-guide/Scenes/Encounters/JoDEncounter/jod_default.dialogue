@@ -1,0 +1,11 @@
+~ start
+if not ProgressTracker.met_jod:
+	Fool: Who goes there...
+	do play("arrive_sequence", "ap")
+	JOD: Hello, Fool.
+	do play("light_candle", "jod")
+else:
+	do play("arrive_sequence", "ap")
+	JOD: Hello again.
+do end_encounter()
+=> END

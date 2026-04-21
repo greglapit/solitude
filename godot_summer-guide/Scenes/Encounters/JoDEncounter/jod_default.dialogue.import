@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://b6pp6x6th0eq3"
+path="res://.godot/imported/jod_default.dialogue-b8b3887d64b8d8d82793ef07900deb70.tres"
+
+[deps]
+
+source_file="res://Scenes/Encounters/JoDEncounter/jod_default.dialogue"
+dest_files=["res://.godot/imported/jod_default.dialogue-b8b3887d64b8d8d82793ef07900deb70.tres"]
+
+[params]
+
+defaults=true

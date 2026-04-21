@@ -9,9 +9,9 @@ extends Node2DScene
 # === Custom Methods ===========================================================
 func initialize() -> void:
 	await get_tree().create_timer(3.0).timeout
-	animation_player.play("arrive_sequence")
-	await animation_player.animation_finished
-
+	var balloon : Balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/Encounters/JoDEncounter/jod_default.dialogue"), "start")
+	await balloon.tree_exited
+	
 func light_fluctuation(lights : Array) -> void:
 	var time_between_fluct : float = 1.0
 	var light_fluct_amt : float = .1
@@ -25,7 +25,21 @@ func light_fluctuation(lights : Array) -> void:
 			light.scale -= Vector2.ONE * light_fluct_amt
 			await get_tree().create_timer(.2).timeout
 		await get_tree().create_timer(time_between_fluct).timeout
-		
+
+func play(anim : String, target : String = "") -> void:
+	var ap : AnimationPlayer
+	match target:
+		"jod":
+			ap = jod_ap
+		"fool":
+			ap = player_ap
+		_:
+			ap = animation_player
+	var curr_anim : Animation = animation_player.get_animation(animation_player.current_animation)
+	if curr_anim and curr_anim.loop_mode == Animation.LOOP_NONE:
+		await ap.animation_finished
+	ap.play(anim)
+	await ap.animation_finished
 
 func end_encounter() -> void:
 	change_scn.emit(Globals.scenes.CAMP, false, false)
