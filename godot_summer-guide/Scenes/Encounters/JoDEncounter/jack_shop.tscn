@@ -1,19 +1,58 @@
 [gd_scene format=3 uid="uid://ba82db0k4eoir"]
 
-[node name="JackShop" type="Control" unique_id=1402927089]
+[ext_resource type="Script" uid="uid://crqqpbgj1t3dx" path="res://Scenes/Encounters/JoDEncounter/jack_shop.gd" id="1_cqeoj"]
+
+[node name="JackShop" type="CanvasLayer" unique_id=100586514]
+script = ExtResource("1_cqeoj")
+
+[node name="JackShop" type="Control" parent="." unique_id=1402927089]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1611007899]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="MarginContainer" type="MarginContainer" parent="JackShop" unique_id=1611007899]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer" unique_id=442809842]
+[node name="Panel" type="Panel" parent="JackShop/MarginContainer" unique_id=442809842]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=1585088494]
+[node name="PanelContainer" type="PanelContainer" parent="JackShop/MarginContainer" unique_id=1585088494]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer" unique_id=1021929452]
+[node name="MarginContainer" type="MarginContainer" parent="JackShop/MarginContainer/PanelContainer" unique_id=1021929452]
 layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer" unique_id=2102189064]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=864003855]
+layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1019537857]
+layout_mode = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=187370163]
+layout_mode = 2
+
+[node name="PanelContainer4" type="PanelContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1121675980]
+layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2057388622]

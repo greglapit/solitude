@@ -35,7 +35,7 @@ var given_kod_core : bool = false
 
 var met_qod : bool = false
 
-var met_jod : bool = false
+var met_jod : bool = true
 
 # ==============================================================================
 ## Tracks data for current run

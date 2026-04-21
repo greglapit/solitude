@@ -5,7 +5,7 @@
 * Tarot Card: Magician
 * Symbols: Cup and balls. Baton/magic wand. Secondary iconography with suits spread out on table in front of him instead of cup and balls
 * Conduit between spirit and physical. Manifestation
-* Very similar to the Fool in terms of rank. Also represents purity and inexperience
+* Very similar to the Fool in terms of rank. Fool is 0, Magician is 1. Also represents purity and inexperience
 * Upright: tapping into one's talents/potential
 * Reversed: Unfocused
 * "A particularly important interpretation of the reversed Magician relates to the speculated connection between the experiences recognized in archaic societies as [shamanism](https://en.wikipedia.org/wiki/Shamanism "Shamanism") and those recognized in technological societies as [schizophrenia](https://en.wikipedia.org/wiki/Schizophrenia "Schizophrenia"); the reversed Magician is perceived as symbolizing the degree to which those experiences and abilities are unrecognized and suppressed, and the goal is to turn the card 'upright', or re-focus those experiences into their positive form." 

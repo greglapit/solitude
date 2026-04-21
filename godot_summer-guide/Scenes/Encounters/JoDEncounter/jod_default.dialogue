@@ -4,8 +4,18 @@ if not ProgressTracker.met_jod:
 	do play("arrive_sequence", "ap")
 	JOD: Hello, Fool.
 	do play("light_candle", "jod")
+	Fool: Who are you...
+	JOD: Perhaps you'd like to see my wares.
+	do play("raise_candle", "jod")
+	JOD: I am the Magician, the of the three diamond faces.
+	JOD: I collect items, remnants of cards, injecting them with power to reach their full potential.
+	JOD: Perhaps you would like to see my wares.
+	do ProgressTracker.met_jod = true
 else:
 	do play("arrive_sequence", "ap")
+	do play("raise_candle", "jod")
 	JOD: Hello again.
+do show_shop()
+JOD: Until next time.
 do end_encounter()
 => END

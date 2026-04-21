@@ -10,6 +10,7 @@ extends Node2DScene
 func initialize() -> void:
 	await get_tree().create_timer(3.0).timeout
 	var balloon : Balloon = DialogueManager.show_dialogue_balloon(load("res://Scenes/Encounters/JoDEncounter/jod_default.dialogue"), "start")
+	balloon.char_spoke.connect(_on_balloon_char_spoke)
 	await balloon.tree_exited
 	
 func light_fluctuation(lights : Array) -> void:
@@ -35,15 +36,21 @@ func play(anim : String, target : String = "") -> void:
 			ap = player_ap
 		_:
 			ap = animation_player
-	var curr_anim : Animation = animation_player.get_animation(animation_player.current_animation)
-	if curr_anim and curr_anim.loop_mode == Animation.LOOP_NONE:
-		await ap.animation_finished
+	if ap.is_playing():
+		var curr_anim : Animation = animation_player.get_animation(animation_player.current_animation)
+		if curr_anim and curr_anim.loop_mode == Animation.LOOP_NONE:
+			await ap.animation_finished
 	ap.play(anim)
 	await ap.animation_finished
 
+func show_shop() -> void:
+	var shop : JackShop = JackShop.generate_shop()
+	add_child(shop)
+	await shop.tree_exited
+
 func end_encounter() -> void:
 	change_scn.emit(Globals.scenes.CAMP, false, false)
-	
+
 # === Built In =================================================================
 
 func _ready() -> void:
@@ -57,9 +64,10 @@ func _input(_event: InputEvent) -> void:
 
 func _on_balloon_char_spoke(_char : String) -> void:
 	match _char:
-		#"Fool":
-			#player_ap.play("bump")
-		#"JOD":
+		"Fool":
+			player_ap.play("bump")
+		"JOD":
+			pass
 			#jod_ap.play("bump")
 		_:
 			pass
