@@ -1,0 +1,10 @@
+[gd_resource type="Resource" format=3 uid="uid://c8f0oghqs1ggm"]
+
+[ext_resource type="Script" uid="uid://b75avbawhgq0s" path="res://Entities/Items/Resources/concentrates.gd" id="1_mvk3d"]
+
+[resource]
+script = ExtResource("1_mvk3d")
+name = "Concentrate"
+id = "concentrate"
+description = "A pill consumed to weight the ranks of your draws."
+metadata/_custom_type_script = "uid://bes85f8halx03"

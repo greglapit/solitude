@@ -32,6 +32,7 @@ var armory : Dictionary = {1 : "1_base_weapon", 2 : "2_base_weapon", 3 : "3_base
 var memory_capacity : int = 2
 var init_armory_dur : int = 3
 var armory_durs : Array # Form = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5] (for each rank)
+var rank_weights : Array # Form = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 var inventory : Dictionary		# item.id : item_stack
 
 #region # Weapon Dicts
@@ -288,6 +289,7 @@ func update_save_dicts_data() -> void:
 		"available_weapon_pool" = available_weapon_pool,
 		"memory_capacity" = memory_capacity,
 		"armory_durs" = armory_durs,
+		"rank_weights" = rank_weights,
 	}
 	
 	var JSON_inventory : Dictionary
@@ -329,7 +331,30 @@ func update_save_dicts_data() -> void:
 	
 	# ProgressTracker
 	progress_data = ProgressTracker.save()
-	
+
+
+
+func set_player_data(data : Dictionary) -> void:
+	# Set Player Data
+	for i : String in data.keys():
+		match i:
+			"inventory":
+				for key : String in data["inventory"]:
+					var dict : Dictionary = data["inventory"][key]
+					var new_stack : ItemStack = ItemStack.new()
+					#if dict.item_id.contains("suppressant") or dict.:
+						#return
+					new_stack.item = all_item_data[dict.item_id]
+					new_stack.count = dict.count
+					inventory[dict.item_id] = new_stack
+			"available_weapon_pool":
+				for key : String in available_weapon_pool:
+					if key not in data["available_weapon_pool"]:
+						available_weapon_pool.erase(key)
+			_:
+				Globals.set(i, data[i])
+		
+	return
 
 ## Run Data
 func save() -> Signal:
@@ -369,25 +394,9 @@ func load_save() -> Signal:
 	progress_data = data["progress_data"]
 	
 	# Set Player Data
-	for i : String in player_data.keys():
-		match i:
-			"inventory":
-				for key : String in player_data["inventory"]:
-					var dict : Dictionary = player_data["inventory"][key]
-					var new_stack : ItemStack = ItemStack.new()
-					new_stack.item = all_item_data[dict.item_id]
-					new_stack.count = dict.count
-					inventory[dict.item_id] = new_stack
-			"available_weapon_pool":
-				for key : String in available_weapon_pool:
-					if key not in player_data["available_weapon_pool"]:
-						available_weapon_pool.erase(key)
-			_:
-				Globals.set(i, player_data[i])
-		
-		
-		
-	# Set Scene Transfer
+	set_player_data(player_data)
+
+	# Set Scene Data/Transfer
 	var scene_handler : Node = get_tree().get_nodes_in_group("SceneHandler")[0]
 	scene_handler.curr_scene_id = scene_data["curr_scene_id"]
 	seed(scene_data["seed"])
@@ -453,6 +462,13 @@ func initialize_armory_durs() -> void:
 	armory_durs.clear()
 	armory_durs.resize(10)
 	armory_durs.fill(init_armory_dur)
+
+func initialize_rank_weights() -> void:
+	rank_weights.clear()
+	rank_weights.resize(10)
+	rank_weights.fill(1)
+	
+	
 
 #endregion
 # ==============================================================================

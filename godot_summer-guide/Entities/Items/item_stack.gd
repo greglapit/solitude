@@ -1,5 +1,5 @@
+## Inventory purposes only. Hold count of item
 class_name ItemStack
-## Inventory purposes only
 
 var item : Item
 var count : int:

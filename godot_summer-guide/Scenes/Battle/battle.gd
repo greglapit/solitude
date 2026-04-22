@@ -500,6 +500,7 @@ func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -
 func _ready() -> void:
 	hp = Globals.hp
 	hands_label.text = "Hand: %d/%d" % [curr_round, max_rounds]
+	Globals.initialize_rank_weights()
 	
 	load_armory()
 	load_weapons_display()

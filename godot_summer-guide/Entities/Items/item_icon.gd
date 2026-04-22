@@ -1,4 +1,5 @@
 @tool
+## Displays item texture in 2DScene
 class_name ItemIcon
 extends TextureRect
 

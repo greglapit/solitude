@@ -9,7 +9,8 @@ extends Resource
 @export_multiline  var description : String
 
 enum item_type {
-	NORMAL,
-	CURRENCY,
-	STORY
+	NORMAL,			
+	CONSUMABLE,		# Health pots, etc.
+	CURRENCY,		# Tatters, etc
+	UNIQUE,			# Player can only hold one
 }

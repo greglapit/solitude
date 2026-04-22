@@ -13,16 +13,16 @@
 - [x] save file ✅ 2026-03-21
 - [x] In between player sitting at campfire. Will be where they edit their memory and recallable weapons. Player daydreaming at the sky, available weapons circling their head ✅ 2026-03-28
 	- [x] Click campfire to sleep the night and enter spread again. Gain a little health back ✅ 2026-03-28
-	- [ ] Chance encounters in dusk of shop with king, queen, jack of diamonds. Provide player weapons/upgrades
+	- [x] Chance encounters in dusk of shop with king, queen, jack of diamonds. Provide player weapons/upgrades
 	- [x] consult notebook with weapon recipes written in it. That is how the player swaps out their "learned" weapons with what is in their limited memory ✅ 2026-02-24📅 
 - [x] King of Diamonds ✅ 2026-03-28
 	- [x] Global script tracking if has met during run ✅ 2026-03-28
 	- [x] player inventory. Gives player random weapon. If has ✅ 2026-03-28
-	- [ ] She is found surveying fallen ally, gives player personal weapons of these cards to use
+	- [x] She is found surveying fallen ally, gives player personal weapons of these cards to use
 	- [x] Also increases player's memory capacity ✅ 2026-03-28
-- [ ] Choose encounter scene. Three slots, make node2d for each encounter that fits into slots. Chooses encounter randomly if encounter is valid for gamestate
-- [ ] Queen of diamonds
-	- [ ] mapping battlefield, planning next move. Unlocks standard issue card weapons for the player
+- [x] Choose encounter scene. Three slots, make node2d for each encounter that fits into slots. Chooses encounter randomly if encounter is valid for gamestate
+- [x] Queen of diamonds
+	- [x] mapping battlefield, planning next move. Unlocks standard issue card weapons for the player
 - [ ] Jack of diamonds
 	- [ ] Offers player weapon upgrades. More durability, more equip slots, more actions, more draw_amt, increaesed max hp, max crits, item that lets player draw certain amount when round begins. Takes card Tatters as currency
 	- [ ] Gamble minigame, three cups

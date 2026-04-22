@@ -12,5 +12,6 @@ script = ExtResource("1_k2ioi")
 name = "Card Core"
 id = "core"
 texture = SubResource("AtlasTexture_7k6mn")
+type = 3
 description = "A heart of the cards. Seems like something the King of Diamonds may be interested in.	"
 metadata/_custom_type_script = "uid://bes85f8halx03"
