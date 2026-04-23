@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://cttu8svkwjw8"]
+
+[ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_f7pge"]
+
+[resource]
+script = ExtResource("1_f7pge")
+name = "Ten Suppressant"
+id = "suppressant10"
+max_count = 10

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b66n0i6vk5clv"]
+
+[ext_resource type="Script" uid="uid://c10ilmv0jnl17" path="res://Common/ToolScripts/create_concentrates.gd" id="1_r7383"]
+
+[node name="Node" type="Node" unique_id=569344059]
+script = ExtResource("1_r7383")

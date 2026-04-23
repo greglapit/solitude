@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://cfg0ha01logns"]
+
+[ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_8vp2x"]
+
+[resource]
+script = ExtResource("1_8vp2x")
+name = "Ace Concentrate"
+id = "concentrate1"
+max_count = 10

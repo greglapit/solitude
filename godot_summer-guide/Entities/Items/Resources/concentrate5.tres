@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://ts6f3i2i74ex"]
+
+[ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_7o0y5"]
+
+[resource]
+script = ExtResource("1_7o0y5")
+name = "Five Concentrate"
+id = "concentrate5"
+max_count = 10

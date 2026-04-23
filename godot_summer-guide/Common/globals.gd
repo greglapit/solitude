@@ -1,6 +1,7 @@
 extends Node
 
 var ranks : Array = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+var rank_names : Array = ["Zero", "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"]
 
 # Save Dictionaries
 var player_data : Dictionary
@@ -33,7 +34,7 @@ var memory_capacity : int = 2
 var init_armory_dur : int = 3
 var armory_durs : Array # Form = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5] (for each rank)
 var rank_weights : Array # Form = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-var inventory : Dictionary		# item.id : item_stack
+var inventory : Dictionary		## item.id : item_stack
 
 #region # Weapon Dicts
 
@@ -127,6 +128,32 @@ func add_item(id : String, amt : int) -> void:
 	
 	if inventory[id].count <= 0:
 		inventory.erase(id)
+
+func recalculate_rank_weights() -> void:
+	var concentrate_counts : Array
+	var suppressant_counts : Array
+	
+	concentrate_counts.resize(11)
+	concentrate_counts.fill(1)
+	suppressant_counts.resize(11)
+	suppressant_counts.fill(1)
+	
+	
+	# Get counts of concentrates and suppressants for each rank
+	for item_id : String in inventory.keys():
+		if item_id.contains("concentrate"):
+			var stack : ItemStack = inventory[item_id]
+			var count : int = stack.count
+			var rank : int = int(item_id.remove_chars("concentrate"))
+			concentrate_counts[rank] = count
+		elif item_id.contains("suppressant"):
+			var stack : ItemStack = inventory[item_id]
+			var count : int = stack.count
+			var rank : int = int(item_id.remove_chars("suppressant"))
+			suppressant_counts[rank] = count
+	
+	
+	#for
 
 #endregion
 # ==================================================================================================
@@ -393,18 +420,18 @@ func load_save() -> Signal:
 	entities_data = data["entities_data"]
 	progress_data = data["progress_data"]
 	
-	# Set Player Data
+	# Set Player Data ==========================================================
 	set_player_data(player_data)
 
-	# Set Scene Data/Transfer
+	# Set Scene Data/Transfer ==================================================
 	var scene_handler : Node = get_tree().get_nodes_in_group("SceneHandler")[0]
 	scene_handler.curr_scene_id = scene_data["curr_scene_id"]
 	seed(scene_data["seed"])
 	
-	# Spawn and Set Entities
+	# Spawn and Set Entities ===================================================
 	# done in respective scenes during initialize()
 
-	# Progress
+	# Progress =================================================================
 	ProgressTracker.load_save(progress_data)
 
 	return get_tree().process_frame
@@ -463,12 +490,6 @@ func initialize_armory_durs() -> void:
 	armory_durs.resize(10)
 	armory_durs.fill(init_armory_dur)
 
-func initialize_rank_weights() -> void:
-	rank_weights.clear()
-	rank_weights.resize(10)
-	rank_weights.fill(1)
-	
-	
 
 #endregion
 # ==============================================================================
