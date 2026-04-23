@@ -13,7 +13,7 @@ var hp : int = 20:
 	set(value):
 		hp = clamp(value, 0, max_hp)
 var max_hp : int = 20
-var draw_amt : int = 1
+var draw_amt : int = 3
 var actions : int = 1
 var attacks : int = 1
 var max_draw : int = 3			# How many items player can have drawn at a time
@@ -32,8 +32,8 @@ var armory : Dictionary = {1 : "1_base_weapon", 2 : "2_base_weapon", 3 : "3_base
 			armory = value
 var memory_capacity : int = 2
 var init_armory_dur : int = 3
-var armory_durs : Array # Form = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5] (for each rank)
-var rank_weights : Array # Form = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+var armory_durs : Array # Form = [0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5] (for each rank)
+var rank_weights : Array # Form = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 var inventory : Dictionary		## item.id : item_stack
 
 #region # Weapon Dicts
@@ -129,54 +129,49 @@ func add_item(id : String, amt : int) -> void:
 	if inventory[id].count <= 0:
 		inventory.erase(id)
 
-func recalculate_rank_weights() -> void:
-	var concentrate_counts : Array
-	var suppressant_counts : Array
-	
-	concentrate_counts.resize(11)
-	concentrate_counts.fill(1)
-	suppressant_counts.resize(11)
-	suppressant_counts.fill(1)
-	
-	
-	# Get counts of concentrates and suppressants for each rank
-	for item_id : String in inventory.keys():
-		if item_id.contains("concentrate"):
-			var stack : ItemStack = inventory[item_id]
-			var count : int = stack.count
-			var rank : int = int(item_id.remove_chars("concentrate"))
-			concentrate_counts[rank] = count
-		elif item_id.contains("suppressant"):
-			var stack : ItemStack = inventory[item_id]
-			var count : int = stack.count
-			var rank : int = int(item_id.remove_chars("suppressant"))
-			suppressant_counts[rank] = count
-	
-	
-	#for
-
 #endregion
 # ==================================================================================================
 # Helper Functions
 #region
 # ==================================================================================================
 ## Takes dictionary "string" : weight and returns random string based on weight
-func weighted_pick_random(dict : Dictionary) -> String:
-	var total : int = 0
-	
-	for weight : int in dict.values():
-		total += weight
+## Also takes array of weights and returns indices as string
+func weighted_pick_random(variant : Variant) -> String:
+	if variant is Dictionary:
+		var dict : Dictionary = variant.duplicate()
+		var total : int = 0
 		
-	
-	var r : float = randf() * total
-	
-	var cumulative : int = 0
-	for val : String in dict.keys():
-		cumulative += dict[val]
-		if r < cumulative:
-			return val
+		for weight : int in dict.values():
+			total += weight
 			
+		
+		var r : float = randf() * total
+		
+		var cumulative : int = 0
+		for val : String in dict.keys():
+			cumulative += dict[val]
+			if r < cumulative:
+				return val
+				
+	
+	elif variant is Array:
+		var arr : Array = variant.duplicate()
+		var total : int = 0
+		
+		for weight : int in arr:
+			total += weight
+		
+		var r : float = randf() * total
+		
+		var cumulative : float = 0
+		for ind : int in range(arr.size()):
+			cumulative += arr[ind]
+			if r < cumulative:
+				return str(ind)
+		
+		
 	return ""
+
 
 func fill_placeholders(template: String, vars: Dictionary) -> String:
 	for key : String in vars.keys():
@@ -487,9 +482,46 @@ func intitialize_weapon_pool() -> void:
 
 func initialize_armory_durs() -> void:
 	armory_durs.clear()
-	armory_durs.resize(10)
+	armory_durs.resize(11)
 	armory_durs.fill(init_armory_dur)
 
+func recalculate_rank_weights() -> void:
+	var concentrate_counts : Array
+	var suppressant_counts : Array
+	
+	concentrate_counts.resize(11)
+	concentrate_counts.fill(0)
+	suppressant_counts.resize(11)
+	suppressant_counts.fill(0)
+	
+	
+	# Get counts of concentrates and suppressants for each rank
+	for item_id : String in inventory.keys():
+		if item_id.contains("concentrate"):
+			var stack : ItemStack = inventory[item_id]
+			var count : int = stack.count
+			var rank : int = int(item_id.remove_chars("concentrate"))
+			concentrate_counts[rank] = count
+		elif item_id.contains("suppressant"):
+			var stack : ItemStack = inventory[item_id]
+			var count : int = stack.count
+			var rank : int = int(item_id.remove_chars("suppressant"))
+			suppressant_counts[rank] = count
+	
+	rank_weights.clear()
+	rank_weights.resize(11)
+	rank_weights.fill(1)
+	rank_weights[0] = 0
+	
+	for rank : int in range(11):
+		var total_count : int = concentrate_counts[rank] - suppressant_counts[rank]
+		# If taken more than 5 concentrates than suppressants, will only pull that card
+		if total_count >= 5:
+			rank_weights.fill(0)
+			rank_weights[rank] = 1
+		
+		rank_weights[rank] += total_count * 2
+		
 
 #endregion
 # ==============================================================================
