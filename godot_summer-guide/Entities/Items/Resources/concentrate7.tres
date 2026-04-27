@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="Item" format=3 uid="uid://bgla3hn77rewu"]
-
-[ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_28vmi"]
-
-[resource]
-script = ExtResource("1_28vmi")
-name = "Seven Concentrate"
-id = "concentrate7"
-max_count = 10
