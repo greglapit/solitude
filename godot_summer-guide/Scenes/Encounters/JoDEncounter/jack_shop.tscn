@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ba82db0k4eoir"]
 
 [ext_resource type="Script" uid="uid://crqqpbgj1t3dx" path="res://Scenes/Encounters/JoDEncounter/jack_shop.gd" id="1_cqeoj"]
+[ext_resource type="PackedScene" uid="uid://bumiomtnvvth" path="res://Entities/Items/item_icon.tscn" id="2_1dp6h"]
 
 [node name="JackShop" type="CanvasLayer" unique_id=100586514]
 script = ExtResource("1_cqeoj")
@@ -43,16 +44,51 @@ theme_override_constants/margin_bottom = 20
 [node name="HBoxContainer" type="HBoxContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer" unique_id=2102189064]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=864003855]
+[node name="VBoxContainer" type="VBoxContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1690592580]
 layout_mode = 2
 
-[node name="PanelContainer2" type="PanelContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1019537857]
+[node name="MarginContainer" type="MarginContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=137600253]
 layout_mode = 2
 
-[node name="PanelContainer3" type="PanelContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=187370163]
+[node name="VBoxContainer" type="VBoxContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer" unique_id=1714377263]
 layout_mode = 2
 
-[node name="PanelContainer4" type="PanelContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1121675980]
+[node name="Label" type="Label" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=110935338]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.78039217, 0.8627451, 0.8156863, 1)
+text = "Consumables"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1471420129]
+layout_mode = 2
+
+[node name="ItemIcon" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1498193727 instance=ExtResource("2_1dp6h")]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=309603906]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2" unique_id=951148701]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78039217, 0.8627451, 0.8156863, 1)
+text = "Upgrades"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1650874564]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=81162859]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer" unique_id=1851715415]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78039217, 0.8627451, 0.8156863, 1)
+text = "Card Effects"
+
+[node name="MarginContainer2" type="MarginContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=1901589322]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2" unique_id=1988434890]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78039217, 0.8627451, 0.8156863, 1)
+text = "Special Items"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2057388622]
