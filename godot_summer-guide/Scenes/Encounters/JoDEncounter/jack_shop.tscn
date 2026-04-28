@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://ba82db0k4eoir"]
 
 [ext_resource type="Script" uid="uid://crqqpbgj1t3dx" path="res://Scenes/Encounters/JoDEncounter/jack_shop.gd" id="1_cqeoj"]
-[ext_resource type="PackedScene" uid="uid://bumiomtnvvth" path="res://Entities/Items/item_icon.tscn" id="2_1dp6h"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cqeoj"]
+size = Vector2(32, 32)
 
 [node name="JackShop" type="CanvasLayer" unique_id=100586514]
 script = ExtResource("1_cqeoj")
@@ -58,19 +60,52 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.78039217, 0.8627451, 0.8156863, 1)
 text = "Consumables"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1471420129]
+[node name="ItemList" type="ItemList" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=505311226]
 layout_mode = 2
-
-[node name="ItemIcon" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1498193727 instance=ExtResource("2_1dp6h")]
-layout_mode = 2
+auto_width = true
+auto_height = true
+item_count = 5
+max_columns = 5
+icon_mode = 0
+item_0/text = "test"
+item_0/icon = SubResource("PlaceholderTexture2D_cqeoj")
+item_1/text = "test"
+item_1/icon = SubResource("PlaceholderTexture2D_cqeoj")
+item_2/text = "test"
+item_2/icon = SubResource("PlaceholderTexture2D_cqeoj")
+item_3/text = "test"
+item_3/icon = SubResource("PlaceholderTexture2D_cqeoj")
+item_4/text = "test"
+item_4/icon = SubResource("PlaceholderTexture2D_cqeoj")
 
 [node name="MarginContainer2" type="MarginContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=309603906]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2" unique_id=951148701]
+[node name="VBoxContainer" type="VBoxContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2" unique_id=2131950372]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=951148701]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.78039217, 0.8627451, 0.8156863, 1)
 text = "Upgrades"
+
+[node name="ItemList" type="ItemList" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1489957504]
+layout_mode = 2
+auto_width = true
+auto_height = true
+item_count = 5
+max_columns = 5
+icon_mode = 0
+item_0/text = "test"
+item_0/icon = SubResource("PlaceholderTexture2D_cqeoj")
+item_1/text = "test"
+item_1/icon = SubResource("PlaceholderTexture2D_cqeoj")
+item_2/text = "test"
+item_2/icon = SubResource("PlaceholderTexture2D_cqeoj")
+item_3/text = "test"
+item_3/icon = SubResource("PlaceholderTexture2D_cqeoj")
+item_4/text = "test"
+item_4/icon = SubResource("PlaceholderTexture2D_cqeoj")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1650874564]
 layout_mode = 2
@@ -78,17 +113,59 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=81162859]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer" unique_id=1851715415]
+[node name="VBoxContainer" type="VBoxContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer" unique_id=209190405]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer/VBoxContainer" unique_id=1851715415]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.78039217, 0.8627451, 0.8156863, 1)
 text = "Card Effects"
 
+[node name="ItemList" type="ItemList" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer/VBoxContainer" unique_id=1121462618]
+layout_mode = 2
+auto_width = true
+auto_height = true
+item_count = 5
+max_columns = 5
+icon_mode = 0
+item_0/text = "test"
+item_0/icon = SubResource("PlaceholderTexture2D_cqeoj")
+item_1/text = "test"
+item_1/icon = SubResource("PlaceholderTexture2D_cqeoj")
+item_2/text = "test"
+item_2/icon = SubResource("PlaceholderTexture2D_cqeoj")
+item_3/text = "test"
+item_3/icon = SubResource("PlaceholderTexture2D_cqeoj")
+item_4/text = "test"
+item_4/icon = SubResource("PlaceholderTexture2D_cqeoj")
+
 [node name="MarginContainer2" type="MarginContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=1901589322]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2" unique_id=1988434890]
+[node name="VBoxContainer" type="VBoxContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2" unique_id=1998204337]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2/VBoxContainer" unique_id=1988434890]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.78039217, 0.8627451, 0.8156863, 1)
 text = "Special Items"
+
+[node name="ItemList" type="ItemList" parent="JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2/VBoxContainer" unique_id=516408383]
+layout_mode = 2
+auto_width = true
+auto_height = true
+item_count = 5
+max_columns = 5
+icon_mode = 0
+item_0/text = "test"
+item_0/icon = SubResource("PlaceholderTexture2D_cqeoj")
+item_1/text = "test"
+item_1/icon = SubResource("PlaceholderTexture2D_cqeoj")
+item_2/text = "test"
+item_2/icon = SubResource("PlaceholderTexture2D_cqeoj")
+item_3/text = "test"
+item_3/icon = SubResource("PlaceholderTexture2D_cqeoj")
+item_4/text = "test"
+item_4/icon = SubResource("PlaceholderTexture2D_cqeoj")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2057388622]
