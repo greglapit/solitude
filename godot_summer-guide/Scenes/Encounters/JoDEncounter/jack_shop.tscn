@@ -5,6 +5,9 @@
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cqeoj"]
 size = Vector2(32, 32)
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1dp6h"]
+size = Vector2(100, 20)
+
 [node name="JackShop" type="CanvasLayer" unique_id=100586514]
 script = ExtResource("1_cqeoj")
 
@@ -167,5 +170,29 @@ item_3/text = "test"
 item_3/icon = SubResource("PlaceholderTexture2D_cqeoj")
 item_4/text = "test"
 item_4/icon = SubResource("PlaceholderTexture2D_cqeoj")
+
+[node name="Exit" type="PanelContainer" parent="." unique_id=13163624]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -31.0
+offset_right = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TextureButton" type="TextureButton" parent="Exit" unique_id=294853296]
+layout_mode = 2
+texture_normal = SubResource("PlaceholderTexture2D_1dp6h")
+
+[node name="CenterContainer" type="CenterContainer" parent="Exit" unique_id=1401424402]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Exit/CenterContainer" unique_id=682793279]
+layout_mode = 2
+text = "Exit
+"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2057388622]
