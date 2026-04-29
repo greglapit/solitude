@@ -11,6 +11,8 @@ bg_color = Color(0.780392, 0.862745, 0.815686, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6qegq"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nd24b"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nd24b"]
 content_margin_left = 4.0
 content_margin_top = 4.0
@@ -50,6 +52,7 @@ Button/styles/focus = SubResource("StyleBoxEmpty_6qegq")
 Button/styles/hover = SubResource("StyleBoxEmpty_hjn8r")
 Button/styles/normal = SubResource("StyleBoxFlat_ju8y4")
 Button/styles/pressed = SubResource("StyleBoxFlat_6qegq")
+ItemList/styles/panel = SubResource("StyleBoxEmpty_nd24b")
 Label/colors/font_color = Color(0.180392, 0.133333, 0.184314, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0)

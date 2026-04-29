@@ -1,15 +1,46 @@
 [gd_scene format=3 uid="uid://ba82db0k4eoir"]
 
-[ext_resource type="Script" uid="uid://crqqpbgj1t3dx" path="res://Scenes/Encounters/JoDEncounter/jack_shop.gd" id="1_cqeoj"]
+[ext_resource type="Texture2D" uid="uid://p2y06wk3eq6u" path="res://Scenes/Encounters/JoDEncounter/JackShop/Art/jack_shop.png" id="1_b5q13"]
+[ext_resource type="Texture2D" uid="uid://dpmaww8h7mt58" path="res://Scenes/Encounters/JoDEncounter/JackShop/Art/exit_button.png" id="2_otjbc"]
+
+[sub_resource type="GDScript" id="GDScript_nvsmn"]
+script/source = "class_name JackShop
+extends CanvasLayer
+
+@onready var item_list1 : ItemList = $JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemList
+@onready var item_list2 : ItemList = $JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/ItemList
+@onready var item_list3 : ItemList = $JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer/VBoxContainer/ItemList
+@onready var item_list4 : ItemList = $JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2/VBoxContainer/ItemList
+@onready var animation_player : AnimationPlayer = $AnimationPlayer
+
+const jack_shop_scene : PackedScene = preload(\"res://Scenes/Encounters/JoDEncounter/jack_shop.tscn\")
+
+# === Custom Methods ===========================================================
+
+static func generate_shop() -> JackShop:
+	var shop_node : JackShop = jack_shop_scene.instantiate()
+	return shop_node
+
+
+# === Built In =================================================================
+
+func _ready() -> void:
+	pass
+	
+func _input(_event: InputEvent) -> void:
+	pass
+
+# === Signals ==================================================================
+"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0imvo"]
+texture = ExtResource("1_b5q13")
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cqeoj"]
 size = Vector2(32, 32)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1dp6h"]
-size = Vector2(100, 20)
-
 [node name="JackShop" type="CanvasLayer" unique_id=100586514]
-script = ExtResource("1_cqeoj")
+script = SubResource("GDScript_nvsmn")
 
 [node name="JackShop" type="Control" parent="." unique_id=1402927089]
 layout_mode = 3
@@ -35,15 +66,16 @@ grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="JackShop/MarginContainer" unique_id=442809842]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_0imvo")
 
 [node name="PanelContainer" type="PanelContainer" parent="JackShop/MarginContainer" unique_id=1585088494]
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="JackShop/MarginContainer/PanelContainer" unique_id=1021929452]
 layout_mode = 2
-theme_override_constants/margin_left = 20
+theme_override_constants/margin_left = 55
 theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
+theme_override_constants/margin_right = 55
 theme_override_constants/margin_bottom = 20
 
 [node name="HBoxContainer" type="HBoxContainer" parent="JackShop/MarginContainer/PanelContainer/MarginContainer" unique_id=2102189064]
@@ -171,28 +203,36 @@ item_3/icon = SubResource("PlaceholderTexture2D_cqeoj")
 item_4/text = "test"
 item_4/icon = SubResource("PlaceholderTexture2D_cqeoj")
 
-[node name="Exit" type="PanelContainer" parent="." unique_id=13163624]
-anchors_preset = 7
+[node name="Control" type="Control" parent="." unique_id=257677765]
+layout_mode = 3
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -50.0
-offset_top = -31.0
-offset_right = 50.0
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 85.0
+offset_right = 20.0
+offset_bottom = 125.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 
-[node name="TextureButton" type="TextureButton" parent="Exit" unique_id=294853296]
-layout_mode = 2
-texture_normal = SubResource("PlaceholderTexture2D_1dp6h")
+[node name="Exit" type="PanelContainer" parent="Control" unique_id=13163624]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -10.0
+offset_right = 50.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="Exit" unique_id=1401424402]
+[node name="TextureButton" type="TextureButton" parent="Control/Exit" unique_id=294853296]
 layout_mode = 2
-
-[node name="Label" type="Label" parent="Exit/CenterContainer" unique_id=682793279]
-layout_mode = 2
-text = "Exit
-"
+texture_normal = ExtResource("2_otjbc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2057388622]
