@@ -7,7 +7,7 @@ extends CanvasLayer
 @onready var item_list4 : ItemList = $JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2/VBoxContainer/ItemList
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 
-const jack_shop_scene : PackedScene = preload("res://Scenes/Encounters/JoDEncounter/jack_shop.tscn")
+const jack_shop_scene : PackedScene = preload("res://Scenes/Encounters/JoDEncounter/JackShop/jack_shop.tscn")
 
 # === Custom Methods ===========================================================
 

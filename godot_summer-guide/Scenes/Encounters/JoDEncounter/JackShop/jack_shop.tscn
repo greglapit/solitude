@@ -13,7 +13,9 @@ extends CanvasLayer
 @onready var item_list4 : ItemList = $JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2/VBoxContainer/ItemList
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 
-const jack_shop_scene : PackedScene = preload(\"res://Scenes/Encounters/JoDEncounter/jack_shop.tscn\")
+const jack_shop_scene : PackedScene = preload(\"res://Scenes/Encounters/JoDEncounter/JackShop/jack_shop.tscn\")
+
+var pause_input : bool = true
 
 # === Custom Methods ===========================================================
 
@@ -31,6 +33,19 @@ func _input(_event: InputEvent) -> void:
 	pass
 
 # === Signals ==================================================================
+
+func _on_exit_button_pressed() -> void:
+	if pause_input:
+		return
+	animation_player.queue(\"despawn\")
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	match anim_name:
+		\"spawn\":
+			pause_input = false
+		\"despawn\":
+			queue_free()
 "
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0imvo"]
@@ -39,8 +54,111 @@ texture = ExtResource("1_b5q13")
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cqeoj"]
 size = Vector2(32, 32)
 
+[sub_resource type="Animation" id="Animation_otjbc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background/CanvasModulate:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_nvsmn"]
+resource_name = "despawn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.26666668),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background/CanvasModulate:color")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_b5q13"]
+resource_name = "spawn"
+length = 0.6666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.4, 0.6666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background/CanvasModulate:color")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_otjbc"]
+_data = {
+&"RESET": SubResource("Animation_otjbc"),
+&"despawn": SubResource("Animation_nvsmn"),
+&"spawn": SubResource("Animation_b5q13")
+}
+
 [node name="JackShop" type="CanvasLayer" unique_id=100586514]
+layer = 2
 script = SubResource("GDScript_nvsmn")
+
+[node name="Background" type="CanvasLayer" parent="." unique_id=1285346205]
+
+[node name="ColorRect" type="ColorRect" parent="Background" unique_id=1833479869]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.65000004)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Background" unique_id=1472351064]
 
 [node name="JackShop" type="Control" parent="." unique_id=1402927089]
 layout_mode = 3
@@ -231,8 +349,15 @@ offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureButton" type="TextureButton" parent="Control/Exit" unique_id=294853296]
+[node name="ExitButton" type="TextureButton" parent="Control/Exit" unique_id=294853296]
 layout_mode = 2
 texture_normal = ExtResource("2_otjbc")
 
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=437945630]
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2057388622]
+libraries/ = SubResource("AnimationLibrary_otjbc")
+autoplay = &"spawn"
+
+[connection signal="pressed" from="Control/Exit/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
