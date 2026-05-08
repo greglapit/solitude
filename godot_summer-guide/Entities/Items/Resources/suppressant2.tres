@@ -1,9 +1,15 @@
 [gd_resource type="Resource" script_class="Item" format=3 uid="uid://dvkvlsa7ujhm"]
 
 [ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_owwdn"]
+[ext_resource type="Texture2D" uid="uid://dkwt60cqdl0qa" path="res://Entities/Items/item_atlas.png" id="2_pf4ni"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pf4ni"]
+atlas = ExtResource("2_pf4ni")
+region = Rect2(32, 48, 32, 32)
 
 [resource]
 script = ExtResource("1_owwdn")
 name = "Two Suppressant"
 id = "suppressant2"
+texture = SubResource("AtlasTexture_pf4ni")
 max_count = 10

@@ -1,52 +1,8 @@
 [gd_scene format=3 uid="uid://ba82db0k4eoir"]
 
 [ext_resource type="Texture2D" uid="uid://p2y06wk3eq6u" path="res://Scenes/Encounters/JoDEncounter/JackShop/Art/jack_shop.png" id="1_b5q13"]
+[ext_resource type="Script" uid="uid://crqqpbgj1t3dx" path="res://Scenes/Encounters/JoDEncounter/JackShop/jack_shop.gd" id="1_otjbc"]
 [ext_resource type="Texture2D" uid="uid://dpmaww8h7mt58" path="res://Scenes/Encounters/JoDEncounter/JackShop/Art/exit_button.png" id="2_otjbc"]
-
-[sub_resource type="GDScript" id="GDScript_nvsmn"]
-script/source = "class_name JackShop
-extends CanvasLayer
-
-@onready var item_list1 : ItemList = $JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/ItemList
-@onready var item_list2 : ItemList = $JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/ItemList
-@onready var item_list3 : ItemList = $JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer/VBoxContainer/ItemList
-@onready var item_list4 : ItemList = $JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2/VBoxContainer/ItemList
-@onready var animation_player : AnimationPlayer = $AnimationPlayer
-
-const jack_shop_scene : PackedScene = preload(\"res://Scenes/Encounters/JoDEncounter/JackShop/jack_shop.tscn\")
-
-var pause_input : bool = true
-
-# === Custom Methods ===========================================================
-
-static func generate_shop() -> JackShop:
-	var shop_node : JackShop = jack_shop_scene.instantiate()
-	return shop_node
-
-
-# === Built In =================================================================
-
-func _ready() -> void:
-	pass
-	
-func _input(_event: InputEvent) -> void:
-	pass
-
-# === Signals ==================================================================
-
-func _on_exit_button_pressed() -> void:
-	if pause_input:
-		return
-	animation_player.queue(\"despawn\")
-
-
-func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	match anim_name:
-		\"spawn\":
-			pause_input = false
-		\"despawn\":
-			queue_free()
-"
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0imvo"]
 texture = ExtResource("1_b5q13")
@@ -146,7 +102,7 @@ _data = {
 
 [node name="JackShop" type="CanvasLayer" unique_id=100586514]
 layer = 2
-script = SubResource("GDScript_nvsmn")
+script = ExtResource("1_otjbc")
 
 [node name="Background" type="CanvasLayer" parent="." unique_id=1285346205]
 

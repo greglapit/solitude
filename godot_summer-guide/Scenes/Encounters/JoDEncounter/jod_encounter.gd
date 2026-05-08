@@ -1,7 +1,7 @@
 extends Node2DScene
 
 @onready var player : Node2D = $Player
-@onready var animation_player : AnimationPlayer = $AnimationPlayer
+@onready var scene_ap : AnimationPlayer = $AnimationPlayer
 @onready var player_ap : AnimationPlayer = $Player/AnimationPlayer
 @onready var jod_ap : AnimationPlayer = $JOD/AnimationPlayer
 
@@ -35,9 +35,9 @@ func play(anim : String, target : String = "") -> void:
 		"fool":
 			ap = player_ap
 		_:
-			ap = animation_player
+			ap = scene_ap
 	if ap.is_playing():
-		var curr_anim : Animation = animation_player.get_animation(animation_player.current_animation)
+		var curr_anim : Animation = ap.get_animation(ap.current_animation)
 		if curr_anim and curr_anim.loop_mode == Animation.LOOP_NONE:
 			await ap.animation_finished
 	ap.play(anim)

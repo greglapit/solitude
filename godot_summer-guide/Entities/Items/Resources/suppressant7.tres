@@ -1,9 +1,15 @@
 [gd_resource type="Resource" script_class="Item" format=3 uid="uid://11uywskljwix"]
 
-[ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_fpyxw"]
+[ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_0i5hi"]
+[ext_resource type="Texture2D" uid="uid://dkwt60cqdl0qa" path="res://Entities/Items/item_atlas.png" id="2_mhlv6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0i5hi"]
+atlas = ExtResource("2_mhlv6")
+region = Rect2(192, 48, 32, 32)
 
 [resource]
-script = ExtResource("1_fpyxw")
+script = ExtResource("1_0i5hi")
 name = "Seven Suppressant"
 id = "suppressant7"
+texture = SubResource("AtlasTexture_0i5hi")
 max_count = 10

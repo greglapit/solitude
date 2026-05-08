@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_nplkv"]
 [ext_resource type="Texture2D" uid="uid://dkwt60cqdl0qa" path="res://Entities/Items/item_atlas.png" id="2_jbgn0"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5v36f"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_jbgn0"]
 atlas = ExtResource("2_jbgn0")
 region = Rect2(0, 48, 32, 32)
 
@@ -11,5 +11,5 @@ region = Rect2(0, 48, 32, 32)
 script = ExtResource("1_nplkv")
 name = "Ace Suppressant"
 id = "suppressant1"
-texture = SubResource("AtlasTexture_5v36f")
+texture = SubResource("AtlasTexture_jbgn0")
 max_count = 10

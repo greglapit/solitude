@@ -2,10 +2,19 @@ extends Node
 
 # Internal
 var rounds_per_suit : int = 7
+var world_level : int:
+	get:
+		var curr_loc : int = spread_location.find(player_location["spread_location"])
+		if curr_loc < 0:
+			push_error("Cannot calculate world level from spread location")
+		
+		var rnd : int = player_location["round"]
+		return (curr_loc * rounds_per_suit) + rnd
 const spread_location : Array = ["hearts", "clubs", "spades"]
 
 # ==============================================================================
 # ADD TO SAVE DICT
+
 # Perma save data
 # ==============================================================================
 var tutorial_completed : bool = false
@@ -23,9 +32,9 @@ var gained_first_special : bool = false
 var unlocked_memory : bool = false
 
 var unlocked_rank : int = 0
-var player_location : Dictionary = {
+var player_location : Dictionary = {			## Updated in entering_spread.gd
 	"spread_location" = spread_location[0],
-	"round" = 7
+	"round" = 0
 }
 var map_last_pos : float
 
@@ -35,7 +44,7 @@ var given_kod_core : bool = false
 
 var met_qod : bool = false
 
-var met_jod : bool = true
+var met_jod : bool = false
 
 # ==============================================================================
 ## Tracks data for current run
@@ -70,3 +79,6 @@ func perma_save() -> Dictionary:
 func load_save(dict : Dictionary) -> void:
 	for key : String in dict.keys():
 		set(key, dict[key])
+
+func _ready() -> void:
+	print(world_level)

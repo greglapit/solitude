@@ -16,7 +16,7 @@ var max_hp : int = 20
 var draw_amt : int = 3
 var actions : int = 1
 var attacks : int = 1
-var max_draw : int = 3			# How many items player can have drawn at a time
+var max_draw : int = 1			# How many items player can have drawn at a time
 var max_crits : int = 3
 
 # Convert all keys to int automatically for JSON
@@ -488,6 +488,7 @@ func initialize_armory_durs() -> void:
 func recalculate_rank_weights() -> void:
 	var concentrate_counts : Array
 	var suppressant_counts : Array
+	var conc_max : int = 3				# Max amount of concentrates player can take
 	
 	concentrate_counts.resize(11)
 	concentrate_counts.fill(0)
@@ -513,14 +514,20 @@ func recalculate_rank_weights() -> void:
 	rank_weights.fill(1)
 	rank_weights[0] = 0
 	
+	var maxed_concentrate : bool = false 		# Tracks if player has maxed concentrate for certain rank
 	for rank : int in range(11):
 		var total_count : int = concentrate_counts[rank] - suppressant_counts[rank]
-		# If taken more than 5 concentrates than suppressants, will only pull that card
-		if total_count >= 5:
+		# If taken more than 3 concentrates than suppressants, will only pull that card
+		if total_count >= conc_max:
+			if maxed_concentrate:
+				push_error("Already maxed a concentrate")
+				break
 			rank_weights.fill(0)
 			rank_weights[rank] = 1
+			maxed_concentrate = true
 		
-		rank_weights[rank] += total_count * 2
+		
+		rank_weights[rank] += clamp(total_count * 3, 0, conc_max)
 		
 
 #endregion

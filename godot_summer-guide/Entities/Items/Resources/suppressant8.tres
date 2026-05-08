@@ -1,9 +1,15 @@
 [gd_resource type="Resource" script_class="Item" format=3 uid="uid://7ub2bl3sa6hu"]
 
-[ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_6rovr"]
+[ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_5254n"]
+[ext_resource type="Texture2D" uid="uid://dkwt60cqdl0qa" path="res://Entities/Items/item_atlas.png" id="2_qgmde"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5254n"]
+atlas = ExtResource("2_qgmde")
+region = Rect2(224, 48, 32, 32)
 
 [resource]
-script = ExtResource("1_6rovr")
+script = ExtResource("1_5254n")
 name = "Eight Suppressant"
 id = "suppressant8"
+texture = SubResource("AtlasTexture_5254n")
 max_count = 10

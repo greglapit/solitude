@@ -7,6 +7,7 @@ extends CanvasLayer
 @onready var item_list4 : ItemList = $JackShop/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2/VBoxContainer/ItemList
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 
+var pause_input : bool = true
 const jack_shop_scene : PackedScene = preload("res://Scenes/Encounters/JoDEncounter/JackShop/jack_shop.tscn")
 
 # === Custom Methods ===========================================================
@@ -14,7 +15,7 @@ const jack_shop_scene : PackedScene = preload("res://Scenes/Encounters/JoDEncoun
 static func generate_shop() -> JackShop:
 	var shop_node : JackShop = jack_shop_scene.instantiate()
 	return shop_node
-
+	  
 
 # === Built In =================================================================
 
@@ -25,3 +26,16 @@ func _input(_event: InputEvent) -> void:
 	pass
 
 # === Signals ==================================================================
+
+func _on_exit_button_pressed() -> void:
+	if pause_input:
+		return
+	animation_player.queue("despawn")
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	match anim_name:
+		"spawn":
+			pause_input = false
+		"despawn":
+			queue_free()

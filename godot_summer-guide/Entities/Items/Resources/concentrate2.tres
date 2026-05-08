@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://tt0dk1prhxd8"]
+
+[ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_34csr"]
+[ext_resource type="Texture2D" uid="uid://dkwt60cqdl0qa" path="res://Entities/Items/item_atlas.png" id="2_sc0fx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbhdy"]
+atlas = ExtResource("2_sc0fx")
+region = Rect2(32, 96, 32, 32)
+
+[resource]
+script = ExtResource("1_34csr")
+name = "Two Concentrate"
+id = "concentrate2"
+texture = SubResource("AtlasTexture_bbhdy")
+max_count = 10

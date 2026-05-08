@@ -5,7 +5,6 @@ if not ProgressTracker.met_jod:
 	JOD: Hello, Fool.
 	do play("light_candle", "jod")
 	Fool: Who are you...
-	JOD: Perhaps you'd like to see my wares.
 	do play("raise_candle", "jod")
 	JOD: I am the Magician, the of the three diamond faces.
 	JOD: I collect items, remnants of cards, injecting them with power to reach their full potential.

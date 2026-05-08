@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://c2f4em3ej3gp2"]
+
+[ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_5jxpb"]
+[ext_resource type="Texture2D" uid="uid://dkwt60cqdl0qa" path="res://Entities/Items/item_atlas.png" id="2_6rkkb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rv1ki"]
+atlas = ExtResource("2_6rkkb")
+region = Rect2(160, 96, 32, 32)
+
+[resource]
+script = ExtResource("1_5jxpb")
+name = "Six Concentrate"
+id = "concentrate6"
+texture = SubResource("AtlasTexture_rv1ki")
+max_count = 10
