@@ -1,7 +1,12 @@
 extends Node
 
+## Tracks player progress and holds relevant internal progression data
+
+# ==============================================================================
 # Internal
+# ==============================================================================
 var rounds_per_suit : int = 7
+const spread_location : Array = ["hearts", "clubs", "spades"]
 var world_level : int:
 	get:
 		var curr_loc : int = spread_location.find(player_location["spread_location"])
@@ -10,16 +15,14 @@ var world_level : int:
 		
 		var rnd : int = player_location["round"]
 		return (curr_loc * rounds_per_suit) + rnd
-const spread_location : Array = ["hearts", "clubs", "spades"]
-
+		
 # ==============================================================================
-# ADD TO SAVE DICT
-
-# Perma save data
+# Perma save data 
 # ==============================================================================
 var tutorial_completed : bool = false
 
-# Run save data
+# ==============================================================================
+# Run save data ADD TO SAVE DICT
 # ==============================================================================
 var seed_data : int
 
@@ -48,6 +51,7 @@ var met_jod : bool = false
 
 # ==============================================================================
 ## Tracks data for current run
+# ==============================================================================
 func save() -> Dictionary:
 	var dict : Dictionary = {
 		"seed" = seed,

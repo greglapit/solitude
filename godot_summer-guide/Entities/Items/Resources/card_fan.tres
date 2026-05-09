@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://doogukcsmwy3h"]
+
+[ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_ur1u0"]
+[ext_resource type="Texture2D" uid="uid://dkwt60cqdl0qa" path="res://Entities/Items/item_atlas.png" id="2_353gj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xu2a"]
+atlas = ExtResource("2_353gj")
+region = Rect2(128, 144, 32, 32)
+
+[resource]
+script = ExtResource("1_ur1u0")
+name = "Card Fan Technique"
+texture = SubResource("AtlasTexture_2xu2a")
+max_count = 2
+description = "Increase amount of cards you can hold at once."
+metadata/_custom_type_script = "uid://bes85f8halx03"

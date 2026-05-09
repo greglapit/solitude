@@ -10,6 +10,5 @@ region = Rect2(160, 48, 32, 32)
 [resource]
 script = ExtResource("1_jms8q")
 name = "Six Suppressant"
-id = "suppressant6"
 texture = SubResource("AtlasTexture_jms8q")
 max_count = 10

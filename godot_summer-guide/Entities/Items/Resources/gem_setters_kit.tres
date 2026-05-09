@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://b4ck5xyrqao8o"]
+
+[ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_j7g24"]
+[ext_resource type="Texture2D" uid="uid://dkwt60cqdl0qa" path="res://Entities/Items/item_atlas.png" id="2_7dpfj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xu2a"]
+atlas = ExtResource("2_7dpfj")
+region = Rect2(224, 144, 32, 32)
+
+[resource]
+script = ExtResource("1_j7g24")
+name = "Gem Setter's Kit"
+texture = SubResource("AtlasTexture_2xu2a")
+type = 3
+max_count = 1
+description = "Allows you to modify card twice in one turn."
+metadata/_custom_type_script = "uid://bes85f8halx03"

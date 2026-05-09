@@ -10,7 +10,6 @@ region = Rect2(32, 0, 32, 32)
 [resource]
 script = ExtResource("1_k2ioi")
 name = "Card Core"
-id = "core"
 texture = SubResource("AtlasTexture_7k6mn")
 type = 3
 description = "A heart of the cards. Seems like something the King of Diamonds may be interested in.	"

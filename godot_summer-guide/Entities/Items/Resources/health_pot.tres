@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://clamu8tik4ln"]
+
+[ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_5vupy"]
+[ext_resource type="Texture2D" uid="uid://dkwt60cqdl0qa" path="res://Entities/Items/item_atlas.png" id="2_cdsk6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xu2a"]
+atlas = ExtResource("2_cdsk6")
+region = Rect2(32, 192, 32, 32)
+
+[resource]
+script = ExtResource("1_5vupy")
+name = "Health Pot"
+texture = SubResource("AtlasTexture_2xu2a")
+type = 1
+description = "Consume to gain five health."
+metadata/_custom_type_script = "uid://bes85f8halx03"

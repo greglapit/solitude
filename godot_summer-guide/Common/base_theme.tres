@@ -11,7 +11,23 @@ bg_color = Color(0.780392, 0.862745, 0.815686, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6qegq"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nxa3b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nu3aq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bouri"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_68uuk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xjwss"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q7arq"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nd24b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k48rc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0ocxo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nd24b"]
 content_margin_left = 4.0
@@ -52,7 +68,15 @@ Button/styles/focus = SubResource("StyleBoxEmpty_6qegq")
 Button/styles/hover = SubResource("StyleBoxEmpty_hjn8r")
 Button/styles/normal = SubResource("StyleBoxFlat_ju8y4")
 Button/styles/pressed = SubResource("StyleBoxFlat_6qegq")
+ItemList/styles/cursor = SubResource("StyleBoxEmpty_nxa3b")
+ItemList/styles/cursor_unfocused = SubResource("StyleBoxEmpty_nu3aq")
+ItemList/styles/focus = SubResource("StyleBoxEmpty_bouri")
+ItemList/styles/hovered = SubResource("StyleBoxEmpty_68uuk")
+ItemList/styles/hovered_selected = SubResource("StyleBoxEmpty_xjwss")
+ItemList/styles/hovered_selected_focus = SubResource("StyleBoxEmpty_q7arq")
 ItemList/styles/panel = SubResource("StyleBoxEmpty_nd24b")
+ItemList/styles/selected = SubResource("StyleBoxEmpty_k48rc")
+ItemList/styles/selected_focus = SubResource("StyleBoxEmpty_0ocxo")
 Label/colors/font_color = Color(0.180392, 0.133333, 0.184314, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0)

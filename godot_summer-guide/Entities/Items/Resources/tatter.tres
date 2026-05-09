@@ -10,7 +10,6 @@ region = Rect2(0, 0, 32, 32)
 [resource]
 script = ExtResource("1_hs1ff")
 name = "Tatters"
-id = "tatter"
 texture = SubResource("AtlasTexture_xr7ht")
 type = 1
 description = "Salvaged remnants of fallen cards."

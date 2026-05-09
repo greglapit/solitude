@@ -2,13 +2,17 @@ extends Node
 
 var ranks : Array = ["0","A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 var rank_names : Array = ["Zero", "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"]
-
+# ==============================================================================
 # Save Dictionaries
+# ==============================================================================
 var player_data : Dictionary
 var scene_data : Dictionary
 var entities_data : Dictionary
 var progress_data : Dictionary
 
+# ==============================================================================
+# Player stats, inventory, loot table
+# ==============================================================================
 var hp : int = 20:
 	set(value):
 		hp = clamp(value, 0, max_hp)
@@ -17,7 +21,7 @@ var draw_amt : int = 3
 var actions : int = 1
 var attacks : int = 1
 var max_draw : int = 1			# How many items player can have drawn at a time
-var max_crits : int = 3
+var max_crits : int = 1
 
 # Convert all keys to int automatically for JSON
 var armory : Dictionary = {1 : "1_base_weapon", 2 : "2_base_weapon", 3 : "3_base_weapon"}: 
@@ -35,8 +39,6 @@ var init_armory_dur : int = 3
 var armory_durs : Array # Form = [0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5] (for each rank)
 var rank_weights : Array # Form = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 var inventory : Dictionary		## item.id : item_stack
-
-#region # Weapon Dicts
 
 var learned_weapons : Dictionary = {
 	#'1_base_weapon' : 1 , '1_philo_weapon' : 1 , '1_seed_weapon' : 1, \
@@ -65,75 +67,13 @@ var available_weapon_pool : Dictionary = {
 	#'10_clock_weapon' : 1, '10_pirate_weapon' : 1\
 }
 
-var all_weapons : Dictionary = {
-	'1_base_weapon' : 1, '1_philo_weapon' : 1, '1_seed_weapon' : 1, \
-	'2_base_weapon' : 2, '2_twin_weapon' : 2, '2_glass_weapon' : 2, \
-	'3_base_weapon' : 3, '3_trident_weapon' : 3, '3_prowler_weapon' : 3, \
-	'4_base_weapon' : 4, '4_mirra_weapon' : 4, '4_bastion_weapon' : 4,\
-	'5_base_weapon' : 5, '5_claw_weapon' : 5, '5_maw_weapon' : 5,\
-	'6_base_weapon' : 6, '6_locklash_weapon' : 6, '6_weaver_weapon' : 6,\
-	'7_base_weapon' : 7, '7_vamp_weapon' : 7, '7_severance_weapon' : 7,\
-	'8_base_weapon' : 8, '8_splitter_weapon' : 8, '8_cata_weapon' : 8,\
-	'9_base_weapon' : 9, '9_cloud_weapon' : 9, '9_cmd_weapon' : 9,\
-	'10_base_weapon' : 10, '10_clock_weapon' : 10, '10_pirate_weapon' : 10\
-}
+var sleeved_ranks : Array
+var top_loaded_ranks : Array
 
 #endregion
 
-var all_weap_data : Dictionary 		## file_name : resources. All loaded modified weapon resources
-var all_item_data : Dictionary 		## 
-
-var valid_save_scenes : Array = [
-	scenes.CAMP,
-]
-
-enum scenes {
-	MAIN_MENU,
-	START_CUTSCENE,
-	TUTORIAL_BATTLE,
-	BATTLE,
-	KOD,
-	QOD,
-	CAMP,
-	NIGHTTIME,
-	ENTERING_SPREAD,
-	CHOOSE_ENCOUNTER
-}
-
-var scene_paths : Dictionary = {
-	scenes.MAIN_MENU : "res://Scenes/MainMenu/main_menu.tscn",
-	scenes.START_CUTSCENE : "res://Scenes/StartCutscene/start_cutscene.tscn",
-	scenes.TUTORIAL_BATTLE : "res://Scenes/TutorialBattle/tutorial_battle.tscn",
-	scenes.BATTLE : "res://Scenes/Battle/battle.tscn",
-	scenes.KOD : "res://Scenes/Encounters/KoDEncounter/kod_encounter.tscn",
-	scenes.QOD : "res://Scenes/Encounters/QoDEncounter/qod_encounter.tscn",
-	scenes.CAMP : "res://Scenes/Camp/camp.tscn",
-	scenes.NIGHTTIME : "res://Scenes/Nighttime/nighttime.tscn",
-	scenes.ENTERING_SPREAD : "res://Scenes/EnteringSpread/entering_spread.tscn",
-	scenes.CHOOSE_ENCOUNTER : "res://Scenes/ChooseEncounter/choose_encounter.tscn"
-}
-
-
 # ==================================================================================================
-# Inventory
-#region
-
-func add_item(id : String, amt : int) -> void:
-	if !inventory.has(id):
-		var new_stack : ItemStack = ItemStack.new()
-		new_stack.item = all_item_data[id]
-		inventory[id] = new_stack
-	
-	inventory[id].count += amt
-	
-	if inventory[id].count <= 0:
-		inventory.erase(id)
-
-#endregion
-# ==================================================================================================
-# Helper Functions
-#region
-# ==================================================================================================
+#region Helper functions
 ## Takes dictionary "string" : weight and returns random string based on weight
 ## Also takes array of weights and returns indices as string
 func weighted_pick_random(variant : Variant) -> String:
@@ -263,8 +203,71 @@ func rekey_names_to_objects(dict : Dictionary, node : Node) -> void:
 			dict.erase(val)
 #endregion
 # ==================================================================================================
-# Start New Game
-#region
+#region Internal Resource storage
+var all_weap_data : Dictionary 		## file_name : resources. All loaded modified weapon resources
+var all_item_data : Dictionary 		## item.id : resources
+
+var valid_save_scenes : Array = [
+	scenes.CAMP,
+]
+
+enum scenes {
+	MAIN_MENU,
+	START_CUTSCENE,
+	TUTORIAL_BATTLE,
+	BATTLE,
+	KOD,
+	QOD,
+	CAMP,
+	NIGHTTIME,
+	ENTERING_SPREAD,
+	CHOOSE_ENCOUNTER
+}
+
+var scene_paths : Dictionary = {
+	scenes.MAIN_MENU : "res://Scenes/MainMenu/main_menu.tscn",
+	scenes.START_CUTSCENE : "res://Scenes/StartCutscene/start_cutscene.tscn",
+	scenes.TUTORIAL_BATTLE : "res://Scenes/TutorialBattle/tutorial_battle.tscn",
+	scenes.BATTLE : "res://Scenes/Battle/battle.tscn",
+	scenes.KOD : "res://Scenes/Encounters/KoDEncounter/kod_encounter.tscn",
+	scenes.QOD : "res://Scenes/Encounters/QoDEncounter/qod_encounter.tscn",
+	scenes.CAMP : "res://Scenes/Camp/camp.tscn",
+	scenes.NIGHTTIME : "res://Scenes/Nighttime/nighttime.tscn",
+	scenes.ENTERING_SPREAD : "res://Scenes/EnteringSpread/entering_spread.tscn",
+	scenes.CHOOSE_ENCOUNTER : "res://Scenes/ChooseEncounter/choose_encounter.tscn"
+}
+var all_weapons : Dictionary = {
+	'1_base_weapon' : 1, '1_philo_weapon' : 1, '1_seed_weapon' : 1, \
+	'2_base_weapon' : 2, '2_twin_weapon' : 2, '2_glass_weapon' : 2, \
+	'3_base_weapon' : 3, '3_trident_weapon' : 3, '3_prowler_weapon' : 3, \
+	'4_base_weapon' : 4, '4_mirra_weapon' : 4, '4_bastion_weapon' : 4,\
+	'5_base_weapon' : 5, '5_claw_weapon' : 5, '5_maw_weapon' : 5,\
+	'6_base_weapon' : 6, '6_locklash_weapon' : 6, '6_weaver_weapon' : 6,\
+	'7_base_weapon' : 7, '7_vamp_weapon' : 7, '7_severance_weapon' : 7,\
+	'8_base_weapon' : 8, '8_splitter_weapon' : 8, '8_cata_weapon' : 8,\
+	'9_base_weapon' : 9, '9_cloud_weapon' : 9, '9_cmd_weapon' : 9,\
+	'10_base_weapon' : 10, '10_clock_weapon' : 10, '10_pirate_weapon' : 10\
+}
+
+#endregion
+# ==================================================================================================
+# Inventory
+#region Items
+
+func add_item(id : String, amt : int) -> void:
+	if !inventory.has(id):
+		var new_stack : ItemStack = ItemStack.new()
+		new_stack.item = all_item_data[id]
+		inventory[id] = new_stack
+	
+	inventory[id].count += amt
+	
+	if inventory[id].count <= 0:
+		inventory.erase(id)
+
+#endregion
+# ==================================================================================================
+#region Start New Game
 func new_game(calling_node : Node2DScene) -> void:
 	# Generate and save seed
 	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
@@ -286,8 +289,7 @@ func new_game(calling_node : Node2DScene) -> void:
 	load_all_resources()
 #endregion
 # ==================================================================================================
-# Save/Loading
-#region
+#region Save/Loading
 ## Updates player, scene, and entity data
 func update_save_dicts_data() -> void:
 	player_data.clear()
@@ -312,6 +314,8 @@ func update_save_dicts_data() -> void:
 		"memory_capacity" = memory_capacity,
 		"armory_durs" = armory_durs,
 		"rank_weights" = rank_weights,
+		"sleeved_ranks" = sleeved_ranks,
+		"top_loaded_ranks" = top_loaded_ranks,
 	}
 	
 	var JSON_inventory : Dictionary
@@ -470,8 +474,7 @@ func load_all_resources() -> void:
 
 #endregion
 # ==================================================================================================
-# Initializers
-#region
+#region Initializers
 func intitialize_weapon_pool() -> void:
 	var armory_keys : Array = armory.keys()
 	armory_keys.sort()
@@ -485,17 +488,15 @@ func initialize_armory_durs() -> void:
 	armory_durs.resize(11)
 	armory_durs.fill(init_armory_dur)
 
-func recalculate_rank_weights() -> void:
+## Returns [concentrate_counts, suppressant_counts]
+func get_pill_counts() -> Array:
 	var concentrate_counts : Array
 	var suppressant_counts : Array
-	var conc_max : int = 3				# Max amount of concentrates player can take
 	
 	concentrate_counts.resize(11)
 	concentrate_counts.fill(0)
 	suppressant_counts.resize(11)
 	suppressant_counts.fill(0)
-	
-	
 	# Get counts of concentrates and suppressants for each rank
 	for item_id : String in inventory.keys():
 		if item_id.contains("concentrate"):
@@ -508,6 +509,15 @@ func recalculate_rank_weights() -> void:
 			var count : int = stack.count
 			var rank : int = int(item_id.remove_chars("suppressant"))
 			suppressant_counts[rank] = count
+			
+	return [concentrate_counts, suppressant_counts]
+
+var conc_max : int = 3
+func recalculate_rank_weights() -> void:
+	var pill_counts : Array = get_pill_counts()
+	
+	var concentrate_counts : Array = pill_counts[0]
+	var suppressant_counts : Array = pill_counts[1]
 	
 	rank_weights.clear()
 	rank_weights.resize(11)
@@ -515,7 +525,7 @@ func recalculate_rank_weights() -> void:
 	rank_weights[0] = 0
 	
 	var maxed_concentrate : bool = false 		# Tracks if player has maxed concentrate for certain rank
-	for rank : int in range(11):
+	for rank : int in concentrate_counts.size():
 		var total_count : int = concentrate_counts[rank] - suppressant_counts[rank]
 		# If taken more than 3 concentrates than suppressants, will only pull that card
 		if total_count >= conc_max:

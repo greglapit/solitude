@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://fova3w331rnn"]
+
+[ext_resource type="Script" uid="uid://bes85f8halx03" path="res://Entities/Items/item.gd" id="1_2jihp"]
+[ext_resource type="Texture2D" uid="uid://dkwt60cqdl0qa" path="res://Entities/Items/item_atlas.png" id="2_w4gkh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xu2a"]
+atlas = ExtResource("2_w4gkh")
+region = Rect2(32, 144, 32, 32)
+
+[resource]
+script = ExtResource("1_2jihp")
+name = "Top Loaders"
+texture = SubResource("AtlasTexture_2xu2a")
+type = 3
+max_count = 1
+description = "Increase card durability by 1."
+metadata/_custom_type_script = "uid://bes85f8halx03"
