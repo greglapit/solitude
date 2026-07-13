@@ -7,7 +7,7 @@
 script = ExtResource("1_i30hp")
 rank = 1
 file_name = "1_base_weapon"
-display_name = "SI FACET"
+display_name = "SI GEM"
 second_name = "Standard Issue Ace"
 description = "-Standard Issue Gem"
 display_texture = ExtResource("1_jd4ct")
