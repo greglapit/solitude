@@ -4,6 +4,11 @@ extends Weapon
 @onready var final_swipe_dmg : int = weap_data.int1
 
 var slash_counter : int = 0
+
+func _on_player_attack_impact() -> void:
+	super()
+	animation_player.play("both_slash")
+
 func _on_player_special_impact() -> void:
 	if !active:
 		return

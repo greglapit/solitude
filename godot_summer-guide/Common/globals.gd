@@ -24,7 +24,8 @@ var max_draw : int = 1			# How many items player can have drawn at a time
 var max_crits : int = 1
 
 # Convert all keys to int automatically for JSON
-var armory : Dictionary = {1 : "1_base_weapon", 2 : "2_base_weapon", 3 : "3_base_weapon"}: 
+var armory : Dictionary = {7 : "7_severance_weapon"}: 
+#var armory : Dictionary = {1 : "1_base_weapon", 2 : "2_base_weapon", 3 : "3_base_weapon"}: 
 	set(value):
 		# If key is string (JSON)
 		if typeof(value.keys()[0]) == TYPE_STRING:

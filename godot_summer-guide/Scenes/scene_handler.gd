@@ -14,6 +14,7 @@ var loading_in_background : bool = false
 # DEV TOOLS
 #const starting_scn : PackedScene = main_menu_scn
 #const starting_scn : PackedScene = preload("res://Scenes/Encounters/JoDEncounter/jod_encounter.tscn")
+#const starting_scn : PackedScene = preload("res://Scenes/Encounters/QoDEncounter/qod_encounter.tscn")
 const starting_scn : PackedScene = preload("res://Scenes/Battle/battle.tscn")
 #const starting_scn : PackedScene = preload("res://Scenes/TutorialBattle/tutorial_battle.tscn")
 #const starting_scn : PackedScene = preload("res://Scenes/Camp/camp.tscn")

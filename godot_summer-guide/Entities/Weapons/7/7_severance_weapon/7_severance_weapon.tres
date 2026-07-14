@@ -15,7 +15,7 @@ description = "-Special: Execute
 -Execute all enemies below {int1}"
 display_texture = ExtResource("1_x3vab")
 has_special = true
-special_cost = 2
+special_cost = 3
 int1 = 7
 player_idle_anim = "7_severance_idle"
 player_attack_anim = "7_severance_attack"

@@ -78,8 +78,13 @@ static func new_random_card(_range : Array = range(1,14), suit1 : int = -1, suit
 		card.suit = suit_choices[randi() % suit_count] as Suits
 	
 	# Adjust range for Globals rank weights
-	var weighted_range : Array = Globals.rank_weights.duplicate()
-	weighted_range.resize(_range.size())
+	var weighted_range : Array
+	
+	for _rank : int in range(Globals.rank_weights.size()):
+		if _rank in _range:
+			weighted_range.append(Globals.rank_weights[_rank])
+		else:
+			weighted_range.append(0)
 	
 	card.rank = int(Globals.weighted_pick_random(weighted_range))
 	return card

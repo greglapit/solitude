@@ -64,7 +64,7 @@ var curr_round : int = 1
 var max_rounds : int = 5
 
 # DEV TOOLS
-var crit_infinite : bool = false
+var crit_infinite : bool = true
 
 # === Custom Methods ===========================================================
 # General
@@ -706,9 +706,9 @@ func _on_mini_card_damaged(mini_card : MiniCard) -> void:
 		weapons_display.display_weapon(curr_weapon, mini_equipped, actions)
 
 func _on_mini_card_free(_mini_card : MiniCard) -> void:
-	#if mini_card == mini_equipped:
-		#await player.anim_finished
-		#equip_mini_card(null)
+	if _mini_card == mini_equipped:
+		await player.anim_finished
+		equip_mini_card(null)
 	pass
 
 func _on_spam_timer_timeout() -> void:
