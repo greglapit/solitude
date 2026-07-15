@@ -16,7 +16,6 @@ Unsure if naming should be unique names or references to real objects
 # Four
 
 * Cleft Bastion. Special: Bulwark. Reduce next instances to 1
-* 
 
 # Five
 
@@ -24,7 +23,6 @@ Unsure if naming should be unique names or references to real objects
 # Six
 
 * Shardcoil: Bind enemy
-* horse reigns. Control enemy to attack another
 # Seven
 
 * Severance. Special: Harvest all enemies on screen under x rank
@@ -42,10 +40,13 @@ Unsure if naming should be unique names or references to real objects
 
 * Clock. Reverse turn order until used again
 * pirate wheel. Big aoe, tilt screen like driving ship, splash water
-* A ring
 
 # Unimplementeed
 * casino Slots. Jackpot does big damage.
 * Wushu, flexible spear
 * Marionette Hand controlling player
-* 
+* monocle Ace weapon. Locking on special effect?
+* ouroboros ten weapon. cycle special
+* A ring 10 rank
+* Worldpost 9: damage carries over to next enemy
+* horse reigns 6. Control enemy to attack another
