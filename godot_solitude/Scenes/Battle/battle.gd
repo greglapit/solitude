@@ -497,6 +497,9 @@ func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -
 
 # === Built In =================================================================
 #region
+func _init() -> void:
+	scene_id = Globals.scenes.BATTLE
+	
 func _ready() -> void:
 	hp = Globals.hp
 	hands_label.text = "Hand: %d/%d" % [curr_round, max_rounds]

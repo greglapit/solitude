@@ -126,20 +126,21 @@ func end_battle() -> void:
 
 
 func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -> void:
-	if mini_card and force_grab_card:
-		await balloon_and_connect("hint_grab_new_card")
-		weapons_display.play("draw_highlight")
-		return
-	
-	if mini_card and force_equip_rank > 0:
-		if !highlighted_card:
-			push_error("Forcing to pick rank but no highlighted card")
+	if !chaining:
+		if mini_card and force_grab_card:
+			await balloon_and_connect("hint_grab_new_card")
+			weapons_display.play("draw_highlight")
 			return
-			
-		if mini_card.rank != force_equip_rank:
-			await balloon_and_connect("hint_equip_crit_card")
-			highlight_mini_card(highlighted_card)
-			return
+		
+		if mini_card and force_equip_rank > 0:
+			if !highlighted_card:
+				push_error("Forcing to pick rank but no highlighted card")
+				return
+				
+			if mini_card.rank != force_equip_rank:
+				await balloon_and_connect("hint_equip_crit_card")
+				highlight_mini_card(highlighted_card)
+				return
 	
 	# Stop highlighting anim if not needed once equipped
 	mini_card_highlight.hide()
@@ -178,7 +179,7 @@ func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -
 				await balloon_and_connect("equip_fourth_card")
 				equipped_fourth_card = true
 				
-	if finished_tutorial and !reached_max_hand:
+	if finished_tutorial and !reached_max_hand and !chaining:
 		var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
 		if mini_cards.size() == Globals.max_draw:
 			await balloon_and_connect("reached_max_hand")
@@ -208,7 +209,12 @@ func spawn_tutorial_card(amt : int = 1) -> void:
 				push_error("Forcing rank of card that player doesn't have.")
 			highlight_mini_card(cards_with_force_rank[0])
 		1:
-			pass
+			force_equip_rank = 2
+			var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
+			var cards_with_force_rank : Array= mini_cards.filter(func(e : MiniCard) -> bool: return e.rank == force_equip_rank)
+			if cards_with_force_rank.is_empty():
+				push_error("Forcing rank of card that player doesn't have.")
+			highlight_mini_card(cards_with_force_rank[0])
 		0:
 			pass
 	
@@ -282,10 +288,10 @@ func update_crit_button() -> void:
 	pass
 	
 # === Built In =================================================================
+func _init() -> void:
+	scene_id = Globals.scenes.BATTLE
 
 func _ready() -> void:
-	#end_battle()
-	
 	super()
 	weapons_display.joker.hide()
 	weapons_display.draw_button.hide()
@@ -439,6 +445,7 @@ func _on_enemy_freed(_enemy : Enemy) -> void:
 		2: # Killed second 2
 			explain(explains.CHAIN)
 		3: # Killed 5
+			force_equip_rank = 0
 			equip_mini_card(null)
 			# Break all player cards
 			var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")

@@ -13,9 +13,10 @@ var loading_in_background : bool = false
 
 # DEV TOOLS
 #const starting_scn : PackedScene = main_menu_scn
+const starting_scn : PackedScene = preload("res://Scenes/StartCutscene/start_cutscene.tscn")
 #const starting_scn : PackedScene = preload("res://Scenes/Encounters/JoDEncounter/jod_encounter.tscn")
 #const starting_scn : PackedScene = preload("res://Scenes/Encounters/QoDEncounter/qod_encounter.tscn")
-const starting_scn : PackedScene = preload("res://Scenes/Battle/battle.tscn")
+#const starting_scn : PackedScene = preload("res://Scenes/Battle/battle.tscn")
 #const starting_scn : PackedScene = preload("res://Scenes/TutorialBattle/tutorial_battle.tscn")
 #const starting_scn : PackedScene = preload("res://Scenes/Camp/camp.tscn")
 
@@ -59,7 +60,7 @@ func _input(event: InputEvent) -> void:
 			else:
 				return
 		else:
-			var result : String = await ConfirmationWindow.prompt_user(self, "Cannot save during combat.\nAbandon run and exit to main menu?", "Abandon Run", "Cancel")
+			var result : String = await ConfirmationWindow.prompt_user(self, "Cannot save at this time.\nAbandon run and exit to main menu?", "Abandon Run", "Cancel")
 			if result == "Abandon Run":
 				Globals.delete_save()
 				curr_scene.change_scn.emit(Globals.scenes.MAIN_MENU, false, false)
