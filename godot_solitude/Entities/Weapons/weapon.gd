@@ -100,7 +100,8 @@ func assign_prop() -> void:
 	player_special_anim = weap_data.player_special_anim
 	has_special = weap_data.has_special
 	special_cost = weap_data.special_cost
-	
+
+# Visually update player to idle animation
 func equip() -> void:
 	update_node_refs()
 	player.play(player_idle_anim)

@@ -14,7 +14,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="godot_summer-guide"
+config/name="godot_solitude"
 run/main_scene="uid://cqkatk4yehhds"
 config/features=PackedStringArray("4.8", "Forward Plus")
 config/icon="res://z_August Work/Common/icon.svg"

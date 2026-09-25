@@ -25,7 +25,7 @@ func _process(delta: float) -> void:
 		
 		if Input.is_physical_key_pressed(Key.KEY_X):
 			hold_time += delta
-			if hold_time >= 2.5:
+			if hold_time >= 2.0:
 				end_cutscene()
 				pausing_input = true
 				

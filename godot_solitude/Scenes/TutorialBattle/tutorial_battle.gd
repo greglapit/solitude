@@ -126,7 +126,17 @@ func end_battle() -> void:
 
 
 func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -> void:
-	if !chaining:
+	if chaining:
+		# Stop highlighting anim if not needed once equipped
+		mini_card_highlight.hide()
+		
+		super(mini_card, player_update)
+		
+		if !explained_cut_socket:
+			weapons_display.socket_button.hide()
+			weapons_display.cut_button.hide()
+		
+	else:
 		if mini_card and force_grab_card:
 			await balloon_and_connect("hint_grab_new_card")
 			weapons_display.play("draw_highlight")
@@ -141,49 +151,49 @@ func equip_mini_card(mini_card : MiniCard = null, player_update : bool = true) -
 				await balloon_and_connect("hint_equip_crit_card")
 				highlight_mini_card(highlighted_card)
 				return
-	
-	# Stop highlighting anim if not needed once equipped
-	mini_card_highlight.hide()
-	
-	super(mini_card, player_update)
-	
-	if !explained_cut_socket:
-		weapons_display.socket_button.hide()
-		weapons_display.cut_button.hide()
-	
-	if mini_equipped and (!grabbed_last_card or !equipped_fourth_card):
-		match cards_left_on_ground:
-			3: # Picked up the first DAGGER
-				if mini_equipped.rank != 2 or equipped_first_card:
-					return
-				
-				await balloon_and_connect("equip_first_card")
-				equipped_first_card = true
-				
-				# Show when equipping for first time
-				chain_button.hide()
-				await tutorial_ap.animation_finished
-				
-				
-			2: # Picked second ACE
-				if mini_equipped.rank != 1 or equipped_second_card:
-					return
-				await balloon_and_connect("equip_second_card")
-				equipped_second_card = true
-			1:
-				pass
-			0: # Picked fourth SPEAR
-				if mini_equipped.rank != 3 or equipped_fourth_card:
-					return
-				
-				await balloon_and_connect("equip_fourth_card")
-				equipped_fourth_card = true
-				
-	if finished_tutorial and !reached_max_hand and !chaining:
-		var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
-		if mini_cards.size() == Globals.max_draw:
-			await balloon_and_connect("reached_max_hand")
-			reached_max_hand = true
+		
+		# Stop highlighting anim if not needed once equipped
+		mini_card_highlight.hide()
+		
+		super(mini_card, player_update)
+		
+		if !explained_cut_socket:
+			weapons_display.socket_button.hide()
+			weapons_display.cut_button.hide()
+		
+		if mini_equipped and (!grabbed_last_card or !equipped_fourth_card):
+			match cards_left_on_ground:
+				3: # Picked up the first DAGGER
+					if mini_equipped.rank != 2 or equipped_first_card:
+						return
+					
+					await balloon_and_connect("equip_first_card")
+					equipped_first_card = true
+					
+					# Show when equipping for first time
+					chain_button.hide()
+					await tutorial_ap.animation_finished
+					
+					
+				2: # Picked second ACE
+					if mini_equipped.rank != 1 or equipped_second_card:
+						return
+					await balloon_and_connect("equip_second_card")
+					equipped_second_card = true
+				1:
+					pass
+				0: # Picked fourth SPEAR
+					if mini_equipped.rank != 3 or equipped_fourth_card:
+						return
+					
+					await balloon_and_connect("equip_fourth_card")
+					equipped_fourth_card = true
+					
+		if finished_tutorial and !reached_max_hand:
+			var mini_cards : Array = get_tree().get_nodes_in_group("mini_cards")
+			if mini_cards.size() == Globals.max_draw:
+				await balloon_and_connect("reached_max_hand")
+				reached_max_hand = true
 
 
 func spawn_tutorial_card(amt : int = 1) -> void:

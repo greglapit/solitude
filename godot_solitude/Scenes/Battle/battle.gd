@@ -23,7 +23,7 @@ extends Node2DScene
 										Vector2.ZERO, Vector2.ZERO, Vector2.ZERO, Vector2.ZERO]
 										
 # Used internally
-var mini_equipped : MiniCard							# Current card player has equipped
+var mini_equipped : MiniCard						# Current card player has equipped
 var curr_weapon : Weapon:							# String name of player weapon
 	set(value):
 		active_weapon(value)
@@ -249,7 +249,6 @@ func align_enemies(tweening : bool = true) -> void:
 			enemies[i].position = enemy_positions[i]
 			enemies[i].z_index = 5 - i
 	
-	#pause_input = false
 
 
 func initiate_combat() -> void:
@@ -709,10 +708,9 @@ func _on_mini_card_damaged(mini_card : MiniCard) -> void:
 		weapons_display.display_weapon(curr_weapon, mini_equipped, actions)
 
 func _on_mini_card_free(_mini_card : MiniCard) -> void:
-	if _mini_card == mini_equipped:
+	if _mini_card == mini_equipped and !chaining:
 		await player.anim_finished
 		equip_mini_card(null)
-	pass
 
 func _on_spam_timer_timeout() -> void:
 	pass
