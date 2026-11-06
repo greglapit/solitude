@@ -1,0 +1,174 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
+[application]
+
+config/name="godot_solitude"
+run/main_scene="uid://cqkatk4yehhds"
+config/features=PackedStringArray("4.8", "Forward Plus")
+config/icon="res://z_Archive/8.25/Common/icon.svg"
+
+[autoload]
+
+Globals="*res://Common/globals.gd"
+DialogueManager="*uid://c3rodes2l3gxb"
+ProgressTracker="*uid://d0yy6c5m7byox"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=2
+gdscript/warnings/inferred_declaration=2
+
+[dialogue_manager]
+
+runtime/balloon_path="res://Scenes/UI/TextBox/balloon.tscn"
+
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/mode=3
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/stretch/scale_mode="integer"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
+
+[gui]
+
+theme/default_font_antialiasing=0
+theme/default_font_subpixel_positioning=0
+theme/custom="uid://dd180w5mog0qu"
+theme/custom_font="uid://2j1mnjkq0kkf"
+
+[input]
+
+attack_button={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,
+"resource_local_to_scene": false,
+"resource_name": "",
+"device": -1,
+"window_id": 0,
+"alt_pressed": false,
+"shift_pressed": false,
+"ctrl_pressed": false,
+"meta_pressed": false,
+"pressed": false,
+"keycode": 0,
+"physical_keycode": 86,
+"key_label": 0,
+"unicode": 118,
+"location": 0,
+"echo": false,
+"script": null
+)]
+}
+chain_button={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,
+"resource_local_to_scene": false,
+"resource_name": "",
+"device": -1,
+"window_id": 0,
+"alt_pressed": false,
+"shift_pressed": false,
+"ctrl_pressed": false,
+"meta_pressed": false,
+"pressed": false,
+"keycode": 0,
+"physical_keycode": 67,
+"key_label": 0,
+"unicode": 99,
+"location": 0,
+"echo": false,
+"script": null
+)]
+}
+draw_button={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,
+"resource_local_to_scene": false,
+"resource_name": "",
+"device": -1,
+"window_id": 0,
+"alt_pressed": false,
+"shift_pressed": false,
+"ctrl_pressed": false,
+"meta_pressed": false,
+"pressed": false,
+"keycode": 0,
+"physical_keycode": 68,
+"key_label": 0,
+"unicode": 100,
+"location": 0,
+"echo": false,
+"script": null
+)]
+}
+pass_button={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,
+"resource_local_to_scene": false,
+"resource_name": "",
+"device": -1,
+"window_id": 0,
+"alt_pressed": false,
+"shift_pressed": false,
+"ctrl_pressed": false,
+"meta_pressed": false,
+"pressed": false,
+"keycode": 0,
+"physical_keycode": 80,
+"key_label": 0,
+"unicode": 112,
+"location": 0,
+"echo": false,
+"script": null
+)]
+}
+left_click={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,
+"resource_local_to_scene": false,
+"resource_name": "",
+"device": -1,
+"window_id": 0,
+"alt_pressed": false,
+"shift_pressed": false,
+"ctrl_pressed": false,
+"meta_pressed": false,
+"button_mask": 0,
+"position": Vector2(0, 0),
+"global_position": Vector2(0, 0),
+"factor": 1.0,
+"button_index": 1,
+"canceled": false,
+"pressed": false,
+"double_click": false,
+"script": null
+)]
+}
+
+[internationalization]
+
+locale/translations_pot_files=PackedStringArray("res://Scenes/Encounters/KoDEncounter/kod_default.dialogue", "res://Scenes/Encounters/QoDEncounter/qod_default.dialogue", "res://Scenes/TutorialBattle/tutorial.dialogue", "res://Scenes/Camp/camp.dialogue", "res://Scenes/UI/StudyJournal/journal_memory.dialogue", "res://Scenes/Encounters/JoDEncounter/jod_default.dialogue")
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+textures/vram_compression/import_etc2_astc=true
+textures/default_filters/use_nearest_mipmap_filter=true

@@ -36,7 +36,11 @@ mono_crash.*.json
 # Add below lines to exclude OS settings and caches
 .trash/
 .DS_Store
+src/AGENTS.md
 godot_solitude/AGENTS.md
 
 ### Art Folder
-art/
+/art/
+
+## Archive
+/archive/
