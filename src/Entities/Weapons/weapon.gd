@@ -199,14 +199,21 @@ func _process(_delta: float) -> void:
 # === Signals ==================================================================
 
 func _on_player_anim_finished(anim : String) -> void:
-	if !active: # or !anim.contains(str(rank)):
+	if !active:
 		return
+	
+	var is_attack : bool = (anim == player_attack_anim)
+	var is_special : bool = (has_special and anim == player_special_anim)
+	var is_defend : bool = (anim == player_defend_anim)
+	if not (is_attack or is_special or is_defend):
+		return
+		
 	update_node_refs()
 	if enemies.is_empty() or enemies[0].is_dead:
 		enemy_died = true
 	else:
 		enemy_died = false
-	if anim.contains("attack") or anim.contains("special"):
+	if is_attack or is_special:
 		# Damage Weapon
 		#if !critting:
 			#mini_equipped.used = true
@@ -220,11 +227,12 @@ func _on_player_anim_finished(anim : String) -> void:
 		# Player lower with higher rank card
 		else:
 			weapon_used.emit(self)
-			equip()
+			if active:
+				equip()
 		using_special = false
 		return
 		
-	if anim.contains("defend"):
+	if is_defend:
 		if !reciprocal_attack:
 			combat_fin.emit()
 		else:

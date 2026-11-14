@@ -12,6 +12,7 @@ The player, the Black Joker, is aided by the Cards of the Diamond suit. Diamonds
 </p>
 
 # Diamond Weapons
+
 <p align="center">
   <img width="400" alt="player_3_weapons_readme" src="https://github.com/user-attachments/assets/cd307bcb-055d-416c-bf23-a88e8bad164f" />
 </p>
@@ -132,6 +133,7 @@ The player, the Black Joker, is aided by the Cards of the Diamond suit. Diamonds
 </table>
 
 # Triumphs
+
 <p align="center">
   Legendary Cards of the Diamond suit have fought and fallen. Their efforts were not in vain. Find and use their <strong>Triumphs</strong>—powerful weapon alternatives—to turn the tide of battle.
 </p>
@@ -139,8 +141,8 @@ The player, the Black Joker, is aided by the Cards of the Diamond suit. Diamonds
 <img width="635" height="360" alt="weapon_compilation" src="https://github.com/user-attachments/assets/e6da29d1-f3a6-4e31-86d7-b65ed7af93e1" />
 </p>
 
-
 # NPCs
+
 <p align="center">
   The Faces of each suit are a powerful three. Luckily, the Jack, Queen, and King of Diamonds are on your side. Find them on your journey and accept their aid. They are your only hope in making it far.
 </p>
@@ -150,6 +152,7 @@ The player, the Black Joker, is aided by the Cards of the Diamond suit. Diamonds
 </p>
 
 # Enemies/Bosses
+
 <p align="center">
   The Hearts, Clubs, and Spades will not be easy to confront. The Hearts value balance, moderation, and have a longing for absolution; a will that they will no doubt wish to exert on you. The Clubs have dominion over nature and growth. They seek harmony through control, elevating absolute natural authority as guiding principles. The Spades specialize in intuition and the subconscious, exerting control through shadows and persuasion rather than overt force. 
 </p>
@@ -161,20 +164,11 @@ You will encounter these foes throughout your journey; you must be wary of these
 </p>
 
 # Combat
+
 <p align="center">
 <img width="200" alight="left" alt="joker_spin_readme" src="https://github.com/user-attachments/assets/05df763c-90b9-4e58-8fed-25b43e4c2289" />
 <p align="center">
   Lower ranks hit faster, while upper ranks hit harder. Carefully choose speed vs strength throughout your adventure. But there is only so much you can control; the fate of the cards often chooses your fights for you!
 </p>
 
-  
 </p>
-
-# FAQ
-**Can I play this right now?**
-The game is not intended to be published in its current state, and I would advise waiting. However, as it is built in the Godot Engine, there are two methods to engage with it in its current form:
-
-1. If you are familiar with the Godot engine, clone the repository and compile it yourself. Instructions are also available through [Godot documentation](https://docs.godotengine.org/en/latest/tutorials/export/exporting_projects.html). **WARNING**: As the game is still actively being developed, I cannot promise that the current commit has the intended features, gameplay timelines, and experiences
-2. Contact me for a recent version. The best method would be through [LinkedIn](https://www.linkedin.com/in/gregory-lapit-3866b41b0/).
-
-Again, I would advise waiting until a published version arrives.
